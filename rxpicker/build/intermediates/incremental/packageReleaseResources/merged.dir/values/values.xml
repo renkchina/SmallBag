@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="rxpicker_black">#000</color>
+    <color name="rxpicker_colorAccent">#FF4081</color>
+    <color name="rxpicker_colorPrimary">#000000</color>
+    <color name="rxpicker_colorPrimaryAlpha">#44000000</color>
+    <color name="rxpicker_colorPrimaryDark">#ff212121</color>
+    <color name="rxpicker_width">#FFF</color>
+    <string name="all_phone_album">全部相册</string>
+    <string name="app_name">RxPicker</string>
+    <string name="load_image_error">获取图片失败</string>
+    <string name="max_select">最多选择%s张图片</string>
+    <string name="min_image">请至少选择%d张照片</string>
+    <string name="permissions_error">获取权限失败</string>
+    <string formatted="false" name="select_confim">确定 (%d/%d)</string>
+    <string name="select_one_image">请选择一张照片</string>
+    <style name="RxPicker.AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <item name="colorPrimary">@color/rxpicker_colorPrimary</item>
+    <item name="colorPrimaryDark">@color/rxpicker_colorPrimaryDark</item>
+    <item name="colorAccent">@color/rxpicker_colorAccent</item>
+  </style>
+    <style name="RxPicker.AppTheme.NoActionBar" parent="RxPicker.AppTheme">
+    <item name="android:windowNoTitle">true</item>
+    <item name="android:fitsSystemWindows">false</item>
+  </style>
+    <style name="RxPicker.PopupAnimation" parent="android:Animation">
+    <item name="android:windowEnterAnimation">@anim/rxpicker_fade_in</item>
+    <item name="android:windowExitAnimation">@anim/rxpicker_fade_out</item>
+  </style>
+    <style name="RxPicker.ToolbarTheme" parent="RxPicker.AppTheme.NoActionBar">
+    <item name="titleTextColor">@color/rxpicker_width</item>
+    <item name="android:textColorSecondary">@color/rxpicker_width</item>
+    <item name="android:textColor">@color/rxpicker_width</item>
+    <item name="android:background">@color/rxpicker_colorPrimaryDark</item>
+  </style>
+</resources>
