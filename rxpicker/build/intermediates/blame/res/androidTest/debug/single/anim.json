@@ -1,74 +1,74 @@
 [
     {
-        "merged": "F:\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\rxpicker_fade_in.xml",
-        "source": "F:\\SmallBag\\rxpicker\\build\\intermediates\\bundles\\debug\\res\\anim\\rxpicker_fade_in.xml"
+        "merged": "D:\\AndroidProjects\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_popup_exit.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\986c14a487b79e43408506def61a7f8102fc1dba\\output\\res\\anim\\abc_popup_exit.xml"
     },
     {
-        "merged": "F:\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_grow_fade_in_from_bottom.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\736feb8046ddb785acdc34b512603f3d43c85f58\\output\\res\\anim\\abc_grow_fade_in_from_bottom.xml"
+        "merged": "D:\\AndroidProjects\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_grow_fade_in_from_bottom.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\986c14a487b79e43408506def61a7f8102fc1dba\\output\\res\\anim\\abc_grow_fade_in_from_bottom.xml"
     },
     {
-        "merged": "F:\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_fade_in.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\736feb8046ddb785acdc34b512603f3d43c85f58\\output\\res\\anim\\abc_fade_in.xml"
+        "merged": "D:\\AndroidProjects\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_in_bottom.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\986c14a487b79e43408506def61a7f8102fc1dba\\output\\res\\anim\\abc_slide_in_bottom.xml"
     },
     {
-        "merged": "F:\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_popup_enter.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\736feb8046ddb785acdc34b512603f3d43c85f58\\output\\res\\anim\\abc_popup_enter.xml"
+        "merged": "D:\\AndroidProjects\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_shrink_fade_out_from_bottom.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\986c14a487b79e43408506def61a7f8102fc1dba\\output\\res\\anim\\abc_shrink_fade_out_from_bottom.xml"
     },
     {
-        "merged": "F:\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_out_top.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\736feb8046ddb785acdc34b512603f3d43c85f58\\output\\res\\anim\\abc_slide_out_top.xml"
+        "merged": "D:\\AndroidProjects\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\design_fab_in.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\f4e18891004cdb065b56847653007c807bce404a\\output\\res\\anim\\design_fab_in.xml"
     },
     {
-        "merged": "F:\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_in_top.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\736feb8046ddb785acdc34b512603f3d43c85f58\\output\\res\\anim\\abc_slide_in_top.xml"
+        "merged": "D:\\AndroidProjects\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\design_fab_out.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\f4e18891004cdb065b56847653007c807bce404a\\output\\res\\anim\\design_fab_out.xml"
     },
     {
-        "merged": "F:\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\design_fab_in.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\41877d8e3fa112e1bc88da1914c932e6fde33418\\output\\res\\anim\\design_fab_in.xml"
+        "merged": "D:\\AndroidProjects\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\design_bottom_sheet_slide_in.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\f4e18891004cdb065b56847653007c807bce404a\\output\\res\\anim\\design_bottom_sheet_slide_in.xml"
     },
     {
-        "merged": "F:\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\design_bottom_sheet_slide_out.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\41877d8e3fa112e1bc88da1914c932e6fde33418\\output\\res\\anim\\design_bottom_sheet_slide_out.xml"
+        "merged": "D:\\AndroidProjects\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_fade_in.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\986c14a487b79e43408506def61a7f8102fc1dba\\output\\res\\anim\\abc_fade_in.xml"
     },
     {
-        "merged": "F:\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\design_bottom_sheet_slide_in.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\41877d8e3fa112e1bc88da1914c932e6fde33418\\output\\res\\anim\\design_bottom_sheet_slide_in.xml"
+        "merged": "D:\\AndroidProjects\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\design_bottom_sheet_slide_out.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\f4e18891004cdb065b56847653007c807bce404a\\output\\res\\anim\\design_bottom_sheet_slide_out.xml"
     },
     {
-        "merged": "F:\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_out_bottom.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\736feb8046ddb785acdc34b512603f3d43c85f58\\output\\res\\anim\\abc_slide_out_bottom.xml"
+        "merged": "D:\\AndroidProjects\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\rxpicker_fade_in.xml",
+        "source": "D:\\AndroidProjects\\SmallBag\\rxpicker\\build\\intermediates\\bundles\\debug\\res\\anim\\rxpicker_fade_in.xml"
     },
     {
-        "merged": "F:\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_shrink_fade_out_from_bottom.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\736feb8046ddb785acdc34b512603f3d43c85f58\\output\\res\\anim\\abc_shrink_fade_out_from_bottom.xml"
+        "merged": "D:\\AndroidProjects\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_popup_enter.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\986c14a487b79e43408506def61a7f8102fc1dba\\output\\res\\anim\\abc_popup_enter.xml"
     },
     {
-        "merged": "F:\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_in_bottom.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\736feb8046ddb785acdc34b512603f3d43c85f58\\output\\res\\anim\\abc_slide_in_bottom.xml"
+        "merged": "D:\\AndroidProjects\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_out_top.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\986c14a487b79e43408506def61a7f8102fc1dba\\output\\res\\anim\\abc_slide_out_top.xml"
     },
     {
-        "merged": "F:\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\rxpicker_fade_out.xml",
-        "source": "F:\\SmallBag\\rxpicker\\build\\intermediates\\bundles\\debug\\res\\anim\\rxpicker_fade_out.xml"
+        "merged": "D:\\AndroidProjects\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\design_snackbar_in.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\f4e18891004cdb065b56847653007c807bce404a\\output\\res\\anim\\design_snackbar_in.xml"
     },
     {
-        "merged": "F:\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_popup_exit.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\736feb8046ddb785acdc34b512603f3d43c85f58\\output\\res\\anim\\abc_popup_exit.xml"
+        "merged": "D:\\AndroidProjects\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_in_top.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\986c14a487b79e43408506def61a7f8102fc1dba\\output\\res\\anim\\abc_slide_in_top.xml"
     },
     {
-        "merged": "F:\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\design_snackbar_in.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\41877d8e3fa112e1bc88da1914c932e6fde33418\\output\\res\\anim\\design_snackbar_in.xml"
+        "merged": "D:\\AndroidProjects\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_fade_out.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\986c14a487b79e43408506def61a7f8102fc1dba\\output\\res\\anim\\abc_fade_out.xml"
     },
     {
-        "merged": "F:\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\design_fab_out.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\41877d8e3fa112e1bc88da1914c932e6fde33418\\output\\res\\anim\\design_fab_out.xml"
+        "merged": "D:\\AndroidProjects\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\rxpicker_fade_out.xml",
+        "source": "D:\\AndroidProjects\\SmallBag\\rxpicker\\build\\intermediates\\bundles\\debug\\res\\anim\\rxpicker_fade_out.xml"
     },
     {
-        "merged": "F:\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_fade_out.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\736feb8046ddb785acdc34b512603f3d43c85f58\\output\\res\\anim\\abc_fade_out.xml"
+        "merged": "D:\\AndroidProjects\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_out_bottom.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\986c14a487b79e43408506def61a7f8102fc1dba\\output\\res\\anim\\abc_slide_out_bottom.xml"
     },
     {
-        "merged": "F:\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\design_snackbar_out.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\41877d8e3fa112e1bc88da1914c932e6fde33418\\output\\res\\anim\\design_snackbar_out.xml"
+        "merged": "D:\\AndroidProjects\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\design_snackbar_out.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\f4e18891004cdb065b56847653007c807bce404a\\output\\res\\anim\\design_snackbar_out.xml"
     }
 ]

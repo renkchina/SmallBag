@@ -3,11 +3,10 @@ package bag.small.http.IApi;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.widget.Toast;
 
-import com.edriving.base.CustomerApplication;
-import com.edriving.dialog.CommonProgressDialog;
-import com.edriving.utils.LogUtil;
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
 
+import bag.small.app.MyApplication;
+import bag.small.utils.LogUtil;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
 
@@ -16,25 +15,25 @@ import io.reactivex.functions.Consumer;
  */
 
 public class HttpError implements Consumer<Throwable> {
-    private CommonProgressDialog dialog;
+//    private CommonProgressDialog dialog;
     private SwipeRefreshLayout swipeRefresh;
 
     public HttpError(SwipeRefreshLayout swipeRefresh) {
         this.swipeRefresh = swipeRefresh;
     }
 
-    public HttpError(CommonProgressDialog dialog) {
-        this.dialog = dialog;
-    }
+//    public HttpError(CommonProgressDialog dialog) {
+//        this.dialog = dialog;
+//    }
 
     public HttpError() {
     }
 
     @Override
     public void accept(@NonNull Throwable throwable) throws Exception {
-        if (dialog != null && dialog.isShowing()) {
-            dialog.dismiss();
-        }
+//        if (dialog != null && dialog.isShowing()) {
+//            dialog.dismiss();
+//        }
         if (swipeRefresh != null && swipeRefresh.isEnabled()) {
             swipeRefresh.setRefreshing(false);
         }
@@ -52,11 +51,11 @@ public class HttpError implements Consumer<Throwable> {
                     exce = "请求错误！";
                     break;
             }
-            Toast.makeText(CustomerApplication.getAppContext(), exce, Toast.LENGTH_SHORT).show();
+            Toast.makeText(MyApplication.getContext(), exce, Toast.LENGTH_SHORT).show();
             LogUtil.show(exce);
         } else {
             LogUtil.show(throwable.getMessage());
-            Toast.makeText(CustomerApplication.getAppContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(MyApplication.getContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 }

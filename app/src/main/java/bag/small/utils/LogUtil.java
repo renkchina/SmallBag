@@ -1,8 +1,8 @@
 package bag.small.utils;
 
+import android.support.compat.BuildConfig;
 import android.util.Log;
 
-import com.edriving.BuildConfig;
 
 /**
  * Created by Administrator on 2017/4/14.

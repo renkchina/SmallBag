@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/item_treasure"
+        android:icon="@mipmap/ic_launcher"
+        android:title="百宝箱"
+        android:visible="true" />
+    <item
+        android:id="@+id/item_family"
+        android:visible="true"
+        android:icon="@mipmap/ic_launcher"
+        android:title="家校互联" />
+    <item
+        android:id="@+id/item_growth"
+        android:visible="true"
+        android:icon="@mipmap/ic_launcher"
+        android:title="成长日记" />
+</menu>

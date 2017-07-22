@@ -1,9 +1,7 @@
 package bag.small.utils;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.edriving.base.CustomerApplication;
 
 /**
  * Created by Administrator on 2017/5/11.
@@ -21,7 +19,7 @@ class PreferenceUtil {
      * 获取偏好执行器
      */
     private void init() {
-        sp = CustomerApplication.getAppContext().getSharedPreferences(CustomerApplication.getAppContext().getPackageName(), Context.MODE_PRIVATE);
+//        sp = CustomerApplication.getAppContext().getSharedPreferences(CustomerApplication.getAppContext().getPackageName(), Context.MODE_PRIVATE);
     }
 
     /**
