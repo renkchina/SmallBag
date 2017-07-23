@@ -40,10 +40,6 @@
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\986c14a487b79e43408506def61a7f8102fc1dba\\output\\res\\layout\\abc_popup_menu_item_layout.xml"
     },
     {
-        "merged": "D:\\AndroidProjects\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_custom_big.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\986c14a487b79e43408506def61a7f8102fc1dba\\output\\res\\layout\\notification_template_custom_big.xml"
-    },
-    {
         "merged": "D:\\AndroidProjects\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\release\\layout\\design_navigation_item_header.xml",
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\f4e18891004cdb065b56847653007c807bce404a\\output\\res\\layout\\design_navigation_item_header.xml"
     },
@@ -80,12 +76,12 @@
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\f4e18891004cdb065b56847653007c807bce404a\\output\\res\\layout\\design_navigation_item.xml"
     },
     {
-        "merged": "D:\\AndroidProjects\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\release\\layout\\item_popwindow_album.xml",
-        "source": "D:\\AndroidProjects\\SmallBag\\rxpicker\\src\\main\\res\\layout\\item_popwindow_album.xml"
-    },
-    {
         "merged": "D:\\AndroidProjects\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\release\\layout\\abc_list_menu_item_layout.xml",
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\986c14a487b79e43408506def61a7f8102fc1dba\\output\\res\\layout\\abc_list_menu_item_layout.xml"
+    },
+    {
+        "merged": "D:\\AndroidProjects\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\release\\layout\\item_popwindow_album.xml",
+        "source": "D:\\AndroidProjects\\SmallBag\\rxpicker\\src\\main\\res\\layout\\item_popwindow_album.xml"
     },
     {
         "merged": "D:\\AndroidProjects\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\release\\layout\\abc_activity_chooser_view_list_item.xml",

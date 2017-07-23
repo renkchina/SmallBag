@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="bag.small.ui.activity.ParentInformationActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <include layout="@layout/toolbar" />
+
+        <ImageView
+            android:layout_marginTop="25dp"
+            android:id="@+id/activity_head_image"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/activity_student_name_edt"
+                style="@style/edit_styles"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:hint="@string/parent_student_name_hint"
+                android:imeOptions="actionNext"
+                android:paddingEnd="0dp"
+                android:paddingStart="2dp"
+                android:textSize="16sp" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <EditText
+                android:id="@+id/activity_student_number_edt"
+                style="@style/edit_styles"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:hint="@string/parent_student_num_hint"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:paddingEnd="0dp"
+                android:paddingStart="2dp"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/activity_area_school_ll"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_ac_guide_btn_back_r"
+            android:orientation="horizontal"
+            android:padding="2dp">
+
+            <TextView
+                android:id="@+id/activity_area_school_tv"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="5dp"
+                android:background="@mipmap/baoyang_sanjiao" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/activity_study_school_ll"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_ac_guide_btn_back_r"
+            android:orientation="horizontal"
+            android:padding="2dp">
+
+            <TextView
+                android:id="@+id/activity_study_school_tv"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="5dp"
+                android:background="@mipmap/baoyang_sanjiao" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/activity_study_num_ll"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_ac_guide_btn_back_r"
+            android:orientation="horizontal"
+            android:padding="2dp">
+
+            <TextView
+                android:id="@+id/activity_study_num_tv"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="5dp"
+                android:background="@mipmap/baoyang_sanjiao" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/activity_grade_ll"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_ac_guide_btn_back_r"
+            android:orientation="horizontal"
+            android:padding="2dp">
+
+            <TextView
+                android:id="@+id/activity_grade_tv"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="5dp"
+                android:background="@mipmap/baoyang_sanjiao" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/activity_class_ll"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_ac_guide_btn_back_r"
+            android:orientation="horizontal"
+            android:padding="2dp">
+
+            <TextView
+                android:id="@+id/activity_class_tv"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="5dp"
+                android:background="@mipmap/baoyang_sanjiao" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/activity_guardian_ll"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_ac_guide_btn_back_r"
+            android:orientation="horizontal"
+            android:padding="2dp">
+
+            <TextView
+                android:id="@+id/activity_guardian_tv"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="5dp"
+                android:background="@mipmap/baoyang_sanjiao" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/activity_parent_name_edt"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_ac_guide_btn_back_r"
+            android:hint="@string/parent_edit_hint"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:paddingEnd="0dp"
+            android:paddingStart="2dp"
+            android:textColorHint="@color/txt_gray"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/activity_parent_phone_edit"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_ac_guide_btn_back_r"
+            android:hint="@string/parent_contact_number_hint"
+            android:imeOptions="actionNext"
+            android:inputType="phone"
+            android:paddingEnd="0dp"
+            android:paddingStart="2dp"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/activity_parent_commit_btn"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/shape_ac_login_btn_back_fill"
+            android:text="确认"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+</ScrollView>

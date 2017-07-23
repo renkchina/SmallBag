@@ -4,4 +4,10 @@
     <string name="ac_login_password_edt_hint_str">请输入密码</string>
     <string name="activity_login_register_str">新用户注册</string>
     <string name="activity_login_forget_str">忘记密码？</string>
+    <string name="ac_register_phone_tv_str">手 机 号:</string>
+    <string name="login_code_hint_edt_str">请输入验证码</string>
+    <string name="parent_student_name_hint">学生姓名</string>
+    <string name="parent_student_num_hint">学号</string>
+    <string name="parent_edit_hint">家长姓名</string>
+    <string name="parent_contact_number_hint">联系电话</string>
 </resources>
