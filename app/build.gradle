@@ -20,8 +20,16 @@ android {
         }
     }
     dexOptions {
-        javaMaxHeapSize "6g"
-        preDexLibraries = false
+        //使用增量模式构建
+        incremental true
+        //最大堆内存
+        javaMaxHeapSize "8g"
+        //是否支持大工程模式
+        jumboMode = true
+        //预编译
+        preDexLibraries = true
+        //线程数
+        threadCount = 8
     }
     signingConfigs {
         release {
@@ -64,21 +72,25 @@ android {
             task.enabled = false
         }
     }
-    dataBinding {
-        enabled = true
-    }
     compileOptions {
         targetCompatibility 1.8
         sourceCompatibility 1.8
     }
+    dataBinding {
+        enabled = true
+    }
+
 
     productFlavors {
         development {
             minSdkVersion 21
             signingConfig signingConfigs.release
+            dimension "default"
+            resConfigs("en","xxhdpi")
         }
         production {
             signingConfig signingConfigs.release
+            dimension "default"
         }
     }
 }
@@ -96,6 +108,8 @@ dependencies {
     compile project(path: ':Rxbus')
     //banner
     compile project(path: ':banner')
+    //provider
+    compile project(path: ':library')
     //
     compile "com.android.support:design:$SUPPORT_LIBS_VERSION"
     compile "com.android.support:support-v4:$SUPPORT_LIBS_VERSION"
@@ -114,4 +128,5 @@ dependencies {
     compile 'com.github.nekocode.rxlifecycle:rxlifecycle-compact:1.1'
     compile 'com.google.code.gson:gson:2.7'
     compile 'com.github.bumptech.glide:glide:3.7.0'
+
 }

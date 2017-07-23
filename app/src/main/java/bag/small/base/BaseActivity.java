@@ -7,11 +7,15 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Window;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import bag.small.R;
 import bag.small.interfaze.IActivity;
 import bag.small.interfaze.IRegister;
 import butterknife.ButterKnife;
@@ -24,6 +28,8 @@ public abstract class BaseActivity extends AppCompatActivity implements IActivit
 
     private BaseFragment mCurrentFragment;
     private SharedPreferences sharedPreferences;
+    private Toolbar mToolbar;
+    private TextView mTitle;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,11 +40,35 @@ public abstract class BaseActivity extends AppCompatActivity implements IActivit
         setContentView(getLayoutResId());
         ButterKnife.bind(this);
         sharedPreferences = getSharedPreferences("renkchina", Activity.MODE_PRIVATE);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mTitle = (TextView) findViewById(R.id.toolbar_title);
+        setSupportActionBar(mToolbar);
+        ActionBar mActionBar = getSupportActionBar();
+        if (mActionBar != null) {
+            mActionBar.setDisplayHomeAsUpEnabled(true);
+            mActionBar.setDisplayShowTitleEnabled(false);
+        }
         onFirst();
         initData();
         initView();
     }
 
+
+    public void setToolTitle(String title, boolean isTurnLeft) {
+        if (!TextUtils.isEmpty(title)) {
+            mTitle.setText(title);
+            if (isTurnLeft) {
+                mToolbar.setNavigationOnClickListener(view -> finish());
+            } else {
+                mToolbar.setNavigationIcon(null);
+            }
+        }
+    }
+    public void setToolTitle(boolean isTurnLeft) {
+        if (isTurnLeft) {
+            mToolbar.setNavigationOnClickListener(view -> finish());
+        }
+    }
     @Override
     public void register() {
 

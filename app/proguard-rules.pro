@@ -151,7 +151,10 @@
   **[] $VALUES;
   public *;
 }
-
+# banner 的混淆代码
+-keep class com.youth.banner.** {
+    *;
+ }
 # Gson
 #-keepattributes Signature-keepattributes *Annotation*
 -keep class sun.misc.Unsafe { *; }

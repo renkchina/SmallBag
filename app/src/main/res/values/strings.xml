@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">SmallBag</string>
+    <string name="ac_login_phone_edt_hint_str">请输入手机号码</string>
+    <string name="ac_login_password_edt_hint_str">请输入密码</string>
+    <string name="activity_login_register_str">新用户注册</string>
+    <string name="activity_login_forget_str">忘记密码？</string>
 </resources>
