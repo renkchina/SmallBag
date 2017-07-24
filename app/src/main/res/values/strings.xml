@@ -10,4 +10,5 @@
     <string name="parent_student_num_hint">学号</string>
     <string name="parent_edit_hint">家长姓名</string>
     <string name="parent_contact_number_hint">联系电话</string>
+    <string name="check_image_content_str">请输入要发表的内容</string>
 </resources>
