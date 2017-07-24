@@ -51,6 +51,7 @@ public class LoginActivity extends BaseActivity {
                 goActivity(RegisterActivity.class);
                 break;
             case R.id.activity_login_forget_password_tv:
+                goActivity(PasswordForgetActivity.class);
                 break;
         }
     }

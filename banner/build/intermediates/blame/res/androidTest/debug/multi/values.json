@@ -1,5 +1,162 @@
 [
     {
+        "outputFile": "F:\\SmallBag\\banner\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values\\values.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 12,
+                    "startColumn": 4,
+                    "startOffset": 1185,
+                    "endColumn": 44,
+                    "endOffset": 1225
+                },
+                "from": {
+                    "file": "F:\\SmallBag\\banner\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 12,
+                        "startColumn": 4,
+                        "startOffset": 1185,
+                        "endColumn": 44,
+                        "endOffset": 1225
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 13,
+                    "startColumn": 4,
+                    "startOffset": 1230,
+                    "endColumn": 40,
+                    "endOffset": 1266
+                },
+                "from": {
+                    "file": "F:\\SmallBag\\banner\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 13,
+                        "startColumn": 4,
+                        "startOffset": 1230,
+                        "endColumn": 40,
+                        "endOffset": 1266
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 14,
+                    "startColumn": 4,
+                    "startOffset": 1271,
+                    "endColumn": 44,
+                    "endOffset": 1311
+                },
+                "from": {
+                    "file": "F:\\SmallBag\\banner\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 14,
+                        "startColumn": 4,
+                        "startOffset": 1271,
+                        "endColumn": 44,
+                        "endOffset": 1311
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 15,
+                    "startColumn": 4,
+                    "startOffset": 1316,
+                    "endColumn": 44,
+                    "endOffset": 1356
+                },
+                "from": {
+                    "file": "F:\\SmallBag\\banner\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 15,
+                        "startColumn": 4,
+                        "startOffset": 1316,
+                        "endColumn": 44,
+                        "endOffset": 1356
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 16,
+                    "startColumn": 4,
+                    "startOffset": 1361,
+                    "endColumn": 44,
+                    "endOffset": 1401
+                },
+                "from": {
+                    "file": "F:\\SmallBag\\banner\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 16,
+                        "startColumn": 4,
+                        "startOffset": 1361,
+                        "endColumn": 44,
+                        "endOffset": 1401
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 17,
+                    "startColumn": 4,
+                    "startOffset": 1406,
+                    "endColumn": 41,
+                    "endOffset": 1443
+                },
+                "from": {
+                    "file": "F:\\SmallBag\\banner\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 17,
+                        "startColumn": 4,
+                        "startOffset": 1406,
+                        "endColumn": 41,
+                        "endOffset": 1443
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 18,
+                    "startColumn": 4,
+                    "startOffset": 1448,
+                    "endColumn": 47,
+                    "endOffset": 1491
+                },
+                "from": {
+                    "file": "F:\\SmallBag\\banner\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 18,
+                        "startColumn": 4,
+                        "startOffset": 1448,
+                        "endColumn": 47,
+                        "endOffset": 1491
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 19,
+                    "startColumn": 4,
+                    "startOffset": 1496,
+                    "endColumn": 38,
+                    "endOffset": 1530
+                },
+                "from": {
+                    "file": "F:\\SmallBag\\banner\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 19,
+                        "startColumn": 4,
+                        "startOffset": 1496,
+                        "endColumn": 38,
+                        "endOffset": 1530
+                    }
+                }
+            }
+        ]
+    },
+    {
         "outputFile": "D:\\AndroidProjects\\SmallBag\\banner\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values\\values.xml",
         "map": [
             {

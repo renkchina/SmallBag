@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="D:\AndroidProjects\SmallBag\rxpicker\src\main\assets"/><source path="D:\AndroidProjects\SmallBag\rxpicker\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="D:\AndroidProjects\SmallBag\rxpicker\src\debug\assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="F:\SmallBag\rxpicker\src\main\assets"/><source path="F:\SmallBag\rxpicker\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="F:\SmallBag\rxpicker\src\debug\assets"/></dataSet></merger>

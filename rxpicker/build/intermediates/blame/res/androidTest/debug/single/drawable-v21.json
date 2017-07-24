@@ -8,6 +8,10 @@
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\f4e18891004cdb065b56847653007c807bce404a\\output\\res\\drawable-v21\\design_password_eye.xml"
     },
     {
+        "merged": "F:\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-v21\\avd_hide_password.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\41877d8e3fa112e1bc88da1914c932e6fde33418\\output\\res\\drawable-v21\\avd_hide_password.xml"
+    },
+    {
         "merged": "D:\\AndroidProjects\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-v21\\abc_action_bar_item_background_material.xml",
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\986c14a487b79e43408506def61a7f8102fc1dba\\output\\res\\drawable-v21\\abc_action_bar_item_background_material.xml"
     },
@@ -16,12 +20,36 @@
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\f4e18891004cdb065b56847653007c807bce404a\\output\\res\\drawable-v21\\design_bottom_navigation_item_background.xml"
     },
     {
+        "merged": "F:\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-v21\\avd_show_password.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\41877d8e3fa112e1bc88da1914c932e6fde33418\\output\\res\\drawable-v21\\avd_show_password.xml"
+    },
+    {
         "merged": "D:\\AndroidProjects\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-v21\\avd_show_password.xml",
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\f4e18891004cdb065b56847653007c807bce404a\\output\\res\\drawable-v21\\avd_show_password.xml"
     },
     {
+        "merged": "F:\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-v21\\notification_action_background.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\736feb8046ddb785acdc34b512603f3d43c85f58\\output\\res\\drawable-v21\\notification_action_background.xml"
+    },
+    {
+        "merged": "F:\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-v21\\abc_action_bar_item_background_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\736feb8046ddb785acdc34b512603f3d43c85f58\\output\\res\\drawable-v21\\abc_action_bar_item_background_material.xml"
+    },
+    {
+        "merged": "F:\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-v21\\design_bottom_navigation_item_background.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\41877d8e3fa112e1bc88da1914c932e6fde33418\\output\\res\\drawable-v21\\design_bottom_navigation_item_background.xml"
+    },
+    {
         "merged": "D:\\AndroidProjects\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-v21\\abc_btn_colored_material.xml",
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\986c14a487b79e43408506def61a7f8102fc1dba\\output\\res\\drawable-v21\\abc_btn_colored_material.xml"
+    },
+    {
+        "merged": "F:\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-v21\\abc_edit_text_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\736feb8046ddb785acdc34b512603f3d43c85f58\\output\\res\\drawable-v21\\abc_edit_text_material.xml"
+    },
+    {
+        "merged": "F:\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-v21\\design_password_eye.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\41877d8e3fa112e1bc88da1914c932e6fde33418\\output\\res\\drawable-v21\\design_password_eye.xml"
     },
     {
         "merged": "D:\\AndroidProjects\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-v21\\notification_action_background.xml",
@@ -30,5 +58,9 @@
     {
         "merged": "D:\\AndroidProjects\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-v21\\abc_edit_text_material.xml",
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\986c14a487b79e43408506def61a7f8102fc1dba\\output\\res\\drawable-v21\\abc_edit_text_material.xml"
+    },
+    {
+        "merged": "F:\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-v21\\abc_btn_colored_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\736feb8046ddb785acdc34b512603f3d43c85f58\\output\\res\\drawable-v21\\abc_btn_colored_material.xml"
     }
 ]
