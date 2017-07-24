@@ -1,34 +1,29 @@
 package bag.small.ui.activity;
 
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-
 import bag.small.R;
 import bag.small.base.BaseActivity;
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class PasswordForgetActivity extends BaseActivity {
 
-    @Bind(R.id.toolbar_title)
-    TextView toolbarTitle;
+ 
     @Bind(R.id.activity_pwd_forget_phone_edt)
-    EditText activityPwdForgetPhoneEdt;
+    EditText pfPhoneEdt;
     @Bind(R.id.activity_pwd_forget_verification_code_edt)
-    EditText activityPwdForgetVerificationCodeEdt;
+    EditText pfVerificationCodeEdt;
     @Bind(R.id.activity_pwd_forget_send_code_btn)
-    Button activityPwdForgetSendCodeBtn;
+    Button pfSendCodeBtn;
     @Bind(R.id.activity_pwd_forget_password_edt)
-    EditText activityPwdForgetPasswordEdt;
+    EditText pfPasswordEdt;
     @Bind(R.id.activity_pwd_forget_reset_password_edt)
-    EditText activityPwdForgetResetPasswordEdt;
+    EditText pfResetPasswordEdt;
     @Bind(R.id.activity_pwd_forget_commit_btn)
-    Button activityPwdForgetCommitBtn;
+    Button pfCommitBtn;
 
     @Override
     public int getLayoutResId() {

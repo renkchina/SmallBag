@@ -10,4 +10,5 @@ public class ParentInformationActivity extends BaseActivity {
     public int getLayoutResId() {
         return R.layout.activity_parent_infomation;
     }
+
 }

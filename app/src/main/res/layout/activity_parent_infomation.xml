@@ -12,22 +12,23 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <include layout="@layout/toolbar" />
 
         <ImageView
-            android:layout_marginTop="25dp"
             android:id="@+id/activity_head_image"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_gravity="center"
+            android:layout_marginTop="25dp"
             android:scaleType="centerCrop" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="42dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
