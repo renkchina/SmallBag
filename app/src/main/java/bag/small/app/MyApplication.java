@@ -5,6 +5,8 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
 
+import com.umeng.analytics.game.UMGameAgent;
+
 import bag.small.utils.LogUtil;
 
 /**
@@ -12,42 +14,44 @@ import bag.small.utils.LogUtil;
  */
 
 public class MyApplication extends Application implements Application.ActivityLifecycleCallbacks {
-    static Context context;
+    static Context mContext;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        context = this;
+        mContext = this;
        registerActivityLifecycleCallbacks(this);
     }
 
     public static Context getContext() {
-        return context;
+        return mContext;
     }
 
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-        LogUtil.show(activity.getLocalClassName()+"onCreate");
+        LogUtil.show(activity.getLocalClassName()+" onCreate");
     }
 
     @Override
     public void onActivityStarted(Activity activity) {
-        LogUtil.show(activity.getLocalClassName()+"onStart");
+        LogUtil.show(activity.getLocalClassName()+" onStart");
     }
 
     @Override
     public void onActivityResumed(Activity activity) {
-        LogUtil.show(activity.getLocalClassName()+"onResume");
+        LogUtil.show(activity.getLocalClassName()+" onResume");
+        UMGameAgent.onResume(activity);
     }
 
     @Override
     public void onActivityPaused(Activity activity) {
-        LogUtil.show(activity.getLocalClassName()+"onPause");
+        LogUtil.show(activity.getLocalClassName()+" onPause");
+        UMGameAgent.onPause(activity);
     }
 
     @Override
     public void onActivityStopped(Activity activity) {
-        LogUtil.show(activity.getLocalClassName()+"onStop");
+        LogUtil.show(activity.getLocalClassName()+" onStop");
     }
 
     @Override
@@ -57,6 +61,6 @@ public class MyApplication extends Application implements Application.ActivityLi
 
     @Override
     public void onActivityDestroyed(Activity activity) {
-        LogUtil.show(activity.getLocalClassName()+"onDestroy");
+        LogUtil.show(activity.getLocalClassName()+" onDestroy");
     }
 }

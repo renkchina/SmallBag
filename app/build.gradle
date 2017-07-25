@@ -94,7 +94,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -115,7 +115,6 @@ dependencies {
     compile "com.squareup.retrofit2:retrofit:$RETROFIT2_VERSION"
     compile "com.squareup.retrofit2:converter-gson:$RETROFIT2_VERSION"
     compile "com.squareup.retrofit2:converter-scalars:$RETROFIT2_VERSION"
-
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha4'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
@@ -129,4 +128,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.2-alpha-5'
     compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.2-alpha-5'
+    compile files('src/main/jniLibs/umeng-analytics-v6.1.1.jar')
+    compile files('src/main/jniLibs/utdid4all-1.0.4.jar')
 }

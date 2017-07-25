@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+import com.umeng.analytics.MobclickAgent;
+
 import java.lang.reflect.Field;
 
 import bag.small.R;
@@ -91,4 +93,9 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MobclickAgent.onKillProcess(this);
+    }
 }
