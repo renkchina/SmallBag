@@ -70,6 +70,15 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="59749b1607fe6518c5000b51">
+        </meta-data>
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="Umeng">
+        </meta-data>
+
     </application>
 
 </manifest>
