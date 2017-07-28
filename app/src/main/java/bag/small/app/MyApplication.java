@@ -15,6 +15,7 @@ import bag.small.utils.LogUtil;
 
 public class MyApplication extends Application implements Application.ActivityLifecycleCallbacks {
     static Context mContext;
+    public static boolean isLogin;
 
     @Override
     public void onCreate() {

@@ -9,9 +9,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import bag.small.R;
+import bag.small.app.MyApplication;
 import bag.small.base.BaseActivity;
+import bag.small.http.HttpUtil;
+import bag.small.http.IApi.HttpError;
+import bag.small.http.IApi.HttpResultFilter;
+import bag.small.http.IApi.ILoginRequest;
+import bag.small.http.IApi.IRegisterReq;
+import bag.small.rx.RxUtil;
+import bag.small.utils.LogUtil;
 import butterknife.Bind;
 import butterknife.OnClick;
+import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by Administrator on 2017/7/22.
@@ -31,12 +41,17 @@ public class LoginActivity extends BaseActivity {
     @Bind(R.id.activity_login_forget_password_tv)
     TextView loginForgetPasswordTv;
 
+    ILoginRequest iLoginRequest;
+    private IRegisterReq iRegisterReq;
+
     public int getLayoutResId() {
         return R.layout.activity_login;
     }
 
     public void initView() {
         setToolTitle("登录", false);
+        iLoginRequest = HttpUtil.getInstance().createApi(ILoginRequest.class);
+        iRegisterReq = HttpUtil.getInstance().createApi(IRegisterReq.class);
     }
 
     @OnClick({R.id.activity_login_commit_btn,
@@ -55,4 +70,39 @@ public class LoginActivity extends BaseActivity {
                 break;
         }
     }
+
+    private void goLogin(String phone, final String password) {
+        iLoginRequest.appLogin(phone, password)
+                .compose(RxLifecycleCompact.bind(this).withObservable())
+                .subscribe(bean -> {
+                    toast(bean.getMsg());
+                    if (bean.isSuccess()) {
+                        MyApplication.isLogin = true;
+                        skipActivity(MainActivity.class);
+                    } else {
+                        toast("登录失败！");
+                    }
+                }, new HttpError());
+
+    }
+
+    private void requestRegister(String phone, String password, String verify) {
+        iRegisterReq.goRegister(phone, password, verify)
+                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                .compose(RxLifecycleCompact.bind(this).withObservable())
+                .filter(new HttpResultFilter<>())
+                .subscribe(bean -> {
+                    LogUtil.show(bean);
+                    if (bean.isSuccess()) {
+                        goBack();
+                    } else {
+                    }
+
+                }, new HttpError());
+    }
+
+    private void goBack() {
+        finish();
+    }
+
 }

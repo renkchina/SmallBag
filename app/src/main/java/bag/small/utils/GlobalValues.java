@@ -6,6 +6,9 @@ package bag.small.utils;
 
 public class GlobalValues {
 
+    public static String UMAPPKEY = "59749b1607fe6518c5000b51";
+    public static String SECRET_KEY = "iqlpz6ebxd8wzzp9jehi7h5fg21z4e10";
+    
     public static final int COUNT_DOWN_TIME = 60;
     public static final int LIFETOFUNCTIONNORMAL = 0x8800;
     public static final int LIFETOFUNCTIONDELETE = 0x8801;

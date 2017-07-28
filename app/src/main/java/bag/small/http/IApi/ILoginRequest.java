@@ -20,9 +20,9 @@ public interface ILoginRequest {
 //    @POST("account/login")
 //    Observable<BaseBean<LoginBean>> appLogin(@Query("phone") String name,
 //                                             @Query("password") String password);
-    @POST("user/login")
+    @POST("commons/login")
     Observable<BaseBean<BaseBean>> appLogin(@Query("phone") String name,
-                                            @Query("password") String password);
+                                            @Query("pwd") String password);
 
 
 }

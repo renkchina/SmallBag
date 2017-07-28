@@ -19,6 +19,8 @@ import bag.small.R;
 import bag.small.interfaze.IActivity;
 import bag.small.interfaze.IRegister;
 import butterknife.ButterKnife;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by Administrator on 2017/7/22.
@@ -52,7 +54,6 @@ public abstract class BaseActivity extends AppCompatActivity implements IActivit
         initData();
         initView();
     }
-
 
     public void setToolTitle(String title, boolean isTurnLeft) {
         if (!TextUtils.isEmpty(title)) {
@@ -187,5 +188,4 @@ public abstract class BaseActivity extends AppCompatActivity implements IActivit
             Toast.makeText(this, object.toString(), Toast.LENGTH_SHORT).show();
         }
     }
-
 }

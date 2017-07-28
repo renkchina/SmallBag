@@ -7,35 +7,31 @@ package bag.small.entity;
 
 public class BaseBean<T> {
     private T data;
-    private String message;
-    private int state;
+    private String msg;
+    private int code;
 
     public T getData() {
         return data;
     }
 
-    public boolean HaveResult() {
-        return state == 1;
-    }
-
-    public void setData(T data) {
-        this.data = data;
-    }
-
     public String getMsg() {
-        return message;
+        return msg;
     }
 
     public void setMsg(String msg) {
-        this.message = msg;
+        this.msg = msg;
     }
 
-    public int getState() {
-        return state;
+    public int getCode() {
+        return code;
     }
 
-    public void setState(int state) {
-        this.state = state;
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public boolean isSuccess() {
+        return code == 200;
     }
 
     public T getResult() {
@@ -53,9 +49,8 @@ public class BaseBean<T> {
     public String toString() {
         return "BaseBean{" +
                 "data=" + data +
-                ", msg='" + message + '\'' +
-                ", state=" + state +
+                ", msg='" + msg + '\'' +
+                ", code=" + code +
                 '}';
     }
-
 }

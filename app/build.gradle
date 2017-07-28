@@ -47,14 +47,14 @@ android {
         release {
             minifyEnabled true
             shrinkResources false
-            buildConfigField "String", "BaseApi", "\"http://192.168.3.45:8080/\""
+            buildConfigField "String", "BaseApi", "\"http://api.vshangsoft.com/v1/\""
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
         debug {
             minifyEnabled false
             shrinkResources false
-            buildConfigField "String", "BaseApi", "\"http://192.168.3.45:8080/\""
+            buildConfigField "String", "BaseApi", "\"http://api.vshangsoft.com/v1/\""
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
@@ -106,6 +106,9 @@ dependencies {
     compile project(path: ':banner')
     //provider
     compile project(path: ':library')
+    //友盟
+    compile files('src/main/jniLibs/umeng-analytics-v6.1.1.jar')
+    compile files('src/main/jniLibs/utdid4all-1.0.4.jar')
     //
     compile "com.android.support:design:$SUPPORT_LIBS_VERSION"
     compile "com.android.support:support-v4:$SUPPORT_LIBS_VERSION"
@@ -128,6 +131,4 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.2-alpha-5'
     compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.2-alpha-5'
-    compile files('src/main/jniLibs/umeng-analytics-v6.1.1.jar')
-    compile files('src/main/jniLibs/utdid4all-1.0.4.jar')
 }
