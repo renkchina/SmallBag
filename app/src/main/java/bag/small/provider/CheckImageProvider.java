@@ -42,7 +42,7 @@ public class CheckImageProvider extends ItemViewBinder<String, CheckImageProvide
         final Context context = holder.rootView.getContext();
         if (TextUtils.isEmpty(item)) {
             holder.itemAcCheckDel.setVisibility(View.GONE);
-            holder.itemAcCheckContentIv.setImageResource(R.mipmap.jiaolianduan_tianjia);
+            holder.itemAcCheckContentIv.setImageResource(R.mipmap.add_photo_icon);
 
         } else {
             holder.itemAcCheckDel.setVisibility(View.VISIBLE);

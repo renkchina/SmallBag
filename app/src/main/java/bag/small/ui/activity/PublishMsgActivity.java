@@ -52,7 +52,7 @@ public class PublishMsgActivity extends BaseActivity {
     @Override
     public void initData() {
         setToolTitle(true);
-        toolbarRightTv.setText("发送");
+        toolbarRightTv.setText("发布");
 //        progressDialog = new CommonProgressDialog(this);
         mDatas = new ArrayList<>();
         mDatas.add("");

@@ -4,6 +4,117 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
     tools:context="bag.small.ui.activity.TeacherInformationActivity">
 
+    <ImageView
+        android:layout_width="105dp"
+        android:layout_height="105dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="35dp"
+        android:scaleType="centerCrop" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="9dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="18dp"
+        android:background="@mipmap/border_input_bg"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:gravity="center"
+                android:hint="@string/teacher_name_str"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:paddingEnd="0dp"
+                android:paddingStart="2dp"
+                android:textColorHint="@color/txt_gray"
+                android:textSize="16sp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:gravity="center"
+                android:hint="@string/parent_contact_number_hint"
+                android:imeOptions="actionNext"
+                android:inputType="phone"
+                android:paddingEnd="0dp"
+                android:paddingStart="2dp"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/activity_guardian_ll"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:padding="2dp">
+
+            <TextView
+                android:id="@+id/activity_guardian_tv"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:gravity="center_vertical|start"
+                android:text="@string/school_name_str"
+                android:textSize="16sp" />
+
+            <ImageView
+                style="@style/imge_down_style"
+                android:src="@mipmap/arrow_icon" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/activity_charge_class_ll"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:padding="2dp">
+
+            <TextView
+                android:id="@+id/activity_charge_class_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:background="@color/white"
+                android:gravity="center_vertical|start"
+                android:text="是否担任班主任："
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="是" />
+
+            <ImageView
+                style="@style/imge_down_style"
+                android:src="@mipmap/arrow_icon" />
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:id="@+id/activity_teacher_subject_recycler"
+            android:layout_height="wrap_content">
+        </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
 </LinearLayout>
