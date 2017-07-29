@@ -18,6 +18,7 @@ import bag.small.http.IApi.ILoginRequest;
 import bag.small.http.IApi.IRegisterReq;
 import bag.small.rx.RxUtil;
 import bag.small.utils.LogUtil;
+import bag.small.utils.StringUtil;
 import butterknife.Bind;
 import butterknife.OnClick;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
@@ -42,7 +43,6 @@ public class LoginActivity extends BaseActivity {
     TextView loginForgetPasswordTv;
 
     ILoginRequest iLoginRequest;
-    private IRegisterReq iRegisterReq;
 
     public int getLayoutResId() {
         return R.layout.activity_login;
@@ -51,7 +51,7 @@ public class LoginActivity extends BaseActivity {
     public void initView() {
         setToolTitle("登录", false);
         iLoginRequest = HttpUtil.getInstance().createApi(ILoginRequest.class);
-        iRegisterReq = HttpUtil.getInstance().createApi(IRegisterReq.class);
+
     }
 
     @OnClick({R.id.activity_login_commit_btn,
@@ -60,6 +60,8 @@ public class LoginActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.activity_login_commit_btn:
+                String phone = StringUtil.EditGetString(loginUserNameEdt);
+                String password = StringUtil.EditGetString(loginUserPasswordEdt);
                 skipActivity(MainActivity.class);
                 break;
             case R.id.activity_login_register_tv:
@@ -73,6 +75,7 @@ public class LoginActivity extends BaseActivity {
 
     private void goLogin(String phone, final String password) {
         iLoginRequest.appLogin(phone, password)
+                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
                 .compose(RxLifecycleCompact.bind(this).withObservable())
                 .subscribe(bean -> {
                     toast(bean.getMsg());
@@ -86,23 +89,5 @@ public class LoginActivity extends BaseActivity {
 
     }
 
-    private void requestRegister(String phone, String password, String verify) {
-        iRegisterReq.goRegister(phone, password, verify)
-                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
-                .compose(RxLifecycleCompact.bind(this).withObservable())
-                .filter(new HttpResultFilter<>())
-                .subscribe(bean -> {
-                    LogUtil.show(bean);
-                    if (bean.isSuccess()) {
-                        goBack();
-                    } else {
-                    }
-
-                }, new HttpError());
-    }
-
-    private void goBack() {
-        finish();
-    }
 
 }

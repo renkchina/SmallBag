@@ -11,6 +11,6 @@ import retrofit2.http.Query;
  */
 
 public interface IRegisterSendCode {
-    @POST("message/sendRegCode")
+    @POST("commons/sendcode")
     Observable<BaseBean<String>> sendCodeRequest(@Query("phone") String phone);
 }

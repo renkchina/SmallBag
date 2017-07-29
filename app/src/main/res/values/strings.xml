@@ -1,15 +1,21 @@
 <resources>
     <string name="app_name">SmallBag</string>
     <string name="ac_login_phone_edt_hint_str">请输入手机号码</string>
-    <string name="ac_login_password_edt_hint_str">请输入密码</string>
+    <string name="ac_login_password_edt_hint_str">请输入登录密码</string>
+    <string name="ac_login_password_edt_hint_agent_str">请再次确认密码</string>
     <string name="activity_login_register_str">新用户注册</string>
     <string name="activity_login_forget_str">忘记密码？</string>
-    <string name="ac_register_phone_tv_str">手 机 号:</string>
+    <string name="ac_register_phone_tv_str">手机号</string>
     <string name="login_code_hint_edt_str">请输入验证码</string>
     <string name="parent_student_name_hint">学生姓名</string>
     <string name="parent_student_num_hint">学号</string>
-    <string name="parent_edit_hint">家长姓名</string>
+    <string name="parent_edit_hint">监护人姓名</string>
     <string name="parent_contact_number_hint">联系电话</string>
     <string name="check_image_content_str">请输入要发表的内容</string>
     <string name="go_register_str">木有账号去注册</string>
+    <string name="go_login_str">已有账号去登录</string>
+    <string name="affirm_password_str">确认密码</string>
+    <string name="get_code_str">获取验证码</string>
+    <string name="im_parent_str">我是家长</string>
+    <string name="im_teacher_str">我是老师</string>
 </resources>

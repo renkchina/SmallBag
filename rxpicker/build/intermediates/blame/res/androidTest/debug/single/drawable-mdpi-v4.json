@@ -32,20 +32,20 @@
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\736feb8046ddb785acdc34b512603f3d43c85f58\\output\\res\\drawable-mdpi-v4\\abc_list_selector_disabled_holo_light.9.png"
     },
     {
-        "merged": "D:\\AndroidProjects\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\abc_tab_indicator_mtrl_alpha.9.png",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\986c14a487b79e43408506def61a7f8102fc1dba\\output\\res\\drawable-mdpi-v4\\abc_tab_indicator_mtrl_alpha.9.png"
-    },
-    {
-        "merged": "D:\\AndroidProjects\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\abc_ic_star_black_16dp.png",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\986c14a487b79e43408506def61a7f8102fc1dba\\output\\res\\drawable-mdpi-v4\\abc_ic_star_black_16dp.png"
+        "merged": "F:\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\abc_list_focused_holo.9.png",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\736feb8046ddb785acdc34b512603f3d43c85f58\\output\\res\\drawable-mdpi-v4\\abc_list_focused_holo.9.png"
     },
     {
         "merged": "F:\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\abc_ic_star_half_black_16dp.png",
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\736feb8046ddb785acdc34b512603f3d43c85f58\\output\\res\\drawable-mdpi-v4\\abc_ic_star_half_black_16dp.png"
     },
     {
-        "merged": "F:\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\abc_list_focused_holo.9.png",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\736feb8046ddb785acdc34b512603f3d43c85f58\\output\\res\\drawable-mdpi-v4\\abc_list_focused_holo.9.png"
+        "merged": "D:\\AndroidProjects\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\abc_ic_star_black_16dp.png",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\986c14a487b79e43408506def61a7f8102fc1dba\\output\\res\\drawable-mdpi-v4\\abc_ic_star_black_16dp.png"
+    },
+    {
+        "merged": "D:\\AndroidProjects\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\abc_tab_indicator_mtrl_alpha.9.png",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\986c14a487b79e43408506def61a7f8102fc1dba\\output\\res\\drawable-mdpi-v4\\abc_tab_indicator_mtrl_alpha.9.png"
     },
     {
         "merged": "D:\\AndroidProjects\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\abc_btn_switch_to_on_mtrl_00001.9.png",
@@ -120,12 +120,12 @@
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\736feb8046ddb785acdc34b512603f3d43c85f58\\output\\res\\drawable-mdpi-v4\\abc_scrubber_control_off_mtrl_alpha.png"
     },
     {
-        "merged": "D:\\AndroidProjects\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\abc_textfield_activated_mtrl_alpha.9.png",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\986c14a487b79e43408506def61a7f8102fc1dba\\output\\res\\drawable-mdpi-v4\\abc_textfield_activated_mtrl_alpha.9.png"
-    },
-    {
         "merged": "F:\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\abc_list_pressed_holo_dark.9.png",
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\736feb8046ddb785acdc34b512603f3d43c85f58\\output\\res\\drawable-mdpi-v4\\abc_list_pressed_holo_dark.9.png"
+    },
+    {
+        "merged": "D:\\AndroidProjects\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\abc_textfield_activated_mtrl_alpha.9.png",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\986c14a487b79e43408506def61a7f8102fc1dba\\output\\res\\drawable-mdpi-v4\\abc_textfield_activated_mtrl_alpha.9.png"
     },
     {
         "merged": "D:\\AndroidProjects\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\abc_btn_switch_to_on_mtrl_00012.9.png",

@@ -53,6 +53,10 @@ public class UserPreferUtil {
         setInfomation("image", image);
     }
 
+    public void setUseId(String id) {
+        setInfomation("user_id", id);
+    }
+
     public void setUserBackgroundImage(String image) {
         setInfomation("background", image);
     }
@@ -62,7 +66,7 @@ public class UserPreferUtil {
     }
 
     public String getBackgroundImagePath() {
-        return  getInfomationS("background");
+        return getInfomationS("background");
     }
 
     public String getUserName() {

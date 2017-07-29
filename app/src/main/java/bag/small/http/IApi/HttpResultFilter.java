@@ -15,6 +15,6 @@ public class HttpResultFilter<T> implements Predicate<BaseBean<T>> {
     public boolean test(@NonNull BaseBean<T> bean) throws Exception {
         if (!TextUtils.isEmpty(bean.getMsg())) {
         }
-        return bean.HaveResult();
+        return bean.isSuccess();
     }
 }

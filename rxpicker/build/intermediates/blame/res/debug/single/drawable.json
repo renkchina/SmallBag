@@ -24,12 +24,12 @@
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\736feb8046ddb785acdc34b512603f3d43c85f58\\output\\res\\drawable\\abc_cab_background_top_material.xml"
     },
     {
-        "merged": "D:\\AndroidProjects\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_borderless_material.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\986c14a487b79e43408506def61a7f8102fc1dba\\output\\res\\drawable\\abc_btn_borderless_material.xml"
-    },
-    {
         "merged": "D:\\AndroidProjects\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_radio_material.xml",
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\986c14a487b79e43408506def61a7f8102fc1dba\\output\\res\\drawable\\abc_btn_radio_material.xml"
+    },
+    {
+        "merged": "D:\\AndroidProjects\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_borderless_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\986c14a487b79e43408506def61a7f8102fc1dba\\output\\res\\drawable\\abc_btn_borderless_material.xml"
     },
     {
         "merged": "F:\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_check_black.png",
@@ -152,12 +152,12 @@
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\736feb8046ddb785acdc34b512603f3d43c85f58\\output\\res\\drawable\\abc_item_background_holo_dark.xml"
     },
     {
-        "merged": "D:\\AndroidProjects\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_dialog_material_background.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\986c14a487b79e43408506def61a7f8102fc1dba\\output\\res\\drawable\\abc_dialog_material_background.xml"
-    },
-    {
         "merged": "F:\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_clear_material.xml",
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\736feb8046ddb785acdc34b512603f3d43c85f58\\output\\res\\drawable\\abc_ic_clear_material.xml"
+    },
+    {
+        "merged": "D:\\AndroidProjects\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_dialog_material_background.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\986c14a487b79e43408506def61a7f8102fc1dba\\output\\res\\drawable\\abc_dialog_material_background.xml"
     },
     {
         "merged": "F:\\SmallBag\\rxpicker\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_colored_material.xml",

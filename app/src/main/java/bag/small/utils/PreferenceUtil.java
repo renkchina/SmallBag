@@ -1,6 +1,9 @@
 package bag.small.utils;
 
+import android.content.Context;
 import android.content.SharedPreferences;
+
+import bag.small.app.MyApplication;
 
 
 /**
@@ -19,7 +22,7 @@ class PreferenceUtil {
      * 获取偏好执行器
      */
     private void init() {
-//        sp = CustomerApplication.getAppContext().getSharedPreferences(CustomerApplication.getAppContext().getPackageName(), Context.MODE_PRIVATE);
+        sp = MyApplication.getContext().getSharedPreferences(MyApplication.getContext().getPackageName(), Context.MODE_PRIVATE);
     }
 
     /**

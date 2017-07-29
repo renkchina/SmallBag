@@ -18,239 +18,254 @@
 
         <ImageView
             android:id="@+id/activity_head_image"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="105dp"
+            android:layout_height="105dp"
             android:layout_gravity="center"
             android:layout_marginTop="25dp"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            android:src="@mipmap/photo_update_nomal" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="42dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginStart="30dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
-            android:orientation="horizontal">
+            android:background="@mipmap/border_input_bg"
+            android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/activity_student_name_edt"
-                style="@style/edit_styles"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="3"
-                android:hint="@string/parent_student_name_hint"
-                android:imeOptions="actionNext"
-                android:paddingEnd="0dp"
-                android:paddingStart="2dp"
-                android:textSize="16sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:orientation="horizontal">
 
-            <Space
-                android:layout_width="0dp"
+                <EditText
+                    android:id="@+id/activity_student_name_edt"
+                    style="@style/edit_styles"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:gravity="center"
+                    android:hint="@string/parent_student_name_hint"
+                    android:imeOptions="actionNext"
+                    android:paddingEnd="0dp"
+                    android:paddingStart="2dp"
+                    android:textSize="16sp" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <EditText
+                    android:id="@+id/activity_student_number_edt"
+                    style="@style/edit_styles"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:gravity="center"
+                    android:hint="@string/parent_student_num_hint"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:paddingEnd="0dp"
+                    android:paddingStart="2dp"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <View style="@style/view_line_gray_style" />
+
+            <LinearLayout
+                android:id="@+id/activity_area_school_ll"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:padding="2dp">
+
+                <TextView
+                    android:id="@+id/activity_area_school_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|start"
+                    android:text="学生区域"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    style="@style/imge_down_style"
+                    android:src="@mipmap/arrow_icon" />
+            </LinearLayout>
+
+            <View style="@style/view_line_gray_style" />
+
+            <LinearLayout
+                android:id="@+id/activity_study_school_ll"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:padding="2dp">
+
+                <TextView
+                    android:id="@+id/activity_study_school_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:gravity="center_vertical|start"
+                    android:text="就读学校"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    style="@style/imge_down_style"
+                    android:src="@mipmap/arrow_icon" />
+            </LinearLayout>
+
+            <View style="@style/view_line_gray_style" />
+
+            <LinearLayout
+                android:id="@+id/activity_study_num_ll"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:padding="2dp">
+
+                <TextView
+                    android:id="@+id/activity_study_num_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:gravity="center_vertical|start"
+                    android:text="入学时间"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    style="@style/imge_down_style"
+                    android:src="@mipmap/arrow_icon" />
+            </LinearLayout>
+
+            <View style="@style/view_line_gray_style" />
+
+            <LinearLayout
+                android:id="@+id/activity_grade_ll"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:padding="2dp">
+
+                <TextView
+                    android:id="@+id/activity_grade_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:gravity="center_vertical|start"
+                    android:text="就读年级"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    style="@style/imge_down_style"
+                    android:src="@mipmap/arrow_icon" />
+            </LinearLayout>
+
+            <View style="@style/view_line_gray_style" />
+
+            <LinearLayout
+                android:id="@+id/activity_class_ll"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:padding="2dp">
+
+                <TextView
+                    android:id="@+id/activity_class_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:gravity="center_vertical|start"
+                    android:text="就读班级"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    style="@style/imge_down_style"
+                    android:src="@mipmap/arrow_icon" />
+            </LinearLayout>
+
+            <View style="@style/view_line_gray_style" />
+
+            <LinearLayout
+                android:id="@+id/activity_guardian_ll"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:padding="2dp">
+
+                <TextView
+                    android:id="@+id/activity_guardian_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:gravity="center_vertical|start"
+                    android:text="监护人关系"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    style="@style/imge_down_style"
+                    android:src="@mipmap/arrow_icon" />
+            </LinearLayout>
+
+            <View style="@style/view_line_gray_style" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/activity_student_number_edt"
-                style="@style/edit_styles"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="3"
-                android:hint="@string/parent_student_num_hint"
-                android:imeOptions="actionNext"
-                android:inputType="number"
-                android:paddingEnd="0dp"
-                android:paddingStart="2dp"
-                android:textSize="16sp" />
+                <EditText
+                    android:id="@+id/activity_parent_name_edt"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:hint="@string/parent_edit_hint"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:paddingEnd="0dp"
+                    android:paddingStart="2dp"
+                    android:textColorHint="@color/txt_gray"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/activity_parent_phone_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:hint="@string/parent_contact_number_hint"
+                    android:imeOptions="actionNext"
+                    android:inputType="phone"
+                    android:paddingEnd="0dp"
+                    android:paddingStart="2dp"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
         </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/activity_area_school_ll"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/shape_ac_guide_btn_back_r"
-            android:orientation="horizontal"
-            android:padding="2dp">
-
-            <TextView
-                android:id="@+id/activity_area_school_tv"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:background="@color/white"
-                android:textSize="16sp" />
-
-            <View
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="5dp"
-                android:background="@mipmap/baoyang_sanjiao" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/activity_study_school_ll"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/shape_ac_guide_btn_back_r"
-            android:orientation="horizontal"
-            android:padding="2dp">
-
-            <TextView
-                android:id="@+id/activity_study_school_tv"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:background="@color/white"
-                android:textSize="16sp" />
-
-            <View
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="5dp"
-                android:background="@mipmap/baoyang_sanjiao" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/activity_study_num_ll"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/shape_ac_guide_btn_back_r"
-            android:orientation="horizontal"
-            android:padding="2dp">
-
-            <TextView
-                android:id="@+id/activity_study_num_tv"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:background="@color/white"
-                android:textSize="16sp" />
-
-            <View
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="5dp"
-                android:background="@mipmap/baoyang_sanjiao" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/activity_grade_ll"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/shape_ac_guide_btn_back_r"
-            android:orientation="horizontal"
-            android:padding="2dp">
-
-            <TextView
-                android:id="@+id/activity_grade_tv"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:background="@color/white"
-                android:textSize="16sp" />
-
-            <View
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="5dp"
-                android:background="@mipmap/baoyang_sanjiao" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/activity_class_ll"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/shape_ac_guide_btn_back_r"
-            android:orientation="horizontal"
-            android:padding="2dp">
-
-            <TextView
-                android:id="@+id/activity_class_tv"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:background="@color/white"
-                android:textSize="16sp" />
-
-            <View
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="5dp"
-                android:background="@mipmap/baoyang_sanjiao" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/activity_guardian_ll"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/shape_ac_guide_btn_back_r"
-            android:orientation="horizontal"
-            android:padding="2dp">
-
-            <TextView
-                android:id="@+id/activity_guardian_tv"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:background="@color/white"
-                android:textSize="16sp" />
-
-            <View
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="5dp"
-                android:background="@mipmap/baoyang_sanjiao" />
-        </LinearLayout>
-
-        <EditText
-            android:id="@+id/activity_parent_name_edt"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/shape_ac_guide_btn_back_r"
-            android:hint="@string/parent_edit_hint"
-            android:imeOptions="actionNext"
-            android:inputType="text"
-            android:paddingEnd="0dp"
-            android:paddingStart="2dp"
-            android:textColorHint="@color/txt_gray"
-            android:textSize="16sp" />
-
-        <EditText
-            android:id="@+id/activity_parent_phone_edit"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/shape_ac_guide_btn_back_r"
-            android:hint="@string/parent_contact_number_hint"
-            android:imeOptions="actionNext"
-            android:inputType="phone"
-            android:paddingEnd="0dp"
-            android:paddingStart="2dp"
-            android:textSize="16sp" />
 
         <Button
             android:id="@+id/activity_parent_commit_btn"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:layout_marginTop="20dp"
+            android:layout_margin="20dp"
             android:background="@drawable/shape_ac_login_btn_back_fill"
             android:text="确认"
             android:textColor="@color/white"

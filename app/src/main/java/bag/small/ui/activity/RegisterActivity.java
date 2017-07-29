@@ -1,20 +1,30 @@
 package bag.small.ui.activity;
 
+import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import bag.small.R;
 import bag.small.base.BaseActivity;
 import bag.small.http.HttpUtil;
 import bag.small.http.IApi.HttpError;
 import bag.small.http.IApi.HttpResultFilter;
+import bag.small.http.IApi.IRegisterReq;
 import bag.small.http.IApi.IRegisterSendCode;
 import bag.small.rx.RxCountDown;
 import bag.small.rx.RxUtil;
 import bag.small.utils.GlobalValues;
+import bag.small.utils.LogUtil;
+import bag.small.utils.StringUtil;
+import bag.small.utils.UserPreferUtil;
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
 
@@ -33,12 +43,16 @@ public class RegisterActivity extends BaseActivity {
     EditText rPasswordEdt;
     @Bind(R.id.activity_register_reset_password_edt)
     EditText rResetPasswordEdt;
-    @Bind(R.id.activity_register_commit_parent_btn)
-    Button rParentBtn;
-    @Bind(R.id.activity_register_commit_teacher_btn)
-    Button rTeacherBtn;
+    @Bind(R.id.ac_register_parent_ll)
+    LinearLayout rParentLl;
+    @Bind(R.id.ac_register_teacher_ll)
+    LinearLayout rTeacherLl;
+    @Bind(R.id.activity_register_login_tv)
+    TextView LoginTv;
+
 
     IRegisterSendCode iRegisterSendCode;
+    private IRegisterReq iRegisterReq;
 
     @Override
     public int getLayoutResId() {
@@ -48,22 +62,46 @@ public class RegisterActivity extends BaseActivity {
     @Override
     public void initView() {
         iRegisterSendCode = HttpUtil.getInstance().createApi(IRegisterSendCode.class);
+        iRegisterReq = HttpUtil.getInstance().createApi(IRegisterReq.class);
     }
 
     @OnClick({R.id.activity_register_send_code_btn,
-            R.id.activity_register_commit_parent_btn,
-            R.id.activity_register_commit_teacher_btn})
+            R.id.ac_register_parent_ll,
+            R.id.ac_register_teacher_ll,
+            R.id.activity_register_login_tv})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.activity_register_send_code_btn:
+                String phone = StringUtil.EditGetString(rPhoneEdt);
+                if (TextUtils.isEmpty(phone)) {
+                    toast("请输入手机号");
+                } else {
+                    getCodeByPhone(phone);
+                }
                 break;
-            case R.id.activity_register_commit_parent_btn:
-                skipActivity(ParentInformationActivity.class);
+            case R.id.ac_register_parent_ll:
+                registerPhone(1);
                 break;
-            case R.id.activity_register_commit_teacher_btn:
-                skipActivity(TeacherInformationActivity.class);
+            case R.id.ac_register_teacher_ll:
+                registerPhone(2);
+                break;
+            case R.id.activity_register_login_tv:
                 break;
         }
+    }
+
+    private void registerPhone(int i) {
+        String phone = StringUtil.EditGetString(rPhoneEdt);
+        String password = StringUtil.EditGetString(rPasswordEdt);
+        String rePassword = StringUtil.EditGetString(rResetPasswordEdt);
+        String code = StringUtil.EditGetString(rVerificationCodeEdt);
+        if (!password.equals(rePassword)) {
+            toast("密码不一致");
+            return;
+        }
+        requestRegister(i, phone, password, code);
+
+
     }
 
     private void getCodeByPhone(String phone) {
@@ -79,4 +117,26 @@ public class RegisterActivity extends BaseActivity {
                     }
                 }, new HttpError());
     }
+
+    private void requestRegister(int type, String phone, String password, String verify) {
+        iRegisterReq.goRegister(phone, password, verify)
+                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                .compose(RxLifecycleCompact.bind(this).withObservable())
+                .filter(new HttpResultFilter<>())
+                .subscribe(bean -> {
+                    LogUtil.show(bean);
+                    if (bean.isSuccess()) {
+                        UserPreferUtil.getInstanse().setUseId(bean.getData().getLogin_id());
+                        if (type == 1) {
+                            skipActivity(ParentInformationActivity.class);
+                        } else {
+                            skipActivity(TeacherInformationActivity.class);
+                        }
+                    } else {
+                    }
+
+                }, new HttpError());
+    }
+
+
 }
