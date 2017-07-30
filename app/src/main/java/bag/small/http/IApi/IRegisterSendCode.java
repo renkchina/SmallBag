@@ -3,6 +3,7 @@ package bag.small.http.IApi;
 
 import bag.small.entity.BaseBean;
 import io.reactivex.Observable;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -11,6 +12,6 @@ import retrofit2.http.Query;
  */
 
 public interface IRegisterSendCode {
-    @POST("commons/sendcode")
+    @GET("commons/sendverifycode")
     Observable<BaseBean<String>> sendCodeRequest(@Query("phone") String phone);
 }

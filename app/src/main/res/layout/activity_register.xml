@@ -95,7 +95,7 @@
                     android:id="@+id/activity_register_send_code_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_margin="2dp"
+                    android:layout_marginEnd="5dp"
                     android:background="@color/white"
                     android:text="@string/get_code_str"
                     android:textColor="@color/button_green"

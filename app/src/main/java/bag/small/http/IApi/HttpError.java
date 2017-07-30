@@ -1,9 +1,15 @@
 package bag.small.http.IApi;
 
+import android.net.ParseException;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.widget.Toast;
 
+import com.google.gson.JsonParseException;
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
+
+import org.json.JSONException;
+
+import java.net.ConnectException;
 
 import bag.small.app.MyApplication;
 import bag.small.utils.LogUtil;
@@ -15,7 +21,7 @@ import io.reactivex.functions.Consumer;
  */
 
 public class HttpError implements Consumer<Throwable> {
-//    private CommonProgressDialog dialog;
+    //    private CommonProgressDialog dialog;
     private SwipeRefreshLayout swipeRefresh;
 
     public HttpError(SwipeRefreshLayout swipeRefresh) {
@@ -37,9 +43,9 @@ public class HttpError implements Consumer<Throwable> {
         if (swipeRefresh != null && swipeRefresh.isEnabled()) {
             swipeRefresh.setRefreshing(false);
         }
+        String exce;
         if (throwable instanceof HttpException) {
             HttpException httpException = (HttpException) throwable;
-            String exce;
             switch (httpException.code()) {
                 case 404:
                     exce = "未找到服务器！";
@@ -51,11 +57,18 @@ public class HttpError implements Consumer<Throwable> {
                     exce = "请求错误！";
                     break;
             }
-            Toast.makeText(MyApplication.getContext(), exce, Toast.LENGTH_SHORT).show();
-            LogUtil.show(exce);
+        } else if (throwable instanceof JsonParseException
+                || throwable instanceof JSONException
+                || throwable instanceof ParseException) {
+            exce = "解析错误！";
+        } else if (throwable instanceof ConnectException) {
+            exce = "连接失败!";
         } else {
-            LogUtil.show(throwable.getMessage());
-            Toast.makeText(MyApplication.getContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show();
+            exce = "未知错误!";
         }
+        LogUtil.show(throwable.getMessage());
+        Toast.makeText(MyApplication.getContext(), exce, Toast.LENGTH_SHORT).show();
     }
+
+
 }

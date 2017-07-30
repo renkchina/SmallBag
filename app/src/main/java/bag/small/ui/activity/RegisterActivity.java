@@ -100,8 +100,6 @@ public class RegisterActivity extends BaseActivity {
             return;
         }
         requestRegister(i, phone, password, code);
-
-
     }
 
     private void getCodeByPhone(String phone) {

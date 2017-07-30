@@ -8,6 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@color/white"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <TextView
@@ -33,6 +34,13 @@
             android:drawableEnd="@mipmap/arrow_icon"
             android:gravity="center"
             android:text="班级" />
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="9dp"
+            android:layout_marginStart="9dp"
+            android:src="@mipmap/add_line_circle" />
     </LinearLayout>
 
     <View style="@style/view_line_gray_style" />
@@ -42,6 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@color/white"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <TextView
@@ -58,5 +67,12 @@
         <ImageView
             style="@style/imge_down_style"
             android:src="@mipmap/arrow_icon" />
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="9dp"
+            android:layout_marginStart="9dp"
+            android:src="@mipmap/add_line_circle" />
     </LinearLayout>
 </LinearLayout>

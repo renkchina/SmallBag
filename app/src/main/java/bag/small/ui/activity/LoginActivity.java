@@ -62,7 +62,7 @@ public class LoginActivity extends BaseActivity {
             case R.id.activity_login_commit_btn:
                 String phone = StringUtil.EditGetString(loginUserNameEdt);
                 String password = StringUtil.EditGetString(loginUserPasswordEdt);
-                skipActivity(MainActivity.class);
+                goLogin(phone, password);
                 break;
             case R.id.activity_login_register_tv:
                 goActivity(RegisterActivity.class);
@@ -75,8 +75,8 @@ public class LoginActivity extends BaseActivity {
 
     private void goLogin(String phone, final String password) {
         iLoginRequest.appLogin(phone, password)
+//                .compose(RxLifecycleCompact.bind(this).withObservable())
                 .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
-                .compose(RxLifecycleCompact.bind(this).withObservable())
                 .subscribe(bean -> {
                     toast(bean.getMsg());
                     if (bean.isSuccess()) {

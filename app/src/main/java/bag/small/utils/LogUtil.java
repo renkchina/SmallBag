@@ -9,13 +9,13 @@ import android.util.Log;
  */
 
 public class LogUtil {
-    static final String TAG = "*RENK";
+    private static final String TAG = "*RENK";
 
     private LogUtil() {
     }
 
     public static void show(Object object) {
-        if (!BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG) {
             return;
         }
         StackTraceElement trace = new Throwable().getStackTrace()[1];
@@ -32,7 +32,7 @@ public class LogUtil {
         Log.e(TAG, "***********************************************************");
     }
     public static void loge(Object object){
-        if (!BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG) {
             return;
         }
         if (object == null) {
