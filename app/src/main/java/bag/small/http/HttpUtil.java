@@ -62,7 +62,7 @@ public class HttpUtil {
             if ("GET".equals(method)) {
                 HttpUrl modifiedUrl = original.url().newBuilder()
                         .addEncodedQueryParameter("timespan", time)
-                        .addEncodedQueryParameter("singure", MD5Util.string2MD5(time))
+                        .addEncodedQueryParameter("singure", MD5Util.MD5ToString(time))
                         .build();
                 request = original.newBuilder().url(modifiedUrl).build();
             } else if ("POST".equals(method)) {
@@ -74,7 +74,7 @@ public class HttpUtil {
                         newFormBody.addEncoded(oidFormBody.encodedName(i), oidFormBody.encodedValue(i));
                     }
                     newFormBody.add("timespan", time);
-                    newFormBody.add("singure", MD5Util.string2MD5(time));
+                    newFormBody.add("singure", MD5Util.MD5ToString(time));
                     requestBuilder.method(original.method(), newFormBody.build());
                 }
                 request = requestBuilder.build();
