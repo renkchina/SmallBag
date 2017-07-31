@@ -21,7 +21,7 @@ public interface ILoginRequest {
 //    @POST("account/login")
 //    Observable<BaseBean<LoginBean>> appLogin(@Query("phone") String name,
 //                                             @Query("password") String password);
-    @GET("commons/login")
+    @POST("commons/login")
     Observable<BaseBean<BaseBean>> appLogin(@Query("phone") String name,
                                             @Query("pwd") String password);
 
