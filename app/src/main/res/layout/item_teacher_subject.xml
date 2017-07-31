@@ -12,35 +12,37 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/ac_teacher_number_tv"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:drawableEnd="@mipmap/arrow_icon"
             android:gravity="center"
+            android:paddingEnd="15dp"
+            android:paddingStart="0dp"
             android:text="届数" />
 
         <TextView
+            android:id="@+id/ac_teacher_grade_tv"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:drawableEnd="@mipmap/arrow_icon"
             android:gravity="center"
+            android:paddingEnd="15dp"
+            android:paddingStart="0dp"
             android:text="年级" />
 
         <TextView
+            android:id="@+id/ac_teacher_class_tv"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:drawableEnd="@mipmap/arrow_icon"
             android:gravity="center"
+            android:paddingEnd="15dp"
+            android:paddingStart="0dp"
             android:text="班级" />
-
-        <ImageView
-            android:layout_width="15dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="9dp"
-            android:layout_marginStart="9dp"
-            android:src="@mipmap/add_line_circle" />
     </LinearLayout>
 
     <View style="@style/view_line_gray_style" />
@@ -69,6 +71,7 @@
             android:src="@mipmap/arrow_icon" />
 
         <ImageView
+            android:id="@+id/activity_subject_add_iv"
             android:layout_width="15dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="9dp"

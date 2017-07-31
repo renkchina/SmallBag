@@ -1,8 +1,6 @@
 package bag.small.utils;
 
 import android.text.TextUtils;
-
-import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 

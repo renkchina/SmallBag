@@ -84,8 +84,10 @@ public class RegisterActivity extends BaseActivity {
                 break;
             case R.id.ac_register_teacher_ll:
                 registerPhone(2);
+                skipActivity(TeacherInformationActivity.class);
                 break;
             case R.id.activity_register_login_tv:
+                skipActivity(LoginActivity.class);
                 break;
         }
     }
@@ -120,7 +122,7 @@ public class RegisterActivity extends BaseActivity {
         iRegisterReq.goRegister(phone, password, verify)
                 .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
                 .compose(RxLifecycleCompact.bind(this).withObservable())
-                .filter(new HttpResultFilter<>())
+//                .filter(new HttpResultFilter<>())
                 .subscribe(bean -> {
                     LogUtil.show(bean);
                     if (bean.isSuccess()) {

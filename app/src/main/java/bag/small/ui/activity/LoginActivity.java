@@ -1,7 +1,6 @@
 package bag.small.ui.activity;
 
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,16 +12,12 @@ import bag.small.app.MyApplication;
 import bag.small.base.BaseActivity;
 import bag.small.http.HttpUtil;
 import bag.small.http.IApi.HttpError;
-import bag.small.http.IApi.HttpResultFilter;
 import bag.small.http.IApi.ILoginRequest;
-import bag.small.http.IApi.IRegisterReq;
 import bag.small.rx.RxUtil;
-import bag.small.utils.LogUtil;
 import bag.small.utils.StringUtil;
 import butterknife.Bind;
 import butterknife.OnClick;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
-import io.reactivex.disposables.Disposable;
 
 /**
  * Created by Administrator on 2017/7/22.
@@ -75,7 +70,7 @@ public class LoginActivity extends BaseActivity {
 
     private void goLogin(String phone, final String password) {
         iLoginRequest.appLogin(phone, password)
-//                .compose(RxLifecycleCompact.bind(this).withObservable())
+                .compose(RxLifecycleCompact.bind(this).withObservable())
                 .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
                 .subscribe(bean -> {
                     toast(bean.getMsg());

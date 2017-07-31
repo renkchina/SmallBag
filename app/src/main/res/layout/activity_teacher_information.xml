@@ -102,6 +102,7 @@
                 android:textSize="16sp" />
 
             <TextView
+                android:id="@+id/activity_is_teacher_tv"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -113,10 +114,53 @@
                 android:src="@mipmap/arrow_icon" />
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginEnd="18dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/ac_teacher_number_tv"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableEnd="@mipmap/arrow_icon"
+                android:gravity="center"
+                android:paddingEnd="15dp"
+                android:paddingStart="0dp"
+                android:text="届数" />
+
+            <TextView
+                android:id="@+id/ac_teacher_grade_tv"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableEnd="@mipmap/arrow_icon"
+                android:gravity="center"
+                android:paddingEnd="15dp"
+                android:paddingStart="0dp"
+                android:text="年级" />
+
+            <TextView
+                android:id="@+id/ac_teacher_class_tv"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableEnd="@mipmap/arrow_icon"
+                android:gravity="center"
+                android:paddingEnd="15dp"
+                android:paddingStart="0dp"
+                android:text="班级" />
+        </LinearLayout>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/activity_teacher_subject_recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@color/white"></android.support.v7.widget.RecyclerView>
     </LinearLayout>
 
