@@ -8,12 +8,18 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import bag.small.R;
+import bag.small.interfaze.IListDialog;
 import me.drakeet.multitype.ItemViewBinder;
 
 /**
  * Created by Administrator on 2017/7/29.
  */
 public class DialogListViewBinder extends ItemViewBinder<String, DialogListViewBinder.ViewHolder> {
+    private IListDialog iListDialog;
+
+    public DialogListViewBinder(IListDialog iListDialog) {
+        this.iListDialog = iListDialog;
+    }
 
     @NonNull
     @Override
@@ -25,7 +31,8 @@ public class DialogListViewBinder extends ItemViewBinder<String, DialogListViewB
 
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull String content) {
-
+        holder.textView.setText(content);
+        holder.textView.setOnClickListener(v -> iListDialog.callListener(content));
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

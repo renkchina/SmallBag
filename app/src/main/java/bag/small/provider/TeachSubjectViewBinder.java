@@ -15,13 +15,13 @@ import butterknife.ButterKnife;
 import me.drakeet.multitype.ItemViewBinder;
 
 /**
- * Created by Administrator on 2017/7/31.
+ * Created by Administrator on 2017/8/1.
  */
-public class TeachClassViewBinder extends ItemViewBinder<TeachClass, TeachClassViewBinder.ViewHolder> {
+public class TeachSubjectViewBinder extends ItemViewBinder<TeachSubject, TeachSubjectViewBinder.ViewHolder> {
 
     private IViewBinder iViewBinder;
 
-    public TeachClassViewBinder(IViewBinder iViewBinder) {
+    public TeachSubjectViewBinder(IViewBinder iViewBinder) {
         this.iViewBinder = iViewBinder;
     }
 
@@ -29,29 +29,24 @@ public class TeachClassViewBinder extends ItemViewBinder<TeachClass, TeachClassV
     @Override
     protected ViewHolder onCreateViewHolder(
             @NonNull LayoutInflater inflater, @NonNull ViewGroup parent) {
-        View root = inflater.inflate(R.layout.item_teacher_class_ll, parent, false);
+        View root = inflater.inflate(R.layout.item_teach_subject_ll, parent, false);
         return new ViewHolder(root);
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull TeachClass teachClass) {
-        holder.itemAddIv.setOnClickListener(v -> {
-            if (iViewBinder != null) {
-                iViewBinder.add(2, getPosition(holder));
+    protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull TeachSubject teachSubject) {
+        holder.itemSubjectAddIv.setOnClickListener(v -> {
+            if(iViewBinder!=null){
+                iViewBinder.add(1,getPosition(holder));
             }
         });
     }
 
-
     static class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.item_teacher_number_tv)
-        TextView itemTeacherNumberTv;
-        @Bind(R.id.item_teacher_grade_tv)
-        TextView itemTeacherGradeTv;
-        @Bind(R.id.item_teacher_class_tv)
-        TextView itemTeacherClassTv;
-        @Bind(R.id.item_class_add_num_iv)
-        ImageView itemAddIv;
+        @Bind(R.id.item_subject_tv)
+        TextView itemSubjectTv;
+        @Bind(R.id.item_subject_add_iv)
+        ImageView itemSubjectAddIv;
 
         ViewHolder(View view) {
             super(view);

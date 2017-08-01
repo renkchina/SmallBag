@@ -10,8 +10,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import bag.small.R;
 import bag.small.base.BaseActivity;
+import bag.small.entity.BaseBean;
+import bag.small.entity.RegisterInfoBean;
 import bag.small.http.HttpUtil;
 import bag.small.http.IApi.HttpError;
 import bag.small.http.IApi.HttpResultFilter;
@@ -20,6 +25,7 @@ import bag.small.http.IApi.IRegisterSendCode;
 import bag.small.rx.RxCountDown;
 import bag.small.rx.RxUtil;
 import bag.small.utils.GlobalValues;
+import bag.small.utils.ListUtil;
 import bag.small.utils.LogUtil;
 import bag.small.utils.StringUtil;
 import bag.small.utils.UserPreferUtil;
@@ -50,9 +56,10 @@ public class RegisterActivity extends BaseActivity {
     @Bind(R.id.activity_register_login_tv)
     TextView LoginTv;
 
-
     IRegisterSendCode iRegisterSendCode;
     private IRegisterReq iRegisterReq;
+
+    private List<RegisterInfoBean.SchoolBeanX> areaLists;
 
     @Override
     public int getLayoutResId() {
@@ -61,8 +68,10 @@ public class RegisterActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        setToolTitle("注册", true);
         iRegisterSendCode = HttpUtil.getInstance().createApi(IRegisterSendCode.class);
         iRegisterReq = HttpUtil.getInstance().createApi(IRegisterReq.class);
+        getRegisterInfo();
     }
 
     @OnClick({R.id.activity_register_send_code_btn,
@@ -112,8 +121,9 @@ public class RegisterActivity extends BaseActivity {
                 .compose(RxLifecycleCompact.bind(this).withObservable())
                 .filter(new HttpResultFilter<>())
                 .subscribe(bean -> {
-                    if (!TextUtils.isEmpty(bean.getData())) {
+                    if (bean.isSuccess()) {
                         RxCountDown.TimerDown(GlobalValues.COUNT_DOWN_TIME, rSendCodeBtn);
+                        toast(bean.getData());
                     }
                 }, new HttpError());
     }
@@ -138,5 +148,29 @@ public class RegisterActivity extends BaseActivity {
                 }, new HttpError());
     }
 
+    private void getRegisterInfo() {
+        iRegisterReq.getRegisterInfo()
+                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                .compose(RxLifecycleCompact.bind(this).withObservable())
+                .subscribe(bean -> {
+                    if (bean.isSuccess()) {
+                        LogUtil.show(bean);
+                        areaLists = getArea(bean.getData());
+                    }
+                }, new HttpError());
+    }
 
+    private List<RegisterInfoBean.SchoolBeanX> getArea(RegisterInfoBean bean) {
+        List<RegisterInfoBean.SchoolBeanX> lists = new ArrayList<>();
+        if (bean != null && ListUtil.unEmpty(bean.getSchool())) {
+            int size = bean.getSchool().size();
+            for (int i = 0; i < size; i++) {
+                RegisterInfoBean.SchoolBeanX info = bean.getSchool().get(i);
+                lists.add(info);
+            }
+        }
+        return lists;
+    }
+
+//    private void  get
 }

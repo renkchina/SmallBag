@@ -2,6 +2,7 @@ package bag.small.http.IApi;
 
 import bag.small.entity.BaseBean;
 import bag.small.entity.LoginBean;
+import bag.small.entity.RegisterInfoBean;
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import retrofit2.http.POST;
@@ -13,6 +14,11 @@ import retrofit2.http.Query;
  */
 
 public interface IRegisterReq {
+
+
+
+    @POST("commons/registerinfo")
+    Observable<BaseBean<RegisterInfoBean>> getRegisterInfo();
 
     @POST("commons/register")
     Observable<BaseBean<LoginBean>> goRegister(@Query("phone") String phone,

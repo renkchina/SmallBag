@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:orientation="horizontal"
+    android:background="@color/white"
+    android:gravity="center_vertical"
+    >
+    <TextView
+        android:id="@+id/item_subject_tv"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:gravity="center_vertical|start"
+        android:text="教授学科"
+        android:textSize="16sp" />
+
+    <ImageView
+        style="@style/imge_down_style"
+        android:src="@mipmap/arrow_icon" />
+
+    <ImageView
+        android:id="@+id/item_subject_add_iv"
+        android:layout_width="15dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="9dp"
+        android:layout_marginStart="9dp"
+        android:src="@mipmap/add_line_circle" />
+</LinearLayout>

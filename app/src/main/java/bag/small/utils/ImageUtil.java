@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 
 import bag.small.BuildConfig;
+import bag.small.R;
 import bag.small.view.GlideCircleTransform;
 
 
@@ -24,6 +25,7 @@ public class ImageUtil {
             Glide.with(context).load(url).into(imageView);
         }
     }
+
     public static void loadLocalImages(Context context, ImageView imageView, String url) {
         if (context != null) {
             Glide.with(context).load(url).into(imageView);
@@ -32,11 +34,10 @@ public class ImageUtil {
 
     public static void loadCircleImages(Context context, ImageView imageView, String url) {
         if (context != null) {
-            if (TextUtils.isEmpty(url)) {
+            if (url == null) {
                 url = "http://www.bz55.com/uploads/allimg/150701/140-150F1142638.jpg";
             }
-            Glide.with(context).load(url).transform(new GlideCircleTransform(context)).into(imageView);
-
+            Glide.with(context).load(url).placeholder(R.mipmap.photo_update_nomal).transform(new GlideCircleTransform(context)).into(imageView);
         }
     }
 

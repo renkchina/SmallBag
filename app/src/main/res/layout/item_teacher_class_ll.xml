@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:background="@color/white"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/item_teacher_number_tv"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:drawableEnd="@mipmap/arrow_icon"
+        android:gravity="center"
+        android:paddingEnd="15dp"
+        android:paddingStart="0dp"
+        android:text="届数" />
+
+    <TextView
+        android:id="@+id/item_teacher_grade_tv"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:drawableEnd="@mipmap/arrow_icon"
+        android:gravity="center"
+        android:paddingEnd="15dp"
+        android:paddingStart="0dp"
+        android:text="年级" />
+
+    <TextView
+        android:id="@+id/item_teacher_class_tv"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:drawableEnd="@mipmap/arrow_icon"
+        android:gravity="center"
+        android:paddingEnd="15dp"
+        android:paddingStart="0dp"
+        android:text="班级" />
+
+    <ImageView
+        android:id="@+id/item_class_add_num_iv"
+        android:layout_width="15dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="9dp"
+        android:layout_marginStart="9dp"
+        android:src="@mipmap/add_line_circle" />
+</LinearLayout>

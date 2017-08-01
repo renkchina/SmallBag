@@ -129,7 +129,7 @@
                 android:background="@null"
                 android:hint="@string/ac_login_password_edt_hint_str"
                 android:imeOptions="actionNext"
-                android:inputType="number"
+                android:inputType="textPassword"
                 android:maxLength="11"
                 android:textColor="@color/txt_gray"
                 android:textColorHint="@color/un_enable_gray"
