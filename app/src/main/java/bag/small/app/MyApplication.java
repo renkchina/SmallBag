@@ -5,8 +5,10 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
 
+import com.caimuhao.rxpicker.RxPicker;
 import com.umeng.analytics.game.UMGameAgent;
 
+import bag.small.utils.GlideImageLoader;
 import bag.small.utils.LogUtil;
 
 /**

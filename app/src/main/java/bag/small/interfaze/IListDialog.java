@@ -5,5 +5,5 @@ package bag.small.interfaze;
  */
 
 public interface IListDialog {
-    void callListener(String content);
+    void callListener(int position, String content);
 }

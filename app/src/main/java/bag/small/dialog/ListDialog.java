@@ -36,7 +36,7 @@ public class ListDialog implements IListDialog {
     private IListDialog iListDialog;
 
 
-    public void setiListDialog(IListDialog iListDialog) {
+    public void setListDialog(IListDialog iListDialog) {
         this.iListDialog = iListDialog;
     }
 
@@ -52,8 +52,8 @@ public class ListDialog implements IListDialog {
         recyclerView.setAdapter(multiTypeAdapter);
 
         mPopupWindow = new PopupWindow(view);
-        mPopupWindow.setWidth(DensityUtil.dp2px(context,300));
-        mPopupWindow.setHeight(DensityUtil.dp2px(context,300));
+        mPopupWindow.setWidth(DensityUtil.dp2px(context, 300));
+        mPopupWindow.setHeight(DensityUtil.dp2px(context, 300));
 
         mPopupWindow.setTouchable(true);
         mPopupWindow.setOutsideTouchable(true);
@@ -61,15 +61,15 @@ public class ListDialog implements IListDialog {
     }
 
     public void setListData(List datas) {
+        items.clear();
         if (ListUtil.unEmpty(datas)) {
-            items.clear();
             items.addAll(datas);
-            multiTypeAdapter.notifyDataSetChanged();
         }
+        multiTypeAdapter.notifyDataSetChanged();
     }
 
     public void show(View view) {
-        if (!mPopupWindow.isShowing()) {
+        if (!mPopupWindow.isShowing() && items.size() > 0) {
             mPopupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
 //            mPopupWindow.showAsDropDown(view, 0, 5);
         }
@@ -80,9 +80,9 @@ public class ListDialog implements IListDialog {
     }
 
     @Override
-    public void callListener(String content) {
+    public void callListener(int position, String content) {
         if (iListDialog != null) {
-            iListDialog.callListener(content);
+            iListDialog.callListener(position, content);
         }
         if (isShowing()) {
             mPopupWindow.dismiss();

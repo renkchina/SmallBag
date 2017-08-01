@@ -14,8 +14,10 @@ import java.util.List;
 
 import bag.small.R;
 import bag.small.dialog.ListDialog;
+import bag.small.entity.RegisterInfoBean;
 import bag.small.interfaze.IListDialog;
 import bag.small.interfaze.IViewBinder;
+import bag.small.utils.ListUtil;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import me.drakeet.multitype.ItemViewBinder;
@@ -26,34 +28,17 @@ import me.drakeet.multitype.ItemViewBinder;
 public class TeachSubjectClassViewBinder extends ItemViewBinder<TeachSubjectClass, TeachSubjectClassViewBinder.ViewHolder> implements IListDialog {
     private IViewBinder iViewBinder;
     private ListDialog listDialog;
+    private RegisterInfoBean.SchoolBeanX area;
+    private RegisterInfoBean.SchoolBeanX.SchoolBean.BaseBean.JieBean jie;
+    private List<RegisterInfoBean.SchoolBeanX.SchoolBean.BaseBean.JieBean.KecheBean> course;
+
+    public void setArea(RegisterInfoBean.SchoolBeanX area) {
+        this.area = area;
+    }
 
     public TeachSubjectClassViewBinder(IViewBinder iViewBinder) {
         this.iViewBinder = iViewBinder;
         listDialog = new ListDialog((Context) iViewBinder);
-    }
-
-    private List<String> getJieci() {
-        List<String> lists = new ArrayList<>();
-        for (int i = 0; i < 30; i++) {
-            lists.add(String.valueOf(i + 1990) + "届");
-        }
-        return lists;
-    }
-
-    private List<String> getNianJi() {
-        List<String> lists = new ArrayList<>();
-        for (int i = 0; i < 11; i++) {
-            lists.add(String.valueOf(i + 1) + "年级");
-        }
-        return lists;
-    }
-
-    private List<String> getBanji() {
-        List<String> lists = new ArrayList<>();
-        for (int i = 0; i < 30; i++) {
-            lists.add(String.valueOf(i + 1) + "班");
-        }
-        return lists;
     }
 
 
@@ -75,36 +60,94 @@ public class TeachSubjectClassViewBinder extends ItemViewBinder<TeachSubjectClas
         }
         holder.itemSubjectAddIv.setOnClickListener(v -> {
             if (iViewBinder != null) {
-                if(bean.isAdd()){
+                if (bean.isAdd()) {
                     iViewBinder.delete(position);
-                }else {
+                } else {
                     iViewBinder.add(0, position);
                 }
             }
         });
         holder.itemSubjectTv.setOnClickListener(v -> {
-//            listDialog.setListData(get);
+            if (ListUtil.unEmpty(course)) {
+                listDialog.setListData(getKeChen());
+                listDialog.show(v);
+                listDialog.setListDialog((position1, content) -> {
+                    ((TextView) v).setText(content);
+                    bean.setKemu(course.get(position1).getValue());
+                });
+            }
         });
         holder.itemTeacherNumberTv.setOnClickListener(v -> {
-            listDialog.setListData(getJieci());
-            listDialog.show(v);
-            listDialog.setiListDialog(((TextView) v)::setText);
+            if (area != null) {
+                listDialog.setListData(getJieCi());
+                listDialog.show(v);
+                listDialog.setListDialog((position1, content) -> {
+                    ((TextView) v).setText(content);
+                    jie = area.getSchool().getBase().getJie().get(position);
+                    holder.itemTeacherGradeTv.setText(jie.getNianji_name());
+                    bean.setJieci(jie.getValue());
+                    bean.setNianji(jie.getNianji());
+                });
+            }
         });
-        holder.itemTeacherGradeTv.setOnClickListener(v -> {
-            listDialog.setListData(getNianJi());
-            listDialog.show(v);
-            listDialog.setiListDialog(((TextView) v)::setText);
-        });
+
         holder.itemTeacherClassTv.setOnClickListener(v -> {
-            listDialog.setListData(getBanji());
-            listDialog.show(v);
-            listDialog.setiListDialog(((TextView) v)::setText);
+            if (jie != null) {
+                listDialog.setListData(getBanji());
+                listDialog.show(v);
+                listDialog.setListDialog((position1, content) -> {
+                    ((TextView) v).setText(content);
+                    course = jie.getKeche();
+                    bean.setBanji(jie.getBanji().get(position1).getValue());
+                });
+            }
         });
     }
 
-    @Override
-    public void callListener(String content) {
 
+    @Override
+    public void callListener(int position, String content) {
+
+    }
+
+
+    private List<String> getJieCi() {
+        List<String> lists = new ArrayList<>();
+        if (area == null) {
+            return lists;
+        }
+        List<RegisterInfoBean.SchoolBeanX.SchoolBean.BaseBean.JieBean> list =
+                area.getSchool().getBase().getJie();
+        if (ListUtil.unEmpty(list)) {
+            for (RegisterInfoBean.SchoolBeanX.SchoolBean.BaseBean.JieBean jieBean : list) {
+                lists.add(jieBean.getName());
+            }
+        }
+        return lists;
+    }
+
+    private List<String> getBanji() {
+        List<String> lists = new ArrayList<>();
+        if (jie == null) {
+            return lists;
+        }
+        if (ListUtil.unEmpty(jie.getBanji())) {
+            List<RegisterInfoBean.SchoolBeanX.SchoolBean.BaseBean.JieBean.BanjiBean> list = jie.getBanji();
+            for (RegisterInfoBean.SchoolBeanX.SchoolBean.BaseBean.JieBean.BanjiBean banjiBean : list) {
+                lists.add(banjiBean.getText());
+            }
+        }
+        return lists;
+    }
+
+    private List<String> getKeChen() {
+        List<String> lists = new ArrayList<>();
+        if (ListUtil.unEmpty(course)) {
+            for (RegisterInfoBean.SchoolBeanX.SchoolBean.BaseBean.JieBean.KecheBean kecheBean : course) {
+                lists.add(kecheBean.getText());
+            }
+        }
+        return lists;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

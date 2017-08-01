@@ -1,8 +1,12 @@
 package bag.small.ui.activity;
 
 import android.os.Handler;
+
+import com.caimuhao.rxpicker.RxPicker;
+
 import bag.small.R;
 import bag.small.base.BaseActivity;
+import bag.small.utils.GlideImageLoader;
 
 public class WelcomeActivity extends BaseActivity {
 
@@ -14,6 +18,7 @@ public class WelcomeActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        RxPicker.init(new GlideImageLoader());
         boolean unFirst = getBoolValue("unFirst");
         new Handler().postDelayed(() -> {
             if (unFirst) {

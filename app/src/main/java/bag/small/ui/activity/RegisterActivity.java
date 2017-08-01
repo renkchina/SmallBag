@@ -71,7 +71,6 @@ public class RegisterActivity extends BaseActivity {
         setToolTitle("注册", true);
         iRegisterSendCode = HttpUtil.getInstance().createApi(IRegisterSendCode.class);
         iRegisterReq = HttpUtil.getInstance().createApi(IRegisterReq.class);
-        getRegisterInfo();
     }
 
     @OnClick({R.id.activity_register_send_code_btn,
@@ -90,6 +89,7 @@ public class RegisterActivity extends BaseActivity {
                 break;
             case R.id.ac_register_parent_ll:
                 registerPhone(1);
+                skipActivity(ParentInformationActivity.class);
                 break;
             case R.id.ac_register_teacher_ll:
                 registerPhone(2);
@@ -132,7 +132,6 @@ public class RegisterActivity extends BaseActivity {
         iRegisterReq.goRegister(phone, password, verify)
                 .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
                 .compose(RxLifecycleCompact.bind(this).withObservable())
-//                .filter(new HttpResultFilter<>())
                 .subscribe(bean -> {
                     LogUtil.show(bean);
                     if (bean.isSuccess()) {
@@ -143,34 +142,11 @@ public class RegisterActivity extends BaseActivity {
                             skipActivity(TeacherInformationActivity.class);
                         }
                     } else {
+                        toast("获取失败");
                     }
 
                 }, new HttpError());
     }
 
-    private void getRegisterInfo() {
-        iRegisterReq.getRegisterInfo()
-                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
-                .compose(RxLifecycleCompact.bind(this).withObservable())
-                .subscribe(bean -> {
-                    if (bean.isSuccess()) {
-                        LogUtil.show(bean);
-                        areaLists = getArea(bean.getData());
-                    }
-                }, new HttpError());
-    }
 
-    private List<RegisterInfoBean.SchoolBeanX> getArea(RegisterInfoBean bean) {
-        List<RegisterInfoBean.SchoolBeanX> lists = new ArrayList<>();
-        if (bean != null && ListUtil.unEmpty(bean.getSchool())) {
-            int size = bean.getSchool().size();
-            for (int i = 0; i < size; i++) {
-                RegisterInfoBean.SchoolBeanX info = bean.getSchool().get(i);
-                lists.add(info);
-            }
-        }
-        return lists;
-    }
-
-//    private void  get
 }

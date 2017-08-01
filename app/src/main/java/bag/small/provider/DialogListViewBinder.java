@@ -32,7 +32,7 @@ public class DialogListViewBinder extends ItemViewBinder<String, DialogListViewB
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull String content) {
         holder.textView.setText(content);
-        holder.textView.setOnClickListener(v -> iListDialog.callListener(content));
+        holder.textView.setOnClickListener(v -> iListDialog.callListener(getPosition(holder), content));
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
