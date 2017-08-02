@@ -70,7 +70,7 @@ public class HttpUtil {
                         .addEncodedQueryParameter("timespan", time)
                         .addEncodedQueryParameter("singure", MD5Util.md5(time))
                         .build();
-                request = original.newBuilder().url(modifiedUrl).build();
+                request = original.newBuilder().url(modifiedUrl).header("accept", "application/json").build();
 //            } else if ("POST".equals(method)) {
 //                Request.Builder requestBuilder = original.newBuilder();
 //                if (original.body() instanceof FormBody) {

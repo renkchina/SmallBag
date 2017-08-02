@@ -52,8 +52,8 @@ public class ListDialog implements IListDialog {
         recyclerView.setAdapter(multiTypeAdapter);
 
         mPopupWindow = new PopupWindow(view);
-        mPopupWindow.setWidth(DensityUtil.dp2px(context, 300));
-        mPopupWindow.setHeight(DensityUtil.dp2px(context, 300));
+        mPopupWindow.setWidth(DensityUtil.dp2px(context, 200));
+        mPopupWindow.setHeight(DensityUtil.dp2px(context, 250));
 
         mPopupWindow.setTouchable(true);
         mPopupWindow.setOutsideTouchable(true);

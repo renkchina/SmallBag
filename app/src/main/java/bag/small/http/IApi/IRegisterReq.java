@@ -16,7 +16,6 @@ import retrofit2.http.Query;
 public interface IRegisterReq {
 
 
-
     @POST("commons/registerinfo")
     Observable<BaseBean<RegisterInfoBean>> getRegisterInfo();
 
@@ -24,18 +23,20 @@ public interface IRegisterReq {
     Observable<BaseBean<LoginBean>> goRegister(@Query("phone") String phone,
                                                @Query("pwd") String password,
                                                @Query("verify") String code);
+
     @POST("commons/registerteacher")
-    Observable<BaseBean<String>> goRegisterAsTeacher(@Query("login_id") String loginId,
-                                                     @Query("sex") int sex,//0man
-                                                     @Query("birth") String birth,//2016-03-03
+    Observable<BaseBean<String>> goRegisterAsTeacher(@Query("login_id") int loginId,
+//                                                     @Query("sex") int sex,//0man
+//                                                     @Query("birth") String birth,//2016-03-03
                                                      @Query("name") String name,
+                                                     @Query("phone") String phone,
                                                      @Query("school_id") String schoolId,
-                                                     @Query("is_master") String isMaster,//
+                                                     @Query("is_master") int isMaster,//
                                                      @Query("jieci") String jieci,
-                                                     @Query("nianji") String nianji,
+                                                     @Query("nianji") int nianji,
                                                      @Query("banji") String banji,
-                                                     @Part MultipartBody.Part logo,
-                                            @Query("phone") String phone);
+                                                     @Query("logo") String logo,
+                                                     @Query("jiaoxue") String[][] jiaoxue);
 
 
 }

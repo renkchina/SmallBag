@@ -2,9 +2,13 @@ package bag.small.utils;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+
+import java.io.File;
+import java.io.FileInputStream;
 
 import bag.small.BuildConfig;
 import bag.small.R;
@@ -41,5 +45,12 @@ public class ImageUtil {
         }
     }
 
-
+    public static String encodeBase64File(String path) throws Exception {
+        File file = new File(path);
+        FileInputStream inputFile = new FileInputStream(file);
+        byte[] buffer = new byte[(int)file.length()];
+        inputFile.read(buffer);
+        inputFile.close();
+        return Base64.encodeToString(buffer,Base64.DEFAULT);
+    }
 }

@@ -20,7 +20,7 @@ public class StringUtil {
     private StringUtil() {
     }
 
-    public static String EditGetString(EditText editText) {
+    public static String EditGetString(TextView editText) {
         if (editText != null) {
             return editText.getText().toString().trim();
         } else {
@@ -96,5 +96,26 @@ public class StringUtil {
         } else {
             tv.setText(content);
         }
+    }
+
+    /**
+     * 去除小数点
+     *
+     * @param value
+     * @return
+     */
+    private static String changeDone(double value) {
+        String s;
+        try {
+            s = Double.toString(value);
+            if (s.indexOf(".") > 0) {
+                s = s.replaceAll("0+?$", "");
+                s = s.replaceAll("[.]$", "");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            s = "0";
+        }
+        return s;
     }
 }

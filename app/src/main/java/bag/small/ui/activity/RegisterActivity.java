@@ -89,11 +89,11 @@ public class RegisterActivity extends BaseActivity {
                 break;
             case R.id.ac_register_parent_ll:
                 registerPhone(1);
-                skipActivity(ParentInformationActivity.class);
+//                skipActivity(ParentInformationActivity.class);
                 break;
             case R.id.ac_register_teacher_ll:
                 registerPhone(2);
-                skipActivity(TeacherInformationActivity.class);
+//                skipActivity(TeacherInformationActivity.class);
                 break;
             case R.id.activity_register_login_tv:
                 skipActivity(LoginActivity.class);
@@ -115,11 +115,9 @@ public class RegisterActivity extends BaseActivity {
 
     private void getCodeByPhone(String phone) {
         iRegisterSendCode.sendCodeRequest(phone)
-                //1.线程切换的封装
                 .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
-                //2.当前Activity onStop时自动取消请求
                 .compose(RxLifecycleCompact.bind(this).withObservable())
-                .filter(new HttpResultFilter<>())
+//                .filter(new HttpResultFilter<>())
                 .subscribe(bean -> {
                     if (bean.isSuccess()) {
                         RxCountDown.TimerDown(GlobalValues.COUNT_DOWN_TIME, rSendCodeBtn);
