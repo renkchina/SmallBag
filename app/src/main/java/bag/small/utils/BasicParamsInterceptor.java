@@ -1,5 +1,7 @@
 package bag.small.utils;
 
+import android.text.TextUtils;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,20 +14,22 @@ import okhttp3.Headers;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okio.Buffer;
 
 /**
- * Created by Administrator on 2017/7/17.
+ * Created by Administrator on 2017/8/2.
  */
+
 public class BasicParamsInterceptor implements Interceptor {
 
-    Map<String, String> queryParamsMap = new HashMap<>();
-    Map<String, String> paramsMap = new HashMap<>();
-    Map<String, String> headerParamsMap = new HashMap<>();
-    List<String> headerLinesList = new ArrayList<>();
+    private Map<String, String> queryParamsMap = new HashMap<>();
+    private Map<String, String> paramsMap = new HashMap<>();
+    private Map<String, String> headerParamsMap = new HashMap<>();
+    private List<String> headerLinesList = new ArrayList<>();
 
     private BasicParamsInterceptor() {
 
@@ -40,9 +44,8 @@ public class BasicParamsInterceptor implements Interceptor {
         // process header params inject
         Headers.Builder headerBuilder = request.headers().newBuilder();
         if (headerParamsMap.size() > 0) {
-            Iterator iterator = headerParamsMap.entrySet().iterator();
-            while (iterator.hasNext()) {
-                Map.Entry entry = (Map.Entry) iterator.next();
+            for (Object o : headerParamsMap.entrySet()) {
+                Map.Entry entry = (Map.Entry) o;
                 headerBuilder.add((String) entry.getKey(), (String) entry.getValue());
             }
         }
@@ -51,65 +54,96 @@ public class BasicParamsInterceptor implements Interceptor {
             for (String line: headerLinesList) {
                 headerBuilder.add(line);
             }
+            requestBuilder.headers(headerBuilder.build());
         }
-
-        requestBuilder.headers(headerBuilder.build());
         // process header params end
-
-
 
 
         // process queryParams inject whatever it's GET or POST
-        if (queryParamsMap.size() > 0) {
-            injectParamsIntoUrl(request, requestBuilder, queryParamsMap);
-        }
-        // process header params end
-
-
-
+        if (queryParamsMap.size() > 0)
+            request = injectParamsIntoUrl(request.url().newBuilder(), requestBuilder, queryParamsMap);
 
         // process post body inject
-        if (request.method().equals("POST") && request.body().contentType().subtype().equals("x-www-form-urlencoded")) {
-            FormBody.Builder formBodyBuilder = new FormBody.Builder();
-            if (paramsMap.size() > 0) {
-                Iterator iterator = paramsMap.entrySet().iterator();
-                while (iterator.hasNext()) {
-                    Map.Entry entry = (Map.Entry) iterator.next();
-                    formBodyBuilder.add((String) entry.getKey(), (String) entry.getValue());
+        assert request != null;
+        if (paramsMap != null && paramsMap.size() > 0 && request.method().equals("POST")) {
+            if (request.body() instanceof FormBody) {
+                FormBody.Builder newFormBodyBuilder = new FormBody.Builder();
+                if (paramsMap.size() > 0) {
+                    for (Object o : paramsMap.entrySet()) {
+                        Map.Entry entry = (Map.Entry) o;
+                        newFormBodyBuilder.add((String) entry.getKey(), (String) entry.getValue());
+                    }
                 }
-            }
-            RequestBody formBody = formBodyBuilder.build();
-            String postBodyString = bodyToString(request.body());
-            postBodyString += ((postBodyString.length() > 0) ? "&" : "") +  bodyToString(formBody);
-            requestBuilder.post(RequestBody.create(MediaType.parse("application/x-www-form-urlencoded;charset=UTF-8"), postBodyString));
-        } else {    // can't inject into body, then inject into url
-            injectParamsIntoUrl(request, requestBuilder, paramsMap);
-        }
 
-        request = requestBuilder.build();
+                FormBody oldFormBody = (FormBody) request.body();
+                int paramSize = oldFormBody.size();
+                if (paramSize > 0) {
+                    for (int i=0;i<paramSize;i++) {
+                        newFormBodyBuilder.add(oldFormBody.name(i), oldFormBody.value(i));
+                    }
+                }
+
+                requestBuilder.post(newFormBodyBuilder.build());
+                request = requestBuilder.build();
+            } else if (request.body() instanceof MultipartBody) {
+                MultipartBody.Builder multipartBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
+
+                for (Object o : paramsMap.entrySet()) {
+                    Map.Entry entry = (Map.Entry) o;
+                    multipartBuilder.addFormDataPart((String) entry.getKey(), (String) entry.getValue());
+                }
+
+                List<MultipartBody.Part> oldParts = ((MultipartBody)request.body()).parts();
+                if (oldParts != null && oldParts.size() > 0) {
+                    for (MultipartBody.Part part : oldParts) {
+                        multipartBuilder.addPart(part);
+                    }
+                }
+
+                requestBuilder.post(multipartBuilder.build());
+                request = requestBuilder.build();
+            }
+
+        }
         return chain.proceed(request);
+    }
+    private boolean canInjectIntoBody(Request request) {
+        if (request == null) {
+            return false;
+        }
+        if (!TextUtils.equals(request.method(), "POST")) {
+            return false;
+        }
+        RequestBody body = request.body();
+        if (body == null) {
+            return false;
+        }
+        MediaType mediaType = body.contentType();
+        if (mediaType == null) {
+            return false;
+        }
+        return TextUtils.equals(mediaType.subtype(), "x-www-form-urlencoded");
     }
 
     // func to inject params into url
-    private void injectParamsIntoUrl(Request request, Request.Builder requestBuilder, Map<String, String> paramsMap) {
-        HttpUrl.Builder httpUrlBuilder = request.url().newBuilder();
+    private Request injectParamsIntoUrl(HttpUrl.Builder httpUrlBuilder, Request.Builder requestBuilder, Map<String, String> paramsMap) {
         if (paramsMap.size() > 0) {
-            Iterator iterator = paramsMap.entrySet().iterator();
-            while (iterator.hasNext()) {
-                Map.Entry entry = (Map.Entry) iterator.next();
+            for (Object o : paramsMap.entrySet()) {
+                Map.Entry entry = (Map.Entry) o;
                 httpUrlBuilder.addQueryParameter((String) entry.getKey(), (String) entry.getValue());
             }
+            requestBuilder.url(httpUrlBuilder.build());
+            return requestBuilder.build();
         }
 
-        requestBuilder.url(httpUrlBuilder.build());
+        return null;
     }
 
     private static String bodyToString(final RequestBody request){
         try {
-            final RequestBody copy = request;
             final Buffer buffer = new Buffer();
-            if(copy != null)
-                copy.writeTo(buffer);
+            if(request != null)
+                request.writeTo(buffer);
             else
                 return "";
             return buffer.readUtf8();
@@ -125,6 +159,9 @@ public class BasicParamsInterceptor implements Interceptor {
 
         public Builder() {
             interceptor = new BasicParamsInterceptor();
+            String time = getSystemTimes();
+            interceptor.paramsMap.put("timespan", time);
+            interceptor.paramsMap.put("singure", MD5Util.md5(time));
         }
 
         public Builder addParam(String key, String value) {
@@ -180,6 +217,8 @@ public class BasicParamsInterceptor implements Interceptor {
         public BasicParamsInterceptor build() {
             return interceptor;
         }
-
+        private String getSystemTimes() {
+            return String.valueOf(System.currentTimeMillis() / 1000);
+        }
     }
 }

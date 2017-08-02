@@ -14,6 +14,8 @@ import com.caimuhao.rxpicker.bean.ImageItem;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import bag.small.R;
 import bag.small.base.BaseActivity;
@@ -27,6 +29,8 @@ import bag.small.rx.RxUtil;
 import bag.small.utils.ImageUtil;
 import bag.small.utils.ListUtil;
 import bag.small.utils.LogUtil;
+import bag.small.utils.StringUtil;
+import bag.small.utils.UserPreferUtil;
 import butterknife.Bind;
 import butterknife.OnClick;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
@@ -71,10 +75,14 @@ public class ParentInformationActivity extends BaseActivity {
     Button pParentCommitBtn;
     private ListDialog listDiaolg;
     private IRegisterReq iRegisterReq;
-    private List<RegisterInfoBean.SchoolBeanX> areaLists;
     private RegisterInfoBean.SchoolBeanX area;
+    private List<RegisterInfoBean.SchoolBeanX> areaLists;
     private RegisterInfoBean.SchoolBeanX.SchoolBean.BaseBean.JieBean jie;
-    private List<RegisterInfoBean.SchoolBeanX.SchoolBean.BaseBean.JieBean.KecheBean> course;
+    private String school_id;
+    private String jieci;
+    private int nianji;
+    private String banji;
+//    private List<RegisterInfoBean.SchoolBeanX.SchoolBean.BaseBean.JieBean.KecheBean> course;
 
     @Override
     public int getLayoutResId() {
@@ -107,6 +115,7 @@ public class ParentInformationActivity extends BaseActivity {
                 listDiaolg.setListDialog((position, content) -> {
                     pAreaSchoolTv.setText(content);
                     area = areaLists.get(position);
+                    school_id = area.getSchool().getId();
                     pStudySchoolTv.setText(area.getSchool().getName());
                 });
                 break;
@@ -116,7 +125,9 @@ public class ParentInformationActivity extends BaseActivity {
                 listDiaolg.setListData(getJieCi());
                 listDiaolg.show(view);
                 listDiaolg.setListDialog((position, content) -> {
+                    jieci = getNumbers(content);
                     pStudyNumTv.setText(content);
+                    nianji = jie.getNianji();
                     jie = area.getSchool().getBase().getJie().get(position);
                     pGradeTv.setText(jie.getNianji_name());
                 });
@@ -128,7 +139,8 @@ public class ParentInformationActivity extends BaseActivity {
                 listDiaolg.show(view);
                 listDiaolg.setListDialog((position, content) -> {
                     pClassTv.setText(content);
-                    course = jie.getKeche();
+                    banji = getNumbers(content);
+//                    course = jie.getKeche();
                 });
                 break;
             case R.id.activity_guardian_ll:
@@ -137,6 +149,13 @@ public class ParentInformationActivity extends BaseActivity {
                 listDiaolg.setListDialog((position, content) -> pGuardianTv.setText(content));
                 break;
             case R.id.activity_parent_commit_btn:
+                String xuehao = StringUtil.EditGetString(pStudentNumberEdt);
+                String name = StringUtil.EditGetString(pStudentNameEdt);
+                String jianhuren = StringUtil.EditGetString(pParentPhoneEdit);
+                String phone = StringUtil.EditGetString(pParentPhoneEdit);
+                String guanxi = StringUtil.EditGetString(pGuardianTv);
+//                requestHttp(name,xuehao, UserPreferUtil.getInstanse().getUserId(),
+//                        school_id,jieci,nianji,banji,logo,jianhuren,phone,guanxi)
                 break;
         }
     }
@@ -182,6 +201,19 @@ public class ParentInformationActivity extends BaseActivity {
             }
         }
         return lists;
+    }
+
+    //截取数字
+    public String getNumbers(String content) {
+        if (TextUtils.isEmpty(content)) {
+            return "";
+        }
+        Pattern pattern = Pattern.compile("\\d+");
+        Matcher matcher = pattern.matcher(content);
+        while (matcher.find()) {
+            return matcher.group(0);
+        }
+        return "";
     }
 
     private List<String> getJieCi() {

@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main_drawer"
     android:layout_width="match_parent"
-
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context="bag.small.ui.activity.MainActivity">
@@ -33,13 +32,77 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="200dp"
+        android:layout_width="205dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/colorPrimary"
+        android:background="@color/white"
         android:orientation="vertical">
 
-    </LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/main_drawer_left_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 
+        <Button
+            android:id="@+id/main_drawer_left_add_account_btn"
+            android:layout_width="164dp"
+            android:layout_height="38dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="22dp"
+            android:background="@drawable/shape_ac_login_btn_back_fill"
+            android:text="+添加角色"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/main_drawer_left_account_manager_tv"
+            android:layout_width="match_parent"
+            android:layout_height="66dp"
+            android:drawableStart="@mipmap/account_manager"
+            android:paddingEnd="0dp"
+            android:paddingStart="46dp"
+            android:text="账号管理"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/main_drawer_left_soft_setting_tv"
+            android:layout_width="match_parent"
+            android:layout_height="66dp"
+            android:drawableStart="@mipmap/soft_setting"
+            android:paddingEnd="0dp"
+            android:paddingStart="46dp"
+            android:text="软件设置"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/main_drawer_left_help_tv"
+            android:layout_width="match_parent"
+            android:layout_height="66dp"
+            android:drawableStart="@mipmap/help_me"
+            android:paddingEnd="0dp"
+            android:paddingStart="46dp"
+            android:text="反馈与帮助"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/main_drawer_left_about_tv"
+            android:layout_width="match_parent"
+            android:layout_height="66dp"
+            android:drawableStart="@mipmap/about_ours"
+            android:paddingEnd="0dp"
+            android:paddingStart="46dp"
+            android:text="关于"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/main_drawer_left_exit_tv"
+            android:layout_width="match_parent"
+            android:layout_height="66dp"
+            android:drawableStart="@mipmap/exit_system"
+            android:paddingEnd="0dp"
+            android:paddingStart="46dp"
+            android:text="退出"
+            android:textSize="20sp" />
+    </LinearLayout>
 
 </android.support.v4.widget.DrawerLayout>
