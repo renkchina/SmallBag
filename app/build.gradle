@@ -105,7 +105,7 @@ dependencies {
     //banner
     compile project(path: ':banner')
     //provider
-    compile project(path: ':library')
+    compile project(path: ':viewBinder')
     //友盟
     compile files('src/main/jniLibs/umeng-analytics-v6.1.1.jar')
     compile files('src/main/jniLibs/utdid4all-1.0.4.jar')
@@ -132,5 +132,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.2-alpha-5'
     compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.2-alpha-5'
-    compile 'top.zibin:Luban:1.1.2'
+//    compile 'top.zibin:Luban:1.1.2'
+    compile project(path: ':luban')
 }

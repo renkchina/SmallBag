@@ -226,7 +226,7 @@ public class TeacherInformationActivity extends BaseActivity
     }
 
     private void sendCode() {
-        String phone = StringUtil.EditGetString(vertifyCode);
+        String phone = StringUtil.EditGetString(aTeacherPhoneEdit);
         if (TextUtils.isEmpty(phone)) {
             toast("请输入验证码！");
         } else {
@@ -360,7 +360,7 @@ public class TeacherInformationActivity extends BaseActivity
         ImageUtil.loadCircleImages(this, mHeadImage, path);
         String finalPath = path;
         Luban.with(this)
-                .load(new File(path))//传人要压缩的图片
+                .load(new File(path))//传入要压缩的图片
                 .setCompressListener(new OnCompressListener() { //设置回调
                     @Override
                     public void onStart() {

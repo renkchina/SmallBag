@@ -107,6 +107,8 @@ public class RegisterActivity extends BaseActivity {
                     if (bean.isSuccess()) {
                         RxCountDown.TimerDown(GlobalValues.COUNT_DOWN_TIME, rSendCodeBtn);
                         toast(bean.getData());
+                    }else{
+                        toast(bean.getMsg());
                     }
                 }, new HttpError());
     }

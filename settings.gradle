@@ -1,1 +1,1 @@
-include ':app', ':Rxbus', ':rxpicker', ':banner', ':library'
+include ':app', ':Rxbus', ':rxpicker', ':banner', ':viewBinder', ':luban'

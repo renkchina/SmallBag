@@ -20,4 +20,7 @@
     <string name="im_teacher_str">我是老师</string>
     <string name="teacher_name_str">教师姓名</string>
     <string name="school_name_str">就职学校</string>
+    <string name="main_help_str">反馈与帮助</string>
+    <string name="main_soft_setting">软件设置</string>
+    <string name="main_account_manager">账号管理</string>
 </resources>
