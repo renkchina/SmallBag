@@ -98,11 +98,13 @@ public class StringUtil {
         }
     }
 
+    public static String getSystemTimes() {
+        return String.valueOf(System.currentTimeMillis() / 1000);
+    }
     /**
      * 去除小数点
      *
-     * @param value
-     * @return
+     * @param value g
      */
     private static String changeDone(double value) {
         String s;

@@ -8,17 +8,9 @@ import java.util.Collection;
 
 public class ListUtil {
     public static boolean isEmpty(Collection collection) {
-        if (collection == null || collection.size() < 1) {
-            return true;
-        } else {
-            return false;
-        }
+        return collection == null || collection.size() < 1;
     }
     public static boolean unEmpty(Collection collection) {
-        if (collection == null || collection.size() < 1) {
-            return false;
-        } else {
-            return true;
-        }
+        return !(collection == null || collection.size() < 1);
     }
 }

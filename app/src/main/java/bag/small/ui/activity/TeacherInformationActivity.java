@@ -14,12 +14,15 @@ import android.widget.TextView;
 
 import com.caimuhao.rxpicker.RxPicker;
 import com.caimuhao.rxpicker.bean.ImageItem;
+import com.google.gson.Gson;
 
 import org.w3c.dom.Text;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,10 +34,13 @@ import bag.small.entity.RegisterInfoBean;
 import bag.small.http.HttpUtil;
 import bag.small.http.IApi.HttpError;
 import bag.small.http.IApi.IRegisterReq;
+import bag.small.http.IApi.IRegisterSendCode;
 import bag.small.interfaze.IViewBinder;
 import bag.small.provider.TeachSubjectClass;
 import bag.small.provider.TeachSubjectClassViewBinder;
+import bag.small.rx.RxCountDown;
 import bag.small.rx.RxUtil;
+import bag.small.utils.GlobalValues;
 import bag.small.utils.ImageUtil;
 import bag.small.utils.ListUtil;
 import bag.small.utils.LogUtil;
@@ -46,6 +52,7 @@ import butterknife.OnClick;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
 import io.reactivex.functions.Consumer;
 import me.drakeet.multitype.MultiTypeAdapter;
+import okhttp3.MultipartBody;
 import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
 
@@ -58,6 +65,10 @@ public class TeacherInformationActivity extends BaseActivity
     TextView aGuardianTv;
     @Bind(R.id.activity_guardian_ll)
     LinearLayout aGuardianLl;
+    @Bind(R.id.activity_teacher_send_code_btn)
+    Button sendCode;
+    @Bind(R.id.activity_teacher_verification_code_edt)
+    EditText vertifyCode;
     @Bind(R.id.activity_charge_class_tv)
     TextView aChargeClassTv;
     @Bind(R.id.activity_is_teacher_tv)
@@ -87,6 +98,7 @@ public class TeacherInformationActivity extends BaseActivity
 
     List<Object> items;
     MultiTypeAdapter multiTypeAdapter;
+    IRegisterSendCode iRegisterSendCode;
 
     ListDialog listDialog;
     private IRegisterReq iRegisterReq;
@@ -101,7 +113,7 @@ public class TeacherInformationActivity extends BaseActivity
     private String jieci;
     private int nianji;
     private String banji;
-    private String logo;
+    private File logo;
     private String school_id;
 
     @Override
@@ -111,7 +123,6 @@ public class TeacherInformationActivity extends BaseActivity
 
     @Override
     public void initView() {
-        iRegisterReq = HttpUtil.getInstance().createApi(IRegisterReq.class);
         listDialog = new ListDialog(this);
         getRegisterInfo();
         items = new ArrayList<>();
@@ -124,12 +135,14 @@ public class TeacherInformationActivity extends BaseActivity
                 ContextCompat.getColor(this, R.color.un_enable_gray)));
         subjectRecycler.setAdapter(multiTypeAdapter);
         ImageUtil.loadCircleImages(this, mHeadImage, "");
+        iRegisterSendCode = HttpUtil.getInstance().createApi(IRegisterSendCode.class);
     }
 
     @OnClick({R.id.activity_guardian_ll, R.id.activity_charge_class_ll,
             R.id.ac_teacher_number_tv, R.id.ac_teacher_grade_tv,
             R.id.ac_teacher_class_tv, R.id.activity_teacher_commit_btn,
-            R.id.activity_area_school_ll, R.id.ac_teacher_head_iv})
+            R.id.activity_area_school_ll, R.id.ac_teacher_head_iv,
+            R.id.activity_teacher_send_code_btn})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ac_teacher_head_iv:
@@ -138,6 +151,9 @@ public class TeacherInformationActivity extends BaseActivity
                         .camera(true)
                         .start(this)
                         .subscribe(this::setImages);
+                break;
+            case R.id.activity_teacher_send_code_btn:
+                sendCode();
                 break;
             case R.id.activity_area_school_ll:
                 listDialog.setListData(getArea());
@@ -191,13 +207,16 @@ public class TeacherInformationActivity extends BaseActivity
             case R.id.activity_teacher_commit_btn:
                 String phone = StringUtil.EditGetString(aTeacherPhoneEdit);
                 String name = StringUtil.EditGetString(aTeacherNameEdit);
+                String code = StringUtil.EditGetString(vertifyCode);
                 if (isMaster == 0) {
                     jieci = "0";
                     nianji = -1;
                     banji = "0";
                 }
                 try {
-                    requestRegister(name, phone, school_id, isMaster, jieci, nianji, UserPreferUtil.getInstanse().getUserId(), banji, logo, setRequests());
+                    requestRegister(name, phone, code, school_id, isMaster, jieci, nianji,
+                            UserPreferUtil.getInstanse().getUserId(), banji,
+                            RxUtil.convert("logo", logo), setRequests());
                 } catch (NullPointerException e) {
                     e.printStackTrace();
                     toast("请选择完整！");
@@ -206,15 +225,43 @@ public class TeacherInformationActivity extends BaseActivity
         }
     }
 
-    private void requestRegister(@NonNull String name, @NonNull String phone, @NonNull String school_id,
-                                 int isMaster, @NonNull String jieci, int nianji, int userId,
-                                 @NonNull String banji, @NonNull String logo, @NonNull String[][] strings) {
-        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(phone) || TextUtils.isEmpty(school_id) || TextUtils.isEmpty(jieci) || TextUtils.isEmpty(logo) || TextUtils.isEmpty(banji) || nianji == 0 || userId == 0) {
+    private void sendCode() {
+        String phone = StringUtil.EditGetString(vertifyCode);
+        if (TextUtils.isEmpty(phone)) {
+            toast("请输入验证码！");
+        } else {
+            iRegisterSendCode.sendCheckCodeRequest(phone)
+                    .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                    .compose(RxLifecycleCompact.bind(this).withObservable())
+                    .subscribe(bean -> {
+                        if (bean.isSuccess()) {
+                            RxCountDown.TimerDown(GlobalValues.COUNT_DOWN_TIME, sendCode);
+                            toast(bean.getData());
+                        }
+                    }, new HttpError());
+        }
+    }
+
+    private void requestRegister(@NonNull String name, @NonNull String phone,@NonNull String code, @NonNull String school_id,
+                                 int isMaster, @NonNull String jieci, int nianji, @NonNull String login_id,
+                                 @NonNull String banji, @NonNull MultipartBody.Part logo, @NonNull String strings) {
+        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(phone) || TextUtils.isEmpty(school_id) || TextUtils.isEmpty(jieci) || TextUtils.isEmpty(banji) || nianji == 0 || TextUtils.isEmpty(login_id
+        )) {
             toast("请录入完整！");
         } else {
-            iRegisterReq.goRegisterAsTeacher(
-                    userId, name, phone, school_id, isMaster,
-                    jieci, nianji, banji, logo, strings)
+            HashMap<String, String> map = new HashMap<>();
+            map.put("name", name);
+            map.put("school_id", school_id);
+            map.put("login_id", login_id);
+            map.put("phone", phone);
+            map.put("is_master", isMaster + "");
+            map.put("jieci", jieci);
+            map.put("nianji", nianji + "");
+            map.put("banji", banji);
+            map.put("verify_code", code);
+            map.put("jiaoxue", strings);
+
+            iRegisterReq.goRegisterAsTeacher(map, logo)
                     .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
                     .compose(RxLifecycleCompact.bind(this).withObservable())
                     .subscribe(bean -> {
@@ -251,19 +298,23 @@ public class TeacherInformationActivity extends BaseActivity
         return lists;
     }
 
-    private String[][] setRequests() {
+    private String setRequests() {
         List<TeachSubjectClass> lists = getSubjects();
+        Gson gson = new Gson();
+        List<Map<String, String>> json = new ArrayList<>();
         if (ListUtil.unEmpty(lists)) {
             int size = lists.size();
             jiaoxue = new String[size][4];
             for (int i = 0; i < size; i++) {
-                jiaoxue[i][0] = getNumbers(lists.get(i).getKemu());
-                jiaoxue[i][1] = getNumbers(lists.get(i).getJieci() + "");
-                jiaoxue[i][2] = getNumbers(lists.get(i).getNianji() + "");
-                jiaoxue[i][3] = getNumbers(lists.get(i).getBanji());
+                Map<String, String> map = new HashMap<>(4);
+                map.put("kemu", getNumbers(lists.get(i).getKemu()));
+                map.put("jieci", getNumbers(lists.get(i).getJieci() + ""));
+                map.put("nianji", getNumbers(lists.get(i).getNianji() + ""));
+                map.put("banji", getNumbers(lists.get(i).getBanji()));
+                json.add(map);
             }
         }
-        return jiaoxue;
+        return gson.toJson(json);
     }
 
     //截取数字
@@ -288,6 +339,7 @@ public class TeacherInformationActivity extends BaseActivity
     }
 
     private void getRegisterInfo() {
+        iRegisterReq = HttpUtil.getInstance().createApi(IRegisterReq.class);
         iRegisterReq.getRegisterInfo()
                 .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
                 .compose(RxLifecycleCompact.bind(this).withObservable())
@@ -317,25 +369,12 @@ public class TeacherInformationActivity extends BaseActivity
 
                     @Override
                     public void onSuccess(File file) {
-                        try {
-                            logo = ImageUtil.encodeBase64File(file.getAbsolutePath());
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            try {
-                                logo = ImageUtil.encodeBase64File(finalPath);
-                            } catch (Exception e1) {
-                                e1.printStackTrace();
-                            }
-                        }
+                        logo = file;
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        try {
-                            logo = ImageUtil.encodeBase64File(finalPath);
-                        } catch (Exception e1) {
-                            e1.printStackTrace();
-                        }
+                        logo = new File(finalPath);
                     }
                 }).launch();//启动压缩
 

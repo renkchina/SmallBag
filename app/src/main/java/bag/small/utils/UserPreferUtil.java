@@ -54,7 +54,7 @@ public class UserPreferUtil {
     }
 
     public void setUseId(String id) {
-        setInfomation("user_id", id);
+        setInfomation("login_id", id);
     }
 
     public void setUserBackgroundImage(String image) {
@@ -77,8 +77,8 @@ public class UserPreferUtil {
         return getInfomationS("password");
     }
 
-    public int getUserId() {
-        return getInfomationI("user_id");
+    public String getUserId() {
+        return getInfomationS("login_id");
     }
 
     public String getPhone() {

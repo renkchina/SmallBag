@@ -3,6 +3,7 @@ package bag.small.rx;
 import android.support.annotation.NonNull;
 
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.FlowableTransformer;
@@ -15,6 +16,8 @@ import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.internal.functions.Functions;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * Created by Administrator on 2017/4/12.
@@ -140,5 +143,10 @@ public final class RxUtil {
         return Observable.create(backgroundSubscribe)
                 .compose(RxUtil.<T>applySchedulers(THREAD_ON_UI_TRANSFORMER))
                 .subscribe(uiAction);
+    }
+
+    public static MultipartBody.Part convert(String key, File file) {
+        return MultipartBody.Part.createFormData(key, key,
+                RequestBody.create(MultipartBody.FORM, file));
     }
 }

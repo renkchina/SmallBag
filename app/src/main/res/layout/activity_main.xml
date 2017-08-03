@@ -58,11 +58,11 @@
             android:id="@+id/main_drawer_left_account_manager_tv"
             android:layout_width="match_parent"
             android:layout_height="66dp"
-            android:drawableStart="@mipmap/account_manager"
             android:paddingEnd="0dp"
-            android:paddingStart="46dp"
-            android:text="账号管理"
-            android:textSize="20sp" />
+        android:paddingStart="46dp"
+        android:text="账号管理"
+        android:textSize="20sp" />
+        <!--android:drawableStart="@mipmap/account_manager"-->
 
         <TextView
             android:id="@+id/main_drawer_left_soft_setting_tv"
@@ -78,31 +78,31 @@
             android:id="@+id/main_drawer_left_help_tv"
             android:layout_width="match_parent"
             android:layout_height="66dp"
-            android:drawableStart="@mipmap/help_me"
-            android:paddingEnd="0dp"
             android:paddingStart="46dp"
-            android:text="反馈与帮助"
-            android:textSize="20sp" />
+        android:paddingEnd="0dp"
+        android:text="反馈与帮助"
+        android:textSize="20sp" />
+        <!--android:drawableStart="@mipmap/help_me"-->
 
         <TextView
             android:id="@+id/main_drawer_left_about_tv"
             android:layout_width="match_parent"
             android:layout_height="66dp"
-            android:drawableStart="@mipmap/about_ours"
             android:paddingEnd="0dp"
             android:paddingStart="46dp"
             android:text="关于"
             android:textSize="20sp" />
+        <!--android:drawableStart="@mipmap/about_ours"-->
 
         <TextView
             android:id="@+id/main_drawer_left_exit_tv"
             android:layout_width="match_parent"
             android:layout_height="66dp"
-            android:drawableStart="@mipmap/exit_system"
             android:paddingEnd="0dp"
-            android:paddingStart="46dp"
-            android:text="退出"
-            android:textSize="20sp" />
+        android:paddingStart="46dp"
+        android:text="退出"
+        android:textSize="20sp" />
+        <!--android:drawableStart="@mipmap/exit_system"-->
     </LinearLayout>
 
 </android.support.v4.widget.DrawerLayout>

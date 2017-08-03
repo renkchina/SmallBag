@@ -1,36 +1,26 @@
 package bag.small.ui.activity;
 
-import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import java.util.ArrayList;
 import java.util.List;
-
 import bag.small.R;
 import bag.small.base.BaseActivity;
-import bag.small.entity.BaseBean;
 import bag.small.entity.RegisterInfoBean;
 import bag.small.http.HttpUtil;
 import bag.small.http.IApi.HttpError;
-import bag.small.http.IApi.HttpResultFilter;
 import bag.small.http.IApi.IRegisterReq;
 import bag.small.http.IApi.IRegisterSendCode;
 import bag.small.rx.RxCountDown;
 import bag.small.rx.RxUtil;
 import bag.small.utils.GlobalValues;
-import bag.small.utils.ListUtil;
 import bag.small.utils.LogUtil;
 import bag.small.utils.StringUtil;
 import bag.small.utils.UserPreferUtil;
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
 
@@ -58,8 +48,6 @@ public class RegisterActivity extends BaseActivity {
 
     IRegisterSendCode iRegisterSendCode;
     private IRegisterReq iRegisterReq;
-
-    private List<RegisterInfoBean.SchoolBeanX> areaLists;
 
     @Override
     public int getLayoutResId() {
@@ -89,11 +77,9 @@ public class RegisterActivity extends BaseActivity {
                 break;
             case R.id.ac_register_parent_ll:
                 registerPhone(1);
-//                skipActivity(ParentInformationActivity.class);
                 break;
             case R.id.ac_register_teacher_ll:
                 registerPhone(2);
-//                skipActivity(TeacherInformationActivity.class);
                 break;
             case R.id.activity_register_login_tv:
                 skipActivity(LoginActivity.class);
@@ -117,7 +103,6 @@ public class RegisterActivity extends BaseActivity {
         iRegisterSendCode.sendCodeRequest(phone)
                 .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
                 .compose(RxLifecycleCompact.bind(this).withObservable())
-//                .filter(new HttpResultFilter<>())
                 .subscribe(bean -> {
                     if (bean.isSuccess()) {
                         RxCountDown.TimerDown(GlobalValues.COUNT_DOWN_TIME, rSendCodeBtn);
@@ -132,7 +117,7 @@ public class RegisterActivity extends BaseActivity {
                 .compose(RxLifecycleCompact.bind(this).withObservable())
                 .subscribe(bean -> {
                     LogUtil.show(bean);
-                    if (bean.isSuccess()) {
+                    if (bean.isSuccess() && bean.getData() != null) {
                         UserPreferUtil.getInstanse().setUseId(bean.getData().getLogin_id());
                         if (type == 1) {
                             skipActivity(ParentInformationActivity.class);

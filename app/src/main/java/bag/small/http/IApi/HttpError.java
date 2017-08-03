@@ -47,6 +47,9 @@ public class HttpError implements Consumer<Throwable> {
         if (throwable instanceof HttpException) {
             HttpException httpException = (HttpException) throwable;
             switch (httpException.code()) {
+                case 400:
+                    exce = "参数错误！";
+                    break;
                 case 404:
                     exce = "未找到服务器！";
                     break;
