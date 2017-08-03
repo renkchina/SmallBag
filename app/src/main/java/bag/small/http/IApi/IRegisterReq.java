@@ -1,5 +1,6 @@
 package bag.small.http.IApi;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import bag.small.entity.BaseBean;
@@ -33,36 +34,13 @@ public interface IRegisterReq {
 
     @Multipart
     @POST("commons/registerteacher")
-    Observable<BaseBean<String>> goRegisterAsTeacher(
-//                                                     @Part("login_id") String loginId,
-//                                                     @Query("sex") int sex,//0man
-//                                                     @Query("birth") String birth,//2016-03-03、
-//                                                     @Part("name") String name,
-//                                                     @Part("phone") String phone,
-//                                                     @Part("school_id") String schoolId,
-//                                                     @Part("is_master") int isMaster,//
-//                                                     @Part("jieci") String jieci,
-//                                                     @Part("nianji") int nianji,
-//                                                     @Part("banji") String banji,
-                                                     @PartMap Map<String, String> partMap,
-//                                                     @Part("jiaoxue") String jiaoxue,
+    Observable<BaseBean<String>> goRegisterAsTeacher(@PartMap HashMap<String, RequestBody> partMap,
                                                      @Part MultipartBody.Part logo);
 
     @FormUrlEncoded
     @POST("commons/registerstudent")
-    Observable<BaseBean<String>> goRegisterAsStudent(@Field("login_id") String loginId,
-//                                                     @Query("sex") int sex,//0man
-//                                                     @Query("birth") String birth,//2016-03-03
-                                                     @Field("name") String name,
-                                                     @Field("phone") String phone,
-                                                     @Field("school_id") String schoolId,
-                                                     @Field("jieci") String jieci,
-                                                     @Field("nianji") int nianji,
-                                                     @Field("banji") String banji,
-                                                     @Part MultipartBody.Part logo,
-                                                     @Field("verify") String verify,
-                                                     @Field("jianhuren") String jianhuren,
-                                                     @Field("jianhuren_name") String jianhuren_name);
+    Observable<BaseBean<String>> goRegisterAsStudent(@Part MultipartBody.Part logo,
+                                                     @PartMap HashMap<String, RequestBody> partMap);
 
 
 }

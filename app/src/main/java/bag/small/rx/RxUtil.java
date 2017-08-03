@@ -16,6 +16,7 @@ import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.internal.functions.Functions;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
@@ -85,7 +86,7 @@ public final class RxUtil {
      */
     public static Disposable time(long delay, TimeUnit unit, @NonNull Consumer<Long> onNext) {
         return Observable.timer(delay, unit)
-                .compose(RxUtil.<Long>applySchedulers(COMPUTATION_TRANSFORMER))
+                .compose(RxUtil.applySchedulers(COMPUTATION_TRANSFORMER))
                 .subscribe(onNext);
     }
 
@@ -98,7 +99,7 @@ public final class RxUtil {
     public static Disposable timeOnUI(
             long delay, TimeUnit unit, @NonNull Consumer<Long> onNext) {
         return Observable.timer(delay, unit)
-                .compose(RxUtil.<Long>applySchedulers(COMPUTATION_ON_UI_TRANSFORMER))
+                .compose(RxUtil.applySchedulers(COMPUTATION_ON_UI_TRANSFORMER))
                 .subscribe(onNext);
     }
 
@@ -120,7 +121,7 @@ public final class RxUtil {
     public static Disposable interval(
             long interval, TimeUnit unit, @NonNull Consumer<Long> onNext) {
         return Observable.interval(interval, unit)
-                .compose(RxUtil.<Long>applySchedulers(COMPUTATION_TRANSFORMER))
+                .compose(RxUtil.applySchedulers(COMPUTATION_TRANSFORMER))
                 .subscribe(onNext);
     }
 
@@ -129,7 +130,7 @@ public final class RxUtil {
      */
     public static Disposable run(@NonNull Action backgroundAction) {
         return Observable.<Integer>empty()
-                .compose(RxUtil.<Integer>applySchedulers(THREAD_TRANSFORMER))
+                .compose(RxUtil.applySchedulers(THREAD_TRANSFORMER))
                 .subscribe(Functions.emptyConsumer(), Functions.ERROR_CONSUMER,
                         backgroundAction);
     }
@@ -141,12 +142,20 @@ public final class RxUtil {
             @NonNull ObservableOnSubscribe<T> backgroundSubscribe,
             @NonNull Consumer<T> uiAction) {
         return Observable.create(backgroundSubscribe)
-                .compose(RxUtil.<T>applySchedulers(THREAD_ON_UI_TRANSFORMER))
+                .compose(RxUtil.applySchedulers(THREAD_ON_UI_TRANSFORMER))
                 .subscribe(uiAction);
     }
 
-    public static MultipartBody.Part convert(String key, File file) {
+    public static MultipartBody.Part convertForm(String key, File file) {
         return MultipartBody.Part.createFormData(key, key,
                 RequestBody.create(MultipartBody.FORM, file));
+    }
+    public static MultipartBody.Part convertImage(String key, File file) {
+        return MultipartBody.Part.createFormData(key, key,
+                RequestBody.create(MediaType.parse("image/png"), file));
+    }
+
+    public static RequestBody toRequestBodyTxt(String value) {
+        return RequestBody.create(MediaType.parse("text/plain"), value);
     }
 }

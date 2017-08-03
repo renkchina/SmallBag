@@ -53,6 +53,7 @@ import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
 import io.reactivex.functions.Consumer;
 import me.drakeet.multitype.MultiTypeAdapter;
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
 
@@ -109,7 +110,7 @@ public class TeacherInformationActivity extends BaseActivity
     private TeachSubjectClassViewBinder viewBinder;
 
     private String[][] jiaoxue;
-    private int isMaster;
+    private int isMaster = 1;
     private String jieci;
     private int nianji;
     private String banji;
@@ -216,7 +217,7 @@ public class TeacherInformationActivity extends BaseActivity
                 try {
                     requestRegister(name, phone, code, school_id, isMaster, jieci, nianji,
                             UserPreferUtil.getInstanse().getUserId(), banji,
-                            RxUtil.convert("logo", logo), setRequests());
+                            RxUtil.convertImage("logo", logo), setRequests());
                 } catch (NullPointerException e) {
                     e.printStackTrace();
                     toast("请选择完整！");
@@ -242,24 +243,24 @@ public class TeacherInformationActivity extends BaseActivity
         }
     }
 
-    private void requestRegister(@NonNull String name, @NonNull String phone,@NonNull String code, @NonNull String school_id,
+    private void requestRegister(@NonNull String name, @NonNull String phone, @NonNull String code, @NonNull String school_id,
                                  int isMaster, @NonNull String jieci, int nianji, @NonNull String login_id,
                                  @NonNull String banji, @NonNull MultipartBody.Part logo, @NonNull String strings) {
         if (TextUtils.isEmpty(name) || TextUtils.isEmpty(phone) || TextUtils.isEmpty(school_id) || TextUtils.isEmpty(jieci) || TextUtils.isEmpty(banji) || nianji == 0 || TextUtils.isEmpty(login_id
         )) {
             toast("请录入完整！");
         } else {
-            HashMap<String, String> map = new HashMap<>();
-            map.put("name", name);
-            map.put("school_id", school_id);
-            map.put("login_id", login_id);
-            map.put("phone", phone);
-            map.put("is_master", isMaster + "");
-            map.put("jieci", jieci);
-            map.put("nianji", nianji + "");
-            map.put("banji", banji);
-            map.put("verify_code", code);
-            map.put("jiaoxue", strings);
+            HashMap<String, RequestBody> map = new HashMap<>();
+            map.put("name", RxUtil.toRequestBodyTxt(name));
+            map.put("school_id", RxUtil.toRequestBodyTxt(school_id));
+            map.put("login_id", RxUtil.toRequestBodyTxt(login_id));
+            map.put("phone", RxUtil.toRequestBodyTxt(phone));
+            map.put("is_master", RxUtil.toRequestBodyTxt(isMaster + ""));
+            map.put("jieci", RxUtil.toRequestBodyTxt(jieci));
+            map.put("nianji", RxUtil.toRequestBodyTxt(nianji + ""));
+            map.put("banji", RxUtil.toRequestBodyTxt(banji));
+            map.put("verify_code", RxUtil.toRequestBodyTxt(code));
+            map.put("jiaoxue", RxUtil.toRequestBodyTxt(strings));
 
             iRegisterReq.goRegisterAsTeacher(map, logo)
                     .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))

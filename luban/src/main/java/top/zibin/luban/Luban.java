@@ -82,7 +82,7 @@ public class Luban implements Handler.Callback {
     }
 
     /**
-     * start asynchronous compress thread
+    * start asynchronous compress thread
      */
     @UiThread
     private void launch(final Context context) {
