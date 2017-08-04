@@ -1,6 +1,7 @@
 package bag.small.ui.activity;
 
 
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -12,7 +13,9 @@ import android.widget.TextView;
 import com.caimuhao.rxpicker.RxPicker;
 import com.caimuhao.rxpicker.bean.ImageItem;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -24,8 +27,11 @@ import bag.small.entity.RegisterInfoBean;
 import bag.small.http.HttpUtil;
 import bag.small.http.IApi.HttpError;
 import bag.small.http.IApi.IRegisterReq;
+import bag.small.http.IApi.IRegisterSendCode;
 import bag.small.interfaze.IListDialog;
+import bag.small.rx.RxCountDown;
 import bag.small.rx.RxUtil;
+import bag.small.utils.GlobalValues;
 import bag.small.utils.ImageUtil;
 import bag.small.utils.ListUtil;
 import bag.small.utils.LogUtil;
@@ -34,6 +40,9 @@ import bag.small.utils.UserPreferUtil;
 import butterknife.Bind;
 import butterknife.OnClick;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
+import okhttp3.RequestBody;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 public class ParentInformationActivity extends BaseActivity {
 
@@ -71,10 +80,16 @@ public class ParentInformationActivity extends BaseActivity {
     EditText pParentNameEdt;
     @Bind(R.id.activity_parent_phone_edit)
     EditText pParentPhoneEdit;
+    @Bind(R.id.activity_parent_verification_code_edt)
+    EditText verifyCodeEdit;
+    @Bind(R.id.activity_teacher_send_code_btn)
+    Button senCodeBtn;
     @Bind(R.id.activity_parent_commit_btn)
     Button pParentCommitBtn;
+
     private ListDialog listDiaolg;
     private IRegisterReq iRegisterReq;
+    private IRegisterSendCode iRegisterSendCode;
     private RegisterInfoBean.SchoolBeanX area;
     private List<RegisterInfoBean.SchoolBeanX> areaLists;
     private RegisterInfoBean.SchoolBeanX.SchoolBean.BaseBean.JieBean jie;
@@ -82,6 +97,7 @@ public class ParentInformationActivity extends BaseActivity {
     private String jieci;
     private int nianji;
     private String banji;
+    private File logo;
 //    private List<RegisterInfoBean.SchoolBeanX.SchoolBean.BaseBean.JieBean.KecheBean> course;
 
     @Override
@@ -93,6 +109,7 @@ public class ParentInformationActivity extends BaseActivity {
     public void initView() {
         listDiaolg = new ListDialog(this);
         iRegisterReq = HttpUtil.getInstance().createApi(IRegisterReq.class);
+        iRegisterSendCode = HttpUtil.getInstance().createApi(IRegisterSendCode.class);
         getRegisterInfo();
     }
 
@@ -154,8 +171,19 @@ public class ParentInformationActivity extends BaseActivity {
                 String jianhuren = StringUtil.EditGetString(pParentPhoneEdit);
                 String phone = StringUtil.EditGetString(pParentPhoneEdit);
                 String guanxi = StringUtil.EditGetString(pGuardianTv);
-//                requestHttp(name,xuehao, UserPreferUtil.getInstanse().getUserId(),
-//                        school_id,jieci,nianji,banji,logo,jianhuren,phone,guanxi)
+                String verify = StringUtil.EditGetString(verifyCodeEdit);
+                HashMap<String, RequestBody> map = new HashMap<>();
+                map.put("xuehao",RxUtil.toRequestBodyTxt(xuehao));
+                map.put("name",RxUtil.toRequestBodyTxt(name));
+                map.put("jianhuren_name",RxUtil.toRequestBodyTxt(jianhuren));
+                map.put("phone",RxUtil.toRequestBodyTxt(phone));
+                map.put("jianhuren",RxUtil.toRequestBodyTxt(guanxi));
+                map.put("login_id",RxUtil.toRequestBodyTxt(UserPreferUtil.getInstanse().getUserId()));
+                map.put("jieci",RxUtil.toRequestBodyTxt(jieci));
+                map.put("nianji",RxUtil.toRequestBodyTxt(nianji+""));
+                map.put("banji",RxUtil.toRequestBodyTxt(banji));
+                map.put("verify",RxUtil.toRequestBodyTxt(verify));
+                map.put("verify",RxUtil.toRequestBodyTxt(xuehao));
                 break;
         }
     }
@@ -178,7 +206,25 @@ public class ParentInformationActivity extends BaseActivity {
             path = images.get(0).getPath();
         }
         ImageUtil.loadCircleImages(this, pHeadImage, path);
-        //
+        String finalPath = path;
+        Luban.with(this)
+                .load(new File(path))//传入要压缩的图片
+                .setCompressListener(new OnCompressListener() { //设置回调
+                    @Override
+                    public void onStart() {
+                        // 压缩开始前调用，可以在方法内启动 loading UI
+                    }
+
+                    @Override
+                    public void onSuccess(File file) {
+                        logo = file;
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        logo = new File(finalPath);
+                    }
+                }).launch();//启动压缩
     }
 
     private List<RegisterInfoBean.SchoolBeanX> getAreaList(RegisterInfoBean bean) {
@@ -191,6 +237,23 @@ public class ParentInformationActivity extends BaseActivity {
             }
         }
         return lists;
+    }
+
+    private void sendCode() {
+        String phone = StringUtil.EditGetString(pParentPhoneEdit);
+        if (TextUtils.isEmpty(phone)) {
+            toast("请输入验证码！");
+        } else {
+            iRegisterSendCode.sendCheckCodeRequest(phone)
+                    .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                    .compose(RxLifecycleCompact.bind(this).withObservable())
+                    .subscribe(bean -> {
+                        if (bean.isSuccess()) {
+                            RxCountDown.TimerDown(GlobalValues.COUNT_DOWN_TIME,senCodeBtn);
+                            toast(bean.getData());
+                        }
+                    }, new HttpError());
+        }
     }
 
     private List<String> getArea() {

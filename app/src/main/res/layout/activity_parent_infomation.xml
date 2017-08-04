@@ -258,6 +258,38 @@
                     android:textSize="16sp" />
 
             </LinearLayout>
+            <View style="@style/view_line_gray_style" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/activity_parent_verification_code_edt"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:hint="@string/login_code_hint_edt_str"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:maxLength="6"
+                    android:paddingEnd="0dp"
+                    android:paddingStart="3dp"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/activity_teacher_send_code_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="5dp"
+                    android:background="@color/white"
+                    android:text="@string/get_code_str"
+                    android:textColor="@color/button_green"
+                    android:textSize="12sp" />
+            </LinearLayout>
 
         </LinearLayout>
 

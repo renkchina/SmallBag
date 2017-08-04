@@ -46,6 +46,7 @@ public class LoginActivity extends BaseActivity {
     public void initView() {
         setToolTitle("登录", false);
         iLoginRequest = HttpUtil.getInstance().createApi(ILoginRequest.class);
+        loginUserPasswordEdt.setTypeface(loginUserNameEdt.getTypeface());
 
     }
 
