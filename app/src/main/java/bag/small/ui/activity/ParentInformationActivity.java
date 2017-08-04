@@ -2,6 +2,7 @@ package bag.small.ui.activity;
 
 
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -165,6 +166,9 @@ public class ParentInformationActivity extends BaseActivity {
                 listDiaolg.show(view);
                 listDiaolg.setListDialog((position, content) -> pGuardianTv.setText(content));
                 break;
+            case R.id.activity_teacher_send_code_btn:
+                sendCode();
+                break;
             case R.id.activity_parent_commit_btn:
                 String xuehao = StringUtil.EditGetString(pStudentNumberEdt);
                 String name = StringUtil.EditGetString(pStudentNameEdt);
@@ -172,20 +176,40 @@ public class ParentInformationActivity extends BaseActivity {
                 String phone = StringUtil.EditGetString(pParentPhoneEdit);
                 String guanxi = StringUtil.EditGetString(pGuardianTv);
                 String verify = StringUtil.EditGetString(verifyCodeEdit);
-                HashMap<String, RequestBody> map = new HashMap<>();
-                map.put("xuehao",RxUtil.toRequestBodyTxt(xuehao));
-                map.put("name",RxUtil.toRequestBodyTxt(name));
-                map.put("jianhuren_name",RxUtil.toRequestBodyTxt(jianhuren));
-                map.put("phone",RxUtil.toRequestBodyTxt(phone));
-                map.put("jianhuren",RxUtil.toRequestBodyTxt(guanxi));
-                map.put("login_id",RxUtil.toRequestBodyTxt(UserPreferUtil.getInstanse().getUserId()));
-                map.put("jieci",RxUtil.toRequestBodyTxt(jieci));
-                map.put("nianji",RxUtil.toRequestBodyTxt(nianji+""));
-                map.put("banji",RxUtil.toRequestBodyTxt(banji));
-                map.put("verify",RxUtil.toRequestBodyTxt(verify));
-                map.put("verify",RxUtil.toRequestBodyTxt(xuehao));
+                try {
+                    setHttpRequest(xuehao, name, jianhuren, phone, guanxi, verify);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    toast("请检查是否录入完整！");
+                }
                 break;
         }
+    }
+
+    private void setHttpRequest(@NonNull String xuehao, @NonNull String name,
+                                @NonNull String jianhuren, @NonNull String phone,
+                                @NonNull String guanxi, @NonNull String verify) {
+        HashMap<String, RequestBody> map = new HashMap<>();
+        map.put("xuehao", RxUtil.toRequestBodyTxt(xuehao));
+        map.put("name", RxUtil.toRequestBodyTxt(name));
+        map.put("jianhuren_name", RxUtil.toRequestBodyTxt(jianhuren));
+        map.put("phone", RxUtil.toRequestBodyTxt(phone));
+        map.put("jianhuren", RxUtil.toRequestBodyTxt(guanxi));
+        map.put("login_id", RxUtil.toRequestBodyTxt(UserPreferUtil.getInstanse().getUserId()));
+        map.put("jieci", RxUtil.toRequestBodyTxt(jieci));
+        map.put("nianji", RxUtil.toRequestBodyTxt(nianji + ""));
+        map.put("banji", RxUtil.toRequestBodyTxt(banji));
+        map.put("verify", RxUtil.toRequestBodyTxt(verify));
+        iRegisterReq.goRegisterAsStudent(RxUtil.convertImage("logo", logo), map)
+                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                .compose(RxLifecycleCompact.bind(this).withObservable())
+                .subscribe(bean -> {
+                    if (bean.isSuccess()) {
+
+                    } else {
+                        toast(bean.getMsg());
+                    }
+                }, new HttpError());
     }
 
     private void getRegisterInfo() {
@@ -242,14 +266,14 @@ public class ParentInformationActivity extends BaseActivity {
     private void sendCode() {
         String phone = StringUtil.EditGetString(pParentPhoneEdit);
         if (TextUtils.isEmpty(phone)) {
-            toast("请输入验证码！");
+            toast("请输入手机号！");
         } else {
             iRegisterSendCode.sendCheckCodeRequest(phone)
                     .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
                     .compose(RxLifecycleCompact.bind(this).withObservable())
                     .subscribe(bean -> {
                         if (bean.isSuccess()) {
-                            RxCountDown.TimerDown(GlobalValues.COUNT_DOWN_TIME,senCodeBtn);
+                            RxCountDown.TimerDown(GlobalValues.COUNT_DOWN_TIME, senCodeBtn);
                             toast(bean.getData());
                         }
                     }, new HttpError());

@@ -229,7 +229,7 @@ public class TeacherInformationActivity extends BaseActivity
     private void sendCode() {
         String phone = StringUtil.EditGetString(aTeacherPhoneEdit);
         if (TextUtils.isEmpty(phone)) {
-            toast("请输入验证码！");
+            toast("请输入手机号！");
         } else {
             iRegisterSendCode.sendCheckCodeRequest(phone)
                     .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))

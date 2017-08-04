@@ -46,10 +46,15 @@ public class FamiliesSchoolConnectionFragment extends BaseFragment {
 
     }
 
+
+
     @Override
     public void onFragmentShow() {
         //开始轮播
         fBanner.startAutoPlay();
+
+
+
     }
 
     @Override

@@ -46,8 +46,8 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
         fragments[0] = new TreasureChestFragment();
         fragments[1] =new FamiliesSchoolConnectionFragment();
         fragments[2] =  new GrowthDiaryFragment();
-        mBottomNav.setOnNavigationItemSelectedListener(this);
         changeFragment(0);
+        mBottomNav.setOnNavigationItemSelectedListener(this);
         lastItem = mBottomNav.getMenu().getItem(0);
     }
 
@@ -75,24 +75,23 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
         changeFragment(R.id.activity_main_content_frame, fragments[index]);
     }
 
-    private void disableShiftMode(BottomNavigationView navigationView) {
-        BottomNavigationMenuView menuView = (BottomNavigationMenuView) navigationView.getChildAt(0);
-        try {
-            Field shiftingMode = menuView.getClass().getDeclaredField("mShiftingMode");
-            shiftingMode.setAccessible(true);
-            shiftingMode.setBoolean(menuView, false);
-            shiftingMode.setAccessible(false);
-            int counts = menuView.getChildCount();
-            for (int i = 0; i < counts; i++) {
-                BottomNavigationItemView itemView = (BottomNavigationItemView) menuView.getChildAt(i);
-                itemView.setShiftingMode(false);
-                itemView.setChecked(itemView.getItemData().isChecked());
-            }
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
-    }
-
+//    private void disableShiftMode(BottomNavigationView navigationView) {
+//        BottomNavigationMenuView menuView = (BottomNavigationMenuView) navigationView.getChildAt(0);
+//        try {
+//            Field shiftingMode = menuView.getClass().getDeclaredField("mShiftingMode");
+//            shiftingMode.setAccessible(true);
+//            shiftingMode.setBoolean(menuView, false);
+//            shiftingMode.setAccessible(false);
+//            int counts = menuView.getChildCount();
+//            for (int i = 0; i < counts; i++) {
+//                BottomNavigationItemView itemView = (BottomNavigationItemView) menuView.getChildAt(i);
+//                itemView.setShiftingMode(false);
+//                itemView.setChecked(itemView.getItemData().isChecked());
+//            }
+//        } catch (NoSuchFieldException | IllegalAccessException e) {
+//            e.printStackTrace();
+//        }
+//    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
