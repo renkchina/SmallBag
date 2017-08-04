@@ -2,6 +2,7 @@ package bag.small.http.IApi;
 
 
 import bag.small.entity.BaseBean;
+import bag.small.entity.LoginResult;
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -22,8 +23,8 @@ public interface ILoginRequest {
 //    Observable<BaseBean<LoginBean>> appLogin(@Query("phone") String name,
 //                                             @Query("password") String password);
     @POST("commons/login")
-    Observable<BaseBean<BaseBean>> appLogin(@Query("phone") String name,
-                                            @Query("pwd") String password);
+    Observable<BaseBean<LoginResult>> appLogin(@Query("phone") String name,
+                                               @Query("pwd") String password);
 
 
 }

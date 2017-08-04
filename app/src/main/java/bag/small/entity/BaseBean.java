@@ -34,14 +34,6 @@ public class BaseBean<T> {
         return code == 200;
     }
 
-    public T getResult() {
-        return data;
-    }
-
-    public void setResult(T data) {
-        this.data = data;
-    }
-
     public BaseBean() {
     }
 

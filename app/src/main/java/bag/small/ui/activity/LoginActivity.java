@@ -77,6 +77,7 @@ public class LoginActivity extends BaseActivity {
                     toast(bean.getMsg());
                     if (bean.isSuccess()) {
                         MyApplication.isLogin = true;
+                        MyApplication.loginResult = bean.getData();
                         skipActivity(MainActivity.class);
                     } else {
                         toast("登录失败！");

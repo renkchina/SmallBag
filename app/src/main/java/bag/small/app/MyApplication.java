@@ -5,6 +5,8 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
 import com.umeng.analytics.game.UMGameAgent;
+
+import bag.small.entity.LoginResult;
 import bag.small.utils.LogUtil;
 
 /**
@@ -14,6 +16,7 @@ import bag.small.utils.LogUtil;
 public class MyApplication extends Application implements Application.ActivityLifecycleCallbacks {
     static Context mContext;
     public static boolean isLogin;
+    public static LoginResult loginResult;
 
     @Override
     public void onCreate() {
