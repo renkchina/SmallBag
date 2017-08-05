@@ -287,6 +287,11 @@ public class TeacherInformationActivity extends BaseActivity
         multiTypeAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void click(int position) {
+
+    }
+
     private List<TeachSubjectClass> getSubjects() {
         int size = items.size();
         List<TeachSubjectClass> lists = new ArrayList<>();

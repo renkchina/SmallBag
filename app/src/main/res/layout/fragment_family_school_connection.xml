@@ -5,14 +5,22 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <include layout="@layout/toolbar" />
+
     <com.youth.banner.Banner
         android:id="@+id/fragment_family_banner"
         android:layout_width="match_parent"
-        android:layout_height="180dp" />
+        android:layout_height="155dp" />
 
-    <GridView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/fragment_family_grid_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </GridView>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:gravity="center"
+        android:numColumns="3"
+        android:stretchMode="spacingWidth"
+        android:verticalSpacing="10dp">
+    </android.support.v7.widget.RecyclerView>
 </LinearLayout>

@@ -25,7 +25,7 @@ public class UserPreferUtil {
         return userPreferUtil;
     }
 
-//    public void setUserInfomation(LoginBean loginBean) {
+//    public void setUserInfomation(RegisterBean loginBean) {
 //        setInfomation("address", loginBean.getAddress());
 //        setInfomation("birthday", loginBean.getBirthday());
 //        setInfomation("height", loginBean.getHeight());

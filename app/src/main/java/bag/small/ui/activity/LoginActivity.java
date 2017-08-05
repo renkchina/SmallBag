@@ -15,6 +15,7 @@ import bag.small.http.IApi.HttpError;
 import bag.small.http.IApi.ILoginRequest;
 import bag.small.rx.RxUtil;
 import bag.small.utils.StringUtil;
+import bag.small.utils.UserPreferUtil;
 import butterknife.Bind;
 import butterknife.OnClick;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
@@ -77,7 +78,8 @@ public class LoginActivity extends BaseActivity {
                     toast(bean.getMsg());
                     if (bean.isSuccess()) {
                         MyApplication.isLogin = true;
-                        MyApplication.loginResult = bean.getData();
+                        MyApplication.loginResults = bean.getData().getRole();
+                        UserPreferUtil.getInstanse().setUseId(bean.getData().getLogin_id());
                         skipActivity(MainActivity.class);
                     } else {
                         toast("登录失败！");

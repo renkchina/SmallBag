@@ -9,4 +9,5 @@ public interface IViewBinder {
 
     void delete(int position);
 
+    void click(int position);
 }

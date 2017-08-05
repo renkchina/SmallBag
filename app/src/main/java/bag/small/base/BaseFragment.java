@@ -4,12 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import bag.small.R;
 import bag.small.interfaze.IFragment;
 import bag.small.interfaze.IRegister;
 import butterknife.ButterKnife;
@@ -20,6 +24,8 @@ import butterknife.ButterKnife;
 
 public abstract class BaseFragment extends Fragment implements IFragment, IRegister {
     private static final String STATE_IS_HIDDEN = "isHidden";
+    private Toolbar mToolbar;
+    private TextView mTitle;
 
 
     @Override
@@ -33,6 +39,8 @@ public abstract class BaseFragment extends Fragment implements IFragment, IRegis
                              Bundle savedInstanceState) {
         onFirst();
         View parentView = inflater.inflate(getLayoutResId(), container, false);
+        mToolbar = (Toolbar) parentView.findViewById(R.id.toolbar);
+        mTitle = (TextView) parentView.findViewById(R.id.toolbar_title);
         ButterKnife.bind(this, parentView);
         initData();
         initView();
@@ -68,6 +76,21 @@ public abstract class BaseFragment extends Fragment implements IFragment, IRegis
         }
     }
 
+    public void setToolTitle(String title, boolean isTurnLeft) {
+        if (!TextUtils.isEmpty(title)) {
+            mTitle.setText(title);
+            if (isTurnLeft) {
+                mToolbar.setNavigationOnClickListener(view -> {});
+            } else {
+                mToolbar.setNavigationIcon(null);
+            }
+        }
+    }
+    public void setToolTitle(boolean isTurnLeft) {
+        if (isTurnLeft) {
+            mToolbar.setNavigationOnClickListener(view -> {});
+        }
+    }
 
     @Override
     public void onDestroy() {

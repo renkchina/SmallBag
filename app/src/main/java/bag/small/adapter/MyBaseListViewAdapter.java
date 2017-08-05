@@ -1,6 +1,9 @@
 package bag.small.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.widget.BaseAdapter;
 
@@ -11,11 +14,11 @@ import java.util.List;
  */
 
 public abstract class MyBaseListViewAdapter<T> extends BaseAdapter {
-    private List<T> mDatas;
+    List<T> mDatas;
     private Context context;
-    private LayoutInflater layoutInflater;
+    LayoutInflater layoutInflater;
 
-    public MyBaseListViewAdapter(List<T> mDatas, Context context) {
+    MyBaseListViewAdapter(List<T> mDatas, Context context) {
         this.mDatas = mDatas;
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
@@ -36,4 +39,16 @@ public abstract class MyBaseListViewAdapter<T> extends BaseAdapter {
         return position;
     }
 
+    public void gotoActivity(Class<? extends Activity> cls, boolean finish,
+                             Bundle bundle) {
+
+        Intent intent = new Intent(context, cls);
+        if (bundle != null) {
+            intent.putExtras(bundle);
+        }
+        context.startActivity(intent);
+        if (finish) {
+            ((Activity) context).finish();
+        }
+    }
 }

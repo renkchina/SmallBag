@@ -4,7 +4,7 @@ package bag.small.entity;
  * Created by Administrator on 2017/7/21.
  */
 
-public class LoginBean {
+public class RegisterBean {
     private String login_id;
 
     public String getLogin_id() {
@@ -17,7 +17,7 @@ public class LoginBean {
 
     @Override
     public String toString() {
-        return "LoginBean{" +
+        return "RegisterBean{" +
                 "login_id='" + login_id + '\'' +
                 '}';
     }

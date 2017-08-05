@@ -13,5 +13,7 @@
     <color name="red">#FF0000</color>
     <color name="button_green">#0FDCC0</color>
     <color name="font_green">#51A8EC</color>
+    <color name="main_bottom">#F5A623</color>
+    <color name="main_bottom_gray">#A7A7A7</color>
 
 </resources>
