@@ -6,6 +6,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="bag.small.ui.activity.EducationalNoticeActivity">
+
+    <include layout="@layout/toolbar" />
+
     <com.youth.banner.Banner
         android:id="@+id/activity_education_banner"
         android:layout_width="match_parent"

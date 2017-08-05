@@ -29,7 +29,7 @@ public class FamiliesSchoolConnectionFragment extends BaseFragment {
     Banner fBanner;
     @Bind(R.id.fragment_family_grid_view)
     RecyclerView recyclerView;
-    private List<String> bannerImages;
+    private List<Object> bannerImages;
     MultiTypeAdapter mAdapter;
     List<Object> mItemBeans;
 
@@ -42,9 +42,8 @@ public class FamiliesSchoolConnectionFragment extends BaseFragment {
     @Override
     public void initData() {
         bannerImages = new ArrayList<>();
-        bannerImages.add("http://www.jrhcw.com/images/attachement/jpg/site102/20151228/fcaa14683b9a17eaf17c06.jpg");
-        bannerImages.add("http://www.jrhcw.com/images/attachement/jpg/site102/20151228/fcaa14683b9a17eaf1cd4b.jpg");
-        bannerImages.add("http://www.jrhcw.com/images/attachement/jpg/site102/20151228/fcaa14683b9a17eaf18b0b.jpg");
+        bannerImages.add(R.mipmap.banner_icon1);
+        bannerImages.add(R.mipmap.banner_icon2);
         mItemBeans = new ArrayList<>(9);
         ConnectionBinder biner1 = new ConnectionBinder();
         biner1.setId(1);
@@ -108,8 +107,6 @@ public class FamiliesSchoolConnectionFragment extends BaseFragment {
     public void onFragmentShow() {
         //开始轮播
         fBanner.startAutoPlay();
-
-
     }
 
     @Override

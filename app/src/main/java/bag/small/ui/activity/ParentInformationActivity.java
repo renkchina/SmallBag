@@ -205,7 +205,7 @@ public class ParentInformationActivity extends BaseActivity {
                 .compose(RxLifecycleCompact.bind(this).withObservable())
                 .subscribe(bean -> {
                     if (bean.isSuccess()) {
-
+                        finish();
                     } else {
                         toast(bean.getMsg());
                     }

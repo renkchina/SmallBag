@@ -16,7 +16,7 @@ public class EducationalNoticeActivity extends BaseActivity {
     @Bind(R.id.activity_education_banner)
     Banner eBanner;
 
-    private List<String> bannerImages;
+    private List bannerImages;
 
     @Override
     public int getLayoutResId() {
@@ -26,11 +26,27 @@ public class EducationalNoticeActivity extends BaseActivity {
     @Override
     public void initData() {
         bannerImages = new ArrayList<>();
+        bannerImages.add(R.mipmap.banner_icon1);
+        bannerImages.add(R.mipmap.banner_icon2);
     }
 
     @Override
     public void initView() {
+        setToolTitle("教务通知", true);
         setBanner(eBanner, bannerImages);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //开始轮播
+        eBanner.startAutoPlay();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        eBanner.stopAutoPlay();
     }
 
     private void setBanner(Banner banner, List images) {
