@@ -15,5 +15,6 @@
     <color name="font_green">#51A8EC</color>
     <color name="main_bottom">#F5A623</color>
     <color name="main_bottom_gray">#A7A7A7</color>
+    <color name="font_black">#7c7c7c</color>
 
 </resources>

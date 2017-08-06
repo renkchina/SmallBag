@@ -13,4 +13,21 @@
         android:id="@+id/activity_education_banner"
         android:layout_width="match_parent"
         android:layout_height="155dp" />
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/activity_education_tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        app:tabGravity="fill"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/button_green"
+        app:tabTextColor="@color/txt_gray">
+    </android.support.design.widget.TabLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/activity_education_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+    </android.support.v7.widget.RecyclerView>
 </LinearLayout>

@@ -161,7 +161,7 @@
 -keep class com.google.gson.stream.** { *; }
 # 使用Gson时需要配置Gson的解析对象及变量都不混淆。不然Gson会找不到变量。
 # 将下面替换成自己的实体类
--keep class com.edriving.entity.** { *; }
+-keep class bag.small.entity.** { *; }
 
 
 # OkHttp3
@@ -197,6 +197,12 @@
     rx.internal.util.atomic.LinkedQueueNode consumerNode;
 }
 
+# keep annotated
+-keep @com.china.rxbus.MySubscribe class * {*;}
+-keep class * {
+     @com.china.rxbus.MySubscribe <fields>;
+ }
+
 ##视频播放
 #-keep class tv.danmaku.ijk.** { *; }
 #-dontwarn tv.danmaku.ijk.**
@@ -215,11 +221,6 @@
 #-dontwarn com.hedgehog.ratingbar
 
 
-# keep annotated
--keep @com.china.rxbus.MySubscribe class * {*;}
--keep class * {
-     @com.china.rxbus.MySubscribe <fields>;
- }
 
 #
 #-keepattributes *Annotation*,

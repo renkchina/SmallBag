@@ -109,7 +109,6 @@ public class TeacherInformationActivity extends BaseActivity
     private List<RegisterInfoBean.SchoolBeanX.SchoolBean.BaseBean.JieBean.KecheBean> course;
     private TeachSubjectClassViewBinder viewBinder;
 
-    private String[][] jiaoxue;
     private int isMaster = 1;
     private String jieci;
     private int nianji;
@@ -237,7 +236,6 @@ public class TeacherInformationActivity extends BaseActivity
                     .subscribe(bean -> {
                         if (bean.isSuccess()) {
                             RxCountDown.TimerDown(GlobalValues.COUNT_DOWN_TIME, sendCode);
-                            toast(bean.getData());
                         }
                     }, new HttpError());
         }
@@ -310,7 +308,6 @@ public class TeacherInformationActivity extends BaseActivity
         List<Map<String, String>> json = new ArrayList<>();
         if (ListUtil.unEmpty(lists)) {
             int size = lists.size();
-            jiaoxue = new String[size][4];
             for (int i = 0; i < size; i++) {
                 Map<String, String> map = new HashMap<>(4);
                 map.put("kemu", getNumbers(lists.get(i).getKemu()));

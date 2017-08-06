@@ -4,6 +4,7 @@ package bag.small.ui.activity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
 import bag.small.R;
 import bag.small.base.BaseActivity;
 import butterknife.Bind;
@@ -11,7 +12,7 @@ import butterknife.OnClick;
 
 public class PasswordForgetActivity extends BaseActivity {
 
- 
+
     @Bind(R.id.activity_pwd_forget_phone_edt)
     EditText pfPhoneEdt;
     @Bind(R.id.activity_pwd_forget_verification_code_edt)
@@ -32,7 +33,7 @@ public class PasswordForgetActivity extends BaseActivity {
 
     @Override
     public void initView() {
-
+        setToolTitle("忘记密码", true);
     }
 
 

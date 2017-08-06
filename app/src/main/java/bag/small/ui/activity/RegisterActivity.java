@@ -101,12 +101,11 @@ public class RegisterActivity extends BaseActivity {
 
     private void getCodeByPhone(String phone) {
         iRegisterSendCode.sendCodeRequest(phone)
-                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
                 .compose(RxLifecycleCompact.bind(this).withObservable())
+                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
                 .subscribe(bean -> {
                     if (bean.isSuccess()) {
                         RxCountDown.TimerDown(GlobalValues.COUNT_DOWN_TIME, rSendCodeBtn);
-                        toast(bean.getData());
                     }else{
                         toast(bean.getMsg());
                     }

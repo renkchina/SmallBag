@@ -274,7 +274,6 @@ public class ParentInformationActivity extends BaseActivity {
                     .subscribe(bean -> {
                         if (bean.isSuccess()) {
                             RxCountDown.TimerDown(GlobalValues.COUNT_DOWN_TIME, senCodeBtn);
-                            toast(bean.getData());
                         }
                     }, new HttpError());
         }
