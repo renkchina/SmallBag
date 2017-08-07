@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "F:\\SmallBag\\Rxbus\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+        "outputFile": "D:\\AndroidProjects\\SmallBag\\rxbus\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
         "map": [
             {
                 "to": {
@@ -11,31 +11,7 @@
                     "endOffset": 93
                 },
                 "from": {
-                    "file": "F:\\SmallBag\\Rxbus\\src\\main\\res\\values\\strings.xml",
-                    "position": {
-                        "startLine": 1,
-                        "startColumn": 4,
-                        "startOffset": 17,
-                        "endColumn": 42,
-                        "endOffset": 55
-                    }
-                }
-            }
-        ]
-    },
-    {
-        "outputFile": "D:\\AndroidProjects\\SmallBag\\Rxbus\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
-        "map": [
-            {
-                "to": {
-                    "startLine": 2,
-                    "startColumn": 4,
-                    "startOffset": 55,
-                    "endColumn": 42,
-                    "endOffset": 93
-                },
-                "from": {
-                    "file": "D:\\AndroidProjects\\SmallBag\\Rxbus\\src\\main\\res\\values\\strings.xml",
+                    "file": "D:\\AndroidProjects\\SmallBag\\rxbus\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 1,
                         "startColumn": 4,

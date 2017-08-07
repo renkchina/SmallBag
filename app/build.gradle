@@ -101,9 +101,9 @@ dependencies {
     //图片选择
     compile project(path: ':rxpicker')
     //RxBus
-    compile project(path: ':Rxbus')
+    compile project(path: ':rxbus')
     //banner
-    compile project(path: ':banner')
+    compile project(path: ':mbanner')
     //provider
     compile project(path: ':viewBinder')
     //友盟

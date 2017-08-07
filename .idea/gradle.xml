@@ -8,11 +8,12 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/Rxbus" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/banner" />
-            <option value="$PROJECT_DIR$/library" />
+            <option value="$PROJECT_DIR$/luban" />
+            <option value="$PROJECT_DIR$/mbanner" />
+            <option value="$PROJECT_DIR$/rxbus" />
             <option value="$PROJECT_DIR$/rxpicker" />
+            <option value="$PROJECT_DIR$/viewBinder" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

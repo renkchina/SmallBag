@@ -2,12 +2,14 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Rxbus/Rxbus.iml" filepath="$PROJECT_DIR$/Rxbus/Rxbus.iml" />
       <module fileurl="file://$PROJECT_DIR$/SmallBag.iml" filepath="$PROJECT_DIR$/SmallBag.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/banner/banner.iml" filepath="$PROJECT_DIR$/banner/banner.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/luban/luban.iml" filepath="$PROJECT_DIR$/luban/luban.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mbanner/mbanner.iml" filepath="$PROJECT_DIR$/mbanner/mbanner.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rxbus/Rxbus.iml" filepath="$PROJECT_DIR$/rxbus/Rxbus.iml" />
       <module fileurl="file://$PROJECT_DIR$/rxpicker/rxpicker.iml" filepath="$PROJECT_DIR$/rxpicker/rxpicker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/viewBinder/viewBinder.iml" filepath="$PROJECT_DIR$/viewBinder/viewBinder.iml" />
     </modules>
   </component>
 </project>
