@@ -82,7 +82,7 @@ public class RegisterActivity extends BaseActivity {
                 registerPhone(2);
                 break;
             case R.id.activity_register_login_tv:
-                skipActivity(LoginActivity.class);
+                finish();
                 break;
         }
     }

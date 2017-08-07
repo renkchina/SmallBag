@@ -10,10 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingBottom="10dp"
         android:paddingEnd="27dp"
         android:paddingStart="14dp"
-        android:paddingTop="7dp">
+        android:paddingTop="3dp">
 
         <ImageView
             android:id="@+id/item_fragment_user_note_head_iv"
@@ -39,8 +38,8 @@
                 tools:text="关键词" />
 
             <View
-                android:layout_width="21.5dp"
                 android:id="@+id/item_fragment_delete_message_v"
+                android:layout_width="21.5dp"
                 android:layout_height="21.5dp"
                 android:background="@mipmap/delete_circle" />
 
@@ -65,18 +64,19 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/item_fragment_user_note_image_content_recycler"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="27dp"
         android:layout_marginStart="75dp"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:maxHeight="200dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="32dp"
-        android:gravity="center_vertical"
         android:layout_marginEnd="27dp"
         android:layout_marginStart="75dp"
         android:layout_marginTop="6dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <TextView
@@ -93,22 +93,22 @@
 
         <ImageView
             android:id="@+id/item_fragment_note_like_iv"
-            android:background="@mipmap/heart_icon"
             android:layout_width="21dp"
-            android:layout_height="21dp" />
+            android:layout_height="21dp"
+            android:background="@mipmap/heart_icon" />
+
         <ImageView
-            android:layout_width="21dp"
             android:id="@+id/item_fragment_note_show_send_message_iv"
-            android:background="@mipmap/comment_icon"
+            android:layout_width="21dp"
+            android:layout_height="21dp"
             android:layout_marginStart="13dp"
-            android:layout_height="21dp" />
+            android:background="@mipmap/comment_icon" />
     </LinearLayout>
 
-    <bag.small.view.MyListView
-        android:id="@+id/item_fragment_user_note_evaluation_listview"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/item_fragment_user_note_evaluation_recycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </bag.small.view.MyListView>
+        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 
     <LinearLayout
         android:id="@+id/item_fragment_user_note_evaluation_ll"
@@ -127,8 +127,8 @@
             android:layout_weight="1"
             android:background="@color/white"
             android:hint="输入评价内容"
-            android:paddingStart="7dp"
             android:paddingEnd="0dp"
+            android:paddingStart="7dp"
             android:textColor="@color/black"
             android:textColorHint="@color/txt_gray"
             android:textSize="14sp" />

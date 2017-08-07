@@ -26,7 +26,7 @@ public class ImageUtil {
             if (TextUtils.isEmpty(url)) {
                 url = "http://www.bz55.com/uploads/allimg/150701/140-150F1142638.jpg";
             }
-            Glide.with(context).load(url).into(imageView);
+            Glide.with(context).load(url).placeholder(R.mipmap.ic_launcher).into(imageView);
         }
     }
 

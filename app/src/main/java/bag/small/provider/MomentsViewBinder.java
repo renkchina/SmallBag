@@ -1,6 +1,8 @@
 package bag.small.provider;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,12 +13,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.List;
+
 import bag.small.R;
 import bag.small.entity.MomentsBean;
+import bag.small.utils.ImageUtil;
 import bag.small.view.MyListView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import me.drakeet.multitype.ItemViewBinder;
+import me.drakeet.multitype.Items;
+import me.drakeet.multitype.MultiTypeAdapter;
 
 /**
  * Created by Administrator on 2017/8/6.
@@ -33,6 +40,32 @@ public class MomentsViewBinder extends ItemViewBinder<MomentsBean, MomentsViewBi
 
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull MomentsBean bean) {
+        Context context = holder.iLikeIv.getContext();
+        holder.iNoteNameTv.setText("Name");
+        holder.iNoteTxtContentTv.setText("Content");
+        ImageUtil.loadImages(context, holder.iNoteHeadIv, "http://img.taopic.com/uploads/allimg/140804/240388-140P40P33417.jpg");
+        List<Object> mItems = new Items();
+        mItems.add("http://img.taopic.com/uploads/allimg/140804/240388-140P40P33417.jpg");
+        mItems.add("http://img.taopic.com/uploads/allimg/140804/240388-140P40P33417.jpg");
+        MultiTypeAdapter multiTypeAdapter = new MultiTypeAdapter(mItems);
+        multiTypeAdapter.register(String.class, new InnerMsgProviderImage());
+        holder.iNoteImageRecycler.setLayoutManager(new GridLayoutManager(context, 3));
+        holder.iNoteImageRecycler.setAdapter(multiTypeAdapter);
+        holder.iTimeTv.setText("1小时前");
+        holder.iDeleteMessageV.setOnClickListener(v -> {
+            getAdapter().getItems().remove(bean);
+        });
+        holder.iLikeIv.setOnClickListener(v -> {
+
+        });
+        holder.iShowSendMessageIv.setOnClickListener(v -> {
+            if (!holder.iNoteEvaluationLl.isShown()) {
+                holder.iNoteEvaluationLl.setVisibility(View.VISIBLE);
+            }
+        });
+        holder.iNoteEvaluationBtn.setOnClickListener(v -> {
+
+        });
 
     }
 
@@ -54,12 +87,12 @@ public class MomentsViewBinder extends ItemViewBinder<MomentsBean, MomentsViewBi
         ImageView iLikeIv;
         @Bind(R.id.item_fragment_note_show_send_message_iv)
         ImageView iShowSendMessageIv;
-        @Bind(R.id.item_fragment_user_note_evaluation_listview)
-        MyListView iNoteEvaluationListview;
+        @Bind(R.id.item_fragment_user_note_evaluation_recycler)
+        RecyclerView iNoteEvaluationRecycler;
         @Bind(R.id.item_fragment_user_note_evaluation_edt)
         EditText iNoteEvaluationEdt;
         @Bind(R.id.item_fragment_user_note_evluation_btn)
-        Button iNoteEvluationBtn;
+        Button iNoteEvaluationBtn;
         @Bind(R.id.item_fragment_user_note_evaluation_ll)
         LinearLayout iNoteEvaluationLl;
 

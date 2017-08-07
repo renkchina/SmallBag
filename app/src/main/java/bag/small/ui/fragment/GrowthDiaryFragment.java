@@ -3,8 +3,18 @@ package bag.small.ui.fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ImageView;
 
+import com.jcodecraeer.xrecyclerview.ProgressStyle;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
+import com.scwang.smartrefresh.header.MaterialHeader;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
+import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -14,6 +24,8 @@ import java.util.List;
 
 import bag.small.R;
 import bag.small.base.BaseFragment;
+import bag.small.entity.MomentsBean;
+import bag.small.provider.MomentsViewBinder;
 import bag.small.utils.GlideImageLoader;
 import bag.small.utils.ImageUtil;
 import bag.small.utils.UserPreferUtil;
@@ -27,6 +39,8 @@ import me.drakeet.multitype.MultiTypeAdapter;
  */
 
 public class GrowthDiaryFragment extends BaseFragment {
+    @Bind(R.id.fragment_growth_root_refresh)
+    SmartRefreshLayout refreshLayout;
     @Bind(R.id.fragment_growth_banner)
     Banner growthBanner;
     @Bind(R.id.fragment_growth_head_image_iv)
@@ -48,7 +62,17 @@ public class GrowthDiaryFragment extends BaseFragment {
         bannerImages.add(R.mipmap.banner_icon1);
         bannerImages.add(R.mipmap.banner_icon2);
         mItems = new Items();
+        mItems.add(new MomentsBean());
+        mItems.add(new MomentsBean());
+        mItems.add(new MomentsBean());
         multiTypeAdapter = new MultiTypeAdapter(mItems);
+        multiTypeAdapter.register(MomentsBean.class, new MomentsViewBinder());
+//        //设置 Header 为 Material风格
+//        refreshLayout.setRefreshHeader(new MaterialHeader(getContext()).setShowBezierWave(true));
+//        //设置 Footer 为 球脉冲
+//        refreshLayout.setRefreshFooter(new BallPulseFooter(getContext()).setSpinnerStyle(SpinnerStyle.Scale));
+        refreshLayout.setOnRefreshListener(refresh -> ((View) refresh).postDelayed(refresh::finishRefresh, 1999));
+        refreshLayout.setOnLoadmoreListener(refresh -> ((View) refresh).postDelayed(refresh::finishLoadmore, 1999));
     }
 
     @Override
@@ -60,11 +84,18 @@ public class GrowthDiaryFragment extends BaseFragment {
         recyclerView.addItemDecoration(new RecycleViewDivider(getContext(), LinearLayoutManager.HORIZONTAL, 1,
                 ContextCompat.getColor(getContext(), R.color.un_enable_gray)));
         recyclerView.setAdapter(multiTypeAdapter);
+//        recyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
+//        recyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
+//        recyclerView.setArrowImageView(R.drawable.iconfont_downgrey);
     }
-
+    //第一次初始化不执行
     @Override
     public void onFragmentShow() {
         growthBanner.startAutoPlay();
+        mItems.add(new MomentsBean());
+        mItems.add(new MomentsBean());
+        mItems.add(new MomentsBean());
+        multiTypeAdapter.notifyDataSetChanged();
     }
 
     @Override

@@ -88,7 +88,7 @@ public class ParentInformationActivity extends BaseActivity {
     @Bind(R.id.activity_parent_commit_btn)
     Button pParentCommitBtn;
 
-    private ListDialog listDiaolg;
+    private ListDialog listDialog;
     private IRegisterReq iRegisterReq;
     private IRegisterSendCode iRegisterSendCode;
     private RegisterInfoBean.SchoolBeanX area;
@@ -99,7 +99,6 @@ public class ParentInformationActivity extends BaseActivity {
     private int nianji;
     private String banji;
     private File logo;
-//    private List<RegisterInfoBean.SchoolBeanX.SchoolBean.BaseBean.JieBean.KecheBean> course;
 
     @Override
     public int getLayoutResId() {
@@ -108,7 +107,7 @@ public class ParentInformationActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        listDiaolg = new ListDialog(this);
+        listDialog = new ListDialog(this);
         iRegisterReq = HttpUtil.getInstance().createApi(IRegisterReq.class);
         iRegisterSendCode = HttpUtil.getInstance().createApi(IRegisterSendCode.class);
         getRegisterInfo();
@@ -128,9 +127,9 @@ public class ParentInformationActivity extends BaseActivity {
                         .subscribe(this::setImages);
                 break;
             case R.id.activity_area_school_ll:
-                listDiaolg.setListData(getArea());
-                listDiaolg.show(view);
-                listDiaolg.setListDialog((position, content) -> {
+                listDialog.setListData(getArea());
+                listDialog.show(view);
+                listDialog.setListDialog((position, content) -> {
                     pAreaSchoolTv.setText(content);
                     area = areaLists.get(position);
                     school_id = area.getSchool().getId();
@@ -140,9 +139,9 @@ public class ParentInformationActivity extends BaseActivity {
             case R.id.activity_study_school_ll:
                 break;
             case R.id.activity_study_num_ll:
-                listDiaolg.setListData(getJieCi());
-                listDiaolg.show(view);
-                listDiaolg.setListDialog((position, content) -> {
+                listDialog.setListData(getJieCi());
+                listDialog.show(view);
+                listDialog.setListDialog((position, content) -> {
                     jieci = getNumbers(content);
                     pStudyNumTv.setText(content);
                     nianji = jie.getNianji();
@@ -153,18 +152,18 @@ public class ParentInformationActivity extends BaseActivity {
             case R.id.activity_grade_ll:
                 break;
             case R.id.activity_class_ll:
-                listDiaolg.setListData(getBanji());
-                listDiaolg.show(view);
-                listDiaolg.setListDialog((position, content) -> {
+                listDialog.setListData(getBanji());
+                listDialog.show(view);
+                listDialog.setListDialog((position, content) -> {
                     pClassTv.setText(content);
                     banji = getNumbers(content);
 //                    course = jie.getKeche();
                 });
                 break;
             case R.id.activity_guardian_ll:
-                listDiaolg.setListData(getChoice());
-                listDiaolg.show(view);
-                listDiaolg.setListDialog((position, content) -> pGuardianTv.setText(content));
+                listDialog.setListData(getChoice());
+                listDialog.show(view);
+                listDialog.setListDialog((position, content) -> pGuardianTv.setText(content));
                 break;
             case R.id.activity_teacher_send_code_btn:
                 sendCode();
