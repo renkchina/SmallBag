@@ -25,7 +25,8 @@
             app:expandedTitleMarginStart="48dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <include layout="@layout/toolbar" />
+            <include layout="@layout/toolbar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
             <FrameLayout
                 android:layout_width="match_parent"
