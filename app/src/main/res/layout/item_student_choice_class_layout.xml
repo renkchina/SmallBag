@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/item_choice_class_tv"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textColor="@color/font_black"
+        android:textSize="14sp"
+        tools:text="兴趣" />
+
+    <TextView
+        android:id="@+id/item_choice_teacher_tv"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textColor="@color/font_black"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/item_choice_classroom_tv"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textColor="@color/font_black"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/item_choice_time_tv"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1.2"
+        android:gravity="center"
+        android:textColor="@color/font_black"
+        android:textSize="14sp" />
+
+
+</LinearLayout>

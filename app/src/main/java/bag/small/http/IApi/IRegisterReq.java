@@ -35,10 +35,10 @@ public interface IRegisterReq {
     Observable<BaseBean<String>> goRegisterAsTeacher(@PartMap HashMap<String, RequestBody> partMap,
                                                      @Part MultipartBody.Part logo);
 
-    @FormUrlEncoded
+    @Multipart
     @POST("commons/registerstudent")
-    Observable<BaseBean<String>> goRegisterAsStudent(@Part MultipartBody.Part logo,
-                                                     @PartMap HashMap<String, RequestBody> partMap);
+    Observable<BaseBean<String>> goRegisterAsStudent(@PartMap HashMap<String, RequestBody> partMap,
+                                                     @Part MultipartBody.Part logo);
 
 
 }

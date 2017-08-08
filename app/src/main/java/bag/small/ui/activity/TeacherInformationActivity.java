@@ -237,6 +237,11 @@ public class TeacherInformationActivity extends BaseActivity
                         if (bean.isSuccess()) {
                             RxCountDown.TimerDown(GlobalValues.COUNT_DOWN_TIME, sendCode);
                         }
+                        try {
+                            toast(bean.getMsg());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }, new HttpError());
         }
     }

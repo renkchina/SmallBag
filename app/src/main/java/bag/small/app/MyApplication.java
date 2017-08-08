@@ -4,15 +4,8 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreater;
-import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreater;
-import com.scwang.smartrefresh.layout.api.RefreshFooter;
-import com.scwang.smartrefresh.layout.api.RefreshHeader;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.BezierRadarHeader;
 import com.umeng.analytics.game.UMGameAgent;
@@ -42,14 +35,12 @@ public class MyApplication extends Application implements Application.ActivityLi
 
     private void setDefaultRefresh() {
         SmartRefreshLayout.setDefaultRefreshHeaderCreater((context, layout) -> {
-            BezierRadarHeader header = new BezierRadarHeader(context);
             layout.setPrimaryColorsId(R.color.colorPrimary, android.R.color.white);
-            return header;
+            return new BezierRadarHeader(context);
         });
         //设置全局的Footer构建器
         SmartRefreshLayout.setDefaultRefreshFooterCreater((context, layout) -> {
-            ClassicsFooter footer = new ClassicsFooter(context);
-            return footer;//指定为经典Footer，默认是 BallPulseFooter
+            return new ClassicsFooter(context);//指定为经典Footer，默认是 BallPulseFooter
         });
     }
 

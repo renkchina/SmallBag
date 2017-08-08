@@ -116,7 +116,8 @@ public class ParentInformationActivity extends BaseActivity {
     @OnClick({R.id.activity_head_image, R.id.activity_area_school_ll,
             R.id.activity_study_school_ll, R.id.activity_study_num_ll,
             R.id.activity_grade_ll, R.id.activity_class_ll,
-            R.id.activity_guardian_ll, R.id.activity_parent_commit_btn})
+            R.id.activity_guardian_ll, R.id.activity_parent_commit_btn,
+            R.id.activity_teacher_send_code_btn})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.activity_head_image:
@@ -144,9 +145,12 @@ public class ParentInformationActivity extends BaseActivity {
                 listDialog.setListDialog((position, content) -> {
                     jieci = getNumbers(content);
                     pStudyNumTv.setText(content);
-                    nianji = jie.getNianji();
                     jie = area.getSchool().getBase().getJie().get(position);
-                    pGradeTv.setText(jie.getNianji_name());
+                    if (jie != null) {
+                        nianji = jie.getNianji();
+                        jie = area.getSchool().getBase().getJie().get(position);
+                        pGradeTv.setText(jie.getNianji_name());
+                    }
                 });
                 break;
             case R.id.activity_grade_ll:
@@ -199,7 +203,7 @@ public class ParentInformationActivity extends BaseActivity {
         map.put("nianji", RxUtil.toRequestBodyTxt(nianji + ""));
         map.put("banji", RxUtil.toRequestBodyTxt(banji));
         map.put("verify", RxUtil.toRequestBodyTxt(verify));
-        iRegisterReq.goRegisterAsStudent(RxUtil.convertImage("logo", logo), map)
+        iRegisterReq.goRegisterAsStudent(map, RxUtil.convertImage("logo", logo))
                 .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
                 .compose(RxLifecycleCompact.bind(this).withObservable())
                 .subscribe(bean -> {
@@ -274,6 +278,11 @@ public class ParentInformationActivity extends BaseActivity {
                         if (bean.isSuccess()) {
                             RxCountDown.TimerDown(GlobalValues.COUNT_DOWN_TIME, senCodeBtn);
                         }
+                        try {
+                            toast(bean.getMsg());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }, new HttpError());
         }
     }
@@ -319,6 +328,7 @@ public class ParentInformationActivity extends BaseActivity {
     private List<String> getBanji() {
         List<String> lists = new ArrayList<>();
         if (jie == null) {
+            toast("没有可以选的");
             return lists;
         }
         if (ListUtil.unEmpty(jie.getBanji())) {

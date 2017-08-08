@@ -106,6 +106,7 @@ public class RegisterActivity extends BaseActivity {
                 .subscribe(bean -> {
                     if (bean.isSuccess()) {
                         RxCountDown.TimerDown(GlobalValues.COUNT_DOWN_TIME, rSendCodeBtn);
+                        toast(bean.getMsg());
                     }else{
                         toast(bean.getMsg());
                     }
@@ -117,7 +118,7 @@ public class RegisterActivity extends BaseActivity {
                 .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
                 .compose(RxLifecycleCompact.bind(this).withObservable())
                 .subscribe(bean -> {
-                    LogUtil.show(bean);
+                    toast(bean.getMsg());
                     if (bean.isSuccess() && bean.getData() != null) {
                         UserPreferUtil.getInstanse().setUseId(bean.getData().getLogin_id());
                         if (type == 1) {

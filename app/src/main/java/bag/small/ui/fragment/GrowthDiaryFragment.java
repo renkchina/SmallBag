@@ -1,26 +1,22 @@
 package bag.small.ui.fragment;
 
+import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.NestedScrollingChild;
-import android.support.v4.view.NestedScrollingParent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
-import com.jcodecraeer.xrecyclerview.ProgressStyle;
-import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
-import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -37,6 +33,7 @@ import bag.small.utils.ImageUtil;
 import bag.small.utils.UserPreferUtil;
 import bag.small.view.RecycleViewDivider;
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import me.drakeet.multitype.Items;
 import me.drakeet.multitype.MultiTypeAdapter;
 
@@ -57,6 +54,8 @@ public class GrowthDiaryFragment extends BaseFragment {
     FloatingActionButton headImage;
     @Bind(R.id.fragment_growth_recycler)
     RecyclerView recyclerView;
+    @Bind(R.id.toolbar_title)
+    TextView toolbarTitle;
     private List<Object> bannerImages;
     MultiTypeAdapter multiTypeAdapter;
     List<Object> mItems;
@@ -86,14 +85,14 @@ public class GrowthDiaryFragment extends BaseFragment {
         refreshLayout.setOnLoadmoreListener(refresh -> ((View) refresh).postDelayed(refresh::finishLoadmore, 1999));
         toolbarLayout.setCollapsedTitleGravity(Gravity.CENTER);
         appBarLayout.addOnOffsetChangedListener((appBarLayout1, verticalOffset) -> {
-            if (verticalOffset == 0) {
-                toolbarLayout.setTitle("");
+            if (verticalOffset != 0) {
+                toolbarLayout.setTitle("小书包");
             }
-//            else if (Math.abs(verticalOffset) < appBarLayout.getTotalScrollRange()) {
-//                toolbarLayout.setTitle("");
+//            else if (Math.abs(verticalOffset) > 0 && Math.abs(verticalOffset) < appBarLayout.getTotalScrollRange()) {
+//
 //            }
             else {
-                toolbarLayout.setTitle("小书包");
+                toolbarLayout.setTitle("");
             }
         });
     }
@@ -147,4 +146,5 @@ public class GrowthDiaryFragment extends BaseFragment {
         //banner设置方法全部调用完毕时最后调用
         banner.start();
     }
+
 }
