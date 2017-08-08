@@ -79,6 +79,7 @@ public class LoginActivity extends BaseActivity {
                     if (bean.isSuccess()) {
                         MyApplication.isLogin = true;
                         MyApplication.loginResults = bean.getData().getRole();
+                        UserPreferUtil.getInstanse().setUserInfomation(bean.getData().getRole().get(0));
                         UserPreferUtil.getInstanse().setUseId(bean.getData().getLogin_id());
                         skipActivity(MainActivity.class);
                     } else {

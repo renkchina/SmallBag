@@ -1,8 +1,14 @@
 package bag.small.ui.fragment;
 
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.NestedScrollingChild;
+import android.support.v4.view.NestedScrollingParent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -39,12 +45,16 @@ import me.drakeet.multitype.MultiTypeAdapter;
  */
 
 public class GrowthDiaryFragment extends BaseFragment {
+    @Bind(R.id.app_bar)
+    AppBarLayout appBarLayout;
+    @Bind(R.id.collapsing_toolbar)
+    CollapsingToolbarLayout toolbarLayout;
     @Bind(R.id.fragment_growth_root_refresh)
     SmartRefreshLayout refreshLayout;
     @Bind(R.id.fragment_growth_banner)
     Banner growthBanner;
-    @Bind(R.id.fragment_growth_head_image_iv)
-    ImageView headImage;
+    @Bind(R.id.fragment_growth_head_image_float)
+    FloatingActionButton headImage;
     @Bind(R.id.fragment_growth_recycler)
     RecyclerView recyclerView;
     private List<Object> bannerImages;
@@ -67,19 +77,33 @@ public class GrowthDiaryFragment extends BaseFragment {
         mItems.add(new MomentsBean());
         multiTypeAdapter = new MultiTypeAdapter(mItems);
         multiTypeAdapter.register(MomentsBean.class, new MomentsViewBinder());
-//        //设置 Header 为 Material风格
-//        refreshLayout.setRefreshHeader(new MaterialHeader(getContext()).setShowBezierWave(true));
-//        //设置 Footer 为 球脉冲
-//        refreshLayout.setRefreshFooter(new BallPulseFooter(getContext()).setSpinnerStyle(SpinnerStyle.Scale));
+        //设置 Header 为 Material风格
+        refreshLayout.setRefreshHeader(new MaterialHeader(getContext()).setShowBezierWave(true));
+        //设置 Footer 为 球脉冲
+        refreshLayout.setRefreshFooter(new BallPulseFooter(getContext()).setSpinnerStyle(SpinnerStyle.Scale));
+
         refreshLayout.setOnRefreshListener(refresh -> ((View) refresh).postDelayed(refresh::finishRefresh, 1999));
         refreshLayout.setOnLoadmoreListener(refresh -> ((View) refresh).postDelayed(refresh::finishLoadmore, 1999));
+        toolbarLayout.setCollapsedTitleGravity(Gravity.CENTER);
+        appBarLayout.addOnOffsetChangedListener((appBarLayout1, verticalOffset) -> {
+            if (verticalOffset == 0) {
+                toolbarLayout.setTitle("");
+            }
+//            else if (Math.abs(verticalOffset) < appBarLayout.getTotalScrollRange()) {
+//                toolbarLayout.setTitle("");
+//            }
+            else {
+                toolbarLayout.setTitle("小书包");
+            }
+        });
     }
 
     @Override
     public void initView() {
-        setToolTitle("小书包", false);
+        setToolTitle("", false);
         setBanner(growthBanner, bannerImages);
         ImageUtil.loadImages(getContext(), headImage, UserPreferUtil.getInstanse().getHeadImagePath());
+        recyclerView.requestDisallowInterceptTouchEvent(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(new RecycleViewDivider(getContext(), LinearLayoutManager.HORIZONTAL, 1,
                 ContextCompat.getColor(getContext(), R.color.un_enable_gray)));
@@ -88,6 +112,7 @@ public class GrowthDiaryFragment extends BaseFragment {
 //        recyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
 //        recyclerView.setArrowImageView(R.drawable.iconfont_downgrey);
     }
+
     //第一次初始化不执行
     @Override
     public void onFragmentShow() {

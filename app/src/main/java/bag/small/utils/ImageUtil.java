@@ -10,7 +10,6 @@ import com.bumptech.glide.Glide;
 import java.io.File;
 import java.io.FileInputStream;
 
-import bag.small.BuildConfig;
 import bag.small.R;
 import bag.small.view.GlideCircleTransform;
 

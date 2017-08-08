@@ -1,6 +1,8 @@
 package bag.small.ui.activity;
 
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.youth.banner.Banner;
@@ -12,8 +14,18 @@ import java.util.List;
 
 import bag.small.R;
 import bag.small.base.BaseActivity;
+import bag.small.entity.EducationNoticeBean;
+import bag.small.http.HttpUtil;
+import bag.small.http.IApi.HttpError;
+import bag.small.http.IApi.INotification;
+import bag.small.provider.EducationNoticeViewBinder;
+import bag.small.rx.RxUtil;
 import bag.small.utils.GlideImageLoader;
+import bag.small.utils.ListUtil;
+import bag.small.utils.UserPreferUtil;
+import bag.small.view.RecycleViewDivider;
 import butterknife.Bind;
+import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
 import me.drakeet.multitype.MultiTypeAdapter;
 
 public class EducationalNoticeActivity extends BaseActivity implements TabLayout.OnTabSelectedListener {
@@ -25,12 +37,11 @@ public class EducationalNoticeActivity extends BaseActivity implements TabLayout
     RecyclerView eRecycler;
 
     private List<Object> bannerImages;
-    private TabLayout.Tab tab1;
-    private TabLayout.Tab tab2;
-    private TabLayout.Tab tab3;
-    private int currentPosition;
+    private int currentPosition = -1;
     MultiTypeAdapter multiTypeAdapter;
     List<Object> items;
+    INotification iNotification;
+    List<EducationNoticeBean> noticeList;
 
     @Override
     public int getLayoutResId() {
@@ -43,24 +54,64 @@ public class EducationalNoticeActivity extends BaseActivity implements TabLayout
         bannerImages.add(R.mipmap.banner_icon1);
         bannerImages.add(R.mipmap.banner_icon2);
         items = new ArrayList<>();
+        noticeList = new ArrayList<>();
         multiTypeAdapter = new MultiTypeAdapter(items);
-
+        multiTypeAdapter.register(EducationNoticeBean.ResultsBean.class, new EducationNoticeViewBinder());
+        iNotification = HttpUtil.getInstance().createApi(INotification.class);
     }
 
     @Override
     public void initView() {
         setToolTitle("教务通知", true);
         setBanner(eBanner, bannerImages);
-        tab1 = eTabLayout.newTab();
-        tab2 = eTabLayout.newTab();
-        tab3 = eTabLayout.newTab();
-        tab1.setText("第一");
-        tab2.setText("第二");
-        tab3.setText("第三");
-        eTabLayout.addTab(tab1);
-        eTabLayout.addTab(tab2);
-        eTabLayout.addTab(tab3);
         eTabLayout.addOnTabSelectedListener(this);
+        eRecycler.setLayoutManager(new LinearLayoutManager(this));
+        eRecycler.addItemDecoration(new RecycleViewDivider(this, LinearLayoutManager.HORIZONTAL, 1,
+                ContextCompat.getColor(this, R.color.un_enable_gray)));
+        eRecycler.setAdapter(multiTypeAdapter);
+    }
+
+    private void requestHttp() {
+        iNotification.getNotice(UserPreferUtil.getInstanse().getRoleId(),
+                UserPreferUtil.getInstanse().getUserId(),
+                UserPreferUtil.getInstanse().getSchoolId())
+                .compose(RxLifecycleCompact.bind(this).withObservable())
+                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                .subscribe(bean -> {
+                    if (bean.isSuccess()) {
+                        if (ListUtil.unEmpty(bean.getData())) {
+                            noticeList.clear();
+                            noticeList.addAll(bean.getData());
+                            setTitles(bean.getData());
+                        } else {
+                            toast("没有通知消息！");
+                        }
+                    } else {
+                        toast(bean.getMsg());
+                    }
+                }, new HttpError());
+    }
+
+    private void setTitles(List<EducationNoticeBean> data) {
+        int position = 0;
+        if (items.size() > 0) {
+            eTabLayout.removeAllTabs();
+            position = currentPosition;
+            currentPosition = -1;
+        }
+        if (ListUtil.unEmpty(data)) {
+            int size = data.size();
+            if (size < 4) {
+                for (EducationNoticeBean bean : data) {
+                    eTabLayout.addTab(eTabLayout.newTab().setText(bean.getLabel()));
+                }
+            } else {
+                for (int i = 0; i < 3; i++) {
+                    eTabLayout.addTab(eTabLayout.newTab().setText(data.get(i).getLabel()));
+                }
+            }
+            eTabLayout.getTabAt(position).select();
+        }
     }
 
     @Override
@@ -68,6 +119,7 @@ public class EducationalNoticeActivity extends BaseActivity implements TabLayout
         super.onResume();
         //开始轮播
         eBanner.startAutoPlay();
+        requestHttp();
     }
 
     @Override
@@ -106,7 +158,9 @@ public class EducationalNoticeActivity extends BaseActivity implements TabLayout
 
     //请求
     private void getTab(int position) {
-
+        items.clear();
+        items.addAll(noticeList.get(position).getResults());
+        multiTypeAdapter.notifyDataSetChanged();
     }
 
     @Override

@@ -1,6 +1,8 @@
 package bag.small.utils;
 
 
+import bag.small.entity.LoginResult;
+
 /**
  * Created by Administrator on 2017/5/31.
  */
@@ -25,32 +27,17 @@ public class UserPreferUtil {
         return userPreferUtil;
     }
 
-//    public void setUserInfomation(RegisterBean loginBean) {
-//        setInfomation("address", loginBean.getAddress());
-//        setInfomation("birthday", loginBean.getBirthday());
-//        setInfomation("height", loginBean.getHeight());
-//        setInfomation("image", loginBean.getHeadImage());
-//        setInfomation("interest", loginBean.getInterest());
-//        setInfomation("job", loginBean.getJob());
-//        setInfomation("username", loginBean.getUserName());
-//        setInfomation("background", loginBean.getBackground());
-//
-//        setInfomation("phone", loginBean.getPhone());
-//        setInfomation("role", loginBean.getRole());
-//        setInfomation("user_id", loginBean.getUid());
-//        setInfomation("salary", loginBean.getSalary());
-//        setInfomation("sex", loginBean.getSex());
-//        setInfomation("signature", loginBean.getSignature());
-//        setInfomation("weight", loginBean.getWeight());
-//        setInfomation("constellation", loginBean.getXingzuo());
-//    }
-
-    public void setUserPassword(String password) {
-        setInfomation("password", password);
+    public void setUserInfomation(LoginResult.RoleBean loginBean) {
+        setInfomation("name", loginBean.getName());
+        setInfomation("role_id", loginBean.getRole_id());
+        setInfomation("school_id", loginBean.getSchool_id());
+        setInfomation("target_id", loginBean.getTarget_id());
+        setInfomation("target_type", loginBean.getTarget_type());
+        setInfomation("logo", loginBean.getLogo());
     }
 
     public void setUserHeadImage(String image) {
-        setInfomation("image", image);
+        setInfomation("logo", image);
     }
 
     public void setUseId(String id) {
@@ -65,16 +52,16 @@ public class UserPreferUtil {
         return getInfomationS("image");
     }
 
-    public String getBackgroundImagePath() {
-        return getInfomationS("background");
+    public String getRoleId() {
+        return getInfomationS("role_id");
     }
 
     public String getUserName() {
-        return getInfomationS("username");
+        return getInfomationS("name");
     }
 
-    public String getPassword() {
-        return getInfomationS("password");
+    public String getSchoolId() {
+        return getInfomationS("school_id");
     }
 
     public String getUserId() {

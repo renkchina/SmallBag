@@ -19,9 +19,11 @@
         android:layout_width="match_parent"
         android:layout_height="55dp"
         app:tabGravity="fill"
+        app:tabIndicatorColor="@color/colorPrimary"
         app:tabMode="fixed"
         app:tabSelectedTextColor="@color/button_green"
         app:tabTextColor="@color/txt_gray">
+
     </android.support.design.widget.TabLayout>
 
     <android.support.v7.widget.RecyclerView

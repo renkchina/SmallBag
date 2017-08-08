@@ -1,5 +1,8 @@
 package bag.small.provider;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +12,7 @@ import android.widget.TextView;
 
 import bag.small.R;
 import bag.small.entity.EducationNoticeBean;
+import bag.small.ui.activity.NoticeDetailActivity;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import me.drakeet.multitype.ItemViewBinder;
@@ -16,7 +20,7 @@ import me.drakeet.multitype.ItemViewBinder;
 /**
  * Created by Administrator on 2017/8/6.
  */
-public class EducationNoticeViewBinder extends ItemViewBinder<EducationNoticeBean, EducationNoticeViewBinder.ViewHolder> {
+public class EducationNoticeViewBinder extends ItemViewBinder<EducationNoticeBean.ResultsBean, EducationNoticeViewBinder.ViewHolder> {
 
     @NonNull
     @Override
@@ -27,13 +31,18 @@ public class EducationNoticeViewBinder extends ItemViewBinder<EducationNoticeBea
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull EducationNoticeBean bean) {
+    protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull EducationNoticeBean.ResultsBean bean) {
+        Context context = holder.root.getContext();
         holder.root.setOnClickListener(v -> {
-
+            Bundle bundle = new Bundle();
+            Intent intent = new Intent(context, NoticeDetailActivity.class);
+            bundle.putInt("notify_id", bean.getId());
+            intent.putExtras(bundle);
+            context.startActivity(intent);
         });
-        holder.iNoticeContentTv.setText("content");
-        holder.iNoticeTimeTv.setText("1小时前");
-        holder.iNoticeTitleTv.setText("Title");
+        holder.iNoticeContentTv.setText("");
+        holder.iNoticeTimeTv.setText(bean.getCreate_at());
+        holder.iNoticeTitleTv.setText(bean.getTitle());
     }
 
 

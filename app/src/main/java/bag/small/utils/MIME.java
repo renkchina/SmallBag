@@ -4,7 +4,6 @@ package bag.small.utils;
  * Created by Administrator on 2017/5/30.
  */
 
-@SuppressWarnings({"unused", "SpellCheckingInspection"})
 public final class MIME {
 
     private MIME() {

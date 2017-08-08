@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fillViewport="true"
+    tools:context="bag.small.ui.activity.NoticeDetailActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include layout="@layout/toolbar" />
+
+        <com.youth.banner.Banner
+            android:id="@+id/activity_notice_detail_banner"
+            android:layout_width="match_parent"
+            android:layout_height="155dp"
+            app:image_scale_type="center_crop" />
+
+        <TextView
+            android:id="@+id/activity_notice_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="25dp"
+            android:gravity="center"
+            android:textColor="@color/font_black"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/activity_notice_time_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="12dp"
+            android:textColor="@color/txt_gray"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/activity_notice_image_iv"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="17dp"
+            android:scaleType="centerCrop"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/activity_notice_content_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:gravity="start"
+            android:textColor="@color/font_black"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+</ScrollView>

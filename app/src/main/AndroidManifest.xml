@@ -84,7 +84,8 @@
         <activity
             android:name=".ui.activity.ScrollingActivity"
             android:label="@string/title_activity_scrolling"
-            android:theme="@style/MyAppTheme"></activity>
+            android:theme="@style/MyAppTheme" />
+        <activity android:name=".ui.activity.NoticeDetailActivity"></activity>
     </application>
 
 </manifest>
