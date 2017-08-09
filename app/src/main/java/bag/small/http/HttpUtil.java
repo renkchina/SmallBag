@@ -3,6 +3,7 @@ package bag.small.http;
 import android.util.ArrayMap;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+
 import java.util.concurrent.TimeUnit;
 
 import bag.small.BuildConfig;
@@ -37,17 +38,16 @@ public class HttpUtil {
     }
 
     private HttpUtil() {
-
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.connectTimeout(90, TimeUnit.SECONDS);
         builder.readTimeout(90, TimeUnit.SECONDS);
-        //
+        //拦截统一参数
+        builder.addInterceptor(new AddInterceptord());
         //打印retrofit日志
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(LogUtil::loge);
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         builder.addInterceptor(loggingInterceptor);
 
-        builder.addInterceptor(new AddInterceptord());
         retrofit = new Retrofit.Builder()
                 .baseUrl(BuildConfig.BaseApi)
                 .client(builder.build())

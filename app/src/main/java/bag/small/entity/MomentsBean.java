@@ -149,12 +149,21 @@ public class MomentsBean {
          * title : 0.21
          * can_delete : false
          */
+        private int position;
 
         private String review_id;
         private String content;
         private String create_at;
         private String title;
         private boolean can_delete;
+
+        public int getPosition() {
+            return position;
+        }
+
+        public void setPosition(int position) {
+            this.position = position;
+        }
 
         public String getReview_id() {
             return review_id;

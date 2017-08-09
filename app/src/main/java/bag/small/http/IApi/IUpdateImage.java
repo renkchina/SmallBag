@@ -16,7 +16,7 @@ import retrofit2.http.Part;
 
 public interface IUpdateImage {
     @Multipart
-    @POST("image/update")
+    @POST("users/submitinfo")
     Observable<BaseBean<String>> updateImage(@Part MultipartBody.Part file);
     @Multipart
     @POST("image/updates")

@@ -38,8 +38,8 @@ public class EvaluationListBinder extends ItemViewBinder<MomentsBean.RepayBean, 
 
         StringUtil.setTextView(holder.eTitleTv, bean.getTitle());
         StringUtil.setTextView(holder.eContentTv, bean.getContent());
-        holder.eTitleTv.setOnClickListener(v -> parentBinder.showEvaluationL(getPosition(holder)));
-        holder.eContentTv.setOnClickListener(v -> parentBinder.showEvaluationL(getPosition(holder)));
+        holder.eTitleTv.setOnClickListener(v -> parentBinder.showEvaluationL(getPosition(holder), bean.getPosition()));
+        holder.eContentTv.setOnClickListener(v -> parentBinder.showEvaluationL(getPosition(holder), bean.getPosition()));
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

@@ -20,19 +20,22 @@ import android.widget.Toast;
 import java.util.List;
 
 import bag.small.R;
-import bag.small.dialog.EvluateDialog;
+import bag.small.dialog.EvaluateDialog;
+import bag.small.entity.BaseBean;
 import bag.small.entity.MomentsBean;
 import bag.small.http.HttpUtil;
 import bag.small.http.IApi.HttpError;
 import bag.small.http.IApi.IMoments;
 import bag.small.interfaze.IDialog;
 import bag.small.rx.RxUtil;
+import bag.small.ui.fragment.GrowthDiaryFragment;
 import bag.small.utils.ImageUtil;
 import bag.small.utils.ListUtil;
 import bag.small.utils.StringUtil;
 import bag.small.utils.UserPreferUtil;
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import io.reactivex.functions.Consumer;
 import me.drakeet.multitype.ItemViewBinder;
 import me.drakeet.multitype.Items;
 import me.drakeet.multitype.MultiTypeAdapter;
@@ -46,12 +49,11 @@ public class MomentsViewBinder extends ItemViewBinder<MomentsBean, MomentsViewBi
     private List<Object> mMsgs;
     private MultiTypeAdapter multiTypeAdapter;
     private MultiTypeAdapter msgAdapter;
-    private ViewHolder mHolder;
-    private int evalutePosition = -1;
-    private EvluateDialog dialog;
+    private GrowthDiaryFragment fragement;
 
-    public MomentsViewBinder() {
+    public MomentsViewBinder(GrowthDiaryFragment fragement) {
         iMoments = HttpUtil.getInstance().createApi(IMoments.class);
+        this.fragement = fragement;
     }
 
     @NonNull
@@ -64,7 +66,6 @@ public class MomentsViewBinder extends ItemViewBinder<MomentsBean, MomentsViewBi
 
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull MomentsBean bean) {
-        mHolder = holder;
         Context context = holder.iLikeIv.getContext();
         StringUtil.setTextView(holder.iNoteNameTv, bean.getTitle());
 
@@ -89,8 +90,11 @@ public class MomentsViewBinder extends ItemViewBinder<MomentsBean, MomentsViewBi
         }
         mItems.clear();
         mItems.addAll(bean.getImages());
-        mMsgs.clear();
-        mMsgs.addAll(bean.getRepay());
+        if (ListUtil.unEmpty(bean.getRepay())) {
+            mMsgs.clear();
+            setEvalutePos(bean.getRepay(), getPosition(holder));
+            mMsgs.addAll(bean.getRepay());
+        }
         multiTypeAdapter.register(String.class, new InnerMsgProviderImage());
         msgAdapter.register(MomentsBean.RepayBean.class, new EvaluationListBinder(this));
         holder.iNoteImageRecycler.setLayoutManager(new GridLayoutManager(context, 3));
@@ -103,6 +107,15 @@ public class MomentsViewBinder extends ItemViewBinder<MomentsBean, MomentsViewBi
         if (bean.isCan_delete()) {
             holder.iDeleteMessageV.setVisibility(View.VISIBLE);
             holder.iDeleteMessageV.setOnClickListener(v -> {
+                iMoments.deleteEvaluateMsg(UserPreferUtil.getInstanse().getRoleId(),
+                        UserPreferUtil.getInstanse().getUserId(), UserPreferUtil.getInstanse().getSchoolId(),
+                        1, bean.getId())
+                        .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                        .subscribe(mBean -> {
+                            if (mBean.isSuccess()) {
+
+                            }
+                        });
                 getAdapter().getItems().remove(bean);
                 getAdapter().notifyDataSetChanged();
             });
@@ -121,32 +134,20 @@ public class MomentsViewBinder extends ItemViewBinder<MomentsBean, MomentsViewBi
             holder.sendBodyTv.setText(bean.getReview());
             bean.setReview("");
         }
+        holder.iShowSendMessageIv.setOnClickListener(v -> fragement.showEvaluationL(getPosition(holder), -1));
+    }
 
-        holder.iNoteEvaluationBtn.setOnClickListener(v -> {
-            String evaluate = StringUtil.EditGetString(holder.iNoteEvaluationEdt);
-            String reviewId;
-            if (evalutePosition < 1) {
-                reviewId = "0";
-                holder.sendBodyTv.setText("");
-            } else {
-                reviewId = bean.getRepay().get(evalutePosition).getReview_id();
-                holder.sendBodyTv.setText("回复" + bean.getRepay().get(evalutePosition).getTitle());
+    void showEvaluationL(int position, int parentPosition) {
+        fragement.showEvaluationL(parentPosition, position);
+    }
+
+    private void setEvalutePos(List<MomentsBean.RepayBean> list, int position) {
+        if (ListUtil.unEmpty(list)) {
+            for (MomentsBean.RepayBean repayBean : list) {
+                repayBean.setPosition(position);
             }
-            iMoments.getEvaluateMsg(UserPreferUtil.getInstanse().getRoleId(),
-                    UserPreferUtil.getInstanse().getUserId(),
-                    UserPreferUtil.getInstanse().getSchoolId(), 1, evaluate,
-                    reviewId, bean.getCreater_id())
-                    .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
-                    .subscribe(bean1 -> {
-                        Toast.makeText(context, bean1.getMsg(), Toast.LENGTH_SHORT).show();
-                    }, new HttpError());
-        });
+        }
     }
-
-    void showEvaluationL(int position) {
-        evalutePosition = position;
-    }
-
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.item_fragment_user_note_head_iv)
