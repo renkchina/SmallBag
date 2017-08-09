@@ -122,11 +122,15 @@ public class MomentsViewBinder extends ItemViewBinder<MomentsBean, MomentsViewBi
         } else {
             holder.iDeleteMessageV.setVisibility(View.GONE);
         }
-        if (bean.isCan_dianzan()) {
-            holder.iLikeIv.setOnClickListener(v -> {
+        holder.iLikeIv.setOnClickListener(v -> {
+            if (bean.isCan_dianzan()) {
+                //
 
-            });
-        }
+            } else {
+                Toast.makeText(context, "已经点过赞了！", Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         if (TextUtils.isEmpty(bean.getReview())) {
             holder.sendBodyTv.setText("");

@@ -178,6 +178,7 @@ public class GrowthDiaryFragment extends BaseFragment implements IDialog {
 
     MomentsBean.RepayBean repayBean;
     String msgId;
+    int msgPosition = -1;
 
     @Override
     public void callBackMethod(Object object, Object obj) {
@@ -193,14 +194,18 @@ public class GrowthDiaryFragment extends BaseFragment implements IDialog {
                 .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
                 .subscribe(bean1 -> {
                     if (bean1.isSuccess()) {
-
+                        MomentsBean momentsBean = (MomentsBean) mItems.get(msgPosition);
+                        momentsBean.setRepay(bean1.getData());
+                        multiTypeAdapter.notifyDataSetChanged();
                     }
+                    evaluateDialog.dismiss();
                     toast(bean1.getMsg());
                 }, new HttpError());
     }
 
     public void showEvaluationL(int msgPosition, int repayPosition) {
         MomentsBean momentsBean = (MomentsBean) mItems.get(msgPosition);
+        this.msgPosition = msgPosition;
         msgId = momentsBean.getId();
         if (repayPosition >= 0) {
             repayBean = momentsBean.getRepay().get(repayPosition);
