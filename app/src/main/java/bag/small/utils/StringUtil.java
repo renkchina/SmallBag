@@ -85,7 +85,7 @@ public class StringUtil {
 
     public static void setTextView(TextView tv, String content) {
         if (TextUtils.isEmpty(content)) {
-            tv.setText("未设置");
+            tv.setText("");
         } else {
             tv.setText(content);
         }

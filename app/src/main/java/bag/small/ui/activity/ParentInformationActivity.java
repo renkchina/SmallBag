@@ -1,7 +1,6 @@
 package bag.small.ui.activity;
 
 
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
@@ -29,7 +28,6 @@ import bag.small.http.HttpUtil;
 import bag.small.http.IApi.HttpError;
 import bag.small.http.IApi.IRegisterReq;
 import bag.small.http.IApi.IRegisterSendCode;
-import bag.small.interfaze.IListDialog;
 import bag.small.rx.RxCountDown;
 import bag.small.rx.RxUtil;
 import bag.small.utils.GlobalValues;
@@ -175,7 +173,7 @@ public class ParentInformationActivity extends BaseActivity {
             case R.id.activity_parent_commit_btn:
                 String xuehao = StringUtil.EditGetString(pStudentNumberEdt);
                 String name = StringUtil.EditGetString(pStudentNameEdt);
-                String jianhuren = StringUtil.EditGetString(pParentPhoneEdit);
+                String jianhuren = StringUtil.EditGetString(pParentNameEdt);
                 String phone = StringUtil.EditGetString(pParentPhoneEdit);
                 String guanxi = StringUtil.EditGetString(pGuardianTv);
                 String verify = StringUtil.EditGetString(verifyCodeEdit);
@@ -195,6 +193,7 @@ public class ParentInformationActivity extends BaseActivity {
         HashMap<String, RequestBody> map = new HashMap<>();
         map.put("xuehao", RxUtil.toRequestBodyTxt(xuehao));
         map.put("name", RxUtil.toRequestBodyTxt(name));
+        map.put("school_id", RxUtil.toRequestBodyTxt(school_id));
         map.put("jianhuren_name", RxUtil.toRequestBodyTxt(jianhuren));
         map.put("phone", RxUtil.toRequestBodyTxt(phone));
         map.put("jianhuren", RxUtil.toRequestBodyTxt(guanxi));

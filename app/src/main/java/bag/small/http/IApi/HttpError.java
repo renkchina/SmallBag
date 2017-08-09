@@ -6,6 +6,8 @@ import android.widget.Toast;
 
 import com.google.gson.JsonParseException;
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
 import org.json.JSONException;
 
@@ -23,16 +25,20 @@ import io.reactivex.functions.Consumer;
 public class HttpError implements Consumer<Throwable> {
     //    private CommonProgressDialog dialog;
     private SwipeRefreshLayout swipeRefresh;
+    private RefreshLayout refreshLayout;
 
     public HttpError(SwipeRefreshLayout swipeRefresh) {
         this.swipeRefresh = swipeRefresh;
     }
 
+    public HttpError() {
+    }
 //    public HttpError(CommonProgressDialog dialog) {
 //        this.dialog = dialog;
 //    }
 
-    public HttpError() {
+    public HttpError(RefreshLayout refreshLayout) {
+        this.refreshLayout = refreshLayout;
     }
 
     @Override
@@ -42,6 +48,9 @@ public class HttpError implements Consumer<Throwable> {
 //        }
         if (swipeRefresh != null && swipeRefresh.isEnabled()) {
             swipeRefresh.setRefreshing(false);
+        }
+        if (refreshLayout != null) {
+            refreshLayout.finishRefresh();
         }
         String exce;
         if (throwable instanceof HttpException) {

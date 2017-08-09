@@ -68,7 +68,8 @@
         android:layout_marginEnd="27dp"
         android:layout_marginStart="75dp"
         android:layout_marginTop="10dp"
-        android:maxHeight="200dp" />
+        android:maxHeight="200dp"
+        android:visibility="gone" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -108,7 +109,15 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/item_fragment_user_note_evaluation_recycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:layout_marginEnd="27dp"
+        android:layout_marginStart="75dp"
+        android:background="@color/background_gray"
+        android:paddingEnd="1dp"
+        android:paddingStart="2dp">
+
+    </android.support.v7.widget.RecyclerView>
 
     <LinearLayout
         android:id="@+id/item_fragment_user_note_evaluation_ll"
@@ -120,13 +129,25 @@
         android:paddingStart="14dp"
         android:paddingTop="5dp">
 
+        <TextView
+            android:id="@+id/item_fragment_notice_send_body_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLength="4"
+            android:textColor="@color/font_black"
+            android:textSize="14sp" />
+
         <EditText
             android:id="@+id/item_fragment_user_note_evaluation_edt"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/white"
-            android:hint="输入评价内容"
+            android:hint="输入评论内容"
+            android:minWidth="60dp"
             android:paddingEnd="0dp"
             android:paddingStart="7dp"
             android:textColor="@color/black"

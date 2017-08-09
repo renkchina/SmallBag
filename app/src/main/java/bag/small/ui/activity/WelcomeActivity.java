@@ -19,14 +19,14 @@ public class WelcomeActivity extends BaseActivity {
     @Override
     public void initView() {
         RxPicker.init(new GlideImageLoader());
-        boolean unFirst = getBoolValue("unFirst");
-        new Handler().postDelayed(() -> {
-            if (unFirst) {
-                skipActivity(LoginActivity.class);
-            } else {
-                skipActivity(GuideActivity.class);
-            }
-        }, 500);
-
+//        boolean unFirst = getBoolValue("unFirst");
+//        new Handler().postDelayed(() -> {
+//            if (unFirst) {
+//                skipActivity(LoginActivity.class);
+//            } else {
+//                skipActivity(GuideActivity.class);
+//            }
+//        }, 500);
+        skipActivity(LoginActivity.class);
     }
 }

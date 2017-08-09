@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_fragment_user_note_evaluation_ll"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:orientation="horizontal"
+    android:paddingBottom="5dp"
+    android:paddingEnd="15dp"
+    android:paddingStart="14dp"
+    android:paddingTop="5dp">
+
+    <EditText
+        android:id="@+id/dialog_fragment_user_note_evaluation_edt"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:hint="输入评论内容"
+        android:paddingEnd="0dp"
+        android:paddingStart="7dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/txt_gray"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/dialog_fragment_user_note_evluation_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/shape_ac_login_btn_back_fill"
+        android:text="发送"
+        android:textSize="14sp" />
+</LinearLayout>

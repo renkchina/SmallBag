@@ -16,8 +16,6 @@ import com.caimuhao.rxpicker.RxPicker;
 import com.caimuhao.rxpicker.bean.ImageItem;
 import com.google.gson.Gson;
 
-import org.w3c.dom.Text;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,7 +27,6 @@ import java.util.regex.Pattern;
 import bag.small.R;
 import bag.small.base.BaseActivity;
 import bag.small.dialog.ListDialog;
-import bag.small.entity.BaseBean;
 import bag.small.entity.RegisterInfoBean;
 import bag.small.http.HttpUtil;
 import bag.small.http.IApi.HttpError;
@@ -50,7 +47,6 @@ import bag.small.view.RecycleViewDivider;
 import butterknife.Bind;
 import butterknife.OnClick;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
-import io.reactivex.functions.Consumer;
 import me.drakeet.multitype.MultiTypeAdapter;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;

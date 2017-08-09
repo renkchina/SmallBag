@@ -1,6 +1,5 @@
 package bag.small.ui.fragment;
 
-import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -8,13 +7,11 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
 import com.youth.banner.Banner;
@@ -27,15 +24,22 @@ import java.util.List;
 import bag.small.R;
 import bag.small.base.BaseFragment;
 import bag.small.entity.MomentsBean;
+import bag.small.http.HttpUtil;
+import bag.small.http.IApi.HttpError;
+import bag.small.http.IApi.IMoments;
 import bag.small.provider.MomentsViewBinder;
+import bag.small.rx.RxUtil;
 import bag.small.utils.GlideImageLoader;
 import bag.small.utils.ImageUtil;
+import bag.small.utils.ListUtil;
 import bag.small.utils.UserPreferUtil;
 import bag.small.view.RecycleViewDivider;
 import butterknife.Bind;
-import butterknife.ButterKnife;
+import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
 import me.drakeet.multitype.Items;
 import me.drakeet.multitype.MultiTypeAdapter;
+
+import static me.drakeet.multitype.MultiTypeAsserts.assertHasTheSameAdapter;
 
 /**
  * Created by Administrator on 2017/7/22.
@@ -58,7 +62,9 @@ public class GrowthDiaryFragment extends BaseFragment {
     TextView toolbarTitle;
     private List<Object> bannerImages;
     MultiTypeAdapter multiTypeAdapter;
-    List<Object> mItems;
+    Items mItems;
+    IMoments iMoments;
+    private int pageIndex = 1;
 
     @Override
     public int getLayoutResId() {
@@ -71,9 +77,6 @@ public class GrowthDiaryFragment extends BaseFragment {
         bannerImages.add(R.mipmap.banner_icon1);
         bannerImages.add(R.mipmap.banner_icon2);
         mItems = new Items();
-        mItems.add(new MomentsBean());
-        mItems.add(new MomentsBean());
-        mItems.add(new MomentsBean());
         multiTypeAdapter = new MultiTypeAdapter(mItems);
         multiTypeAdapter.register(MomentsBean.class, new MomentsViewBinder());
         //设置 Header 为 Material风格
@@ -81,20 +84,19 @@ public class GrowthDiaryFragment extends BaseFragment {
         //设置 Footer 为 球脉冲
         refreshLayout.setRefreshFooter(new BallPulseFooter(getContext()).setSpinnerStyle(SpinnerStyle.Scale));
 
-        refreshLayout.setOnRefreshListener(refresh -> ((View) refresh).postDelayed(refresh::finishRefresh, 1999));
-        refreshLayout.setOnLoadmoreListener(refresh -> ((View) refresh).postDelayed(refresh::finishLoadmore, 1999));
+        refreshLayout.setOnRefreshListener(refresh -> requestHTTP(pageIndex = 1, refresh));
+        refreshLayout.setOnLoadmoreListener(refresh -> requestHTTP(++pageIndex, refresh));
         toolbarLayout.setCollapsedTitleGravity(Gravity.CENTER);
         appBarLayout.addOnOffsetChangedListener((appBarLayout1, verticalOffset) -> {
-            if (verticalOffset != 0) {
+            if (verticalOffset == 0) {
+                toolbarLayout.setTitle("");
+            } else if (Math.abs(verticalOffset) > 0 && Math.abs(verticalOffset) < appBarLayout.getTotalScrollRange()) {
+                toolbarLayout.setTitle("");
+            } else {
                 toolbarLayout.setTitle("小书包");
             }
-//            else if (Math.abs(verticalOffset) > 0 && Math.abs(verticalOffset) < appBarLayout.getTotalScrollRange()) {
-//
-//            }
-            else {
-                toolbarLayout.setTitle("");
-            }
         });
+        iMoments = HttpUtil.getInstance().createApi(IMoments.class);
     }
 
     @Override
@@ -102,24 +104,44 @@ public class GrowthDiaryFragment extends BaseFragment {
         setToolTitle("", false);
         setBanner(growthBanner, bannerImages);
         ImageUtil.loadImages(getContext(), headImage, UserPreferUtil.getInstanse().getHeadImagePath());
-        recyclerView.requestDisallowInterceptTouchEvent(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(new RecycleViewDivider(getContext(), LinearLayoutManager.HORIZONTAL, 1,
                 ContextCompat.getColor(getContext(), R.color.un_enable_gray)));
         recyclerView.setAdapter(multiTypeAdapter);
-//        recyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
-//        recyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
-//        recyclerView.setArrowImageView(R.drawable.iconfont_downgrey);
+        assertHasTheSameAdapter(recyclerView, multiTypeAdapter);
+        requestHTTP(pageIndex, null);
+    }
+
+    private void requestHTTP(int page, RefreshLayout refresh) {
+        iMoments.getMoments(UserPreferUtil.getInstanse().getRoleId(),
+                UserPreferUtil.getInstanse().getUserId(),
+                UserPreferUtil.getInstanse().getSchoolId(), page)
+                .compose(RxLifecycleCompact.bind(this).withObservable())
+                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                .subscribe(bean -> {
+                    if (refresh != null) {
+                        refresh.finishRefresh();
+                        refresh.finishLoadmore();
+                    }
+                    if (bean.isSuccess()) {
+                        if (ListUtil.isEmpty(bean.getData())) {
+                            return;
+                        }
+                        if (page > 1) {
+                            mItems.clear();
+                        }
+                        mItems.addAll(bean.getData());
+                        multiTypeAdapter.notifyDataSetChanged();
+                    } else {
+                        toast(bean.getMsg());
+                    }
+                }, new HttpError(refresh));
     }
 
     //第一次初始化不执行
     @Override
     public void onFragmentShow() {
         growthBanner.startAutoPlay();
-        mItems.add(new MomentsBean());
-        mItems.add(new MomentsBean());
-        mItems.add(new MomentsBean());
-        multiTypeAdapter.notifyDataSetChanged();
     }
 
     @Override
