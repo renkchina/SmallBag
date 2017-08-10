@@ -106,13 +106,21 @@
             android:background="@mipmap/comment_icon" />
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/item_fragment_like_names_list_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="27dp"
+        android:layout_marginStart="75dp"
+        android:textColor="@color/button_green"
+        android:textSize="12sp" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/item_fragment_user_note_evaluation_recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
         android:layout_marginEnd="27dp"
-
         android:layout_marginStart="75dp"
         android:background="@color/background_gray"
         android:paddingEnd="1dp"
@@ -126,10 +134,10 @@
         android:layout_height="40dp"
         android:orientation="horizontal"
         android:paddingBottom="5dp"
-        android:visibility="gone"
         android:paddingEnd="15dp"
         android:paddingStart="14dp"
-        android:paddingTop="5dp">
+        android:paddingTop="5dp"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/item_fragment_notice_send_body_tv"

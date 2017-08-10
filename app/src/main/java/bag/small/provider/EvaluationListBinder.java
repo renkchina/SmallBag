@@ -1,6 +1,8 @@
 package bag.small.provider;
 
+import android.content.DialogInterface;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +42,20 @@ public class EvaluationListBinder extends ItemViewBinder<MomentsBean.RepayBean, 
         StringUtil.setTextView(holder.eContentTv, bean.getContent());
         holder.eTitleTv.setOnClickListener(v -> parentBinder.showEvaluationL(getPosition(holder), bean.getPosition()));
         holder.eContentTv.setOnClickListener(v -> parentBinder.showEvaluationL(getPosition(holder), bean.getPosition()));
+        holder.rootView.setOnLongClickListener(v -> {
+            //
+            AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+            builder.setTitle("温馨提醒");
+            builder.setMessage("你确定要删除该条评论消息");
+            builder.setNeutralButton("确定", (dialog, which) -> {
+                dialog.dismiss();
+            });
+            builder.setNegativeButton("取消", (dialog, which) -> {
+                dialog.dismiss();
+            });
+            builder.create().show();
+            return false;
+        });
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -47,9 +63,11 @@ public class EvaluationListBinder extends ItemViewBinder<MomentsBean.RepayBean, 
         TextView eTitleTv;
         @Bind(R.id.item_evaluation_content_tv)
         TextView eContentTv;
+        View rootView;
 
         ViewHolder(View view) {
             super(view);
+            rootView = view;
             ButterKnife.bind(this, view);
         }
     }

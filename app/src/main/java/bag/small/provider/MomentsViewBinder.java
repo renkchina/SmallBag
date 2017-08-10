@@ -99,10 +99,9 @@ public class MomentsViewBinder extends ItemViewBinder<MomentsBean, MomentsViewBi
         msgAdapter.register(MomentsBean.RepayBean.class, new EvaluationListBinder(this));
         holder.iNoteImageRecycler.setLayoutManager(new GridLayoutManager(context, 3));
         holder.iNoteEvaluationRecycler.setLayoutManager(new LinearLayoutManager(context));
-//        holder.iNoteImageRecycler.setOnTouchListener((v, event) -> true);
         holder.iNoteImageRecycler.setAdapter(multiTypeAdapter);
         holder.iNoteEvaluationRecycler.setAdapter(msgAdapter);
-
+        getNameListsString(holder.nameListsTv, bean.getDianzan_list_names());
         StringUtil.setTextView(holder.iTimeTv, bean.getCreate_at());
         if (bean.isCan_delete()) {
             holder.iDeleteMessageV.setVisibility(View.VISIBLE);
@@ -113,7 +112,7 @@ public class MomentsViewBinder extends ItemViewBinder<MomentsBean, MomentsViewBi
                         .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
                         .subscribe(mBean -> {
                             if (mBean.isSuccess()) {
-
+                                getAdapter().notifyDataSetChanged();
                             }
                         });
                 getAdapter().getItems().remove(bean);
@@ -124,8 +123,7 @@ public class MomentsViewBinder extends ItemViewBinder<MomentsBean, MomentsViewBi
         }
         holder.iLikeIv.setOnClickListener(v -> {
             if (bean.isCan_dianzan()) {
-                //
-                iMoments.likeOrUnLikeEvaluateMsg("upmsg",UserPreferUtil.getInstanse().getRoleId(),
+                iMoments.likeOrUnLikeEvaluateMsg("upmsg", UserPreferUtil.getInstanse().getRoleId(),
                         UserPreferUtil.getInstanse().getUserId(),
                         UserPreferUtil.getInstanse().getSchoolId(), bean.getId())
                         .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
@@ -133,13 +131,15 @@ public class MomentsViewBinder extends ItemViewBinder<MomentsBean, MomentsViewBi
                             if (result.isSuccess()) {
                                 Toast.makeText(context, "点赞成功！", Toast.LENGTH_SHORT).show();
                                 bean.setCan_dianzan(false);
+                                bean.getDianzan_list_names().addAll(result.getData());
+                                getAdapter().notifyDataSetChanged();
                             } else {
                                 Toast.makeText(context, "点赞失败！", Toast.LENGTH_SHORT).show();
                             }
-                        },new HttpError());
+                        }, new HttpError());
 
             } else {
-                iMoments.likeOrUnLikeEvaluateMsg("downmsg",UserPreferUtil.getInstanse().getRoleId(),
+                iMoments.likeOrUnLikeEvaluateMsg("downmsg", UserPreferUtil.getInstanse().getRoleId(),
                         UserPreferUtil.getInstanse().getUserId(),
                         UserPreferUtil.getInstanse().getSchoolId(), bean.getId())
                         .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
@@ -147,6 +147,8 @@ public class MomentsViewBinder extends ItemViewBinder<MomentsBean, MomentsViewBi
                             if (result.isSuccess()) {
                                 Toast.makeText(context, "取消点赞成功！", Toast.LENGTH_SHORT).show();
                                 bean.setCan_dianzan(true);
+                                bean.getDianzan_list_names().removeAll(result.getData());
+                                getAdapter().notifyDataSetChanged();
                             } else {
                                 Toast.makeText(context, "取消点赞失败！", Toast.LENGTH_SHORT).show();
                             }
@@ -176,6 +178,19 @@ public class MomentsViewBinder extends ItemViewBinder<MomentsBean, MomentsViewBi
         }
     }
 
+    private void getNameListsString(TextView tv, List<String> list) {
+        if (ListUtil.isEmpty(list)) {
+            tv.setVisibility(View.GONE);
+        } else {
+            StringBuilder builder = new StringBuilder();
+            for (String s : list) {
+                builder.append(s);
+            }
+            tv.setVisibility(View.VISIBLE);
+            tv.setText(builder.toString());
+        }
+    }
+
     static class ViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.item_fragment_user_note_head_iv)
         ImageView iNoteHeadIv;
@@ -193,6 +208,8 @@ public class MomentsViewBinder extends ItemViewBinder<MomentsBean, MomentsViewBi
         ImageView iLikeIv;
         @Bind(R.id.item_fragment_note_show_send_message_iv)
         ImageView iShowSendMessageIv;
+        @Bind(R.id.item_fragment_like_names_list_tv)
+        TextView nameListsTv;
         @Bind(R.id.item_fragment_user_note_evaluation_recycler)
         RecyclerView iNoteEvaluationRecycler;
         @Bind(R.id.item_fragment_user_note_evaluation_edt)
