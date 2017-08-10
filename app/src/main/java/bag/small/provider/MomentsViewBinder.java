@@ -92,7 +92,7 @@ public class MomentsViewBinder extends ItemViewBinder<MomentsBean, MomentsViewBi
         mItems.addAll(bean.getImages());
         if (ListUtil.unEmpty(bean.getRepay())) {
             mMsgs.clear();
-            setEvalutePos(bean.getRepay(), getPosition(holder));
+            setEvaluatePos(bean.getRepay(), getPosition(holder));
             mMsgs.addAll(bean.getRepay());
         }
         multiTypeAdapter.register(String.class, new InnerMsgProviderImage());
@@ -125,9 +125,32 @@ public class MomentsViewBinder extends ItemViewBinder<MomentsBean, MomentsViewBi
         holder.iLikeIv.setOnClickListener(v -> {
             if (bean.isCan_dianzan()) {
                 //
+                iMoments.likeOrUnLikeEvaluateMsg("upmsg",UserPreferUtil.getInstanse().getRoleId(),
+                        UserPreferUtil.getInstanse().getUserId(),
+                        UserPreferUtil.getInstanse().getSchoolId(), bean.getId())
+                        .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                        .subscribe(result -> {
+                            if (result.isSuccess()) {
+                                Toast.makeText(context, "点赞成功！", Toast.LENGTH_SHORT).show();
+                                bean.setCan_dianzan(false);
+                            } else {
+                                Toast.makeText(context, "点赞失败！", Toast.LENGTH_SHORT).show();
+                            }
+                        },new HttpError());
 
             } else {
-                Toast.makeText(context, "已经点过赞了！", Toast.LENGTH_SHORT).show();
+                iMoments.likeOrUnLikeEvaluateMsg("downmsg",UserPreferUtil.getInstanse().getRoleId(),
+                        UserPreferUtil.getInstanse().getUserId(),
+                        UserPreferUtil.getInstanse().getSchoolId(), bean.getId())
+                        .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                        .subscribe(result -> {
+                            if (result.isSuccess()) {
+                                Toast.makeText(context, "取消点赞成功！", Toast.LENGTH_SHORT).show();
+                                bean.setCan_dianzan(true);
+                            } else {
+                                Toast.makeText(context, "取消点赞失败！", Toast.LENGTH_SHORT).show();
+                            }
+                        });
             }
         });
 
@@ -145,7 +168,7 @@ public class MomentsViewBinder extends ItemViewBinder<MomentsBean, MomentsViewBi
         fragement.showEvaluationL(parentPosition, position);
     }
 
-    private void setEvalutePos(List<MomentsBean.RepayBean> list, int position) {
+    private void setEvaluatePos(List<MomentsBean.RepayBean> list, int position) {
         if (ListUtil.unEmpty(list)) {
             for (MomentsBean.RepayBean repayBean : list) {
                 repayBean.setPosition(position);

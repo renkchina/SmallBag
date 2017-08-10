@@ -187,6 +187,7 @@ public class GrowthDiaryFragment extends BaseFragment implements IDialog {
         if (repayBean != null && !TextUtils.isEmpty(repayBean.getReview_id())) {
             review = repayBean.getReview_id();
         }
+        evaluateDialog.dismiss();
         iMoments.getEvaluateMsg(UserPreferUtil.getInstanse().getRoleId(),
                 UserPreferUtil.getInstanse().getUserId(),
                 UserPreferUtil.getInstanse().getSchoolId(), 1, evaluate,
@@ -198,7 +199,6 @@ public class GrowthDiaryFragment extends BaseFragment implements IDialog {
                         momentsBean.setRepay(bean1.getData());
                         multiTypeAdapter.notifyDataSetChanged();
                     }
-                    evaluateDialog.dismiss();
                     toast(bean1.getMsg());
                 }, new HttpError());
     }
