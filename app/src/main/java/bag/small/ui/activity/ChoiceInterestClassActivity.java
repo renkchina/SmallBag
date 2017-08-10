@@ -18,12 +18,22 @@ import java.util.List;
 
 import bag.small.R;
 import bag.small.base.BaseActivity;
+import bag.small.entity.BaseBean;
 import bag.small.entity.ChoiceClassLists;
+import bag.small.entity.MomentsBean;
+import bag.small.http.HttpUtil;
+import bag.small.http.IApi.HttpError;
+import bag.small.http.IApi.IInterestClass;
 import bag.small.provider.ChoiceClassListsBinder;
+import bag.small.rx.RxUtil;
 import bag.small.utils.GlideImageLoader;
+import bag.small.utils.UserPreferUtil;
 import bag.small.view.RecycleViewDivider;
 import butterknife.Bind;
 import butterknife.OnClick;
+import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Consumer;
 import me.drakeet.multitype.Items;
 import me.drakeet.multitype.MultiTypeAdapter;
 
@@ -49,6 +59,7 @@ public class ChoiceInterestClassActivity extends BaseActivity {
     private List<Object> bannerImages;
     MultiTypeAdapter multiTypeAdapter;
     List<Object> mItems;
+    IInterestClass iInterestClass;
 
     @Override
     public int getLayoutResId() {
@@ -68,11 +79,21 @@ public class ChoiceInterestClassActivity extends BaseActivity {
         iListRecycler.addItemDecoration(new RecycleViewDivider(this, LinearLayoutManager.HORIZONTAL, 1,
                 ContextCompat.getColor(this, R.color.un_enable_gray)));
         iListRecycler.setAdapter(multiTypeAdapter);
+        iInterestClass = HttpUtil.getInstance().createApi(IInterestClass.class);
     }
 
     @Override
     public void initView() {
         setBanner(iStudentBanner, bannerImages);
+        iInterestClass.getInterests(UserPreferUtil.getInstanse().getRoleId(), UserPreferUtil.getInstanse().getUserId(),
+                UserPreferUtil.getInstanse().getSchoolId())
+                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                .compose(RxLifecycleCompact.bind(this).withObservable())
+                .subscribe(listBaseBean -> {
+                    if(listBaseBean.isSuccess()){
+
+                    }
+                }, new HttpError());
     }
 
     private void setBanner(Banner banner, List images) {

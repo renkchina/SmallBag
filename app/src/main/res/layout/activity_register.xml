@@ -16,7 +16,7 @@
         android:layout_marginLeft="13dp"
         android:layout_marginRight="13dp"
         android:layout_marginTop="45dp"
-        android:background="@mipmap/border_input_bg"
+        android:background="@mipmap/border"
         android:orientation="vertical">
 
         <LinearLayout

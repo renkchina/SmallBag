@@ -1,7 +1,7 @@
 package bag.small.ui.activity;
 
-import android.widget.Button;
-import android.widget.ImageView;
+import android.os.Bundle;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.youth.banner.Banner;
@@ -20,20 +20,15 @@ public class InterestClassByStudentActivity extends BaseActivity {
 
     @Bind(R.id.activity_interest_class_student_banner)
     Banner iStudentBanner;
-    @Bind(R.id.activity_interest_class_one_content_tv)
-    TextView iOneContentTv;
-    @Bind(R.id.activity_interest_class_one_del_iv)
-    ImageView iOneDelIv;
-    @Bind(R.id.activity_interest_class_two_content_tv)
-    TextView iTwoContentTv;
-    @Bind(R.id.activity_interest_class_two_del_iv)
-    ImageView iTwoDelIv;
-    @Bind(R.id.activity_interest_class_three_content_tv)
-    TextView iThreeContentTv;
-    @Bind(R.id.activity_interest_class_three_del_iv)
-    ImageView iThreeDelIv;
-    @Bind(R.id.activity_interest_class_commit_btn)
-    Button iCommitBtn;
+    @Bind(R.id.activity_interest_student_class_tv)
+    TextView iStudentClassTv;
+    @Bind(R.id.activity_interest_student_teacher_tv)
+    TextView iStudentTeacherTv;
+    @Bind(R.id.activity_interest_student_time_tv)
+    TextView iStudentTimeTv;
+    @Bind(R.id.activity_interest_student_classroom_tv)
+    TextView iStudentClassroomTv;
+
     private List<Object> bannerImages;
 
     @Override
@@ -51,6 +46,7 @@ public class InterestClassByStudentActivity extends BaseActivity {
     @Override
     public void initView() {
         setBanner(iStudentBanner, bannerImages);
+
     }
 
     private void setBanner(Banner banner, List images) {
@@ -84,6 +80,5 @@ public class InterestClassByStudentActivity extends BaseActivity {
         super.onPause();
         iStudentBanner.stopAutoPlay();
     }
-
 
 }

@@ -183,9 +183,14 @@ public class MomentsViewBinder extends ItemViewBinder<MomentsBean, MomentsViewBi
             tv.setVisibility(View.GONE);
         } else {
             StringBuilder builder = new StringBuilder();
-            for (String s : list) {
-                builder.append(s);
+            int size = list.size();
+
+            for (int i = 0; i < size; i++) {
+                builder.append(list.get(i));
+                if (i < size - 1)
+                    builder.append("、");
             }
+
             tv.setVisibility(View.VISIBLE);
             tv.setText(builder.toString());
         }

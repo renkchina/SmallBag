@@ -1,6 +1,7 @@
 package bag.small.ui.activity;
 
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -12,8 +13,11 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.umeng.analytics.MobclickAgent;
+
 import java.util.List;
+
 import bag.small.R;
 import bag.small.app.MyApplication;
 import bag.small.base.BaseActivity;
@@ -76,7 +80,7 @@ public class MainActivity extends BaseActivity
         mBottomNav.setOnNavigationItemSelectedListener(this);
         lastItem = mBottomNav.getMenu().getItem(0);
         itemDatas = new Items();
-        if(ListUtil.unEmpty(MyApplication.loginResults)){
+        if (ListUtil.unEmpty(MyApplication.loginResults)) {
             itemDatas.clear();
             itemDatas.addAll(MyApplication.loginResults);
         }
@@ -146,6 +150,7 @@ public class MainActivity extends BaseActivity
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.main_drawer_left_add_account_btn:
+                goActivity(RegisterActivity.class);
                 break;
             case R.id.main_drawer_left_account_manager_tv:
                 break;
@@ -163,7 +168,7 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void click(int position) {
-
+//        LoginResult.RoleBean bean = (LoginResult.RoleBean) itemDatas.get(position);
     }
 
     @Override

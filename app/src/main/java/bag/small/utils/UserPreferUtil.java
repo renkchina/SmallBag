@@ -72,8 +72,16 @@ public class UserPreferUtil {
         return getInfomationS("phone");
     }
 
-    public String getSingnature() {
-        return getInfomationS("signature");
+    public String getTargetType() {
+        return getInfomationS("target_type");
+    }
+
+    public boolean isTeacher() {
+        if (getTargetType().equals("teacher")) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private void setInfomation(String key, Object value) {

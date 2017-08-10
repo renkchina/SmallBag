@@ -1,5 +1,6 @@
 package bag.small.ui.activity;
 
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -80,7 +81,7 @@ public class RegisterActivity extends BaseActivity {
                 registerPhone(2);
                 break;
             case R.id.activity_register_login_tv:
-                finish();
+                    finish();
                 break;
         }
     }
@@ -105,7 +106,7 @@ public class RegisterActivity extends BaseActivity {
                     if (bean.isSuccess()) {
                         RxCountDown.TimerDown(GlobalValues.COUNT_DOWN_TIME, rSendCodeBtn);
                         toast(bean.getMsg());
-                    }else{
+                    } else {
                         toast(bean.getMsg());
                     }
                 }, new HttpError());

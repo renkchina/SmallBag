@@ -13,8 +13,11 @@ import android.widget.TextView;
 
 import bag.small.R;
 import bag.small.entity.ConnectionBinder;
+import bag.small.ui.activity.ChoiceInterestClassActivity;
 import bag.small.ui.activity.EducationalNoticeActivity;
+import bag.small.ui.activity.InterestClassByTeacherActivity;
 import bag.small.utils.StringUtil;
+import bag.small.utils.UserPreferUtil;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import me.drakeet.multitype.ItemViewBinder;
@@ -34,6 +37,7 @@ public class ConnectionViewBinder extends ItemViewBinder<ConnectionBinder, Conne
 
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull ConnectionBinder bean) {
+        Context context = holder.iIconIv.getContext();
         if (bean.getCount() < 1) {
             holder.iCountIv.setVisibility(View.GONE);
         } else {
@@ -65,6 +69,14 @@ public class ConnectionViewBinder extends ItemViewBinder<ConnectionBinder, Conne
                 case 7:
 //                    gotoActivity();
                     break;
+                case 8:
+                    if (UserPreferUtil.getInstanse().isTeacher()) {
+                        goActivity(InterestClassByTeacherActivity.class, context);
+                    } else {
+                        goActivity(ChoiceInterestClassActivity.class, context);
+                    }
+
+                    break;
             }
         });
     }
@@ -85,8 +97,8 @@ public class ConnectionViewBinder extends ItemViewBinder<ConnectionBinder, Conne
         }
     }
 
-    public void goActivity(Class<? extends Activity> cls,
-                           Context context) {
+    private void goActivity(Class<? extends Activity> cls,
+                            Context context) {
         Intent intent = new Intent(context, cls);
         context.startActivity(intent);
 

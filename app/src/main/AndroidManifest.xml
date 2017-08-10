@@ -81,10 +81,6 @@
             android:value="Umeng" />
 
         <activity android:name=".ui.activity.EducationalNoticeActivity" />
-        <activity
-            android:name=".ui.activity.ScrollingActivity"
-            android:label="@string/title_activity_scrolling"
-            android:theme="@style/MyAppTheme" />
         <activity android:name=".ui.activity.NoticeDetailActivity" />
         <activity android:name=".ui.activity.InterestClassByTeacherActivity" />
         <activity android:name=".ui.activity.InterestClassByStudentActivity" />
