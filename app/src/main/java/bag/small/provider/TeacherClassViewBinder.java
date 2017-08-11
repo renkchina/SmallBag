@@ -19,7 +19,7 @@ import me.drakeet.multitype.ItemViewBinder;
 /**
  * Created by Administrator on 2017/8/10.
  */
-public class TeacherClassViewBinder extends ItemViewBinder<TeacherClass, TeacherClassViewBinder.ViewHolder> {
+public class TeacherClassViewBinder extends ItemViewBinder<TeacherClass.ClassBean.StudentsBean, TeacherClassViewBinder.ViewHolder> {
 
     @NonNull
     @Override
@@ -30,15 +30,15 @@ public class TeacherClassViewBinder extends ItemViewBinder<TeacherClass, Teacher
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull TeacherClass teacherClass) {
+    protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull TeacherClass.ClassBean.StudentsBean bean) {
         if (getPosition(holder) == 0) {
             setTxtSizeColor(holder.itemTextOne, true, "班级");
             setTxtSizeColor(holder.itemTextTwo, true, "姓名");
             setTxtSizeColor(holder.itemTextThree, true, "学号");
         } else {
-            setTxtSizeColor(holder.itemTextOne, false, "5班");
-            setTxtSizeColor(holder.itemTextTwo, false, "花果");
-            setTxtSizeColor(holder.itemTextThree, false, "9527");
+            setTxtSizeColor(holder.itemTextOne, false, bean.getBanji());
+            setTxtSizeColor(holder.itemTextTwo, false, bean.getName());
+            setTxtSizeColor(holder.itemTextThree, false, bean.getXuehao());
         }
     }
 
@@ -59,9 +59,9 @@ public class TeacherClassViewBinder extends ItemViewBinder<TeacherClass, Teacher
     private void setTxtSizeColor(TextView tv, boolean isBold, String content) {
         StringUtil.setTextView(tv, content);
         if (isBold) {
-            tv.setTextSize(30);
+            tv.setTextSize(15);
         } else {
-            tv.setTextSize(24);
+            tv.setTextSize(12);
         }
         tv.getPaint().setFakeBoldText(isBold);
     }

@@ -53,6 +53,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IActivit
         onFirst();
         initData();
         initView();
+        register();
     }
 
     public void setToolTitle(String title, boolean isTurnLeft) {

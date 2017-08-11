@@ -10,6 +10,7 @@ import android.widget.TextView;
 import bag.small.R;
 import bag.small.app.MyApplication;
 import bag.small.base.BaseActivity;
+import bag.small.entity.LoginResult;
 import bag.small.http.HttpUtil;
 import bag.small.http.IApi.HttpError;
 import bag.small.http.IApi.ILoginRequest;
@@ -79,7 +80,9 @@ public class LoginActivity extends BaseActivity {
                     if (bean.isSuccess()) {
                         MyApplication.isLogin = true;
                         MyApplication.loginResults = bean.getData().getRole();
-                        UserPreferUtil.getInstanse().setUserInfomation(bean.getData().getRole().get(0));
+                        LoginResult.RoleBean mBean = bean.getData().getRole().get(0);
+                        mBean.setSelected(true);
+                        UserPreferUtil.getInstanse().setUserInfomation(mBean);
                         UserPreferUtil.getInstanse().setUseId(bean.getData().getLogin_id());
                         skipActivity(MainActivity.class);
                     } else {

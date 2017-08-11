@@ -97,6 +97,11 @@ public class EvaluateDialog extends Dialog {
         }
     }
 
+    public void clear() {
+        dEvaluationEdt.setText("");
+        hint = "说点什么吧";
+    }
+
     @Override
     public void cancel() {
         dEvaluationEdt.setText("");

@@ -131,6 +131,8 @@ public class MomentsViewBinder extends ItemViewBinder<MomentsBean, MomentsViewBi
                             if (result.isSuccess()) {
                                 Toast.makeText(context, "点赞成功！", Toast.LENGTH_SHORT).show();
                                 bean.setCan_dianzan(false);
+                                if (ListUtil.unEmpty(result.getData()))
+                                    bean.getDianzan_list_names().clear();
                                 bean.getDianzan_list_names().addAll(result.getData());
                                 getAdapter().notifyDataSetChanged();
                             } else {
@@ -147,7 +149,9 @@ public class MomentsViewBinder extends ItemViewBinder<MomentsBean, MomentsViewBi
                             if (result.isSuccess()) {
                                 Toast.makeText(context, "取消点赞成功！", Toast.LENGTH_SHORT).show();
                                 bean.setCan_dianzan(true);
-                                bean.getDianzan_list_names().removeAll(result.getData());
+                                if (ListUtil.unEmpty(result.getData()))
+                                    bean.getDianzan_list_names().clear();
+                                bean.getDianzan_list_names().addAll(result.getData());
                                 getAdapter().notifyDataSetChanged();
                             } else {
                                 Toast.makeText(context, "取消点赞失败！", Toast.LENGTH_SHORT).show();

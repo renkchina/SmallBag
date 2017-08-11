@@ -9,6 +9,8 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.BezierRadarHeader;
 import com.umeng.analytics.game.UMGameAgent;
+import com.umeng.message.IUmengRegisterCallback;
+import com.umeng.message.PushAgent;
 
 import java.util.List;
 
@@ -30,6 +32,19 @@ public class MyApplication extends Application implements Application.ActivityLi
         super.onCreate();
         mContext = this;
         registerActivityLifecycleCallbacks(this);
+        PushAgent mPushAgent = PushAgent.getInstance(this);
+        //注册推送服务，每次调用register方法都会回调该接口
+        mPushAgent.register(new IUmengRegisterCallback() {
+            @Override
+            public void onSuccess(String deviceToken) {
+                //注册成功会返回device token
+            }
+
+            @Override
+            public void onFailure(String s, String s1) {
+
+            }
+        });
         setDefaultRefresh();
     }
 
@@ -51,6 +66,7 @@ public class MyApplication extends Application implements Application.ActivityLi
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
         LogUtil.show(activity.getLocalClassName() + " onCreate");
+        PushAgent.getInstance(activity).onAppStart();
     }
 
     @Override

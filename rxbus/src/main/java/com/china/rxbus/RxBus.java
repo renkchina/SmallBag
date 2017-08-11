@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.Scheduler;
@@ -192,13 +193,12 @@ public class RxBus {
         } else {
             flowable = toObservable(subscriberMethod.code, subscriberMethod.eventType);
         }
-        Disposable subscription = postToObservable(flowable, subscriberMethod)
-                .subscribe(new Consumer<Object>() {
-                    @Override
-                    public void accept(Object o) throws Exception {
-                        callEvent(subscriberMethod, o);
-                    }
-                });
+        Disposable subscription = postToObservable(flowable, subscriberMethod).subscribe(new Consumer<Object>() {
+            @Override
+            public void accept(Object o) throws Exception {
+                callEvent(subscriberMethod, o);
+            }
+        });
 
         addSubscriptionToMap(subscriberMethod.subscriber.getClass(), subscription);
     }

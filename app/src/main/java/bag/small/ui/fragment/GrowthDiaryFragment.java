@@ -187,6 +187,7 @@ public class GrowthDiaryFragment extends BaseFragment implements IDialog {
         if (repayBean != null && !TextUtils.isEmpty(repayBean.getReview_id())) {
             review = repayBean.getReview_id();
         }
+        evaluateDialog.clear();
         evaluateDialog.dismiss();
         iMoments.getEvaluateMsg(UserPreferUtil.getInstanse().getRoleId(),
                 UserPreferUtil.getInstanse().getUserId(),

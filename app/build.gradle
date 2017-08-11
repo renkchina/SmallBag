@@ -109,6 +109,7 @@ dependencies {
     //友盟
     compile files('src/main/jniLibs/umeng-analytics-v6.1.1.jar')
     compile files('src/main/jniLibs/utdid4all-1.0.4.jar')
+    compile project(':PushSDK')
     //压缩图片
     compile project(path: ':luban')
     //

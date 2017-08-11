@@ -42,12 +42,22 @@ public class LoginResult {
          * logo : http://api.vshangsoft.com/images/teacher/1501839674tea_logo
          */
 
+        private boolean isSelected;
         private String role_id;
         private String name;
         private String target_type;
         private String target_id;
         private String school_id;
         private String logo;
+
+
+        public boolean isSelected() {
+            return isSelected;
+        }
+
+        public void setSelected(boolean selected) {
+            isSelected = selected;
+        }
 
         public String getRole_id() {
             return role_id;

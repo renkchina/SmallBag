@@ -40,7 +40,8 @@ public class ImageUtil {
             if (url == null) {
                 url = "http://www.bz55.com/uploads/allimg/150701/140-150F1142638.jpg";
             }
-            Glide.with(context).load(url).placeholder(R.mipmap.photo_update_nomal).transform(new GlideCircleTransform(context)).into(imageView);
+            Glide.with(context).load(url).transform(new GlideCircleTransform(context)).into(imageView);
+//            .placeholder(R.mipmap.photo_update_nomal)
         }
     }
 

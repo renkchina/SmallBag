@@ -1,6 +1,5 @@
 package bag.small.provider;
 
-import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
@@ -53,7 +52,12 @@ public class EvaluationListBinder extends ItemViewBinder<MomentsBean.RepayBean, 
             builder.setNegativeButton("取消", (dialog, which) -> {
                 dialog.dismiss();
             });
-            builder.create().show();
+            builder.setTitle("温馨提醒");
+            builder.setMessage("你确定要删除该条评论消息");
+            AlertDialog dialog = builder.create();
+            dialog.setTitle("温馨提醒");
+            dialog.setMessage("你确定要删除该条评论消息");
+            dialog.show();
             return false;
         });
     }

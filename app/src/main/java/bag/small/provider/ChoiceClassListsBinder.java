@@ -7,8 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.china.rxbus.RxBus;
+
 import bag.small.R;
 import bag.small.entity.ChoiceClassLists;
+import bag.small.utils.StringUtil;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import me.drakeet.multitype.ItemViewBinder;
@@ -16,7 +19,8 @@ import me.drakeet.multitype.ItemViewBinder;
 /**
  * Created by Administrator on 2017/8/8.
  */
-public class ChoiceClassListsBinder extends ItemViewBinder<ChoiceClassLists, ChoiceClassListsBinder.ViewHolder> {
+public class ChoiceClassListsBinder extends ItemViewBinder<ChoiceClassLists.KechenBean, ChoiceClassListsBinder.ViewHolder> {
+
 
     @NonNull
     @Override
@@ -27,7 +31,7 @@ public class ChoiceClassListsBinder extends ItemViewBinder<ChoiceClassLists, Cho
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull ChoiceClassLists choiceClassLists) {
+    protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull ChoiceClassLists.KechenBean kechen) {
         if (getPosition(holder) == 0) {
             holder.iClassTv.setText("兴趣课名");
             holder.iTeacherTv.setText("授课老师");
@@ -42,10 +46,11 @@ public class ChoiceClassListsBinder extends ItemViewBinder<ChoiceClassLists, Cho
             holder.iTeacherTv.getPaint().setFakeBoldText(false);
             holder.iClassroomTv.getPaint().setFakeBoldText(false);
             holder.iTimeTv.getPaint().setFakeBoldText(false);
-            holder.iClassTv.setText("舞蹈课");
-            holder.iTeacherTv.setText("王老师");
-            holder.iClassroomTv.setText("302室");
-            holder.iTimeTv.setText("周五15:00-16:00");
+            StringUtil.setTextView(holder.iClassTv, kechen.getName());
+            StringUtil.setTextView(holder.iTeacherTv, kechen.getTeacher());
+            StringUtil.setTextView(holder.iClassroomTv, kechen.getClass_room());
+            StringUtil.setTextView(holder.iTimeTv, kechen.getClass_time());
+            holder.rootView.setOnClickListener(v -> RxBus.get().send(9999,kechen));
         }
     }
 
@@ -59,9 +64,11 @@ public class ChoiceClassListsBinder extends ItemViewBinder<ChoiceClassLists, Cho
         TextView iClassroomTv;
         @Bind(R.id.item_choice_time_tv)
         TextView iTimeTv;
+        View rootView;
 
         ViewHolder(View view) {
             super(view);
+            rootView = view;
             ButterKnife.bind(this, view);
         }
     }
