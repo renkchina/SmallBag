@@ -21,7 +21,7 @@ public class ChoiceClassLists {
     private XuankeBean xuanke;
     private List<KechenBean> kechen;
     private boolean is_complete;
-    private List<?> result;
+    private ResultBean result;
 
     public boolean is_complete() {
         return is_complete;
@@ -31,11 +31,11 @@ public class ChoiceClassLists {
         this.is_complete = is_complete;
     }
 
-    public List<?> getResult() {
+    public ResultBean getResult() {
         return result;
     }
 
-    public void setResult(List<?> result) {
+    public void setResult(ResultBean result) {
         this.result = result;
     }
 
@@ -138,6 +138,23 @@ public class ChoiceClassLists {
             public void setCourse_name(String course_name) {
                 this.course_name = course_name;
             }
+
+            @Override
+            public String toString() {
+                return "ChoiceBean{" +
+                        "course_id='" + course_id + '\'' +
+                        ", course_name='" + course_name + '\'' +
+                        '}';
+            }
+        }
+
+        @Override
+        public String toString() {
+            return "XuankeBean{" +
+                    "first=" + first +
+                    ", secend=" + secend +
+                    ", third=" + third +
+                    '}';
         }
     }
 
@@ -206,5 +223,78 @@ public class ChoiceClassLists {
         public void setTeacher(String teacher) {
             this.teacher = teacher;
         }
+
+        @Override
+        public String toString() {
+            return "KechenBean{" +
+                    "id='" + id + '\'' +
+                    ", name='" + name + '\'' +
+                    ", class_room='" + class_room + '\'' +
+                    ", class_time='" + class_time + '\'' +
+                    ", teacher='" + teacher + '\'' +
+                    '}';
+        }
+    }
+
+    public static class ResultBean {
+        private String name;
+        private String teacher;
+        private String class_room;
+        private String class_time;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getTeacher() {
+            return teacher;
+        }
+
+        public void setTeacher(String teacher) {
+            this.teacher = teacher;
+        }
+
+        public String getClass_room() {
+            return class_room;
+        }
+
+        public void setClass_room(String class_room) {
+            this.class_room = class_room;
+        }
+
+        public String getClass_time() {
+            return class_time;
+        }
+
+        public void setClass_time(String class_time) {
+            this.class_time = class_time;
+        }
+
+        @Override
+        public String toString() {
+            return "ResultBean{" +
+                    "name='" + name + '\'' +
+                    ", teacher='" + teacher + '\'' +
+                    ", class_room='" + class_room + '\'' +
+                    ", class_time='" + class_time + '\'' +
+                    '}';
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "ChoiceClassLists{" +
+                "date='" + date + '\'' +
+                ", role='" + role + '\'' +
+                ", can_xuan_ke=" + can_xuan_ke +
+                ", xuanke=" + xuanke +
+                ", kechen=" + kechen +
+                ", is_complete=" + is_complete +
+                ", result=" + result +
+                '}';
     }
 }

@@ -42,7 +42,7 @@ public class ConnectionViewBinder extends ItemViewBinder<ConnectionBinder, Conne
             holder.iCountIv.setVisibility(View.GONE);
         } else {
             holder.iCountIv.setVisibility(View.VISIBLE);
-            holder.iCountIv.setText(bean.getCount());
+            holder.iCountIv.setText(bean.getCount() + "");
         }
         StringUtil.setTextView(holder.iTitleIv, bean.getTitle());
         holder.iIconIv.setBackgroundResource(bean.getResImage());

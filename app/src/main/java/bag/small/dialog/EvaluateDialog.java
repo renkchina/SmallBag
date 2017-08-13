@@ -80,6 +80,8 @@ public class EvaluateDialog extends Dialog {
         super.onStart();
         if (!TextUtils.isEmpty(hint)) {
             dEvaluationEdt.setHint(hint);
+        } else {
+            hint = "说点什么吧";
         }
         new Handler().postDelayed(() -> {
             InputMethodManager inputManager = (InputMethodManager) mContext
@@ -99,7 +101,7 @@ public class EvaluateDialog extends Dialog {
 
     public void clear() {
         dEvaluationEdt.setText("");
-        hint = "说点什么吧";
+        hint = "";
     }
 
     @Override

@@ -1,7 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
+    <!--<include layout="@layout/banner_layout" />-->
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="155dp"
+        android:background="@mipmap/banner_icon1" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/fragment_family_grid_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:gravity="center"
+            android:numColumns="3"
+            android:stretchMode="spacingWidth"
+            android:verticalSpacing="10dp"></android.support.v7.widget.RecyclerView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.6"
+            android:background="@color/txt_gray"
+            android:gravity="center"
+            android:text="加紧制作中，敬请期待！"
+            android:textSize="30sp" />
+    </FrameLayout>
 </LinearLayout>

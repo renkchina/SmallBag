@@ -1,5 +1,6 @@
 package bag.small.http.IApi;
 
+import android.app.ProgressDialog;
 import android.net.ParseException;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.widget.Toast;
@@ -26,7 +27,7 @@ public class HttpError implements Consumer<Throwable> {
     //    private CommonProgressDialog dialog;
     private SwipeRefreshLayout swipeRefresh;
     private RefreshLayout refreshLayout;
-
+    ProgressDialog progressDialog;
     public HttpError(SwipeRefreshLayout swipeRefresh) {
         this.swipeRefresh = swipeRefresh;
     }
@@ -41,6 +42,10 @@ public class HttpError implements Consumer<Throwable> {
         this.refreshLayout = refreshLayout;
     }
 
+    public HttpError(ProgressDialog progressDialog) {
+        this.progressDialog = progressDialog;
+    }
+
     @Override
     public void accept(@NonNull Throwable throwable) throws Exception {
 //        if (dialog != null && dialog.isShowing()) {
@@ -51,6 +56,9 @@ public class HttpError implements Consumer<Throwable> {
         }
         if (refreshLayout != null) {
             refreshLayout.finishRefresh();
+        }
+        if (progressDialog != null) {
+            progressDialog.dismiss();
         }
         String exce;
         if (throwable instanceof HttpException) {

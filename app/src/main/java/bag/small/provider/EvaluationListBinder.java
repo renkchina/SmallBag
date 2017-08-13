@@ -1,5 +1,7 @@
 package bag.small.provider;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
@@ -8,11 +10,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.List;
+
 import bag.small.R;
+import bag.small.entity.BaseBean;
 import bag.small.entity.MomentsBean;
+import bag.small.http.HttpUtil;
+import bag.small.http.IApi.HttpError;
+import bag.small.http.IApi.IMoments;
+import bag.small.rx.RxUtil;
+import bag.small.utils.ListUtil;
 import bag.small.utils.StringUtil;
+import bag.small.utils.UserPreferUtil;
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import io.reactivex.functions.Consumer;
 import me.drakeet.multitype.ItemViewBinder;
 
 /**
@@ -26,6 +38,8 @@ public class EvaluationListBinder extends ItemViewBinder<MomentsBean.RepayBean, 
         parentBinder = momentsViewBinder;
     }
 
+    IMoments iMoments;
+
     @NonNull
     @Override
     protected ViewHolder onCreateViewHolder(
@@ -37,29 +51,43 @@ public class EvaluationListBinder extends ItemViewBinder<MomentsBean.RepayBean, 
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull MomentsBean.RepayBean bean) {
 
-        StringUtil.setTextView(holder.eTitleTv, bean.getTitle());
+        StringUtil.setTextView(holder.eTitleTv, bean.getTitle() + ":");
         StringUtil.setTextView(holder.eContentTv, bean.getContent());
         holder.eTitleTv.setOnClickListener(v -> parentBinder.showEvaluationL(getPosition(holder), bean.getPosition()));
         holder.eContentTv.setOnClickListener(v -> parentBinder.showEvaluationL(getPosition(holder), bean.getPosition()));
         holder.rootView.setOnLongClickListener(v -> {
             //
-            AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-            builder.setTitle("温馨提醒");
-            builder.setMessage("你确定要删除该条评论消息");
-            builder.setNeutralButton("确定", (dialog, which) -> {
+            showDialog(v.getContext(), "温馨提醒", "你确定要删除该条评论消息", (dialog, which) -> {
+                HttpUtil.getInstance().createApi(IMoments.class)
+                        .deleteEvaluate(bean.getReview_id(), UserPreferUtil.getInstanse().getRoleId(),
+                                UserPreferUtil.getInstanse().getUserId(),
+                                UserPreferUtil.getInstanse().getSchoolId(), bean.getMsgId())
+                        .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                        .subscribe(listBaseBean -> {
+                            if (listBaseBean.isSuccess()) {
+                                if(ListUtil.unEmpty(listBaseBean.getData())){
+                                    getAdapter().getItems().clear();
+//                                    getAdapter().getItems().addAll(listBaseBean.getData());
+                                }else{
+                                    getAdapter().getItems().remove(bean);
+                                }
+                                getAdapter().notifyDataSetChanged();
+                            }
+                        }, new HttpError());
                 dialog.dismiss();
             });
-            builder.setNegativeButton("取消", (dialog, which) -> {
-                dialog.dismiss();
-            });
-            builder.setTitle("温馨提醒");
-            builder.setMessage("你确定要删除该条评论消息");
-            AlertDialog dialog = builder.create();
-            dialog.setTitle("温馨提醒");
-            dialog.setMessage("你确定要删除该条评论消息");
-            dialog.show();
-            return false;
+
+            return true;
         });
+    }
+
+    private void showDialog(Context context, String title, String message, DialogInterface.OnClickListener yes) {
+        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(context);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.setNegativeButton("取消", (dialog, which) -> dialog.dismiss());
+        builder.setPositiveButton("确定", yes);
+        builder.show();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

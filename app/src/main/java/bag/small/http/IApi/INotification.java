@@ -5,6 +5,7 @@ import java.util.List;
 import bag.small.entity.BaseBean;
 import bag.small.entity.EducationNoticeBean;
 import bag.small.entity.LoginResult;
+import bag.small.entity.NoticeCountBean;
 import bag.small.entity.NoticeDetailBean;
 import io.reactivex.Observable;
 import retrofit2.http.Field;
@@ -29,4 +30,10 @@ public interface INotification {
                                                            @Field("login_id") String loginId,
                                                            @Field("school_id") String schoolId,
                                                            @Field("notify_id") int notifyId);
+
+    @FormUrlEncoded
+    @POST("commons/getnotifycount")
+    Observable<BaseBean<NoticeCountBean>> getNoticeCount(@Field("role_id") String roleId,
+                                                         @Field("login_id") String loginId,
+                                                         @Field("school_id") String schoolId);
 }

@@ -1,19 +1,14 @@
 package bag.small.ui.activity;
 
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.EditText;
 import android.widget.TextView;
-
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import bag.small.R;
 import bag.small.base.BaseActivity;
 import bag.small.entity.TeacherClass;
@@ -28,7 +23,6 @@ import bag.small.utils.StringUtil;
 import bag.small.utils.UserPreferUtil;
 import bag.small.view.RecycleViewDivider;
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
 import me.drakeet.multitype.Items;
 import me.drakeet.multitype.MultiTypeAdapter;
@@ -61,9 +55,6 @@ public class InterestClassByTeacherActivity extends BaseActivity {
         bannerImages.add(R.mipmap.banner_icon1);
         bannerImages.add(R.mipmap.banner_icon2);
         mItems = new Items();
-        mItems.add(new TeacherClass());
-        mItems.add(new TeacherClass());
-        mItems.add(new TeacherClass());
         multiTypeAdapter = new MultiTypeAdapter(mItems);
         multiTypeAdapter.register(TeacherClass.ClassBean.StudentsBean.class, new TeacherClassViewBinder());
         tRecycler.setLayoutManager(new LinearLayoutManager(this));

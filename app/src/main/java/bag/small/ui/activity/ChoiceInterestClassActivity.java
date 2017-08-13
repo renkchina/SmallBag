@@ -80,6 +80,10 @@ public class ChoiceInterestClassActivity extends BaseActivity {
     List<Object> mItems;
     IInterestClass iInterestClass;
     ChoiceClassLists.KechenBean firstKeChen;
+    String firstId = "";
+    String secondeId = "";
+    String thirdId = "";
+
 
     @Override
     public int getLayoutResId() {
@@ -130,9 +134,13 @@ public class ChoiceInterestClassActivity extends BaseActivity {
         } else {
             activityStudentShowClassLl.setVisibility(View.VISIBLE);
             activityStudentChoiceLl.setVisibility(View.GONE);
-            ChoiceClassLists.XuankeBean.ChoiceBean first = data.getXuanke().getFirst();
-            ChoiceClassLists.XuankeBean.ChoiceBean secend = data.getXuanke().getSecend();
-            ChoiceClassLists.XuankeBean.ChoiceBean third = data.getXuanke().getThird();
+            ChoiceClassLists.ResultBean result = data.getResult();
+            if(result!=null){
+                StringUtil.setTextView(mClassTv, data.getResult().getName());
+                StringUtil.setTextView(mTeacherTv, data.getResult().getTeacher());
+                StringUtil.setTextView(mTimeTv, data.getResult().getClass_time());
+                StringUtil.setTextView(mClassroomTv, data.getResult().getClass_room());
+            }
         }
     }
 
@@ -199,9 +207,7 @@ public class ChoiceInterestClassActivity extends BaseActivity {
                 iInterestClass.getInterestsSubmit(UserPreferUtil.getInstanse().getRoleId(),
                         UserPreferUtil.getInstanse().getUserId(),
                         UserPreferUtil.getInstanse().getSchoolId(),
-                        StringUtil.EditGetString(iOneContentTv),
-                        StringUtil.EditGetString(iTwoContentTv),
-                        StringUtil.EditGetString(iThreeContentTv))
+                        firstId, secondeId, thirdId)
                         .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
                         .compose(RxLifecycleCompact.bind(this).withObservable())
                         .subscribe(bean -> {
@@ -224,13 +230,16 @@ public class ChoiceInterestClassActivity extends BaseActivity {
         RxBus.get().unRegister(this);
     }
 
-    @MySubscribe(code = 9999, threadMode = ThreadMode.MAIN)
+    @MySubscribe(code = 9999)
     public void clickItem(ChoiceClassLists.KechenBean bean) {
         if (TextUtils.isEmpty(StringUtil.EditGetString(iOneContentTv))) {
+            firstId = bean.getId();
             StringUtil.setTextView(iOneContentTv, bean.getName());
         } else if (TextUtils.isEmpty(StringUtil.EditGetString(iTwoContentTv))) {
+            secondeId = bean.getId();
             StringUtil.setTextView(iTwoContentTv, bean.getName());
         } else if (TextUtils.isEmpty(StringUtil.EditGetString(iThreeContentTv))) {
+            thirdId = bean.getId();
             StringUtil.setTextView(iThreeContentTv, bean.getName());
         }
     }

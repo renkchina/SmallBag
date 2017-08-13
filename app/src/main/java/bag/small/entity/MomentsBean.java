@@ -150,12 +150,21 @@ public class MomentsBean {
          * can_delete : false
          */
         private int position;
+        private String msgId;
 
         private String review_id;
         private String content;
         private String create_at;
         private String title;
         private boolean can_delete;
+
+        public String getMsgId() {
+            return msgId;
+        }
+
+        public void setMsgId(String msgId) {
+            this.msgId = msgId;
+        }
 
         public int getPosition() {
             return position;

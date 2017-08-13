@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
+    android:focusableInTouchMode="true"
     android:orientation="vertical">
 
     <LinearLayout
@@ -106,14 +107,30 @@
             android:background="@mipmap/comment_icon" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/item_fragment_like_names_list_tv"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="27dp"
         android:layout_marginStart="75dp"
-        android:textColor="@color/button_green"
-        android:textSize="12sp" />
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/item_fragment_like_icon"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:background="@mipmap/heart_icon" />
+
+        <TextView
+            android:id="@+id/item_fragment_like_names_list_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="5dp"
+            android:gravity="center_vertical"
+            android:textSize="12sp" />
+    </LinearLayout>
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/item_fragment_user_note_evaluation_recycler"
@@ -122,6 +139,7 @@
         android:layout_marginBottom="12dp"
         android:layout_marginEnd="27dp"
         android:layout_marginStart="75dp"
+        android:layout_marginTop="5dp"
         android:background="@color/background_gray"
         android:paddingEnd="1dp"
         android:paddingStart="2dp">

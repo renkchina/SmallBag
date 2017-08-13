@@ -15,11 +15,16 @@
 
         <include layout="@layout/toolbar" />
 
-        <com.youth.banner.Banner
-            android:id="@+id/activity_notice_detail_banner"
+        <ImageView
             android:layout_width="match_parent"
             android:layout_height="155dp"
-            app:image_scale_type="center_crop" />
+            android:background="@mipmap/banner_icon1"
+            android:scaleType="centerCrop" />
+        <!--<com.youth.banner.Banner-->
+        <!--android:id="@+id/activity_notice_detail_banner"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="155dp"-->
+        <!--app:image_scale_type="center_crop" />-->
 
         <TextView
             android:id="@+id/activity_notice_title_tv"

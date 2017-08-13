@@ -1,6 +1,7 @@
 package bag.small.base;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -66,11 +67,13 @@ public abstract class BaseActivity extends AppCompatActivity implements IActivit
             }
         }
     }
+
     public void setToolTitle(boolean isTurnLeft) {
         if (isTurnLeft) {
             mToolbar.setNavigationOnClickListener(view -> finish());
         }
     }
+
     @Override
     public void register() {
 
@@ -100,6 +103,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IActivit
     public void initView() {
 
     }
+
     public boolean getBoolValue(String key) {
         return sharedPreferences.getBoolean(key, false);
     }
@@ -111,6 +115,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IActivit
     public BaseFragment getFragment() {
         return mCurrentFragment;
     }
+
     /**
      * 用Fragment替换视图
      *
@@ -148,6 +153,15 @@ public abstract class BaseActivity extends AppCompatActivity implements IActivit
 
     }
 
+    protected void showDialog(String title, String message, DialogInterface.OnClickListener yes) {
+        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.setNegativeButton("取消", (dialog, which) -> dialog.dismiss());
+        builder.setPositiveButton("确定", yes);
+        builder.show();
+    }
+
     @Override
     public void skipActivity(@NonNull Class<?> cls) {
         startActivity(new Intent(this, cls));
@@ -165,9 +179,10 @@ public abstract class BaseActivity extends AppCompatActivity implements IActivit
     }
 
     @Override
-    public void goActivity(@NonNull Class clazz, @NonNull Bundle bundle) {
+    public void goActivity(@NonNull Class clazz, Bundle bundle) {
         Intent intent = new Intent(this, clazz);
-        intent.putExtras(bundle);
+        if (bundle != null)
+            intent.putExtras(bundle);
         startActivity(intent);
     }
 

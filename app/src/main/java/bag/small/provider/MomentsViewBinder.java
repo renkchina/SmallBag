@@ -1,6 +1,7 @@
 package bag.small.provider;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -54,6 +55,12 @@ public class MomentsViewBinder extends ItemViewBinder<MomentsBean, MomentsViewBi
     public MomentsViewBinder(GrowthDiaryFragment fragement) {
         iMoments = HttpUtil.getInstance().createApi(IMoments.class);
         this.fragement = fragement;
+        mItems = new Items();
+        mMsgs = new Items();
+        multiTypeAdapter = new MultiTypeAdapter(mItems);
+        msgAdapter = new MultiTypeAdapter(mMsgs);
+        multiTypeAdapter.register(String.class, new InnerMsgProviderImage());
+        msgAdapter.register(MomentsBean.RepayBean.class, new EvaluationListBinder(this));
     }
 
     @NonNull
@@ -71,18 +78,7 @@ public class MomentsViewBinder extends ItemViewBinder<MomentsBean, MomentsViewBi
 
         StringUtil.setTextView(holder.iNoteTxtContentTv, String.valueOf(Html.fromHtml(bean.getContent())));
         ImageUtil.loadImages(context, holder.iNoteHeadIv, bean.getIcon());
-        if (ListUtil.isEmpty(mItems)) {
-            mItems = new Items();
-        }
-        if (ListUtil.isEmpty(mMsgs)) {
-            mMsgs = new Items();
-        }
-        if (multiTypeAdapter == null) {
-            multiTypeAdapter = new MultiTypeAdapter(mItems);
-        }
-        if (msgAdapter == null) {
-            msgAdapter = new MultiTypeAdapter(mMsgs);
-        }
+
         if (ListUtil.isEmpty(bean.getImages())) {
             holder.iNoteImageRecycler.setVisibility(View.GONE);
         } else {
@@ -92,15 +88,18 @@ public class MomentsViewBinder extends ItemViewBinder<MomentsBean, MomentsViewBi
         mItems.addAll(bean.getImages());
         if (ListUtil.unEmpty(bean.getRepay())) {
             mMsgs.clear();
-            setEvaluatePos(bean.getRepay(), getPosition(holder));
+            setEvaluatePos(bean.getRepay(), getPosition(holder), bean.getId());
             mMsgs.addAll(bean.getRepay());
         }
-        multiTypeAdapter.register(String.class, new InnerMsgProviderImage());
-        msgAdapter.register(MomentsBean.RepayBean.class, new EvaluationListBinder(this));
         holder.iNoteImageRecycler.setLayoutManager(new GridLayoutManager(context, 3));
         holder.iNoteEvaluationRecycler.setLayoutManager(new LinearLayoutManager(context));
         holder.iNoteImageRecycler.setAdapter(multiTypeAdapter);
         holder.iNoteEvaluationRecycler.setAdapter(msgAdapter);
+        if (ListUtil.isEmpty(bean.getDianzan_list_names())) {
+            holder.iLikeIcon.setVisibility(View.GONE);
+        } else {
+            holder.iLikeIcon.setVisibility(View.VISIBLE);
+        }
         getNameListsString(holder.nameListsTv, bean.getDianzan_list_names());
         StringUtil.setTextView(holder.iTimeTv, bean.getCreate_at());
         if (bean.isCan_delete()) {
@@ -112,15 +111,15 @@ public class MomentsViewBinder extends ItemViewBinder<MomentsBean, MomentsViewBi
                         .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
                         .subscribe(mBean -> {
                             if (mBean.isSuccess()) {
-                                getAdapter().notifyDataSetChanged();
                             }
-                        });
+                        }, new HttpError());
                 getAdapter().getItems().remove(bean);
                 getAdapter().notifyDataSetChanged();
             });
         } else {
             holder.iDeleteMessageV.setVisibility(View.GONE);
         }
+
         holder.iLikeIv.setOnClickListener(v -> {
             if (bean.isCan_dianzan()) {
                 iMoments.likeOrUnLikeEvaluateMsg("upmsg", UserPreferUtil.getInstanse().getRoleId(),
@@ -131,9 +130,10 @@ public class MomentsViewBinder extends ItemViewBinder<MomentsBean, MomentsViewBi
                             if (result.isSuccess()) {
                                 Toast.makeText(context, "点赞成功！", Toast.LENGTH_SHORT).show();
                                 bean.setCan_dianzan(false);
-                                if (ListUtil.unEmpty(result.getData()))
-                                    bean.getDianzan_list_names().clear();
-                                bean.getDianzan_list_names().addAll(result.getData());
+                                bean.getDianzan_list_names().clear();
+                                if (ListUtil.unEmpty(result.getData())) {
+                                    bean.getDianzan_list_names().addAll(result.getData());
+                                }
                                 getAdapter().notifyDataSetChanged();
                             } else {
                                 Toast.makeText(context, "点赞失败！", Toast.LENGTH_SHORT).show();
@@ -149,8 +149,7 @@ public class MomentsViewBinder extends ItemViewBinder<MomentsBean, MomentsViewBi
                             if (result.isSuccess()) {
                                 Toast.makeText(context, "取消点赞成功！", Toast.LENGTH_SHORT).show();
                                 bean.setCan_dianzan(true);
-                                if (ListUtil.unEmpty(result.getData()))
-                                    bean.getDianzan_list_names().clear();
+                                bean.getDianzan_list_names().clear();
                                 bean.getDianzan_list_names().addAll(result.getData());
                                 getAdapter().notifyDataSetChanged();
                             } else {
@@ -174,10 +173,11 @@ public class MomentsViewBinder extends ItemViewBinder<MomentsBean, MomentsViewBi
         fragement.showEvaluationL(parentPosition, position);
     }
 
-    private void setEvaluatePos(List<MomentsBean.RepayBean> list, int position) {
+    private void setEvaluatePos(List<MomentsBean.RepayBean> list, int position, String id) {
         if (ListUtil.unEmpty(list)) {
             for (MomentsBean.RepayBean repayBean : list) {
                 repayBean.setPosition(position);
+                repayBean.setMsgId(id);
             }
         }
     }
@@ -213,6 +213,8 @@ public class MomentsViewBinder extends ItemViewBinder<MomentsBean, MomentsViewBi
         RecyclerView iNoteImageRecycler;
         @Bind(R.id.item_fragment_note_time_tv)
         TextView iTimeTv;
+        @Bind(R.id.item_fragment_like_icon)
+        ImageView iLikeIcon;
         @Bind(R.id.item_fragment_note_like_iv)
         ImageView iLikeIv;
         @Bind(R.id.item_fragment_note_show_send_message_iv)

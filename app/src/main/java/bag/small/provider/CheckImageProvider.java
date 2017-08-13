@@ -43,7 +43,6 @@ public class CheckImageProvider extends ItemViewBinder<String, CheckImageProvide
         if (TextUtils.isEmpty(item)) {
             holder.itemAcCheckDel.setVisibility(View.GONE);
             holder.itemAcCheckContentIv.setImageResource(R.mipmap.add_photo_icon);
-
         } else {
             holder.itemAcCheckDel.setVisibility(View.VISIBLE);
             ImageUtil.loadLocalImages(context, holder.itemAcCheckContentIv, item);

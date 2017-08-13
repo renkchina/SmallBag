@@ -130,7 +130,7 @@ public class TeacherInformationActivity extends BaseActivity
         subjectRecycler.addItemDecoration(new RecycleViewDivider(this, LinearLayoutManager.HORIZONTAL, 1,
                 ContextCompat.getColor(this, R.color.un_enable_gray)));
         subjectRecycler.setAdapter(multiTypeAdapter);
-        ImageUtil.loadCircleImages(this, mHeadImage, "");
+        ImageUtil.loadCircleImageForRegister(this, mHeadImage, "");
         iRegisterSendCode = HttpUtil.getInstance().createApi(IRegisterSendCode.class);
     }
 
@@ -187,6 +187,8 @@ public class TeacherInformationActivity extends BaseActivity
                     jie = area.getSchool().getBase().getJie().get(position);
                     nianji = jie.getNianji();
                     acTeacherGradeTv.setText(jie.getNianji_name());
+                    if (ListUtil.unEmpty(getBanji()))
+                        acTeacherClassTv.setText(getBanji().get(0));
                 });
                 break;
             case R.id.ac_teacher_grade_tv:

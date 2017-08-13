@@ -4,6 +4,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,8 +31,8 @@ import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
 
 public class NoticeDetailActivity extends BaseActivity {
 
-    @Bind(R.id.activity_notice_detail_banner)
-    Banner mDetailBanner;
+//    @Bind(R.id.activity_notice_detail_banner)
+//    Banner mDetailBanner;
     @Bind(R.id.activity_notice_title_tv)
     TextView mTitleTv;
     @Bind(R.id.activity_notice_time_tv)
@@ -59,7 +60,7 @@ public class NoticeDetailActivity extends BaseActivity {
     @Override
     public void initView() {
         setToolTitle("小书包", true);
-        setBanner(mDetailBanner, bannerImages);
+//        setBanner(mDetailBanner, bannerImages);
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             getNoticeDetail(bundle.getInt("notify_id", 0));
@@ -94,12 +95,13 @@ public class NoticeDetailActivity extends BaseActivity {
         if (!TextUtils.isEmpty(notice.getContent())) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 mContentTv.setText(Html.fromHtml(notice.getContent(), Html.FROM_HTML_MODE_COMPACT));
-            }else{
+            } else {
                 mContentTv.setText(Html.fromHtml(notice.getContent()));
             }
         }
 
         if (!TextUtils.isEmpty(notice.getImage())) {
+            mImageIv.setVisibility(View.VISIBLE);
             ImageUtil.loadImages(this, mImageIv, notice.getImage());
         }
     }

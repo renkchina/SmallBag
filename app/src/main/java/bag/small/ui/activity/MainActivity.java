@@ -1,19 +1,25 @@
 package bag.small.ui.activity;
 
 
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.china.rxbus.MySubscribe;
+import com.china.rxbus.RxBus;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.List;
@@ -23,7 +29,6 @@ import bag.small.app.MyApplication;
 import bag.small.base.BaseActivity;
 import bag.small.base.BaseFragment;
 import bag.small.entity.LoginResult;
-import bag.small.interfaze.IViewBinder;
 import bag.small.provider.AccountViewBinder;
 import bag.small.ui.fragment.FamiliesSchoolConnectionFragment;
 import bag.small.ui.fragment.GrowthDiaryFragment;
@@ -35,8 +40,12 @@ import me.drakeet.multitype.Items;
 import me.drakeet.multitype.MultiTypeAdapter;
 
 public class MainActivity extends BaseActivity
-        implements BottomNavigationView.OnNavigationItemSelectedListener, IViewBinder {
+        implements BottomNavigationView.OnNavigationItemSelectedListener {
 
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
+    @Bind(R.id.toolbar_title)
+    TextView toolTitle;
     @Bind(R.id.activity_main_content_frame)
     FrameLayout mContentFrame;
     @Bind(R.id.activity_main_bottom_nav)
@@ -57,13 +66,15 @@ public class MainActivity extends BaseActivity
     TextView mdlHelpTv;
     @Bind(R.id.main_drawer_left_about_tv)
     TextView mdlAboutTv;
+    @Bind(R.id.toolbar_right_iv)
+    ImageView toolbarRightIv;
     @Bind(R.id.main_drawer_left_exit_tv)
     TextView mdlExitTv;
-
     BaseFragment[] fragments;
     private MenuItem lastItem;
     List<Object> itemDatas;
     MultiTypeAdapter multiTypeAdapter;
+    private ActionBarDrawerToggle mDrawerToggle;
 
     @Override
     public int getLayoutResId() {
@@ -76,9 +87,11 @@ public class MainActivity extends BaseActivity
         fragments[0] = new TreasureChestFragment();
         fragments[1] = new FamiliesSchoolConnectionFragment();
         fragments[2] = new GrowthDiaryFragment();
-        changeFragment(0);
         mBottomNav.setOnNavigationItemSelectedListener(this);
-        lastItem = mBottomNav.getMenu().getItem(0);
+        changeFragment(1);
+        lastItem = mBottomNav.getMenu().getItem(1);
+        lastItem.setChecked(true);
+        mBottomNav.setSelectedItemId(R.id.item_family);
         itemDatas = new Items();
         if (ListUtil.unEmpty(MyApplication.loginResults)) {
             itemDatas.clear();
@@ -88,10 +101,25 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void initView() {
+
         multiTypeAdapter = new MultiTypeAdapter(itemDatas);
-        multiTypeAdapter.register(LoginResult.RoleBean.class, new AccountViewBinder(this));
+        multiTypeAdapter.register(LoginResult.RoleBean.class, new AccountViewBinder());
         mdlRecycler.setLayoutManager(new GridLayoutManager(this, 2));
         mdlRecycler.setAdapter(multiTypeAdapter);
+        toolbar.setTitle("");
+        toolTitle.setText("小书包");//设置Toolbar标题
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //创建返回键，并实现打开关/闭监听
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.open, R.string.close);
+        mDrawerToggle.syncState();
+        mDrawer.addDrawerListener(mDrawerToggle);
+    }
+
+    @Override
+    public void setToolTitle(String title, boolean isTurnLeft) {
+
     }
 
     @Override
@@ -107,6 +135,7 @@ public class MainActivity extends BaseActivity
                     break;
                 case R.id.item_growth:
                     changeFragment(2);
+
                     break;
             }
             return true;
@@ -116,25 +145,15 @@ public class MainActivity extends BaseActivity
 
     private void changeFragment(int index) {
         changeFragment(R.id.activity_main_content_frame, fragments[index]);
+        if (index == 2) {
+            toolbarRightIv.setVisibility(View.VISIBLE);
+            toolbarRightIv.setImageResource(R.mipmap.icon_riji_blue);
+        } else {
+            toolbarRightIv.setVisibility(View.GONE);
+        }
     }
 
-    //    private void disableShiftMode(BottomNavigationView navigationView) {
-//        BottomNavigationMenuView menuView = (BottomNavigationMenuView) navigationView.getChildAt(0);
-//        try {
-//            Field shiftingMode = menuView.getClass().getDeclaredField("mShiftingMode");
-//            shiftingMode.setAccessible(true);
-//            shiftingMode.setBoolean(menuView, false);
-//            shiftingMode.setAccessible(false);
-//            int counts = menuView.getChildCount();
-//            for (int i = 0; i < counts; i++) {
-//                BottomNavigationItemView itemView = (BottomNavigationItemView) menuView.getChildAt(i);
-//                itemView.setShiftingMode(false);
-//                itemView.setChecked(itemView.getItemData().isChecked());
-//            }
-//        } catch (NoSuchFieldException | IllegalAccessException e) {
-//            e.printStackTrace();
-//        }
-//    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -150,7 +169,7 @@ public class MainActivity extends BaseActivity
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.main_drawer_left_add_account_btn:
-                goActivity(RegisterActivity.class);
+                showChoiceDialog();
                 break;
             case R.id.main_drawer_left_account_manager_tv:
                 break;
@@ -166,16 +185,46 @@ public class MainActivity extends BaseActivity
         }
     }
 
+    @MySubscribe(code = 9527)
+    public void showDrawerLayout() {
+        if (!mDrawer.isDrawerOpen(Gravity.LEFT)) {
+            mDrawer.openDrawer(Gravity.LEFT);
+        } else {
+            mDrawer.closeDrawer(Gravity.LEFT);
+        }
+    }
+
+    protected void showChoiceDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        String[] strings = new String[]{"我是学生", "我是老师"};
+        builder.setItems(strings, (dialog, which) -> {
+            switch (which) {
+                case 0:
+                    goActivity(ParentInformationActivity.class);
+                    break;
+                case 1:
+                    goActivity(TeacherInformationActivity.class);
+                    break;
+            }
+            dialog.dismiss();
+        });
+        builder.show();
+    }
+
+
+    @OnClick(R.id.toolbar_right_iv)
+    public void onViewClicked() {
+        goActivity(PublishMsgActivity.class, null);
+    }
+
+
     @Override
-    public void click(int position) {
-//        LoginResult.RoleBean bean = (LoginResult.RoleBean) itemDatas.get(position);
+    public void register() {
+        RxBus.get().register(this);
     }
 
     @Override
-    public void add(int type, int position) {
-    }
-
-    @Override
-    public void delete(int position) {
+    public void unRegister() {
+        RxBus.get().unRegister(this);
     }
 }

@@ -9,10 +9,15 @@
 
     <include layout="@layout/toolbar" />
 
-    <com.youth.banner.Banner
-        android:id="@+id/activity_education_banner"
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="155dp" />
+        android:layout_height="155dp"
+        android:background="@mipmap/banner_icon1"
+        android:scaleType="centerCrop" />
+    <!--<com.youth.banner.Banner-->
+    <!--android:id="@+id/activity_education_banner"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="155dp" />-->
 
     <android.support.design.widget.TabLayout
         android:id="@+id/activity_education_tab_layout"

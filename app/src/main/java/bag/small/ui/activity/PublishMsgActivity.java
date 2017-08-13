@@ -1,25 +1,34 @@
 package bag.small.ui.activity;
 
+import android.app.ProgressDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.TextView;
 
-
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
 import bag.small.R;
 import bag.small.base.BaseActivity;
+import bag.small.http.HttpUtil;
+import bag.small.http.IApi.HttpError;
+import bag.small.http.IApi.IUpdateImage;
 import bag.small.provider.CheckImageProvider;
+import bag.small.rx.RxUtil;
 import bag.small.utils.ListUtil;
 import bag.small.utils.StringUtil;
+import bag.small.utils.UserPreferUtil;
 import butterknife.Bind;
 import butterknife.OnClick;
+import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
 import me.drakeet.multitype.MultiTypeAdapter;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import retrofit2.http.Field;
 
 public class PublishMsgActivity extends BaseActivity {
 
@@ -32,9 +41,7 @@ public class PublishMsgActivity extends BaseActivity {
 
     MultiTypeAdapter multiTypeAdapter;
     List<Object> mDatas;
-//    ISendMsg iSendMsg;
-//    IUpdateImage iUpdateImage;
-//    CommonProgressDialog progressDialog;
+    IUpdateImage iUpdateImage;
 
     @Override
     public int getLayoutResId() {
@@ -45,72 +52,45 @@ public class PublishMsgActivity extends BaseActivity {
     public void initData() {
         setToolTitle(true);
         toolbarRightTv.setText("发布");
-//        progressDialog = new CommonProgressDialog(this);
         mDatas = new ArrayList<>();
         mDatas.add("");
         multiTypeAdapter = new MultiTypeAdapter(mDatas);
         multiTypeAdapter.register(String.class, new CheckImageProvider(this));
         acPublishRecycler.setLayoutManager(new GridLayoutManager(this, 4));
         acPublishRecycler.setAdapter(multiTypeAdapter);
-//        iSendMsg = HttpUtil.getInstance().createApi(ISendMsg.class);
-//        iUpdateImage = HttpUtil.getInstance().createApi(IUpdateImage.class);
+        iUpdateImage = HttpUtil.getInstance().createApi(IUpdateImage.class);
     }
 
 
     @OnClick(R.id.toolbar_right_tv)
     public void onViewClicked() {
         String content = StringUtil.EditGetString(acPublishEdt);
-//        sendMessage(content);
+        sendMessage(content);
     }
 
-//    private void sendMessage(String content) {
-//        Disposable request;
-//        if (ListUtil.unEmpty(mDatas)) {
-//            progressDialog.setTips("正在上传，请等待...");
-//            request = iUpdateImage.updateImages(getParts())
-//                    .subscribeOn(Schedulers.io())
-//                    .unsubscribeOn(Schedulers.io())
-//                    .observeOn(Schedulers.io())
-//                    .doOnSubscribe(disposable -> progressDialog.show())
-//                    .flatMap(new Function<BaseBean<List<String>>, ObservableSource<BaseBean<String>>>() {
-//                        @Override
-//                        public ObservableSource<BaseBean<String>> apply(@NonNull BaseBean<List<String>> listBaseBean) throws Exception {
-//                            if (ListUtil.unEmpty(listBaseBean.getData()))
-//                                return iSendMsg.compares(content,
-//                                        UserPreferUtil.getInstanse().getUserId(),
-//                                        getPaths(listBaseBean.getData()));
-//                            else {
-//                                return iSendMsg.compare(content,
-//                                        UserPreferUtil.getInstanse().getUserId());
-//                            }
-//                        }
-//                    })
-//                    .observeOn(AndroidSchedulers.mainThread())
-//                    .subscribe(bean -> {
-//                        toast(bean.getMsg());
-//                        PublishMsgActivity.this.finish();
-//                    }, new HttpError(progressDialog));
-//
-//        } else {
-//            request = iSendMsg.compare(content,
-//                    UserPreferUtil.getInstanse().getUserId())
-//                    .subscribeOn(Schedulers.io())
-//                    .unsubscribeOn(Schedulers.io())
-//                    .subscribeOn(AndroidSchedulers.mainThread())
-//                    .doOnSubscribe(disposable -> progressDialog.show())
-//                    .subscribe(bean -> {
-//                        toast(bean.getMsg());
-//                        PublishMsgActivity.this.finish();
-//                    }, new HttpError(progressDialog));
-//        }
-//        recycle(request);
-//    }
-
-
-    private MultipartBody.Part convert(String key, File file) {
-        return MultipartBody.Part.createFormData(key, key,
-                RequestBody.create(MultipartBody.FORM, file));
+    private void sendMessage(String content) {
+        HashMap<String, RequestBody> map = new HashMap<>();
+        map.put("role_id", RxUtil.toRequestBodyTxt(UserPreferUtil.getInstanse().getRoleId()));
+        map.put("school_id", RxUtil.toRequestBodyTxt(UserPreferUtil.getInstanse().getSchoolId()));
+        map.put("login_id", RxUtil.toRequestBodyTxt(UserPreferUtil.getInstanse().getUserId()));
+        map.put("page", RxUtil.toRequestBodyTxt(1 + ""));
+        map.put("content", RxUtil.toRequestBodyTxt(content));
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("正在上传，请等待...");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
+        iUpdateImage.updateImage(map, getParts())
+                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                .compose(RxLifecycleCompact.bind(this).withObservable())
+                .subscribe(bean -> {
+                    progressDialog.dismiss();
+                    if (bean.isSuccess()) {
+                        finish();
+                    }
+                    toast(bean.getMsg());
+                }, new HttpError(progressDialog));
     }
+
 
     private MultipartBody.Part[] getParts() {
         if (ListUtil.unEmpty(mDatas)) {
@@ -119,7 +99,7 @@ public class PublishMsgActivity extends BaseActivity {
             for (int i = 0; i < size; i++) {
                 String string = mDatas.get(i).toString();
                 if (!TextUtils.isEmpty(string)) {
-                    MultipartBody.Part part = convert("files", new File(string));
+                    MultipartBody.Part part = RxUtil.convertImage("files", new File(string));
                     parts[i] = part;
                 }
             }

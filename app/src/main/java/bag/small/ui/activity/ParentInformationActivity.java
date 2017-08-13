@@ -143,12 +143,12 @@ public class ParentInformationActivity extends BaseActivity {
                 listDialog.setListDialog((position, content) -> {
                     jieci = getNumbers(content);
                     pStudyNumTv.setText(content);
+                    nianji = jie.getNianji();
                     jie = area.getSchool().getBase().getJie().get(position);
-                    if (jie != null) {
-                        nianji = jie.getNianji();
-                        jie = area.getSchool().getBase().getJie().get(position);
-                        pGradeTv.setText(jie.getNianji_name());
-                    }
+                    pGradeTv.setText(jie.getNianji_name());
+                    if (ListUtil.unEmpty(getBanji()))
+                        pClassTv.setText(getBanji().get(0));
+
                 });
                 break;
             case R.id.activity_grade_ll:
@@ -201,7 +201,7 @@ public class ParentInformationActivity extends BaseActivity {
         map.put("jieci", RxUtil.toRequestBodyTxt(jieci));
         map.put("nianji", RxUtil.toRequestBodyTxt(nianji + ""));
         map.put("banji", RxUtil.toRequestBodyTxt(banji));
-        map.put("verify", RxUtil.toRequestBodyTxt(verify));
+        map.put("verify_code", RxUtil.toRequestBodyTxt(verify));
         iRegisterReq.goRegisterAsStudent(map, RxUtil.convertImage("logo", logo))
                 .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
                 .compose(RxLifecycleCompact.bind(this).withObservable())
@@ -231,7 +231,7 @@ public class ParentInformationActivity extends BaseActivity {
         if (ListUtil.unEmpty(images)) {
             path = images.get(0).getPath();
         }
-        ImageUtil.loadCircleImages(this, pHeadImage, path);
+        ImageUtil.loadCircleImageForRegister(this, pHeadImage, path);
         String finalPath = path;
         Luban.with(this)
                 .load(new File(path))//传入要压缩的图片

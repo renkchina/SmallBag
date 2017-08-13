@@ -44,12 +44,8 @@ public class UserPreferUtil {
         setInfomation("login_id", id);
     }
 
-    public void setUserBackgroundImage(String image) {
-        setInfomation("background", image);
-    }
-
     public String getHeadImagePath() {
-        return getInfomationS("image");
+        return getInfomationS("logo");
     }
 
     public String getRoleId() {
@@ -70,6 +66,18 @@ public class UserPreferUtil {
 
     public String getPhone() {
         return getInfomationS("phone");
+    }
+
+    public void setPassword(String password) {
+        setInfomation("password", password);
+    }
+
+    public void setPhone(String phone) {
+        setInfomation("phone", phone);
+    }
+
+    public String getPassword() {
+        return getInfomationS("password");
     }
 
     public String getTargetType() {

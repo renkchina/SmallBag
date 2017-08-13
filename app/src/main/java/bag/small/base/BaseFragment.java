@@ -1,5 +1,7 @@
 package bag.small.base;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -80,15 +82,18 @@ public abstract class BaseFragment extends Fragment implements IFragment, IRegis
         if (!TextUtils.isEmpty(title)) {
             mTitle.setText(title);
             if (isTurnLeft) {
-                mToolbar.setNavigationOnClickListener(view -> {});
+                mToolbar.setNavigationOnClickListener(view -> {
+                });
             } else {
                 mToolbar.setNavigationIcon(null);
             }
         }
     }
+
     public void setToolTitle(boolean isTurnLeft) {
         if (isTurnLeft) {
-            mToolbar.setNavigationOnClickListener(view -> {});
+            mToolbar.setNavigationOnClickListener(view -> {
+            });
         }
     }
 
@@ -137,6 +142,15 @@ public abstract class BaseFragment extends Fragment implements IFragment, IRegis
     @Override
     public void hideProgress() {
 
+    }
+
+    protected void showDialog(Context context, String title, String message, DialogInterface.OnClickListener yes) {
+        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(context);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.setNegativeButton("取消", (dialog, which) -> dialog.dismiss());
+        builder.setPositiveButton("确定", yes);
+        builder.show();
     }
 
     public void goActivity(Class clazz, Bundle bundle) {

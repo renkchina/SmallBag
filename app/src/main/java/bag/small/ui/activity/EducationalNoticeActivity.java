@@ -29,8 +29,8 @@ import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
 import me.drakeet.multitype.MultiTypeAdapter;
 
 public class EducationalNoticeActivity extends BaseActivity implements TabLayout.OnTabSelectedListener {
-    @Bind(R.id.activity_education_banner)
-    Banner eBanner;
+//    @Bind(R.id.activity_education_banner)
+//    Banner eBanner;
     @Bind(R.id.activity_education_tab_layout)
     TabLayout eTabLayout;
     @Bind(R.id.activity_education_recycler)
@@ -63,7 +63,7 @@ public class EducationalNoticeActivity extends BaseActivity implements TabLayout
     @Override
     public void initView() {
         setToolTitle("教务通知", true);
-        setBanner(eBanner, bannerImages);
+//        setBanner(eBanner, bannerImages);
         eTabLayout.addOnTabSelectedListener(this);
         eRecycler.setLayoutManager(new LinearLayoutManager(this));
         eRecycler.addItemDecoration(new RecycleViewDivider(this, LinearLayoutManager.HORIZONTAL, 1,
@@ -118,14 +118,14 @@ public class EducationalNoticeActivity extends BaseActivity implements TabLayout
     protected void onResume() {
         super.onResume();
         //开始轮播
-        eBanner.startAutoPlay();
+//        eBanner.startAutoPlay();
         requestHttp();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        eBanner.stopAutoPlay();
+//        eBanner.stopAutoPlay();
     }
 
     private void setBanner(Banner banner, List images) {

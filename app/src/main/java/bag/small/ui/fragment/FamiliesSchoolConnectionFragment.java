@@ -1,10 +1,15 @@
 package bag.small.ui.fragment;
 
 import android.graphics.Rect;
+import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.china.rxbus.RxBus;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -15,9 +20,17 @@ import java.util.List;
 import bag.small.R;
 import bag.small.base.BaseFragment;
 import bag.small.entity.ConnectionBinder;
+import bag.small.http.HttpUtil;
+import bag.small.http.IApi.HttpError;
+import bag.small.http.IApi.INotification;
 import bag.small.provider.ConnectionViewBinder;
+import bag.small.rx.RxUtil;
 import bag.small.utils.GlideImageLoader;
+import bag.small.utils.UserPreferUtil;
 import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
 import me.drakeet.multitype.MultiTypeAdapter;
 
 /**
@@ -25,14 +38,18 @@ import me.drakeet.multitype.MultiTypeAdapter;
  */
 
 public class FamiliesSchoolConnectionFragment extends BaseFragment {
-    @Bind(R.id.fragment_family_banner)
-    Banner fBanner;
+    //    @Bind(R.id.fragment_family_banner)
+//    Banner fBanner;
     @Bind(R.id.fragment_family_grid_view)
     RecyclerView recyclerView;
+    @Bind(R.id.activity_click_image)
+    ImageView activityClickImage;
     private List<Object> bannerImages;
     MultiTypeAdapter mAdapter;
     List<Object> mItemBeans;
-
+    INotification iNotification;
+    private ConnectionBinder biner2;
+    private ConnectionBinder biner8;
 
     @Override
     public int getLayoutResId() {
@@ -49,7 +66,7 @@ public class FamiliesSchoolConnectionFragment extends BaseFragment {
         biner1.setId(1);
         biner1.setResImage(R.mipmap.beiwanglu_b);
         biner1.setTitle("备忘录");
-        ConnectionBinder biner2 = new ConnectionBinder();
+        biner2 = new ConnectionBinder();
         biner2.setId(2);
         biner2.setResImage(R.mipmap.tongzhi_b);
         biner2.setTitle("教务通知");
@@ -73,7 +90,7 @@ public class FamiliesSchoolConnectionFragment extends BaseFragment {
         biner7.setId(7);
         biner7.setResImage(R.mipmap.shetuan_b);
         biner7.setTitle("社团");
-        ConnectionBinder biner8 = new ConnectionBinder();
+        biner8 = new ConnectionBinder();
         biner8.setId(8);
         biner8.setResImage(R.mipmap.xingquke_b);
         biner8.setTitle("兴趣课");
@@ -95,24 +112,42 @@ public class FamiliesSchoolConnectionFragment extends BaseFragment {
 
     @Override
     public void initView() {
-        setToolTitle("小书包", false);
-        setBanner(fBanner, bannerImages);
+//        setToolTitle("小书包", false);
+//        setBanner(fBanner, bannerImages);
         mAdapter.register(ConnectionBinder.class, new ConnectionViewBinder());
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         recyclerView.addItemDecoration(new SpaceItemDecoration(10));
         recyclerView.setAdapter(mAdapter);
+        iNotification = HttpUtil.getInstance().createApi(INotification.class);
+        setNoticeCount();
     }
+
+    private void setNoticeCount() {
+        iNotification.getNoticeCount(UserPreferUtil.getInstanse().getRoleId(),
+                UserPreferUtil.getInstanse().getUserId(), UserPreferUtil.getInstanse().getSchoolId())
+                .compose(RxLifecycleCompact.bind(this).withObservable())
+                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                .subscribe(bean -> {
+                    if (bean.isSuccess()) {
+                        biner2.setCount(bean.getData().getTeach_notice());
+                        biner8.setCount(bean.getData().getInterest_notice());
+                        mAdapter.notifyDataSetChanged();
+                    }
+                }, new HttpError());
+    }
+
 
     @Override
     public void onFragmentShow() {
         //开始轮播
-        fBanner.startAutoPlay();
+//        fBanner.startAutoPlay();
+        setNoticeCount();
     }
 
     @Override
     public void onFragmentHide() {
         //结束轮播
-        fBanner.stopAutoPlay();
+//        fBanner.stopAutoPlay();
     }
 
     private void setBanner(Banner banner, List images) {
@@ -134,6 +169,12 @@ public class FamiliesSchoolConnectionFragment extends BaseFragment {
         //banner设置方法全部调用完毕时最后调用
         banner.start();
     }
+
+    @OnClick(R.id.activity_click_image)
+    public void onViewClicked() {
+        RxBus.get().send(9527);
+    }
+
 
     public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
 

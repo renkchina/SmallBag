@@ -25,7 +25,7 @@ public class ImageUtil {
             if (TextUtils.isEmpty(url)) {
                 url = "http://www.bz55.com/uploads/allimg/150701/140-150F1142638.jpg";
             }
-            Glide.with(context).load(url).placeholder(R.mipmap.ic_launcher).into(imageView);
+            Glide.with(context).load(url).into(imageView);
         }
     }
 
@@ -45,12 +45,22 @@ public class ImageUtil {
         }
     }
 
+    public static void loadCircleImageForRegister(Context context, ImageView imageView, String url) {
+        if (context != null) {
+            if (url == null) {
+                url = "http://www.bz55.com/uploads/allimg/150701/140-150F1142638.jpg";
+            }
+            Glide.with(context).load(url).placeholder(R.mipmap.photo_update_nomal).transform(new GlideCircleTransform(context)).into(imageView);
+//
+        }
+    }
+
     public static String encodeBase64File(String path) throws Exception {
         File file = new File(path);
         FileInputStream inputFile = new FileInputStream(file);
-        byte[] buffer = new byte[(int)file.length()];
+        byte[] buffer = new byte[(int) file.length()];
         inputFile.read(buffer);
         inputFile.close();
-        return Base64.encodeToString(buffer,Base64.DEFAULT);
+        return Base64.encodeToString(buffer, Base64.DEFAULT);
     }
 }

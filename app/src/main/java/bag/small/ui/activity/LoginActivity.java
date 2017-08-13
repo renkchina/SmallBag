@@ -82,6 +82,8 @@ public class LoginActivity extends BaseActivity {
                         MyApplication.loginResults = bean.getData().getRole();
                         LoginResult.RoleBean mBean = bean.getData().getRole().get(0);
                         mBean.setSelected(true);
+                        UserPreferUtil.getInstanse().setPhone(phone);
+                        UserPreferUtil.getInstanse().setPassword(password);
                         UserPreferUtil.getInstanse().setUserInfomation(mBean);
                         UserPreferUtil.getInstanse().setUseId(bean.getData().getLogin_id());
                         skipActivity(MainActivity.class);

@@ -1,73 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/app_bar"
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:fitsSystemWindows="true"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/collapsing_toolbar"
+        android:layout_height="match_parent"
+        android:id="@+id/fragment_growth_root_refresh"
+        >
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/fragment_growth_recycler"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
-            app:expandedTitleMarginEnd="64dp"
-            app:expandedTitleMarginStart="48dp"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            android:layout_height="match_parent" />
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:background="@color/white"
-                app:layout_collapseMode="parallax"
-                app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed">
-
-                <com.youth.banner.Banner
-                    android:id="@+id/fragment_growth_banner"
-                    android:layout_width="match_parent"
-                    android:layout_height="155dp"
-                    app:image_scale_type="center_crop" />
-
-                <!--<ImageView-->
-                <!--android:id="@+id/fragment_growth_head_image_iv"-->
-                <!--android:layout_width="57dp"-->
-                <!--android:layout_height="57dp"-->
-                <!--android:layout_gravity="bottom|end"-->
-                <!--android:layout_marginEnd="10dp"-->
-                <!--android:layout_marginTop="126dp" />-->
-            </FrameLayout>
-
-            <include
-                layout="@layout/toolbar"
-                android:gravity="top|center_horizontal"
-                app:contentInsetLeft="0dp"
-                app:contentInsetStart="0dp"
-                app:layout_collapseMode="pin"
-                app:layout_scrollFlags="scroll|enterAlways|snap"
-                app:popupTheme="@style/MyAppTheme.PopupOverlay" />
-
-        </android.support.design.widget.CollapsingToolbarLayout>
-    </android.support.design.widget.AppBarLayout>
-
-    <include layout="@layout/content_scrolling" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fragment_growth_head_image_float"
-        android:layout_width="57dp"
-        android:layout_height="57dp"
-        android:layout_marginEnd="@dimen/fab_margin"
-        app:backgroundTint="@color/colorPrimary"
-        app:layout_anchor="@id/app_bar"
-        app:layout_anchorGravity="bottom|end" />
-    <!--app:srcCompat="@android:drawable/ic_dialog_email"-->
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>

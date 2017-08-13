@@ -32,6 +32,10 @@ public class TeachSubjectClassViewBinder extends ItemViewBinder<TeachSubjectClas
     private RegisterInfoBean.SchoolBeanX.SchoolBean.BaseBean.JieBean jie;
     private List<RegisterInfoBean.SchoolBeanX.SchoolBean.BaseBean.JieBean.KecheBean> course;
 
+    public void setJie(RegisterInfoBean.SchoolBeanX.SchoolBean.BaseBean.JieBean jie) {
+        this.jie = jie;
+    }
+
     public void setArea(RegisterInfoBean.SchoolBeanX area) {
         this.area = area;
     }
@@ -83,10 +87,12 @@ public class TeachSubjectClassViewBinder extends ItemViewBinder<TeachSubjectClas
                 listDialog.show(v);
                 listDialog.setListDialog((position1, content) -> {
                     ((TextView) v).setText(content);
-                    jie = area.getSchool().getBase().getJie().get(position);
+                    jie = area.getSchool().getBase().getJie().get(position1);
                     holder.itemTeacherGradeTv.setText(jie.getNianji_name());
                     bean.setJieci(jie.getValue());
                     bean.setNianji(jie.getNianji());
+                    if (ListUtil.unEmpty(getBanji()))
+                        holder.itemTeacherClassTv.setText(getBanji().get(0));
                 });
             }
         });

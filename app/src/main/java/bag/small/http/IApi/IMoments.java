@@ -33,13 +33,14 @@ public interface IMoments {
                                                                      @Field("content") String content,
                                                                      @Field("repay_id") String repay_id,
                                                                      @Field("parent_id") String msgId);
+
     @FormUrlEncoded
     @POST("users/deletemsg")
-    Observable<BaseBean<String>> deleteEvaluateMsg(@Field("role_id") String roleId,
-                                                   @Field("login_id") String loginId,
-                                                   @Field("school_id") String schoolId,
-                                                   @Field("page") int page,
-                                                   @Field("id") String msgId);
+    Observable<BaseBean<List<MomentsBean>>> deleteEvaluateMsg(@Field("role_id") String roleId,
+                                                              @Field("login_id") String loginId,
+                                                              @Field("school_id") String schoolId,
+                                                              @Field("page") int page,
+                                                              @Field("id") String msgId);
 
     @FormUrlEncoded
     @POST("users/{method}")
@@ -48,4 +49,12 @@ public interface IMoments {
                                                                @Field("login_id") String loginId,
                                                                @Field("school_id") String schoolId,
                                                                @Field("parent_id") String msgId);
+
+    @FormUrlEncoded
+    @POST("users/deleterepaymsg")
+    Observable<BaseBean<List<MomentsBean.RepayBean>>> deleteEvaluate(@Field("review_id") String reviewId,
+                                                                     @Field("role_id") String roleId,
+                                                                     @Field("login_id") String loginId,
+                                                                     @Field("school_id") String schoolId,
+                                                                     @Field("parent_id") String msgId);
 }

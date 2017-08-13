@@ -28,11 +28,6 @@ import me.drakeet.multitype.ItemViewBinder;
  */
 public class AccountViewBinder extends ItemViewBinder<LoginResult.RoleBean, AccountViewBinder.ViewHolder> {
 
-    private IViewBinder iViewBinder;
-
-    public AccountViewBinder(IViewBinder iViewBinder) {
-        this.iViewBinder = iViewBinder;
-    }
 
     @NonNull
     @Override
@@ -53,8 +48,6 @@ public class AccountViewBinder extends ItemViewBinder<LoginResult.RoleBean, Acco
                 bean.setSelected(true);
                 UserPreferUtil.getInstanse().setUserInfomation(bean);
                 getAdapter().notifyDataSetChanged();
-                if (iViewBinder != null)
-                    iViewBinder.click(getPosition(holder));
             }
         });
         if (bean.isSelected()) {
