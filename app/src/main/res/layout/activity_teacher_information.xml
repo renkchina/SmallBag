@@ -118,6 +118,31 @@
                 <View style="@style/view_line_gray_style" />
 
                 <LinearLayout
+                    android:id="@+id/activity_teacher_gender_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    android:padding="3dp">
+
+                    <TextView
+                        android:id="@+id/activity_teacher_gender_tv"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|start"
+                        android:text="性别"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        style="@style/imge_down_style"
+                        android:src="@mipmap/arrow_icon" />
+                </LinearLayout>
+
+                <View style="@style/view_line_gray_style" />
+
+                <LinearLayout
                     android:id="@+id/activity_area_school_ll"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -211,17 +236,17 @@
                     android:paddingStart="3dp">
 
 
-                        <TextView
-                            android:id="@+id/ac_teacher_number_tv"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:drawableEnd="@mipmap/arrow_icon"
-                            android:drawablePadding="15dp"
-                            android:gravity="center_vertical"
-                            android:paddingEnd="15dp"
-                            android:paddingStart="0dp"
-                            android:text="届数" />
+                    <TextView
+                        android:id="@+id/ac_teacher_number_tv"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:drawableEnd="@mipmap/arrow_icon"
+                        android:drawablePadding="15dp"
+                        android:gravity="center_vertical"
+                        android:paddingEnd="15dp"
+                        android:paddingStart="0dp"
+                        android:text="届数" />
 
 
                     <TextView

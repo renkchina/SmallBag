@@ -1,6 +1,7 @@
 package bag.small.ui.activity;
 
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
@@ -37,6 +38,7 @@ import bag.small.utils.LogUtil;
 import bag.small.utils.StringUtil;
 import bag.small.utils.UserPreferUtil;
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
 import okhttp3.RequestBody;
@@ -85,6 +87,10 @@ public class ParentInformationActivity extends BaseActivity {
     Button senCodeBtn;
     @Bind(R.id.activity_parent_commit_btn)
     Button pParentCommitBtn;
+    @Bind(R.id.activity_student_gender_tv)
+    TextView pGenderTv;
+    @Bind(R.id.activity_student_gender_ll)
+    LinearLayout activityStudentGenderLl;
 
     private ListDialog listDialog;
     private IRegisterReq iRegisterReq;
@@ -105,6 +111,7 @@ public class ParentInformationActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        setToolTitle("学生注册", true);
         listDialog = new ListDialog(this);
         iRegisterReq = HttpUtil.getInstance().createApi(IRegisterReq.class);
         iRegisterSendCode = HttpUtil.getInstance().createApi(IRegisterSendCode.class);
@@ -115,7 +122,7 @@ public class ParentInformationActivity extends BaseActivity {
             R.id.activity_study_school_ll, R.id.activity_study_num_ll,
             R.id.activity_grade_ll, R.id.activity_class_ll,
             R.id.activity_guardian_ll, R.id.activity_parent_commit_btn,
-            R.id.activity_teacher_send_code_btn})
+            R.id.activity_teacher_send_code_btn, R.id.activity_student_gender_ll})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.activity_head_image:
@@ -177,19 +184,25 @@ public class ParentInformationActivity extends BaseActivity {
                 String phone = StringUtil.EditGetString(pParentPhoneEdit);
                 String guanxi = StringUtil.EditGetString(pGuardianTv);
                 String verify = StringUtil.EditGetString(verifyCodeEdit);
+                String sex = StringUtil.EditGetString(pGenderTv);
                 try {
-                    setHttpRequest(xuehao, name, jianhuren, phone, guanxi, verify);
+                    setHttpRequest(xuehao, name, jianhuren, phone, guanxi, verify, sex);
                 } catch (Exception e) {
                     e.printStackTrace();
                     toast("请检查是否录入完整！");
                 }
+                break;
+            case R.id.activity_student_gender_ll:
+                listDialog.setListData(getGender());
+                listDialog.show(view);
+                listDialog.setListDialog((position, content) -> pGenderTv.setText(content));
                 break;
         }
     }
 
     private void setHttpRequest(@NonNull String xuehao, @NonNull String name,
                                 @NonNull String jianhuren, @NonNull String phone,
-                                @NonNull String guanxi, @NonNull String verify) {
+                                @NonNull String guanxi, @NonNull String verify, String sex) {
         HashMap<String, RequestBody> map = new HashMap<>();
         map.put("xuehao", RxUtil.toRequestBodyTxt(xuehao));
         map.put("name", RxUtil.toRequestBodyTxt(name));
@@ -199,6 +212,7 @@ public class ParentInformationActivity extends BaseActivity {
         map.put("jianhuren", RxUtil.toRequestBodyTxt(guanxi));
         map.put("login_id", RxUtil.toRequestBodyTxt(UserPreferUtil.getInstanse().getUserId()));
         map.put("jieci", RxUtil.toRequestBodyTxt(jieci));
+        map.put("sex", RxUtil.toRequestBodyTxt(sex));
         map.put("nianji", RxUtil.toRequestBodyTxt(nianji + ""));
         map.put("banji", RxUtil.toRequestBodyTxt(banji));
         map.put("verify_code", RxUtil.toRequestBodyTxt(verify));
@@ -343,6 +357,13 @@ public class ParentInformationActivity extends BaseActivity {
         List<String> lists = new ArrayList<>();
         lists.add("父亲");
         lists.add("母亲");
+        return lists;
+    }
+
+    private List<String> getGender() {
+        List<String> lists = new ArrayList<>();
+        lists.add("男");
+        lists.add("女");
         return lists;
     }
 

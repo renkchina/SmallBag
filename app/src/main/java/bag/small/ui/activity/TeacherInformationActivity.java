@@ -1,5 +1,6 @@
 package bag.small.ui.activity;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -45,6 +46,7 @@ import bag.small.utils.StringUtil;
 import bag.small.utils.UserPreferUtil;
 import bag.small.view.RecycleViewDivider;
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
 import me.drakeet.multitype.MultiTypeAdapter;
@@ -98,6 +100,10 @@ public class TeacherInformationActivity extends BaseActivity
     IRegisterSendCode iRegisterSendCode;
 
     ListDialog listDialog;
+    @Bind(R.id.activity_teacher_gender_tv)
+    TextView mGenderTv;
+    @Bind(R.id.activity_teacher_gender_ll)
+    LinearLayout mGenderLl;
     private IRegisterReq iRegisterReq;
     private RegisterInfoBean.SchoolBeanX area;
     private List<RegisterInfoBean.SchoolBeanX> areaLists;
@@ -119,6 +125,7 @@ public class TeacherInformationActivity extends BaseActivity
 
     @Override
     public void initView() {
+        setToolTitle("老师注册", true);
         listDialog = new ListDialog(this);
         getRegisterInfo();
         items = new ArrayList<>();
@@ -138,7 +145,7 @@ public class TeacherInformationActivity extends BaseActivity
             R.id.ac_teacher_number_tv, R.id.ac_teacher_grade_tv,
             R.id.ac_teacher_class_tv, R.id.activity_teacher_commit_btn,
             R.id.activity_area_school_ll, R.id.ac_teacher_head_iv,
-            R.id.activity_teacher_send_code_btn})
+            R.id.activity_teacher_send_code_btn, R.id.activity_teacher_gender_ll})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ac_teacher_head_iv:
@@ -206,6 +213,7 @@ public class TeacherInformationActivity extends BaseActivity
                 String phone = StringUtil.EditGetString(aTeacherPhoneEdit);
                 String name = StringUtil.EditGetString(aTeacherNameEdit);
                 String code = StringUtil.EditGetString(vertifyCode);
+                String sex = StringUtil.EditGetString(mGenderTv);
                 if (isMaster == 0) {
                     jieci = "0";
                     nianji = -1;
@@ -213,12 +221,17 @@ public class TeacherInformationActivity extends BaseActivity
                 }
                 try {
                     requestRegister(name, phone, code, school_id, isMaster, jieci, nianji,
-                            UserPreferUtil.getInstanse().getUserId(), banji,
+                            UserPreferUtil.getInstanse().getUserId(), banji, sex,
                             RxUtil.convertImage("logo", logo), setRequests());
                 } catch (NullPointerException e) {
                     e.printStackTrace();
                     toast("请选择完整！");
                 }
+                break;
+            case R.id.activity_teacher_gender_ll:
+                listDialog.setListData(getGender());
+                listDialog.show(view);
+                listDialog.setListDialog((position, content) -> mGenderTv.setText(content));
                 break;
         }
     }
@@ -246,7 +259,7 @@ public class TeacherInformationActivity extends BaseActivity
 
     private void requestRegister(@NonNull String name, @NonNull String phone, @NonNull String code, @NonNull String school_id,
                                  int isMaster, @NonNull String jieci, int nianji, @NonNull String login_id,
-                                 @NonNull String banji, @NonNull MultipartBody.Part logo, @NonNull String strings) {
+                                 @NonNull String banji, String sex, @NonNull MultipartBody.Part logo, @NonNull String strings) {
         if (TextUtils.isEmpty(name) || TextUtils.isEmpty(phone) || TextUtils.isEmpty(school_id) || TextUtils.isEmpty(jieci) || TextUtils.isEmpty(banji) || nianji == 0 || TextUtils.isEmpty(login_id
         )) {
             toast("请录入完整！");
@@ -261,6 +274,7 @@ public class TeacherInformationActivity extends BaseActivity
             map.put("nianji", RxUtil.toRequestBodyTxt(nianji + ""));
             map.put("banji", RxUtil.toRequestBodyTxt(banji));
             map.put("verify_code", RxUtil.toRequestBodyTxt(code));
+            map.put("sex", RxUtil.toRequestBodyTxt(sex));
             map.put("jiaoxue", RxUtil.toRequestBodyTxt(strings));
 
             iRegisterReq.goRegisterAsTeacher(map, logo)
@@ -439,5 +453,14 @@ public class TeacherInformationActivity extends BaseActivity
         }
         return lists;
     }
+
+
+    private List<String> getGender() {
+        List<String> lists = new ArrayList<>();
+        lists.add("男");
+        lists.add("女");
+        return lists;
+    }
+
 
 }

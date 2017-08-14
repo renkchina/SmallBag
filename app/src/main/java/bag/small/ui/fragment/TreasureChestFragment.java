@@ -16,6 +16,7 @@ import bag.small.R;
 import bag.small.base.BaseFragment;
 import bag.small.entity.ConnectionBinder;
 import bag.small.provider.ConnectionViewBinder;
+import bag.small.provider.ConnectionViewBinder2;
 import bag.small.utils.GlideImageLoader;
 import butterknife.Bind;
 import me.drakeet.multitype.MultiTypeAdapter;
@@ -95,7 +96,7 @@ public class TreasureChestFragment extends BaseFragment {
         mItemBeans.add(biner8);
         mItemBeans.add(biner9);
         mAdapter = new MultiTypeAdapter(mItemBeans);
-        mAdapter.register(ConnectionBinder.class, new ConnectionViewBinder());
+        mAdapter.register(ConnectionBinder.class, new ConnectionViewBinder2());
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         recyclerView.addItemDecoration(new SpaceItemDecoration(10));
         recyclerView.setAdapter(mAdapter);
