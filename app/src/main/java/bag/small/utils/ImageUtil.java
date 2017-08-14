@@ -34,6 +34,11 @@ public class ImageUtil {
             Glide.with(context).load(url).into(imageView);
         }
     }
+    public static void loadLocalImageForChoice(Context context, ImageView imageView, String url) {
+        if (context != null) {
+            Glide.with(context).load(url).placeholder(R.mipmap.add_photo).into(imageView);
+        }
+    }
 
     public static void loadCircleImages(Context context, ImageView imageView, String url) {
         if (context != null) {

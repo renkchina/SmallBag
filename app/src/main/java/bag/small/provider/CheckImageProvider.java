@@ -12,7 +12,9 @@ import android.widget.ImageView;
 
 import com.caimuhao.rxpicker.RxPicker;
 import com.caimuhao.rxpicker.bean.ImageItem;
+import com.maning.imagebrowserlibrary.MNImageBrowser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import bag.small.R;
@@ -41,23 +43,33 @@ public class CheckImageProvider extends ItemViewBinder<String, CheckImageProvide
     protected void onBindViewHolder(@NonNull MyViewHolder holder, @NonNull final String item) {
         final Context context = holder.rootView.getContext();
         if (TextUtils.isEmpty(item)) {
+            holder.itemAcCheckContentIv.setPadding(50, 50, 50, 50);
             holder.itemAcCheckDel.setVisibility(View.GONE);
-            holder.itemAcCheckContentIv.setImageResource(R.mipmap.add_photo_icon);
         } else {
+            holder.itemAcCheckContentIv.setPadding(0, 0, 0, 0);
             holder.itemAcCheckDel.setVisibility(View.VISIBLE);
-            ImageUtil.loadLocalImages(context, holder.itemAcCheckContentIv, item);
             holder.itemAcCheckDel.setOnClickListener(v -> {
+                if (getAdapter().getItems().size() >= 9) {
+                    ((List<Object>)getAdapter().getItems()).add("");
+                }
                 getAdapter().getItems().remove(item);
                 getAdapter().notifyDataSetChanged();
             });
         }
+        ImageUtil.loadLocalImageForChoice(context, holder.itemAcCheckContentIv, item);
         if (item.equals("")) {
             holder.itemAcCheckContentIv.setOnClickListener(
                     v -> RxPicker.of()
-                    .single(false)
-                    .camera(true)
-                    .start(activity)
-                    .subscribe(this::setImages));
+                            .single(false)
+                            .limit(1, 10 - getAdapter().getItems().size())
+                            .camera(true)
+                            .start(activity)
+                            .subscribe(this::setImages));
+        } else {
+            holder.itemAcCheckContentIv.setOnClickListener(v -> {
+                ArrayList<String> images = (ArrayList<String>) getAdapter().getItems();
+                MNImageBrowser.showImageBrowser(v.getContext(), v, getPosition(holder), removeImage(images));
+            });
         }
     }
 
@@ -76,6 +88,16 @@ public class CheckImageProvider extends ItemViewBinder<String, CheckImageProvide
             mDatas.add("");
         }
         getAdapter().notifyDataSetChanged();
+    }
+
+    private ArrayList<String> removeImage(List<String> images) {
+        ArrayList<String> lists = new ArrayList<>(9);
+        for (String image : images) {
+            if (!TextUtils.isEmpty(image)) {
+                lists.add(image);
+            }
+        }
+        return lists;
     }
 
     static class MyViewHolder extends RecyclerView.ViewHolder {

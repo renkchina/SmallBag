@@ -61,7 +61,6 @@ public class PublishMsgActivity extends BaseActivity {
         iUpdateImage = HttpUtil.getInstance().createApi(IUpdateImage.class);
     }
 
-
     @OnClick(R.id.toolbar_right_tv)
     public void onViewClicked() {
         String content = StringUtil.EditGetString(acPublishEdt);
@@ -73,7 +72,7 @@ public class PublishMsgActivity extends BaseActivity {
         map.put("role_id", RxUtil.toRequestBodyTxt(UserPreferUtil.getInstanse().getRoleId()));
         map.put("school_id", RxUtil.toRequestBodyTxt(UserPreferUtil.getInstanse().getSchoolId()));
         map.put("login_id", RxUtil.toRequestBodyTxt(UserPreferUtil.getInstanse().getUserId()));
-        map.put("page", RxUtil.toRequestBodyTxt(1 + ""));
+        map.put("page", RxUtil.toRequestBodyTxt("1"));
         map.put("content", RxUtil.toRequestBodyTxt(content));
         ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("正在上传，请等待...");
@@ -91,7 +90,6 @@ public class PublishMsgActivity extends BaseActivity {
                 }, new HttpError(progressDialog));
     }
 
-
     private MultipartBody.Part[] getParts() {
         if (ListUtil.unEmpty(mDatas)) {
             int size = mDatas.size();
@@ -99,7 +97,9 @@ public class PublishMsgActivity extends BaseActivity {
             for (int i = 0; i < size; i++) {
                 String string = mDatas.get(i).toString();
                 if (!TextUtils.isEmpty(string)) {
-                    MultipartBody.Part part = RxUtil.convertImage("files[]", "file" + i, new File(string));
+                    String key = "file" + (i + 1);
+                    String fileName = System.currentTimeMillis() + ".png";
+                    MultipartBody.Part part = RxUtil.convertImage(key, fileName, new File(string));
                     parts[i] = part;
                 }
             }

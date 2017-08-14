@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,7 +81,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
 
     }
 
-    private void initData(){
+    private void initData() {
         tvNumShow.setText(String.valueOf((currentPosition + 1) + "/" + imageUrlList.size()));
     }
 
@@ -181,6 +182,9 @@ public class MNImageBrowserActivity extends AppCompatActivity {
             iv_fail.setVisibility(View.GONE);
 
             String url = imageUrlList.get(position);
+            if (!url.startsWith("http")) {
+                url = "file://" + url;
+            }
             Picasso.with(context).load(url).into(imageView, new Callback() {
                 @Override
                 public void onSuccess() {
@@ -195,6 +199,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
                     iv_fail.setVisibility(View.VISIBLE);
                 }
             });
+
 
             rl_browser_root.setOnClickListener(new View.OnClickListener() {
                 @Override

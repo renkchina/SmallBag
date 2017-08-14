@@ -6,9 +6,10 @@
 
     <ImageView
         android:id="@+id/item_ac_check_content_iv"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:layout_gravity="center"
+        android:gravity="center"
         android:scaleType="centerCrop" />
 
     <View

@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="82dp"
+    xmlns:tools="http://schemas.android.com/tools"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:paddingEnd="23dp"
@@ -38,7 +39,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="1dp"
             android:orientation="horizontal">
 
             <TextView
@@ -48,6 +49,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
                 android:ellipsize="end"
+                tools:text="title"
                 android:textColor="@color/font_black"
                 android:textSize="17sp" />
 
@@ -63,7 +65,9 @@
             android:id="@+id/item_education_notice_content_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginTop="2dp"
+            tools:text="content"
             android:ellipsize="end"
             android:textSize="12sp" />
     </LinearLayout>

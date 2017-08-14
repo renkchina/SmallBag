@@ -1,26 +1,16 @@
 package bag.small.ui.fragment;
 
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import bag.small.R;
 import bag.small.base.BaseFragment;
 import bag.small.dialog.EvaluateDialog;
@@ -33,19 +23,13 @@ import bag.small.provider.MomentsViewBinder;
 import bag.small.provider.NoticeBanner;
 import bag.small.provider.NoticeBannerViewBinder;
 import bag.small.rx.RxUtil;
-import bag.small.ui.activity.PublishMsgActivity;
 import bag.small.utils.ListUtil;
 import bag.small.utils.UserPreferUtil;
 import bag.small.view.RecycleViewDivider;
 import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
 import me.drakeet.multitype.Items;
 import me.drakeet.multitype.MultiTypeAdapter;
-
-import static me.drakeet.multitype.MultiTypeAsserts.assertHasTheSameAdapter;
-
 /**
  * Created by Administrator on 2017/7/22.
  */

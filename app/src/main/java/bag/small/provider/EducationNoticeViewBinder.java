@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,9 +41,14 @@ public class EducationNoticeViewBinder extends ItemViewBinder<EducationNoticeBea
             intent.putExtras(bundle);
             context.startActivity(intent);
         });
-        holder.iNoticeContentTv.setText("");
+        if (bean.isIs_readed()) {
+            holder.iNoticeStateV.setVisibility(View.GONE);
+        } else {
+            holder.iNoticeStateV.setVisibility(View.VISIBLE);
+        }
+        holder.iNoticeContentTv.setText(bean.getTitle());
         holder.iNoticeTimeTv.setText(bean.getCreate_at());
-        holder.iNoticeTitleTv.setText(bean.getTitle());
+        holder.iNoticeTitleTv.setText("教务通知");
     }
 
 

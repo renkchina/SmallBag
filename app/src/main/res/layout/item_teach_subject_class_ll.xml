@@ -41,9 +41,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:baselineAligned="false"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:baselineAligned="false">
+        android:paddingStart="3dp">
 
         <TextView
             android:id="@+id/item_teacher_number_tv"
@@ -52,7 +53,7 @@
             android:layout_weight="1"
             android:drawableEnd="@mipmap/arrow_icon"
             android:drawablePadding="15dp"
-            android:gravity="center"
+            android:gravity="center_vertical"
             android:paddingEnd="15dp"
             android:paddingStart="0dp"
             android:text="届数" />
@@ -63,8 +64,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:drawableEnd="@mipmap/arrow_icon"
-            android:gravity="center"
             android:drawablePadding="15dp"
+            android:gravity="center"
             android:paddingEnd="15dp"
             android:paddingStart="0dp"
             android:text="年级" />
