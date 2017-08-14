@@ -7,6 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.maning.imagebrowserlibrary.MNImageBrowser;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import bag.small.R;
 import bag.small.utils.ImageUtil;
 import butterknife.Bind;
@@ -29,6 +34,10 @@ public class InnerMsgProviderImage extends ItemViewBinder<String, InnerMsgProvid
     @Override
     protected void onBindViewHolder(@NonNull MViewHolder holder, @NonNull String item) {
         ImageUtil.loadImages(holder.imageView.getContext(), holder.imageView, item);
+        holder.imageView.setOnClickListener(v -> {
+            ArrayList<String> images = (ArrayList<String>) getAdapter().getItems();
+            MNImageBrowser.showImageBrowser(v.getContext(), v, getPosition(holder), images);
+        });
     }
 
     static class MViewHolder extends RecyclerView.ViewHolder {

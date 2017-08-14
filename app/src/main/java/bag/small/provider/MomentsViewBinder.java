@@ -46,21 +46,12 @@ import me.drakeet.multitype.MultiTypeAdapter;
  */
 public class MomentsViewBinder extends ItemViewBinder<MomentsBean, MomentsViewBinder.ViewHolder> {
     private IMoments iMoments;
-    private List<Object> mItems;
-    private List<Object> mMsgs;
-    private MultiTypeAdapter multiTypeAdapter;
-    private MultiTypeAdapter msgAdapter;
+
     private GrowthDiaryFragment fragement;
 
     public MomentsViewBinder(GrowthDiaryFragment fragement) {
         iMoments = HttpUtil.getInstance().createApi(IMoments.class);
         this.fragement = fragement;
-        mItems = new Items();
-        mMsgs = new Items();
-        multiTypeAdapter = new MultiTypeAdapter(mItems);
-        msgAdapter = new MultiTypeAdapter(mMsgs);
-        multiTypeAdapter.register(String.class, new InnerMsgProviderImage());
-        msgAdapter.register(MomentsBean.RepayBean.class, new EvaluationListBinder(this));
     }
 
     @NonNull
@@ -78,6 +69,14 @@ public class MomentsViewBinder extends ItemViewBinder<MomentsBean, MomentsViewBi
 
         StringUtil.setTextView(holder.iNoteTxtContentTv, String.valueOf(Html.fromHtml(bean.getContent())));
         ImageUtil.loadImages(context, holder.iNoteHeadIv, bean.getIcon());
+
+
+        Items mItems = new Items();
+        Items mMsgs = new Items();
+        MultiTypeAdapter multiTypeAdapter = new MultiTypeAdapter(mItems);
+        MultiTypeAdapter msgAdapter = new MultiTypeAdapter(mMsgs);
+        multiTypeAdapter.register(String.class, new InnerMsgProviderImage());
+        msgAdapter.register(MomentsBean.RepayBean.class, new EvaluationListBinder(this));
 
         if (ListUtil.isEmpty(bean.getImages())) {
             holder.iNoteImageRecycler.setVisibility(View.GONE);

@@ -217,7 +217,7 @@
                         android:drawableEnd="@mipmap/arrow_icon"
                         android:gravity="center"
                         android:paddingEnd="15dp"
-                        android:drawablePadding="40dp"
+                        android:drawablePadding="15dp"
                         android:paddingStart="0dp"
                         android:text="届数" />
 
@@ -228,7 +228,7 @@
                         android:layout_weight="1"
                         android:drawableEnd="@mipmap/arrow_icon"
                         android:gravity="center"
-                        android:drawablePadding="40dp"
+                        android:drawablePadding="15dp"
                         android:paddingEnd="15dp"
                         android:paddingStart="0dp"
                         android:text="年级" />
@@ -242,7 +242,7 @@
                         android:gravity="center"
                         android:paddingEnd="15dp"
                         android:paddingStart="0dp"
-                        android:drawablePadding="40dp"
+                        android:drawablePadding="15dp"
                         android:text="班级" />
                 </LinearLayout>
 

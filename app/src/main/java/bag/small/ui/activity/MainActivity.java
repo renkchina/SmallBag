@@ -34,6 +34,7 @@ import bag.small.ui.fragment.FamiliesSchoolConnectionFragment;
 import bag.small.ui.fragment.GrowthDiaryFragment;
 import bag.small.ui.fragment.TreasureChestFragment;
 import bag.small.utils.ListUtil;
+import bag.small.utils.UserPreferUtil;
 import butterknife.Bind;
 import butterknife.OnClick;
 import me.drakeet.multitype.Items;
@@ -180,7 +181,8 @@ public class MainActivity extends BaseActivity
             case R.id.main_drawer_left_about_tv:
                 break;
             case R.id.main_drawer_left_exit_tv:
-                finish();
+                UserPreferUtil.getInstanse().clear();
+                skipActivity(LoginActivity.class);
                 break;
         }
     }

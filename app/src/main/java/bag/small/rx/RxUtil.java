@@ -150,6 +150,10 @@ public final class RxUtil {
         return MultipartBody.Part.createFormData(key, key,
                 RequestBody.create(MultipartBody.FORM, file));
     }
+    public static MultipartBody.Part convertImage(String key, String fileName,File file) {
+        return MultipartBody.Part.createFormData(key, fileName,
+                RequestBody.create(MediaType.parse("image/png"), file));
+    }
     public static MultipartBody.Part convertImage(String key, File file) {
         return MultipartBody.Part.createFormData(key, key,
                 RequestBody.create(MediaType.parse("image/png"), file));

@@ -99,7 +99,7 @@ public class PublishMsgActivity extends BaseActivity {
             for (int i = 0; i < size; i++) {
                 String string = mDatas.get(i).toString();
                 if (!TextUtils.isEmpty(string)) {
-                    MultipartBody.Part part = RxUtil.convertImage("files", new File(string));
+                    MultipartBody.Part part = RxUtil.convertImage("files[]", "file" + i, new File(string));
                     parts[i] = part;
                 }
             }

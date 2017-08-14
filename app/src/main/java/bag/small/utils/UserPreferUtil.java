@@ -92,6 +92,10 @@ public class UserPreferUtil {
         }
     }
 
+    public void clear() {
+        preferenceUtil.clear();
+    }
+
     private void setInfomation(String key, Object value) {
         preferenceUtil.put(key, value);
     }

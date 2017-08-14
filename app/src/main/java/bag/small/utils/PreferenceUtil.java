@@ -174,4 +174,8 @@ class PreferenceUtil {
         return editor.commit();
     }
 
+    public void clear() {
+        sp.edit().clear().apply();
+    }
+
 }
