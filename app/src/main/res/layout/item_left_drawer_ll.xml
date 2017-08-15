@@ -3,14 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/item_main_drawer_image_iv"
         android:layout_width="74dp"
         android:layout_height="74dp"
         android:layout_marginEnd="5dp"
+        app:civ_border_width="1dp"
+        app:civ_border_color="@color/white"
         android:layout_marginStart="5dp" />
 
     <TextView

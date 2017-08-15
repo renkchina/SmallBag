@@ -28,7 +28,7 @@ public class RxCountDown {
     }
 
     //验证码 倒计时
-    public static void TimerDown(long time, final Button button) {
+    public static void TimerDown(long time, final TextView button) {
         countdown(time)
                 .doOnNext(integer -> button.setEnabled(false))
                 .subscribe(new Observer<Long>() {

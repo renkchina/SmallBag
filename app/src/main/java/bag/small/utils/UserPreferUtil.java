@@ -34,6 +34,7 @@ public class UserPreferUtil {
         setInfomation("target_id", loginBean.getTarget_id());
         setInfomation("target_type", loginBean.getTarget_type());
         setInfomation("logo", loginBean.getLogo());
+        setInfomation("sex", loginBean.getSex());
     }
 
     public void setUserHeadImage(String image) {
@@ -80,10 +81,16 @@ public class UserPreferUtil {
         return getInfomationS("password");
     }
 
-    public String getTargetType() {
+    private String getTargetType() {
         return getInfomationS("target_type");
     }
+    private String getSex() {
+        return getInfomationS("sex");
+    }
 
+    public boolean isMan(){
+        return "0".equals(getSex());
+    }
     public boolean isTeacher() {
         if (getTargetType().equals("teacher")) {
             return true;

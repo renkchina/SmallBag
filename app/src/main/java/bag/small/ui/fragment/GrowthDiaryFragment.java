@@ -4,14 +4,18 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import bag.small.R;
+import bag.small.app.MyApplication;
 import bag.small.base.BaseFragment;
 import bag.small.dialog.EvaluateDialog;
 import bag.small.entity.MomentsBean;
@@ -30,6 +34,7 @@ import butterknife.Bind;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
 import me.drakeet.multitype.Items;
 import me.drakeet.multitype.MultiTypeAdapter;
+
 /**
  * Created by Administrator on 2017/7/22.
  */
@@ -54,12 +59,8 @@ public class GrowthDiaryFragment extends BaseFragment implements IDialog {
 
     @Override
     public void initData() {
-        List<Object> bannerImages = new ArrayList<>();
-        bannerImages.add(R.mipmap.banner_icon1);
-        bannerImages.add(R.mipmap.banner_icon2);
         mItems = new Items();
         noticeBanner = new NoticeBanner();
-        noticeBanner.setBannerImages(bannerImages);
         noticeBanner.setHeadImage(UserPreferUtil.getInstanse().getHeadImagePath());
         mItems.add(noticeBanner);
         multiTypeAdapter = new MultiTypeAdapter(mItems);
@@ -117,12 +118,16 @@ public class GrowthDiaryFragment extends BaseFragment implements IDialog {
     public void onResume() {
         super.onResume();
         requestHTTP(pageIndex, null);
+        noticeBanner.setBannerImages(MyApplication.bannerImage);
+        multiTypeAdapter.notifyDataSetChanged();
     }
 
     //第一次初始化不执行
     @Override
     public void onFragmentShow() {
 //        requestHTTP(pageIndex, null);
+        noticeBanner.setBannerImages(MyApplication.bannerImage);
+        multiTypeAdapter.notifyDataSetChanged();
     }
 
     @Override

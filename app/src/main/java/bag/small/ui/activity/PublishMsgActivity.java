@@ -26,6 +26,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
 import me.drakeet.multitype.MultiTypeAdapter;
+import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.http.Field;
@@ -74,11 +75,15 @@ public class PublishMsgActivity extends BaseActivity {
         map.put("login_id", RxUtil.toRequestBodyTxt(UserPreferUtil.getInstanse().getUserId()));
         map.put("page", RxUtil.toRequestBodyTxt("1"));
         map.put("content", RxUtil.toRequestBodyTxt(content));
+
+
         ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("正在上传，请等待...");
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
-        iUpdateImage.updateImage(map, getParts())
+
+
+        iUpdateImage.updateImage(map, getBody())
                 .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
                 .compose(RxLifecycleCompact.bind(this).withObservable())
                 .subscribe(bean -> {
@@ -107,6 +112,23 @@ public class PublishMsgActivity extends BaseActivity {
         } else {
             return null;
         }
+    }
+
+    private MultipartBody getBody() {
+        MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
+        if (ListUtil.unEmpty(mDatas)) {
+            int size = mDatas.size();
+            for (int i = 0; i < size; i++) {
+                String string = mDatas.get(i).toString();
+                if (!TextUtils.isEmpty(string)) {
+                    String key = "file" + (i + 1);
+                    String fileName = System.currentTimeMillis() + ".png";
+                    builder.addFormDataPart(key, fileName,
+                            RequestBody.create(MediaType.parse("image/png;charset=utf-8"), new File(string)));
+                }
+            }
+        }
+        return builder.build();
     }
 
     private String[] getPaths(List<String> lists) {

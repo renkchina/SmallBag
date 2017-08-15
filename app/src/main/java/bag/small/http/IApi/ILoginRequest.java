@@ -17,15 +17,6 @@ import retrofit2.http.Query;
 
 public interface ILoginRequest {
 
-    //    @Multipart
-//    @POST("facepp/v3/compare")
-//    Observable<String> compare(@Part("api_key") RequestBody apiKey,
-//                               @Part("api_secret") RequestBody apiSecret,
-//                               @Part MultipartBody.Part... files);
-//    @FormUrlEncoded
-//    @POST("account/login")
-//    Observable<BaseBean<LoginBean>> appLogin(@Query("phone") String name,
-//                                             @Query("password") String password);
     @FormUrlEncoded
     @POST("commons/login")
     Observable<BaseBean<LoginResult>> appLogin(@Field("phone") String name,
@@ -34,8 +25,15 @@ public interface ILoginRequest {
     @FormUrlEncoded
     @POST("commons/update")
     Observable<BaseBean<LoginResult>> forgetPwd(@Field("phone") String name,
-                                                @Field("verify")String verify,
+                                                @Field("verify") String verify,
                                                 @Field("pwd") String password);
 
+    @FormUrlEncoded
+    @POST("commons/updeceive")
+    Observable<BaseBean<String>> updateToken(@Field("login_id") String loginId,
+                                             @Field("name") String name,
+                                             @Field("device_token") String token,
+                                             @Field("key") String key,
+                                             @Field("device_type") String type);
 
 }

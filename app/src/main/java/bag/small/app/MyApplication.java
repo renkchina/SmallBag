@@ -27,6 +27,15 @@ public class MyApplication extends Application implements Application.ActivityLi
     public static boolean isLogin;
     public static List<LoginResult.RoleBean> loginResults;
 
+    public static int bannerImage = R.mipmap.banner_icon2;
+    public static int roleImage = R.mipmap.teacher_man;
+
+    public static String deviceToken;
+
+    public static void setDeviceToken(String deviceToken) {
+        MyApplication.deviceToken = deviceToken;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -38,11 +47,12 @@ public class MyApplication extends Application implements Application.ActivityLi
             @Override
             public void onSuccess(String deviceToken) {
                 //注册成功会返回device token
+                setDeviceToken(deviceToken);
             }
 
             @Override
             public void onFailure(String s, String s1) {
-
+                setDeviceToken("");
             }
         });
         setDefaultRefresh();

@@ -2,8 +2,10 @@ package bag.small.ui.activity;
 
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -64,6 +66,8 @@ public class MainActivity extends BaseActivity
     DrawerLayout mDrawer;
     @Bind(R.id.main_drawer_left_recycler)
     RecyclerView mdlRecycler;
+    @Bind(R.id.activity_click_image)
+    ImageView activityClickImage;
     @Bind(R.id.main_drawer_left_add_account_btn)
     Button mdlAddAccountBtn;
     @Bind(R.id.main_drawer_left_account_manager_tv)
@@ -84,6 +88,11 @@ public class MainActivity extends BaseActivity
     MultiTypeAdapter multiTypeAdapter;
     private ActionBarDrawerToggle mDrawerToggle;
     private boolean isDrawer;
+    int[][] states = new int[][]{
+            new int[]{-android.R.attr.state_checked},
+            new int[]{android.R.attr.state_checked}
+    };
+    private int[] colors;
 
     @Override
     public int getLayoutResId() {
@@ -106,6 +115,13 @@ public class MainActivity extends BaseActivity
             itemDatas.clear();
             itemDatas.addAll(MyApplication.loginResults);
         }
+
+        colors = new int[]{ContextCompat.getColor(this, R.color.main_bottom_gray),
+                ContextCompat.getColor(this, R.color.main_bottom)
+        };
+        ColorStateList csl = new ColorStateList(states, colors);
+        mBottomNav.setItemTextColor(csl);
+        mBottomNav.setItemIconTintList(csl);
     }
 
     @Override
@@ -149,6 +165,7 @@ public class MainActivity extends BaseActivity
             @Override
             public void onDrawerClosed(View drawerView) {
                 isDrawer = false;
+                setUserImage();
             }
 
             @Override
@@ -164,7 +181,6 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onBackPressed() {
-
         if (mDrawer.isDrawerOpen(GravityCompat.START)) {
             mDrawer.closeDrawer(GravityCompat.START);
         } else {
@@ -185,7 +201,6 @@ public class MainActivity extends BaseActivity
                     break;
                 case R.id.item_growth:
                     changeFragment(2);
-
                     break;
             }
             return true;
@@ -201,8 +216,15 @@ public class MainActivity extends BaseActivity
             toolbar.setNavigationIcon(null);
         } else {
             toolbarRightIv.setVisibility(View.GONE);
-            getSupportActionBar().setHomeButtonEnabled(true);
-
+            mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.open, R.string.close);
+            mDrawerToggle.syncState();
+            mDrawer.addDrawerListener(mDrawerToggle);
+        }
+        if (index == 1) {
+            activityClickImage.setVisibility(View.VISIBLE);
+            activityClickImage.setImageResource(MyApplication.roleImage);
+        } else {
+            activityClickImage.setVisibility(View.GONE);
         }
     }
 
@@ -271,6 +293,57 @@ public class MainActivity extends BaseActivity
         goActivity(PublishMsgActivity.class, null);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setUserImage();
+    }
+
+    @MySubscribe(code = 300)
+    public void setUserImage() {
+        if (UserPreferUtil.getInstanse().isTeacher()) {
+            if (UserPreferUtil.getInstanse().isMan()) {
+                MyApplication.roleImage = R.mipmap.teacher_man;
+            } else {
+                MyApplication.roleImage = R.mipmap.teacher_woman;
+            }
+            MyApplication.bannerImage = R.mipmap.banner_icon2;
+        } else {
+            MyApplication.bannerImage = R.mipmap.banner_icon1;
+            if (UserPreferUtil.getInstanse().isMan()) {
+                MyApplication.roleImage = R.mipmap.student_boy;
+            } else {
+                MyApplication.roleImage = R.mipmap.student_girl;
+            }
+        }
+        changeColor(UserPreferUtil.getInstanse().isTeacher());
+        activityClickImage.setBackgroundResource(MyApplication.roleImage);
+        switch (lastItem.getItemId()) {
+            case R.id.item_treasure:
+                ((TreasureChestFragment) fragments[0]).setImage();
+                break;
+            case R.id.item_family:
+                ((FamiliesSchoolConnectionFragment) fragments[1]).setImage();
+                break;
+            case R.id.item_growth:
+                break;
+        }
+    }
+
+
+    public void changeColor(boolean isTeacher) {
+        int coler;
+        if (isTeacher) {
+            coler = ContextCompat.getColor(this, R.color.colorPrimary);
+        } else {
+            coler = ContextCompat.getColor(this, R.color.main_bottom);
+        }
+        colors = new int[]{ContextCompat.getColor(this, R.color.main_bottom_gray), coler};
+        ColorStateList csl = new ColorStateList(states, colors);
+        mBottomNav.setItemTextColor(csl);
+        mBottomNav.setItemIconTintList(csl);
+        lastItem.setChecked(true);
+    }
 
     @Override
     public void register() {

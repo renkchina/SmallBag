@@ -15,6 +15,7 @@
         android:layout_height="155dp">
 
         <ImageView
+            android:id="@+id/banner_imageview"
             android:layout_width="match_parent"
             android:layout_height="155dp"
             android:background="@mipmap/banner_icon1"

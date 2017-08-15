@@ -4,6 +4,7 @@ import android.graphics.Rect;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bag.small.R;
+import bag.small.app.MyApplication;
 import bag.small.base.BaseFragment;
 import bag.small.entity.ConnectionBinder;
 import bag.small.provider.ConnectionViewBinder;
@@ -26,12 +28,12 @@ import me.drakeet.multitype.MultiTypeAdapter;
  */
 
 public class TreasureChestFragment extends BaseFragment {
-    //    private List<Object> bannerImages;
-//    @Bind(R.id.mbanner)
-//    Banner mBanner;
+
     List<Object> mItemBeans;
     @Bind(R.id.fragment_family_grid_view)
     RecyclerView recyclerView;
+    @Bind(R.id.banner_imageview)
+    ImageView bannerImage;
     private MultiTypeAdapter mAdapter;
 
     @Override
@@ -39,16 +41,9 @@ public class TreasureChestFragment extends BaseFragment {
         return R.layout.fragment_treasure_chest;
     }
 
-    @Override
-    public void initData() {
-//        bannerImages = new ArrayList<>();
-//        bannerImages.add(R.mipmap.banner_icon1);
-//        bannerImages.add(R.mipmap.banner_icon2);
-    }
 
     @Override
     public void initView() {
-//        setBanner(mBanner, bannerImages);
         mItemBeans = new ArrayList<>(9);
         ConnectionBinder biner1 = new ConnectionBinder();
         biner1.setId(1);
@@ -100,17 +95,23 @@ public class TreasureChestFragment extends BaseFragment {
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         recyclerView.addItemDecoration(new SpaceItemDecoration(10));
         recyclerView.setAdapter(mAdapter);
+        bannerImage.setBackgroundResource(MyApplication.bannerImage);
     }
 
     @Override
     public void onFragmentShow() {
-//        mBanner.startAutoPlay();
+        bannerImage.setBackgroundResource(MyApplication.bannerImage);
     }
 
     @Override
     public void onFragmentHide() {
-//        mBanner.stopAutoPlay();
     }
+
+
+    public void setImage() {
+        bannerImage.setBackgroundResource(MyApplication.bannerImage);
+    }
+
 
     public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
 
@@ -133,23 +134,4 @@ public class TreasureChestFragment extends BaseFragment {
 
     }
 
-    private void setBanner(Banner banner, List images) {
-        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
-        //设置图片加载器
-        banner.setImageLoader(new GlideImageLoader());
-        //设置图片集合
-        banner.setImages(images);
-        //设置banner动画效果
-        banner.setBannerAnimation(Transformer.DepthPage);
-        //设置标题集合（当banner样式有显示title时）
-//        fBanner.setBannerTitles(titles);
-        //设置自动轮播，默认为true
-        banner.isAutoPlay(true);
-        //设置轮播时间
-        banner.setDelayTime(2000);
-        //设置指示器位置（当banner模式中有指示器时）
-        banner.setIndicatorGravity(BannerConfig.CENTER);
-        //banner设置方法全部调用完毕时最后调用
-        banner.start();
-    }
 }

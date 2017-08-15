@@ -9,7 +9,7 @@ public class NoticeBanner {
 
     private String headImage;
 
-    private List<Object> bannerImages;
+    private int bannerImages;
 
     public String getHeadImage() {
         return headImage;
@@ -19,11 +19,11 @@ public class NoticeBanner {
         this.headImage = headImage;
     }
 
-    public List<Object> getBannerImages() {
+    public int getBannerImages() {
         return bannerImages;
     }
 
-    public void setBannerImages(List<Object> bannerImages) {
+    public void setBannerImages(int bannerImages) {
         this.bannerImages = bannerImages;
     }
 

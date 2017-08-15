@@ -49,7 +49,15 @@ public class LoginResult {
         private String target_id;
         private String school_id;
         private String logo;
+        private String sex;
 
+        public String getSex() {
+            return sex;
+        }
+
+        public void setSex(String sex) {
+            this.sex = sex;
+        }
 
         public boolean isSelected() {
             return isSelected;
@@ -110,12 +118,14 @@ public class LoginResult {
         @Override
         public String toString() {
             return "RoleBean{" +
-                    "role_id='" + role_id + '\'' +
+                    "isSelected=" + isSelected +
+                    ", role_id='" + role_id + '\'' +
                     ", name='" + name + '\'' +
                     ", target_type='" + target_type + '\'' +
                     ", target_id='" + target_id + '\'' +
                     ", school_id='" + school_id + '\'' +
                     ", logo='" + logo + '\'' +
+                    ", sex='" + sex + '\'' +
                     '}';
         }
     }

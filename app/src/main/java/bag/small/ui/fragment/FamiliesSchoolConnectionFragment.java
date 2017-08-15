@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bag.small.R;
+import bag.small.app.MyApplication;
 import bag.small.base.BaseFragment;
 import bag.small.entity.ConnectionBinder;
 import bag.small.http.HttpUtil;
@@ -38,12 +39,10 @@ import me.drakeet.multitype.MultiTypeAdapter;
  */
 
 public class FamiliesSchoolConnectionFragment extends BaseFragment {
-    //    @Bind(R.id.fragment_family_banner)
-//    Banner fBanner;
+    @Bind(R.id.banner_imageview)
+    ImageView bannerImage;
     @Bind(R.id.fragment_family_grid_view)
     RecyclerView recyclerView;
-    @Bind(R.id.activity_click_image)
-    ImageView activityClickImage;
     private List<Object> bannerImages;
     MultiTypeAdapter mAdapter;
     List<Object> mItemBeans;
@@ -58,9 +57,6 @@ public class FamiliesSchoolConnectionFragment extends BaseFragment {
 
     @Override
     public void initData() {
-        bannerImages = new ArrayList<>();
-        bannerImages.add(R.mipmap.banner_icon1);
-        bannerImages.add(R.mipmap.banner_icon2);
         mItemBeans = new ArrayList<>(9);
         ConnectionBinder biner1 = new ConnectionBinder();
         biner1.setId(1);
@@ -112,14 +108,13 @@ public class FamiliesSchoolConnectionFragment extends BaseFragment {
 
     @Override
     public void initView() {
-//        setToolTitle("小书包", false);
-//        setBanner(fBanner, bannerImages);
         mAdapter.register(ConnectionBinder.class, new ConnectionViewBinder());
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
-        recyclerView.addItemDecoration(new SpaceItemDecoration(10));
+        recyclerView.addItemDecoration(new SpaceItemDecoration(20));
         recyclerView.setAdapter(mAdapter);
         iNotification = HttpUtil.getInstance().createApi(INotification.class);
         setNoticeCount();
+       setImage();
     }
 
     private void setNoticeCount() {
@@ -139,35 +134,12 @@ public class FamiliesSchoolConnectionFragment extends BaseFragment {
 
     @Override
     public void onFragmentShow() {
-        //开始轮播
-//        fBanner.startAutoPlay();
         setNoticeCount();
+        setImage();
     }
 
-    @Override
-    public void onFragmentHide() {
-        //结束轮播
-//        fBanner.stopAutoPlay();
-    }
-
-    private void setBanner(Banner banner, List images) {
-        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
-        //设置图片加载器
-        banner.setImageLoader(new GlideImageLoader());
-        //设置图片集合
-        banner.setImages(images);
-        //设置banner动画效果
-        banner.setBannerAnimation(Transformer.DepthPage);
-        //设置标题集合（当banner样式有显示title时）
-//        fBanner.setBannerTitles(titles);
-        //设置自动轮播，默认为true
-        banner.isAutoPlay(true);
-        //设置轮播时间
-        banner.setDelayTime(2000);
-        //设置指示器位置（当banner模式中有指示器时）
-        banner.setIndicatorGravity(BannerConfig.CENTER);
-        //banner设置方法全部调用完毕时最后调用
-        banner.start();
+    public void setImage() {
+        bannerImage.setBackgroundResource(MyApplication.bannerImage);
     }
 
     @OnClick(R.id.activity_click_image)
