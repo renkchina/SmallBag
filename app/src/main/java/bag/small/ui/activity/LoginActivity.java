@@ -10,6 +10,7 @@ import android.widget.TextView;
 import bag.small.R;
 import bag.small.app.MyApplication;
 import bag.small.base.BaseActivity;
+import bag.small.entity.BaseBean;
 import bag.small.entity.LoginResult;
 import bag.small.http.HttpUtil;
 import bag.small.http.IApi.HttpError;
@@ -20,6 +21,12 @@ import bag.small.utils.UserPreferUtil;
 import butterknife.Bind;
 import butterknife.OnClick;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
+import io.reactivex.ObservableSource;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Administrator on 2017/7/22.
@@ -91,7 +98,6 @@ public class LoginActivity extends BaseActivity {
                         toast("登录失败！");
                     }
                 }, new HttpError());
-
     }
 
 

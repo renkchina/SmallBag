@@ -35,8 +35,12 @@ import bag.small.R;
 import bag.small.app.MyApplication;
 import bag.small.base.BaseActivity;
 import bag.small.base.BaseFragment;
+import bag.small.entity.BaseBean;
 import bag.small.entity.LoginResult;
+import bag.small.http.HttpUtil;
+import bag.small.http.IApi.ILoginRequest;
 import bag.small.provider.AccountViewBinder;
+import bag.small.rx.RxUtil;
 import bag.small.ui.fragment.FamiliesSchoolConnectionFragment;
 import bag.small.ui.fragment.GrowthDiaryFragment;
 import bag.small.ui.fragment.TreasureChestFragment;
@@ -44,6 +48,8 @@ import bag.small.utils.ListUtil;
 import bag.small.utils.UserPreferUtil;
 import butterknife.Bind;
 import butterknife.OnClick;
+import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
+import io.reactivex.functions.Consumer;
 import me.drakeet.multitype.Items;
 import me.drakeet.multitype.MultiTypeAdapter;
 
@@ -93,6 +99,7 @@ public class MainActivity extends BaseActivity
             new int[]{android.R.attr.state_checked}
     };
     private int[] colors;
+    ILoginRequest iLoginRequest;
 
     @Override
     public int getLayoutResId() {
@@ -115,7 +122,7 @@ public class MainActivity extends BaseActivity
             itemDatas.clear();
             itemDatas.addAll(MyApplication.loginResults);
         }
-
+        iLoginRequest = HttpUtil.getInstance().createApi(ILoginRequest.class);
         colors = new int[]{ContextCompat.getColor(this, R.color.main_bottom_gray),
                 ContextCompat.getColor(this, R.color.main_bottom)
         };
@@ -126,6 +133,14 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void initView() {
+        iLoginRequest.updateToken(UserPreferUtil.getInstanse().getUserId(), "", MyApplication.deviceToken,
+                "", "android").compose(RxLifecycleCompact.bind(this).withObservable())
+                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                .subscribe(bean -> {
+                    if (bean.isSuccess()) {
+
+                    }
+                });
 
         multiTypeAdapter = new MultiTypeAdapter(itemDatas);
         multiTypeAdapter.register(LoginResult.RoleBean.class, new AccountViewBinder());
@@ -220,7 +235,7 @@ public class MainActivity extends BaseActivity
             mDrawerToggle.syncState();
             mDrawer.addDrawerListener(mDrawerToggle);
         }
-        if (index == 1) {
+        if (index == 1 || index == 0) {
             activityClickImage.setVisibility(View.VISIBLE);
             activityClickImage.setImageResource(MyApplication.roleImage);
         } else {
@@ -320,12 +335,13 @@ public class MainActivity extends BaseActivity
         activityClickImage.setBackgroundResource(MyApplication.roleImage);
         switch (lastItem.getItemId()) {
             case R.id.item_treasure:
-                ((TreasureChestFragment) fragments[0]).setImage();
+                fragments[0].onFragmentShow();
                 break;
             case R.id.item_family:
-                ((FamiliesSchoolConnectionFragment) fragments[1]).setImage();
+                fragments[1].onFragmentShow();
                 break;
             case R.id.item_growth:
+                fragments[2].onFragmentShow();
                 break;
         }
     }

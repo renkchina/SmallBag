@@ -3,6 +3,7 @@ package bag.small.http.IApi;
 import java.util.HashMap;
 
 import bag.small.entity.BaseBean;
+import bag.small.entity.ForgetPassword;
 import bag.small.entity.RegisterBean;
 import bag.small.entity.RegisterInfoBean;
 import io.reactivex.Observable;
@@ -29,11 +30,12 @@ public interface IRegisterReq {
     Observable<BaseBean<RegisterBean>> goRegister(@Field("phone") String phone,
                                                   @Field("pwd") String password,
                                                   @Field("verify") String code);
+
     @FormUrlEncoded
     @POST("commons/update")
-    Observable<BaseBean<String>> changePassword(@Field("phone") String phone,
-                                                  @Field("pwd") String password,
-                                                  @Field("verify") String code);
+    Observable<BaseBean<ForgetPassword>> changePassword(@Field("phone") String phone,
+                                                        @Field("pwd") String password,
+                                                        @Field("verify") String code);
 
     @Multipart
     @POST("commons/registerteacher")

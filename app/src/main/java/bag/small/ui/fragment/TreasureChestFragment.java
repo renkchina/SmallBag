@@ -100,7 +100,7 @@ public class TreasureChestFragment extends BaseFragment {
 
     @Override
     public void onFragmentShow() {
-        bannerImage.setBackgroundResource(MyApplication.bannerImage);
+        setImage();
     }
 
     @Override
