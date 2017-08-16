@@ -48,11 +48,14 @@ public class MyApplication extends Application implements Application.ActivityLi
             public void onSuccess(String deviceToken) {
                 //注册成功会返回device token
                 setDeviceToken(deviceToken);
+                LogUtil.show(deviceToken);
+
             }
 
             @Override
             public void onFailure(String s, String s1) {
                 setDeviceToken("");
+                LogUtil.show(s+"  "+s1);
             }
         });
         setDefaultRefresh();
