@@ -45,7 +45,7 @@ public class ConnectionViewBinder extends ItemViewBinder<ConnectionBinder, Conne
             holder.iCountIv.setText(bean.getCount() + "");
         }
         StringUtil.setTextView(holder.iTitleIv, bean.getTitle());
-        holder.iIconIv.setBackgroundResource(bean.getResImage());
+        holder.iIconIv.setImageResource(bean.getResImage());
         holder.rootView.setOnClickListener(v -> {
             switch (bean.getId()) {
                 case 1:

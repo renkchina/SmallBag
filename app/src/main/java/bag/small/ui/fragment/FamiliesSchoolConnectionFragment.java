@@ -1,22 +1,12 @@
 package bag.small.ui.fragment;
 
 import android.graphics.Rect;
-import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-
-import com.china.rxbus.RxBus;
-import com.youth.banner.Banner;
-import com.youth.banner.BannerConfig;
-import com.youth.banner.Transformer;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import bag.small.R;
 import bag.small.app.MyApplication;
 import bag.small.base.BaseFragment;
@@ -26,24 +16,17 @@ import bag.small.http.IApi.HttpError;
 import bag.small.http.IApi.INotification;
 import bag.small.provider.ConnectionViewBinder;
 import bag.small.rx.RxUtil;
-import bag.small.utils.GlideImageLoader;
 import bag.small.utils.UserPreferUtil;
 import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
 import me.drakeet.multitype.MultiTypeAdapter;
 
-/**
- * Created by Administrator on 2017/7/22.
- */
 
 public class FamiliesSchoolConnectionFragment extends BaseFragment {
     @Bind(R.id.banner_imageview)
     ImageView bannerImage;
     @Bind(R.id.fragment_family_grid_view)
     RecyclerView recyclerView;
-    private List<Object> bannerImages;
     MultiTypeAdapter mAdapter;
     List<Object> mItemBeans;
     INotification iNotification;
@@ -142,17 +125,12 @@ public class FamiliesSchoolConnectionFragment extends BaseFragment {
         bannerImage.setBackgroundResource(MyApplication.bannerImage);
     }
 
-    @OnClick(R.id.activity_click_image)
-    public void onViewClicked() {
-        RxBus.get().send(9527);
-    }
 
-
-    public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
+    private class SpaceItemDecoration extends RecyclerView.ItemDecoration {
 
         private int space;
 
-        public SpaceItemDecoration(int space) {
+        SpaceItemDecoration(int space) {
             this.space = space;
         }
 

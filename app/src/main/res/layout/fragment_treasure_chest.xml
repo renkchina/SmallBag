@@ -7,10 +7,9 @@
     <!--<include layout="@layout/banner_layout" />-->
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="155dp"
         android:id="@+id/banner_imageview"
-        />
+        android:layout_width="match_parent"
+        android:layout_height="155dp" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -24,8 +23,10 @@
             android:background="@color/white"
             android:gravity="center"
             android:numColumns="3"
+            android:paddingStart="5dp"
             android:stretchMode="spacingWidth"
-            android:verticalSpacing="10dp"></android.support.v7.widget.RecyclerView>
+            android:verticalSpacing="10dp">
+        </android.support.v7.widget.RecyclerView>
 
         <TextView
             android:layout_width="match_parent"

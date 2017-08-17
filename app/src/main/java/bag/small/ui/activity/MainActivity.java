@@ -255,7 +255,8 @@ public class MainActivity extends BaseActivity
             R.id.main_drawer_left_soft_setting_tv,
             R.id.main_drawer_left_help_tv,
             R.id.main_drawer_left_about_tv,
-            R.id.main_drawer_left_exit_tv})
+            R.id.main_drawer_left_exit_tv,
+            R.id.activity_click_image})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.main_drawer_left_add_account_btn:
@@ -273,15 +274,18 @@ public class MainActivity extends BaseActivity
                 UserPreferUtil.getInstanse().clear();
                 skipActivity(LoginActivity.class);
                 break;
+            case R.id.activity_click_image:
+                showDrawerLayout();
+                break;
         }
     }
 
     @MySubscribe(code = 9527)
     public void showDrawerLayout() {
-        if (!mDrawer.isDrawerOpen(Gravity.LEFT)) {
-            mDrawer.openDrawer(Gravity.LEFT);
+        if (!mDrawer.isDrawerOpen(Gravity.START)) {
+            mDrawer.openDrawer(Gravity.START);
         } else {
-            mDrawer.closeDrawer(Gravity.LEFT);
+            mDrawer.closeDrawer(Gravity.START);
         }
     }
 

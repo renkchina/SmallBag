@@ -3,13 +3,18 @@ package bag.small.ui.activity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import bag.small.R;
+import bag.small.app.MyApplication;
 import bag.small.base.BaseActivity;
 import bag.small.entity.TeacherClass;
 import bag.small.http.HttpUtil;
@@ -28,9 +33,8 @@ import me.drakeet.multitype.Items;
 import me.drakeet.multitype.MultiTypeAdapter;
 
 public class InterestClassByTeacherActivity extends BaseActivity {
-
-    @Bind(R.id.mbanner)
-    Banner mbanner;
+    @Bind(R.id.activity_interest_teacher_banner_iv)
+    ImageView bannerIv;
     @Bind(R.id.activity_interest_teacher_class_tv)
     TextView tClassTv;
     @Bind(R.id.activity_interest_teacher_time_tv)
@@ -39,7 +43,6 @@ public class InterestClassByTeacherActivity extends BaseActivity {
     TextView tClassroomTv;
     @Bind(R.id.activity_interest_teacher_recycler)
     RecyclerView tRecycler;
-    private List<Object> bannerImages;
     MultiTypeAdapter multiTypeAdapter;
     List<Object> mItems;
     IInterestClass iInterestClass;
@@ -51,9 +54,6 @@ public class InterestClassByTeacherActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        bannerImages = new ArrayList<>();
-        bannerImages.add(R.mipmap.banner_icon1);
-        bannerImages.add(R.mipmap.banner_icon2);
         mItems = new Items();
         multiTypeAdapter = new MultiTypeAdapter(mItems);
         multiTypeAdapter.register(TeacherClass.ClassBean.StudentsBean.class, new TeacherClassViewBinder());
@@ -67,7 +67,7 @@ public class InterestClassByTeacherActivity extends BaseActivity {
     @Override
     public void initView() {
         setToolTitle("兴趣课", true);
-        setBanner(mbanner, bannerImages);
+        bannerIv.setBackgroundResource(MyApplication.bannerImage);
         iInterestClass.getInterestsForTeacher(UserPreferUtil.getInstanse().getRoleId(),
                 UserPreferUtil.getInstanse().getUserId(),
                 UserPreferUtil.getInstanse().getSchoolId())
@@ -85,23 +85,5 @@ public class InterestClassByTeacherActivity extends BaseActivity {
                 }, new HttpError());
     }
 
-    private void setBanner(Banner banner, List images) {
-        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
-        //设置图片加载器
-        banner.setImageLoader(new GlideImageLoader());
-        //设置图片集合
-        banner.setImages(images);
-        //设置banner动画效果
-        banner.setBannerAnimation(Transformer.DepthPage);
-        //设置标题集合（当banner样式有显示title时）
-//        fBanner.setBannerTitles(titles);
-        //设置自动轮播，默认为true
-        banner.isAutoPlay(true);
-        //设置轮播时间
-        banner.setDelayTime(2000);
-        //设置指示器位置（当banner模式中有指示器时）
-        banner.setIndicatorGravity(BannerConfig.CENTER);
-        //banner设置方法全部调用完毕时最后调用
-        banner.start();
-    }
+
 }

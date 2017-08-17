@@ -5,10 +5,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!--<com.youth.banner.Banner-->
-    <!--android:id="@+id/fragment_family_banner"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="155dp" />-->
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -21,13 +17,6 @@
             android:background="@mipmap/banner_icon1"
             android:scaleType="centerCrop" />
 
-        <ImageView
-            android:id="@+id/activity_click_image"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:background="@mipmap/student_click"
-            android:elevation="12dp"
-            android:scaleType="centerCrop" />
     </FrameLayout>
 
 
@@ -39,6 +28,8 @@
         android:background="@color/white"
         android:gravity="center"
         android:numColumns="3"
+        android:paddingStart="5dp"
         android:stretchMode="spacingWidth"
-        android:verticalSpacing="10dp"></android.support.v7.widget.RecyclerView>
+        android:verticalSpacing="10dp">
+    </android.support.v7.widget.RecyclerView>
 </LinearLayout>

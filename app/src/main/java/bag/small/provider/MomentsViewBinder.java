@@ -119,6 +119,12 @@ public class MomentsViewBinder extends ItemViewBinder<MomentsBean, MomentsViewBi
             holder.iDeleteMessageV.setVisibility(View.GONE);
         }
 
+        if (bean.isCan_dianzan()) {
+            holder.iLikeIv.setImageResource(R.mipmap.heart_icon);
+        } else {
+            holder.iLikeIv.setImageResource(R.mipmap.heart_active_icon);
+        }
+
         holder.iLikeIv.setOnClickListener(v -> {
             if (bean.isCan_dianzan()) {
                 iMoments.likeOrUnLikeEvaluateMsg("upmsg", UserPreferUtil.getInstanse().getRoleId(),

@@ -13,13 +13,17 @@
 
         <include layout="@layout/toolbar" />
 
-        <include layout="@layout/banner_layout" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:scaleType="centerCrop"
+            android:id="@+id/activity_interest_teacher_banner_iv"
+            android:layout_height="155dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
             android:orientation="horizontal">
 
             <TextView
@@ -40,15 +44,16 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
+                android:gravity="center_vertical"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
             android:layout_height="50dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
             android:orientation="horizontal">
 
             <TextView
@@ -69,6 +74,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
+                android:gravity="center_vertical"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
         </LinearLayout>
@@ -76,8 +82,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
             android:orientation="horizontal">
 
             <TextView
@@ -99,6 +105,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
+                android:gravity="center_vertical"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
         </LinearLayout>
@@ -109,7 +116,6 @@
             android:layout_height="wrap_content"
             android:paddingEnd="24dp"
 
-            android:paddingStart="24dp">
-        </android.support.v7.widget.RecyclerView>
+            android:paddingStart="24dp"></android.support.v7.widget.RecyclerView>
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

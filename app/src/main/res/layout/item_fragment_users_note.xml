@@ -98,7 +98,7 @@
             android:id="@+id/item_fragment_note_like_iv"
             android:layout_width="21dp"
             android:layout_height="21dp"
-            android:background="@mipmap/heart_icon" />
+             />
 
         <ImageView
             android:id="@+id/item_fragment_note_show_send_message_iv"
