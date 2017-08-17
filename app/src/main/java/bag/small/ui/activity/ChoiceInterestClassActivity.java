@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bag.small.R;
+import bag.small.app.MyApplication;
 import bag.small.base.BaseActivity;
 import bag.small.entity.BaseBean;
 import bag.small.entity.ChoiceClassLists;
@@ -45,8 +46,8 @@ import me.drakeet.multitype.Items;
 import me.drakeet.multitype.MultiTypeAdapter;
 
 public class ChoiceInterestClassActivity extends BaseActivity {
-    @Bind(R.id.mbanner)
-    Banner iStudentBanner;
+    @Bind(R.id.ac_choice_student_banner_iv)
+    ImageView iStudentBanner;
     @Bind(R.id.activity_interest_class_one_content_tv)
     TextView iOneContentTv;
     @Bind(R.id.activity_interest_class_one_del_iv)
@@ -75,7 +76,6 @@ public class ChoiceInterestClassActivity extends BaseActivity {
     LinearLayout activityStudentShowClassLl;
     @Bind(R.id.activity_student_choice_ll)
     LinearLayout activityStudentChoiceLl;
-    private List<Object> bannerImages;
     MultiTypeAdapter multiTypeAdapter;
     List<Object> mItems;
     IInterestClass iInterestClass;
@@ -92,9 +92,7 @@ public class ChoiceInterestClassActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        bannerImages = new ArrayList<>();
-        bannerImages.add(R.mipmap.banner_icon1);
-        bannerImages.add(R.mipmap.banner_icon2);
+        iStudentBanner.setBackgroundResource(MyApplication.bannerImage);
         mItems = new Items();
         firstKeChen = new ChoiceClassLists.KechenBean("", "兴趣课名", "上课教室", "上课时间", "授课老师");
         mItems.add(firstKeChen);
@@ -110,7 +108,6 @@ public class ChoiceInterestClassActivity extends BaseActivity {
     @Override
     public void initView() {
         setToolTitle("兴趣课", true);
-        setBanner(iStudentBanner, bannerImages);
         iInterestClass.getInterestsForStudent(UserPreferUtil.getInstanse().getRoleId(),
                 UserPreferUtil.getInstanse().getUserId(),
                 UserPreferUtil.getInstanse().getSchoolId())
@@ -127,6 +124,12 @@ public class ChoiceInterestClassActivity extends BaseActivity {
         if (data.isCan_xuan_ke()) {
             activityStudentChoiceLl.setVisibility(View.VISIBLE);
             activityStudentShowClassLl.setVisibility(View.GONE);
+            if (data.getXuanke() != null && data.getXuanke().getFirst() != null)
+                StringUtil.setTextView(iOneContentTv, data.getXuanke().getFirst().getCourse_name());
+            if (data.getXuanke() != null && data.getXuanke().getSecend() != null)
+                StringUtil.setTextView(iTwoContentTv, data.getXuanke().getSecend().getCourse_name());
+            if (data.getXuanke() != null && data.getXuanke().getThird() != null)
+                StringUtil.setTextView(iThreeContentTv, data.getXuanke().getThird().getCourse_name());
             if (ListUtil.unEmpty(data.getKechen())) {
                 mItems.addAll(data.getKechen());
                 multiTypeAdapter.notifyDataSetChanged();
@@ -135,7 +138,7 @@ public class ChoiceInterestClassActivity extends BaseActivity {
             activityStudentShowClassLl.setVisibility(View.VISIBLE);
             activityStudentChoiceLl.setVisibility(View.GONE);
             ChoiceClassLists.ResultBean result = data.getResult();
-            if(result!=null){
+            if (result != null) {
                 StringUtil.setTextView(mClassTv, data.getResult().getName());
                 StringUtil.setTextView(mTeacherTv, data.getResult().getTeacher());
                 StringUtil.setTextView(mTimeTv, data.getResult().getClass_time());
@@ -144,37 +147,6 @@ public class ChoiceInterestClassActivity extends BaseActivity {
         }
     }
 
-    private void setBanner(Banner banner, List images) {
-        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
-        //设置图片加载器
-        banner.setImageLoader(new GlideImageLoader());
-        //设置图片集合
-        banner.setImages(images);
-        //设置banner动画效果
-        banner.setBannerAnimation(Transformer.DepthPage);
-        //设置标题集合（当banner样式有显示title时）
-//        fBanner.setBannerTitles(titles);
-        //设置自动轮播，默认为true
-        banner.isAutoPlay(true);
-        //设置轮播时间
-        banner.setDelayTime(2000);
-        //设置指示器位置（当banner模式中有指示器时）
-        banner.setIndicatorGravity(BannerConfig.CENTER);
-        //banner设置方法全部调用完毕时最后调用
-        banner.start();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        iStudentBanner.startAutoPlay();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        iStudentBanner.stopAutoPlay();
-    }
 
     @OnClick({R.id.activity_interest_class_one_content_tv,
             R.id.activity_interest_class_one_del_iv,

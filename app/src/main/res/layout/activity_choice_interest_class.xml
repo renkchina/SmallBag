@@ -15,7 +15,11 @@
 
         <include layout="@layout/toolbar" />
 
-        <include layout="@layout/banner_layout" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:scaleType="centerCrop"
+            android:id="@+id/ac_choice_student_banner_iv"
+            android:layout_height="155dp" />
 
         <LinearLayout
             android:id="@+id/activity_student_show_class_ll"

@@ -319,20 +319,23 @@ public class MainActivity extends BaseActivity
         if (UserPreferUtil.getInstanse().isTeacher()) {
             if (UserPreferUtil.getInstanse().isMan()) {
                 MyApplication.roleImage = R.mipmap.teacher_man;
+                activityClickImage.setImageResource(R.mipmap.teacher_man);
             } else {
                 MyApplication.roleImage = R.mipmap.teacher_woman;
+                activityClickImage.setImageResource(R.mipmap.teacher_woman);
             }
             MyApplication.bannerImage = R.mipmap.banner_icon2;
         } else {
             MyApplication.bannerImage = R.mipmap.banner_icon1;
             if (UserPreferUtil.getInstanse().isMan()) {
                 MyApplication.roleImage = R.mipmap.student_boy;
+                activityClickImage.setImageResource(R.mipmap.student_boy);
             } else {
                 MyApplication.roleImage = R.mipmap.student_girl;
+                activityClickImage.setImageResource(R.mipmap.student_girl);
             }
         }
         changeColor(UserPreferUtil.getInstanse().isTeacher());
-        activityClickImage.setBackgroundResource(MyApplication.roleImage);
         switch (lastItem.getItemId()) {
             case R.id.item_treasure:
                 fragments[0].onFragmentShow();

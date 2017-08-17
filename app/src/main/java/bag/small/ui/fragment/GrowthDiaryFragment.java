@@ -114,18 +114,15 @@ public class GrowthDiaryFragment extends BaseFragment implements IDialog {
                 }, new HttpError(refresh));
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        requestHTTP(pageIndex, null);
-        noticeBanner.setBannerImages(MyApplication.bannerImage);
-        multiTypeAdapter.notifyDataSetChanged();
-    }
 
     //第一次初始化不执行
     @Override
     public void onFragmentShow() {
-//        requestHTTP(pageIndex, null);
+        setHttp();
+    }
+
+    private void setHttp() {
+        requestHTTP(pageIndex, null);
         noticeBanner.setBannerImages(MyApplication.bannerImage);
         multiTypeAdapter.notifyDataSetChanged();
     }
