@@ -14,6 +14,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/fragment_growth_recycler"
             android:layout_width="match_parent"
+            android:background="@color/un_enable_gray"
             android:layout_height="match_parent" />
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 

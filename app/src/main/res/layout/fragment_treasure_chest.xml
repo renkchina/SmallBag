@@ -23,7 +23,6 @@
             android:background="@color/white"
             android:gravity="center"
             android:numColumns="3"
-            android:paddingStart="5dp"
             android:stretchMode="spacingWidth"
             android:verticalSpacing="10dp">
         </android.support.v7.widget.RecyclerView>

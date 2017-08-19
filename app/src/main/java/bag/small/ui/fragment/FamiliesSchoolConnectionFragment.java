@@ -5,8 +5,10 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import bag.small.R;
 import bag.small.app.MyApplication;
 import bag.small.base.BaseFragment;
@@ -93,11 +95,13 @@ public class FamiliesSchoolConnectionFragment extends BaseFragment {
     public void initView() {
         mAdapter.register(ConnectionBinder.class, new ConnectionViewBinder());
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
-        recyclerView.addItemDecoration(new SpaceItemDecoration(20));
+        recyclerView.addItemDecoration(new SpaceItemDecoration(10));
         recyclerView.setAdapter(mAdapter);
+
+
         iNotification = HttpUtil.getInstance().createApi(INotification.class);
         setNoticeCount();
-       setImage();
+        setImage();
     }
 
     private void setNoticeCount() {
@@ -138,9 +142,18 @@ public class FamiliesSchoolConnectionFragment extends BaseFragment {
         public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
             //不是第一个的格子都设一个左边和底部的间距
             outRect.left = space;
+            outRect.right = space;
             outRect.bottom = space;
+
+            int positon = parent.getChildLayoutPosition(view);
+            int result = positon % 3;
             //由于每行都只有3个，所以第一个都是3的倍数，把左边距设为0
-            if (parent.getChildLayoutPosition(view) % 3 == 0) {
+            if (result == 0) {
+                outRect.left = 0;
+            } else if (result ==1){
+                outRect.left = 0;
+            }else if(result==2){
+                outRect.right = 0;
                 outRect.left = 0;
             }
         }

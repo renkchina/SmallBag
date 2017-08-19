@@ -1,9 +1,11 @@
 package bag.small.ui.fragment;
 
+import android.graphics.Rect;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.View;
 
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -81,8 +83,9 @@ public class GrowthDiaryFragment extends BaseFragment implements IDialog {
     @Override
     public void initView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.addItemDecoration(new RecycleViewDivider(getContext(), LinearLayoutManager.HORIZONTAL, 1,
-                ContextCompat.getColor(getContext(), R.color.un_enable_gray)));
+//        recyclerView.addItemDecoration(new RecycleViewDivider(getContext(), LinearLayoutManager.HORIZONTAL, 1,
+//                ContextCompat.getColor(getContext(), R.color.un_enable_gray)));
+        recyclerView.addItemDecoration(new SpaceItemDecoration());
         recyclerView.setAdapter(multiTypeAdapter);
         requestHTTP(pageIndex, null);
     }
@@ -182,6 +185,19 @@ public class GrowthDiaryFragment extends BaseFragment implements IDialog {
     public void callBackMiddleMethod() {
 
     }
+    private class SpaceItemDecoration extends RecyclerView.ItemDecoration {
 
+        private int space =1;
+
+        @Override
+        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+            outRect.bottom = space;
+            int position = parent.getChildLayoutPosition(view);
+            if(position==0){
+                outRect.bottom = 0;
+            }
+        }
+
+    }
 
 }

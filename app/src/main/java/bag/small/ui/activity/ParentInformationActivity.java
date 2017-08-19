@@ -150,12 +150,11 @@ public class ParentInformationActivity extends BaseActivity {
                 listDialog.setListDialog((position, content) -> {
                     jieci = getNumbers(content);
                     pStudyNumTv.setText(content);
-                    nianji = jie.getNianji();
                     jie = area.getSchool().getBase().getJie().get(position);
+                    nianji = jie.getNianji();
                     pGradeTv.setText(jie.getNianji_name());
                     if (ListUtil.unEmpty(getBanji()))
                         pClassTv.setText(getBanji().get(0));
-
                 });
                 break;
             case R.id.activity_grade_ll:
