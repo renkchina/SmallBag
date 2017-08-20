@@ -29,7 +29,6 @@ import me.drakeet.multitype.MultiTypeAdapter;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import retrofit2.http.Field;
 
 public class PublishMsgActivity extends BaseActivity {
 
@@ -83,7 +82,7 @@ public class PublishMsgActivity extends BaseActivity {
         progressDialog.show();
 
 
-        iUpdateImage.updateImage(map, getBody())
+        iUpdateImage.updateImage(map, getParts())
                 .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
                 .compose(RxLifecycleCompact.bind(this).withObservable())
                 .subscribe(bean -> {
@@ -131,16 +130,5 @@ public class PublishMsgActivity extends BaseActivity {
         return builder.build();
     }
 
-    private String[] getPaths(List<String> lists) {
-        if (ListUtil.unEmpty(lists)) {
-            int size = lists.size();
-            String[] paths = new String[size];
-            for (int i = 0; i < size; i++) {
-                paths[i] = lists.get(i);
-            }
-            return paths;
-        }
-        return null;
-    }
 
 }

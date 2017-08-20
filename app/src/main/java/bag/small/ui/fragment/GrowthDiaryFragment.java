@@ -127,6 +127,7 @@ public class GrowthDiaryFragment extends BaseFragment implements IDialog {
     private void setHttp() {
         requestHTTP(pageIndex, null);
         noticeBanner.setBannerImages(MyApplication.bannerImage);
+        noticeBanner.setHeadImage(UserPreferUtil.getInstanse().getHeadImagePath());
         multiTypeAdapter.notifyDataSetChanged();
     }
 

@@ -48,14 +48,14 @@ public class MyApplication extends Application implements Application.ActivityLi
             public void onSuccess(String deviceToken) {
                 //注册成功会返回device token
                 setDeviceToken(deviceToken);
-                LogUtil.show(deviceToken);
+                LogUtil.loge(deviceToken);
 
             }
 
             @Override
             public void onFailure(String s, String s1) {
                 setDeviceToken("");
-                LogUtil.show(s+"  "+s1);
+                LogUtil.loge(s+"  "+s1);
             }
         });
         setDefaultRefresh();
@@ -78,30 +78,30 @@ public class MyApplication extends Application implements Application.ActivityLi
 
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-        LogUtil.show(activity.getLocalClassName() + " onCreate");
+        LogUtil.loge(activity.getLocalClassName() + " onCreate");
         PushAgent.getInstance(activity).onAppStart();
     }
 
     @Override
     public void onActivityStarted(Activity activity) {
-        LogUtil.show(activity.getLocalClassName() + " onStart");
+        LogUtil.loge(activity.getLocalClassName() + " onStart");
     }
 
     @Override
     public void onActivityResumed(Activity activity) {
-        LogUtil.show(activity.getLocalClassName() + " onResume");
+        LogUtil.loge(activity.getLocalClassName() + " onResume");
         UMGameAgent.onResume(activity);
     }
 
     @Override
     public void onActivityPaused(Activity activity) {
-        LogUtil.show(activity.getLocalClassName() + " onPause");
+        LogUtil.loge(activity.getLocalClassName() + " onPause");
         UMGameAgent.onPause(activity);
     }
 
     @Override
     public void onActivityStopped(Activity activity) {
-        LogUtil.show(activity.getLocalClassName() + " onStop");
+        LogUtil.loge(activity.getLocalClassName() + " onStop");
     }
 
     @Override
@@ -111,6 +111,6 @@ public class MyApplication extends Application implements Application.ActivityLi
 
     @Override
     public void onActivityDestroyed(Activity activity) {
-        LogUtil.show(activity.getLocalClassName() + " onDestroy");
+        LogUtil.loge(activity.getLocalClassName() + " onDestroy");
     }
 }

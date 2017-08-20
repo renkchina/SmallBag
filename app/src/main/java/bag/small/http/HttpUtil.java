@@ -39,8 +39,9 @@ public class HttpUtil {
 
     private HttpUtil() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        builder.connectTimeout(90, TimeUnit.SECONDS);
-        builder.readTimeout(90, TimeUnit.SECONDS);
+        builder.connectTimeout(99, TimeUnit.SECONDS);
+        builder.readTimeout(99, TimeUnit.SECONDS);
+        builder.writeTimeout(99, TimeUnit.SECONDS);
         //拦截统一参数
         builder.addInterceptor(new AddInterceptord());
         //打印retrofit日志

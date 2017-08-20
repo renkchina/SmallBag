@@ -3,6 +3,7 @@ package bag.small.ui.activity;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.content.ContextCompat;
@@ -119,6 +120,9 @@ public class MainActivity extends BaseActivity
         lastItem.setChecked(true);
         mBottomNav.setSelectedItemId(R.id.item_family);
         itemDatas = new Items();
+        if (ListUtil.unEmpty(MyApplication.loginResults)) {
+            itemDatas.addAll(MyApplication.loginResults);
+        }
         iLoginRequest = HttpUtil.getInstance().createApi(ILoginRequest.class);
         colors = new int[]{ContextCompat.getColor(this, R.color.main_bottom_gray),
                 ContextCompat.getColor(this, R.color.main_bottom)
@@ -290,12 +294,14 @@ public class MainActivity extends BaseActivity
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         String[] strings = new String[]{"我是学生", "我是老师"};
         builder.setItems(strings, (dialog, which) -> {
+            Bundle bundle = new Bundle();
+            bundle.putBoolean("ismain", true);
             switch (which) {
                 case 0:
-                    goActivity(ParentInformationActivity.class);
+                    goActivity(ParentInformationActivity.class, bundle);
                     break;
                 case 1:
-                    goActivity(TeacherInformationActivity.class);
+                    goActivity(TeacherInformationActivity.class, bundle);
                     break;
             }
             dialog.dismiss();
@@ -312,24 +318,12 @@ public class MainActivity extends BaseActivity
     @Override
     protected void onResume() {
         super.onResume();
-        iLoginRequest.getAllRole(UserPreferUtil.getInstanse().getUserId())
-                .compose(RxLifecycleCompact.bind(this).withObservable())
-                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
-                .subscribe(bean -> {
-                    if (bean.isSuccess()) {
-                        LoginResult.RoleBean mBean = bean.getData().get(0);
-                        mBean.setSelected(true);
-                        UserPreferUtil.getInstanse().setUserInfomation(mBean);
-                        MyApplication.loginResults = bean.getData();
-                        itemDatas.clear();
-                        itemDatas.addAll(bean.getData());
-                        multiTypeAdapter.notifyDataSetChanged();
-                    } else {
-                        itemDatas.clear();
-                        itemDatas.addAll(MyApplication.loginResults);
-                        multiTypeAdapter.notifyDataSetChanged();
-                    }
-                }, new HttpError());
+        if (ListUtil.unEmpty(MyApplication.loginResults)) {
+            itemDatas.clear();
+            itemDatas.addAll(MyApplication.loginResults);
+            multiTypeAdapter.notifyDataSetChanged();
+        }
+        setUserImage();
     }
 
     @MySubscribe(code = 300)

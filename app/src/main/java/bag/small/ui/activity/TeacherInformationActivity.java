@@ -26,11 +26,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import bag.small.R;
+import bag.small.app.MyApplication;
 import bag.small.base.BaseActivity;
 import bag.small.dialog.ListDialog;
+import bag.small.entity.LoginResult;
 import bag.small.entity.RegisterInfoBean;
 import bag.small.http.HttpUtil;
 import bag.small.http.IApi.HttpError;
+import bag.small.http.IApi.ILoginRequest;
 import bag.small.http.IApi.IRegisterReq;
 import bag.small.http.IApi.IRegisterSendCode;
 import bag.small.interfaze.IListDialog;
@@ -120,6 +123,7 @@ public class TeacherInformationActivity extends BaseActivity
     private String school_id;
     private RegisterInfoBean.SchoolArea.SchoolBean school;
     private List<RegisterInfoBean.SchoolArea.SchoolBean> areaSchoolList;
+    private boolean isMain;
 
     @Override
     public int getLayoutResId() {
@@ -130,6 +134,7 @@ public class TeacherInformationActivity extends BaseActivity
     public void initView() {
         setToolTitle("老师注册", true);
         listDialog = new ListDialog(this);
+        isMain = getIntent().getExtras().getBoolean("ismain");
         getRegisterInfo();
         items = new ArrayList<>();
         items.add(new TeachSubjectClass(false));
@@ -298,7 +303,10 @@ public class TeacherInformationActivity extends BaseActivity
                     .compose(RxLifecycleCompact.bind(this).withObservable())
                     .subscribe(bean -> {
                         if (bean.isSuccess()) {
-                            finish();
+                            if (isMain)
+                                getRoles();
+                            else
+                                finish();
                         } else {
                             toast(bean.getMsg());
                         }
@@ -478,6 +486,21 @@ public class TeacherInformationActivity extends BaseActivity
         lists.add("男");
         lists.add("女");
         return lists;
+    }
+
+    private void getRoles() {
+        HttpUtil.getInstance().createApi(ILoginRequest.class).getAllRole(UserPreferUtil.getInstanse().getUserId())
+                .compose(RxLifecycleCompact.bind(this).withObservable())
+                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                .subscribe(bean -> {
+                    if (bean.isSuccess()) {
+                        LoginResult.RoleBean mBean = bean.getData().get(0);
+                        mBean.setSelected(true);
+                        UserPreferUtil.getInstanse().setUserInfomation(mBean);
+                        MyApplication.loginResults = bean.getData();
+                    }
+                    finish();
+                }, new HttpError());
     }
 
 
