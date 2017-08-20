@@ -33,6 +33,7 @@ import bag.small.http.HttpUtil;
 import bag.small.http.IApi.HttpError;
 import bag.small.http.IApi.IRegisterReq;
 import bag.small.http.IApi.IRegisterSendCode;
+import bag.small.interfaze.IListDialog;
 import bag.small.interfaze.IViewBinder;
 import bag.small.provider.TeachSubjectClass;
 import bag.small.provider.TeachSubjectClassViewBinder;
@@ -105,10 +106,10 @@ public class TeacherInformationActivity extends BaseActivity
     @Bind(R.id.activity_teacher_gender_ll)
     LinearLayout mGenderLl;
     private IRegisterReq iRegisterReq;
-    private RegisterInfoBean.SchoolBeanX area;
-    private List<RegisterInfoBean.SchoolBeanX> areaLists;
-    private RegisterInfoBean.SchoolBeanX.SchoolBean.BaseBean.JieBean jie;
-    private List<RegisterInfoBean.SchoolBeanX.SchoolBean.BaseBean.JieBean.KecheBean> course;
+    private RegisterInfoBean.SchoolArea area;
+    private List<RegisterInfoBean.SchoolArea> areaLists;
+    private RegisterInfoBean.SchoolArea.SchoolBean.BaseBean.JieBean jie;
+    private List<RegisterInfoBean.SchoolArea.SchoolBean.BaseBean.JieBean.KecheBean> course;
     private TeachSubjectClassViewBinder viewBinder;
 
     private int isMaster = 1;
@@ -117,6 +118,8 @@ public class TeacherInformationActivity extends BaseActivity
     private String banji;
     private File logo;
     private String school_id;
+    private RegisterInfoBean.SchoolArea.SchoolBean school;
+    private List<RegisterInfoBean.SchoolArea.SchoolBean> areaSchoolList;
 
     @Override
     public int getLayoutResId() {
@@ -158,18 +161,25 @@ public class TeacherInformationActivity extends BaseActivity
             case R.id.activity_teacher_send_code_btn:
                 sendCode();
                 break;
-            case R.id.activity_area_school_ll:
+            case R.id.activity_area_school_ll://区域
                 listDialog.setListData(getArea());
                 listDialog.show(view);
                 listDialog.setListDialog((position, content) -> {
                     aAreaSchoolTv.setText(content);
                     area = areaLists.get(position);
-                    viewBinder.setArea(area);
-                    school_id = area.getSchool().getId();
-                    aGuardianTv.setText(area.getSchool().getName());
+
                 });
                 break;
-            case R.id.activity_guardian_ll:
+            case R.id.activity_guardian_ll://学校
+                listDialog.setListData(getSchool());
+                listDialog.show(view);
+                listDialog.setListDialog((position, content) -> {
+                    school_id = areaSchoolList.get(position).getId();
+                    school = areaSchoolList.get(position);
+                    viewBinder.setSchool(school);
+                    aGuardianTv.setText(content);
+                });
+
                 break;
             case R.id.activity_charge_class_ll://是否班主任
                 listDialog.setListData(getChoice());
@@ -191,11 +201,17 @@ public class TeacherInformationActivity extends BaseActivity
                 listDialog.setListDialog((position, content) -> {
                     jieci = getNumbers(content);
                     acTeacherNumberTv.setText(content);
-                    jie = area.getSchool().getBase().getJie().get(position);
-                    nianji = jie.getNianji();
-                    acTeacherGradeTv.setText(jie.getNianji_name());
-                    if (ListUtil.unEmpty(getBanji()))
+                    if (school != null && school.getBase() != null) {
+                        jie = school.getBase().getJie().get(position);
+                        nianji = jie.getNianji();
+                        acTeacherGradeTv.setText(jie.getNianji_name());
+                    }
+                    if (ListUtil.unEmpty(getBanji())) {
                         acTeacherClassTv.setText(getBanji().get(0));
+                        banji = getNumbers(getBanji().get(0));
+                    } else {
+                        acTeacherClassTv.setText("班级");
+                    }
                 });
                 break;
             case R.id.ac_teacher_grade_tv:
@@ -366,7 +382,7 @@ public class TeacherInformationActivity extends BaseActivity
                 .subscribe(bean -> {
                     if (bean.isSuccess()) {
                         LogUtil.show(bean.getData());
-                        areaLists = getAreaList(bean.getData());
+                        areaLists = bean.getData().getSchool();
                     }
                 }, new HttpError());
     }
@@ -400,24 +416,26 @@ public class TeacherInformationActivity extends BaseActivity
 
     }
 
-    private List<RegisterInfoBean.SchoolBeanX> getAreaList(RegisterInfoBean bean) {
-        List<RegisterInfoBean.SchoolBeanX> lists = new ArrayList<>();
-        if (bean != null && ListUtil.unEmpty(bean.getSchool())) {
-            int size = bean.getSchool().size();
-            for (int i = 0; i < size; i++) {
-                RegisterInfoBean.SchoolBeanX info = bean.getSchool().get(i);
-                lists.add(info);
+    //区域
+    private List<String> getArea() {
+        List<String> lists = new ArrayList<>();
+        if (ListUtil.unEmpty(areaLists)) {
+            for (RegisterInfoBean.SchoolArea beanX : areaLists) {
+                lists.add(beanX.getName());
             }
         }
         return lists;
     }
 
-    //区域
-    private List<String> getArea() {
+    //学校
+    private List<String> getSchool() {
         List<String> lists = new ArrayList<>();
-        if (ListUtil.unEmpty(areaLists)) {
-            for (RegisterInfoBean.SchoolBeanX beanX : areaLists) {
-                lists.add(beanX.getName());
+        if (area != null) {
+            areaSchoolList = area.getSchool();
+            if (ListUtil.unEmpty(areaSchoolList)) {
+                for (RegisterInfoBean.SchoolArea.SchoolBean schoolBean : areaSchoolList) {
+                    lists.add(schoolBean.getName());
+                }
             }
         }
         return lists;
@@ -426,13 +444,13 @@ public class TeacherInformationActivity extends BaseActivity
     //届次
     private List<String> getJieCi() {
         List<String> lists = new ArrayList<>();
-        if (area == null) {
+        if (school == null) {
             return lists;
         }
-        List<RegisterInfoBean.SchoolBeanX.SchoolBean.BaseBean.JieBean> list =
-                area.getSchool().getBase().getJie();
+        List<RegisterInfoBean.SchoolArea.SchoolBean.BaseBean.JieBean> list =
+                school.getBase().getJie();
         if (ListUtil.unEmpty(list)) {
-            for (RegisterInfoBean.SchoolBeanX.SchoolBean.BaseBean.JieBean jieBean : list) {
+            for (RegisterInfoBean.SchoolArea.SchoolBean.BaseBean.JieBean jieBean : list) {
                 lists.add(jieBean.getName());
             }
         }
@@ -446,8 +464,8 @@ public class TeacherInformationActivity extends BaseActivity
             return lists;
         }
         if (ListUtil.unEmpty(jie.getBanji())) {
-            List<RegisterInfoBean.SchoolBeanX.SchoolBean.BaseBean.JieBean.BanjiBean> list = jie.getBanji();
-            for (RegisterInfoBean.SchoolBeanX.SchoolBean.BaseBean.JieBean.BanjiBean banjiBean : list) {
+            List<RegisterInfoBean.SchoolArea.SchoolBean.BaseBean.JieBean.BanjiBean> list = jie.getBanji();
+            for (RegisterInfoBean.SchoolArea.SchoolBean.BaseBean.JieBean.BanjiBean banjiBean : list) {
                 lists.add(banjiBean.getText());
             }
         }

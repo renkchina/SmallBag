@@ -28,16 +28,12 @@ import me.drakeet.multitype.ItemViewBinder;
 public class TeachSubjectClassViewBinder extends ItemViewBinder<TeachSubjectClass, TeachSubjectClassViewBinder.ViewHolder> implements IListDialog {
     private IViewBinder iViewBinder;
     private ListDialog listDialog;
-    private RegisterInfoBean.SchoolBeanX area;
-    private RegisterInfoBean.SchoolBeanX.SchoolBean.BaseBean.JieBean jie;
-    private List<RegisterInfoBean.SchoolBeanX.SchoolBean.BaseBean.JieBean.KecheBean> course;
+    private RegisterInfoBean.SchoolArea.SchoolBean.BaseBean.JieBean jie;
+    private List<RegisterInfoBean.SchoolArea.SchoolBean.BaseBean.JieBean.KecheBean> course;
+    private RegisterInfoBean.SchoolArea.SchoolBean school;
 
-    public void setJie(RegisterInfoBean.SchoolBeanX.SchoolBean.BaseBean.JieBean jie) {
-        this.jie = jie;
-    }
-
-    public void setArea(RegisterInfoBean.SchoolBeanX area) {
-        this.area = area;
+    public void setSchool(RegisterInfoBean.SchoolArea.SchoolBean school) {
+        this.school = school;
     }
 
     public TeachSubjectClassViewBinder(IViewBinder iViewBinder) {
@@ -82,17 +78,22 @@ public class TeachSubjectClassViewBinder extends ItemViewBinder<TeachSubjectClas
             }
         });
         holder.itemTeacherNumberTv.setOnClickListener(v -> {
-            if (area != null) {
+            if (school != null) {
                 listDialog.setListData(getJieCi());
                 listDialog.show(v);
                 listDialog.setListDialog((position1, content) -> {
                     ((TextView) v).setText(content);
-                    jie = area.getSchool().getBase().getJie().get(position1);
+                    jie = school.getBase().getJie().get(position1);
+                    course = jie.getKeche();
                     holder.itemTeacherGradeTv.setText(jie.getNianji_name());
                     bean.setJieci(jie.getValue());
                     bean.setNianji(jie.getNianji());
-                    if (ListUtil.unEmpty(getBanji()))
+                    if (ListUtil.unEmpty(getBanji())) {
                         holder.itemTeacherClassTv.setText(getBanji().get(0));
+//                        banji = getNumbers(getBanji().get(0));
+                    } else {
+                        holder.itemTeacherClassTv.setText("班级");
+                    }
                 });
             }
         });
@@ -103,7 +104,6 @@ public class TeachSubjectClassViewBinder extends ItemViewBinder<TeachSubjectClas
                 listDialog.show(v);
                 listDialog.setListDialog((position1, content) -> {
                     ((TextView) v).setText(content);
-                    course = jie.getKeche();
                     bean.setBanji(jie.getBanji().get(position1).getValue());
                 });
             }
@@ -119,13 +119,13 @@ public class TeachSubjectClassViewBinder extends ItemViewBinder<TeachSubjectClas
 
     private List<String> getJieCi() {
         List<String> lists = new ArrayList<>();
-        if (area == null) {
+        if (school == null) {
             return lists;
         }
-        List<RegisterInfoBean.SchoolBeanX.SchoolBean.BaseBean.JieBean> list =
-                area.getSchool().getBase().getJie();
+        List<RegisterInfoBean.SchoolArea.SchoolBean.BaseBean.JieBean> list =
+                school.getBase().getJie();
         if (ListUtil.unEmpty(list)) {
-            for (RegisterInfoBean.SchoolBeanX.SchoolBean.BaseBean.JieBean jieBean : list) {
+            for (RegisterInfoBean.SchoolArea.SchoolBean.BaseBean.JieBean jieBean : list) {
                 lists.add(jieBean.getName());
             }
         }
@@ -138,8 +138,8 @@ public class TeachSubjectClassViewBinder extends ItemViewBinder<TeachSubjectClas
             return lists;
         }
         if (ListUtil.unEmpty(jie.getBanji())) {
-            List<RegisterInfoBean.SchoolBeanX.SchoolBean.BaseBean.JieBean.BanjiBean> list = jie.getBanji();
-            for (RegisterInfoBean.SchoolBeanX.SchoolBean.BaseBean.JieBean.BanjiBean banjiBean : list) {
+            List<RegisterInfoBean.SchoolArea.SchoolBean.BaseBean.JieBean.BanjiBean> list = jie.getBanji();
+            for (RegisterInfoBean.SchoolArea.SchoolBean.BaseBean.JieBean.BanjiBean banjiBean : list) {
                 lists.add(banjiBean.getText());
             }
         }
@@ -149,7 +149,7 @@ public class TeachSubjectClassViewBinder extends ItemViewBinder<TeachSubjectClas
     private List<String> getKeChen() {
         List<String> lists = new ArrayList<>();
         if (ListUtil.unEmpty(course)) {
-            for (RegisterInfoBean.SchoolBeanX.SchoolBean.BaseBean.JieBean.KecheBean kecheBean : course) {
+            for (RegisterInfoBean.SchoolArea.SchoolBean.BaseBean.JieBean.KecheBean kecheBean : course) {
                 lists.add(kecheBean.getText());
             }
         }

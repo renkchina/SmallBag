@@ -29,6 +29,10 @@ public interface ILoginRequest {
                                                 @Field("pwd") String password);
 
     @FormUrlEncoded
+    @POST("commons/getroles")
+    Observable<BaseBean<LoginResult>> getAllRole(@Field("login_id") String loginId);
+
+    @FormUrlEncoded
     @POST("commons/updeceive")
     Observable<BaseBean<String>> updateToken(@Field("login_id") String loginId,
                                              @Field("name") String name,

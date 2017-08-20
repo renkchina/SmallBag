@@ -95,14 +95,16 @@ public class ParentInformationActivity extends BaseActivity {
     private ListDialog listDialog;
     private IRegisterReq iRegisterReq;
     private IRegisterSendCode iRegisterSendCode;
-    private RegisterInfoBean.SchoolBeanX area;
-    private List<RegisterInfoBean.SchoolBeanX> areaLists;
-    private RegisterInfoBean.SchoolBeanX.SchoolBean.BaseBean.JieBean jie;
+    private RegisterInfoBean.SchoolArea area;
+    private List<RegisterInfoBean.SchoolArea> areaLists;
+    private RegisterInfoBean.SchoolArea.SchoolBean.BaseBean.JieBean jie;
     private String school_id;
     private String jieci;
     private int nianji;
     private String banji;
     private File logo;
+    private List<RegisterInfoBean.SchoolArea.SchoolBean> areaSchoolList;
+    private RegisterInfoBean.SchoolArea.SchoolBean school;
 
     @Override
     public int getLayoutResId() {
@@ -138,11 +140,16 @@ public class ParentInformationActivity extends BaseActivity {
                 listDialog.setListDialog((position, content) -> {
                     pAreaSchoolTv.setText(content);
                     area = areaLists.get(position);
-                    school_id = area.getSchool().getId();
-                    pStudySchoolTv.setText(area.getSchool().getName());
                 });
                 break;
             case R.id.activity_study_school_ll:
+                listDialog.setListData(getSchool());
+                listDialog.show(view);
+                listDialog.setListDialog((position, content) -> {
+                    school_id = areaSchoolList.get(position).getId();
+                    school = areaSchoolList.get(position);
+                    pStudySchoolTv.setText(content);
+                });
                 break;
             case R.id.activity_study_num_ll:
                 listDialog.setListData(getJieCi());
@@ -150,11 +157,19 @@ public class ParentInformationActivity extends BaseActivity {
                 listDialog.setListDialog((position, content) -> {
                     jieci = getNumbers(content);
                     pStudyNumTv.setText(content);
-                    jie = area.getSchool().getBase().getJie().get(position);
-                    nianji = jie.getNianji();
-                    pGradeTv.setText(jie.getNianji_name());
-                    if (ListUtil.unEmpty(getBanji()))
+                    if (school != null && school.getBase() != null) {
+                        jie = school.getBase().getJie().get(position);
+                        nianji = jie.getNianji();
+                        pGradeTv.setText(jie.getNianji_name());
+                    } else {
+                        jie = null;
+                    }
+                    if (ListUtil.unEmpty(getBanji())) {
                         pClassTv.setText(getBanji().get(0));
+                        banji = getNumbers(getBanji().get(0));
+                    } else {
+                        pClassTv.setText("班级");
+                    }
                 });
                 break;
             case R.id.activity_grade_ll:
@@ -266,12 +281,12 @@ public class ParentInformationActivity extends BaseActivity {
                 }).launch();//启动压缩
     }
 
-    private List<RegisterInfoBean.SchoolBeanX> getAreaList(RegisterInfoBean bean) {
-        List<RegisterInfoBean.SchoolBeanX> lists = new ArrayList<>();
+    private List<RegisterInfoBean.SchoolArea> getAreaList(RegisterInfoBean bean) {
+        List<RegisterInfoBean.SchoolArea> lists = new ArrayList<>();
         if (bean != null && ListUtil.unEmpty(bean.getSchool())) {
             int size = bean.getSchool().size();
             for (int i = 0; i < size; i++) {
-                RegisterInfoBean.SchoolBeanX info = bean.getSchool().get(i);
+                RegisterInfoBean.SchoolArea info = bean.getSchool().get(i);
                 lists.add(info);
             }
         }
@@ -302,8 +317,22 @@ public class ParentInformationActivity extends BaseActivity {
     private List<String> getArea() {
         List<String> lists = new ArrayList<>();
         if (ListUtil.unEmpty(areaLists)) {
-            for (RegisterInfoBean.SchoolBeanX beanX : areaLists) {
+            for (RegisterInfoBean.SchoolArea beanX : areaLists) {
                 lists.add(beanX.getName());
+            }
+        }
+        return lists;
+    }
+
+    //学校
+    private List<String> getSchool() {
+        List<String> lists = new ArrayList<>();
+        if (area != null) {
+            areaSchoolList = area.getSchool();
+            if (ListUtil.unEmpty(areaSchoolList)) {
+                for (RegisterInfoBean.SchoolArea.SchoolBean schoolBean : areaSchoolList) {
+                    lists.add(schoolBean.getName());
+                }
             }
         }
         return lists;
@@ -324,13 +353,13 @@ public class ParentInformationActivity extends BaseActivity {
 
     private List<String> getJieCi() {
         List<String> lists = new ArrayList<>();
-        if (area == null) {
+        if (school == null) {
             return lists;
         }
-        List<RegisterInfoBean.SchoolBeanX.SchoolBean.BaseBean.JieBean> list =
-                area.getSchool().getBase().getJie();
+        List<RegisterInfoBean.SchoolArea.SchoolBean.BaseBean.JieBean> list =
+                school.getBase().getJie();
         if (ListUtil.unEmpty(list)) {
-            for (RegisterInfoBean.SchoolBeanX.SchoolBean.BaseBean.JieBean jieBean : list) {
+            for (RegisterInfoBean.SchoolArea.SchoolBean.BaseBean.JieBean jieBean : list) {
                 lists.add(jieBean.getName());
             }
         }
@@ -344,8 +373,8 @@ public class ParentInformationActivity extends BaseActivity {
             return lists;
         }
         if (ListUtil.unEmpty(jie.getBanji())) {
-            List<RegisterInfoBean.SchoolBeanX.SchoolBean.BaseBean.JieBean.BanjiBean> list = jie.getBanji();
-            for (RegisterInfoBean.SchoolBeanX.SchoolBean.BaseBean.JieBean.BanjiBean banjiBean : list) {
+            List<RegisterInfoBean.SchoolArea.SchoolBean.BaseBean.JieBean.BanjiBean> list = jie.getBanji();
+            for (RegisterInfoBean.SchoolArea.SchoolBean.BaseBean.JieBean.BanjiBean banjiBean : list) {
                 lists.add(banjiBean.getText());
             }
         }

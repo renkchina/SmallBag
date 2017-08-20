@@ -38,6 +38,7 @@ import bag.small.base.BaseFragment;
 import bag.small.entity.BaseBean;
 import bag.small.entity.LoginResult;
 import bag.small.http.HttpUtil;
+import bag.small.http.IApi.HttpError;
 import bag.small.http.IApi.ILoginRequest;
 import bag.small.provider.AccountViewBinder;
 import bag.small.rx.RxUtil;
@@ -316,6 +317,21 @@ public class MainActivity extends BaseActivity
     protected void onResume() {
         super.onResume();
         setUserImage();
+        iLoginRequest.getAllRole(UserPreferUtil.getInstanse().getUserId())
+                .compose(RxLifecycleCompact.bind(this).withObservable())
+                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                .subscribe(bean -> {
+                    toast(bean.getMsg());
+                    if (bean.isSuccess()) {
+                        MyApplication.loginResults = bean.getData().getRole();
+                        LoginResult.RoleBean mBean = bean.getData().getRole().get(0);
+                        mBean.setSelected(true);
+                        UserPreferUtil.getInstanse().setUserInfomation(mBean);
+                        UserPreferUtil.getInstanse().setUseId(bean.getData().getLogin_id());
+                        skipActivity(MainActivity.class);
+                    }
+                }, new HttpError());
+
     }
 
     @MySubscribe(code = 300)
