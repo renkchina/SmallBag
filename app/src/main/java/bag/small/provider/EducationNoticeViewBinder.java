@@ -40,6 +40,8 @@ public class EducationNoticeViewBinder extends ItemViewBinder<EducationNoticeBea
             bundle.putInt("notify_id", bean.getId());
             intent.putExtras(bundle);
             context.startActivity(intent);
+            bean.setIs_readed(true);
+            getAdapter().notifyDataSetChanged();
         });
         if (bean.isIs_readed()) {
             holder.iNoticeStateV.setVisibility(View.GONE);

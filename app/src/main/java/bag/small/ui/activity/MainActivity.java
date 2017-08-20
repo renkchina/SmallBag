@@ -119,10 +119,6 @@ public class MainActivity extends BaseActivity
         lastItem.setChecked(true);
         mBottomNav.setSelectedItemId(R.id.item_family);
         itemDatas = new Items();
-        if (ListUtil.unEmpty(MyApplication.loginResults)) {
-            itemDatas.clear();
-            itemDatas.addAll(MyApplication.loginResults);
-        }
         iLoginRequest = HttpUtil.getInstance().createApi(ILoginRequest.class);
         colors = new int[]{ContextCompat.getColor(this, R.color.main_bottom_gray),
                 ContextCompat.getColor(this, R.color.main_bottom)
@@ -316,22 +312,24 @@ public class MainActivity extends BaseActivity
     @Override
     protected void onResume() {
         super.onResume();
-        setUserImage();
         iLoginRequest.getAllRole(UserPreferUtil.getInstanse().getUserId())
                 .compose(RxLifecycleCompact.bind(this).withObservable())
                 .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
                 .subscribe(bean -> {
-                    toast(bean.getMsg());
                     if (bean.isSuccess()) {
-                        MyApplication.loginResults = bean.getData().getRole();
-                        LoginResult.RoleBean mBean = bean.getData().getRole().get(0);
+                        LoginResult.RoleBean mBean = bean.getData().get(0);
                         mBean.setSelected(true);
                         UserPreferUtil.getInstanse().setUserInfomation(mBean);
-                        UserPreferUtil.getInstanse().setUseId(bean.getData().getLogin_id());
-                        skipActivity(MainActivity.class);
+                        MyApplication.loginResults = bean.getData();
+                        itemDatas.clear();
+                        itemDatas.addAll(bean.getData());
+                        multiTypeAdapter.notifyDataSetChanged();
+                    } else {
+                        itemDatas.clear();
+                        itemDatas.addAll(MyApplication.loginResults);
+                        multiTypeAdapter.notifyDataSetChanged();
                     }
                 }, new HttpError());
-
     }
 
     @MySubscribe(code = 300)

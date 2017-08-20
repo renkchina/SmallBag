@@ -29,7 +29,7 @@ import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
 import me.drakeet.multitype.MultiTypeAdapter;
 
 public class EducationalNoticeActivity extends BaseActivity implements TabLayout.OnTabSelectedListener {
-//    @Bind(R.id.activity_education_banner)
+    //    @Bind(R.id.activity_education_banner)
 //    Banner eBanner;
     @Bind(R.id.activity_education_tab_layout)
     TabLayout eTabLayout;
@@ -63,7 +63,6 @@ public class EducationalNoticeActivity extends BaseActivity implements TabLayout
     @Override
     public void initView() {
         setToolTitle("教务通知", true);
-//        setBanner(eBanner, bannerImages);
         eTabLayout.addOnTabSelectedListener(this);
         eRecycler.setLayoutManager(new LinearLayoutManager(this));
         eRecycler.addItemDecoration(new RecycleViewDivider(this, LinearLayoutManager.HORIZONTAL, 1,
@@ -94,11 +93,9 @@ public class EducationalNoticeActivity extends BaseActivity implements TabLayout
 
     private void setTitles(List<EducationNoticeBean> data) {
         int position = 0;
-        if (items.size() > 0) {
-            eTabLayout.removeAllTabs();
-            position = currentPosition;
-            currentPosition = -1;
-        }
+        eTabLayout.removeAllTabs();
+        position = currentPosition;
+        currentPosition = -1;
         if (ListUtil.unEmpty(data)) {
             int size = data.size();
             if (size < 4) {
@@ -110,7 +107,8 @@ public class EducationalNoticeActivity extends BaseActivity implements TabLayout
                     eTabLayout.addTab(eTabLayout.newTab().setText(data.get(i).getLabel()));
                 }
             }
-            eTabLayout.getTabAt(position).select();
+            if (eTabLayout.getTabAt(position) != null)
+                eTabLayout.getTabAt(position).select();
         }
     }
 
@@ -118,35 +116,14 @@ public class EducationalNoticeActivity extends BaseActivity implements TabLayout
     protected void onResume() {
         super.onResume();
         //开始轮播
-//        eBanner.startAutoPlay();
         requestHttp();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-//        eBanner.stopAutoPlay();
     }
 
-    private void setBanner(Banner banner, List images) {
-        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
-        //设置图片加载器
-        banner.setImageLoader(new GlideImageLoader());
-        //设置图片集合
-        banner.setImages(images);
-        //设置banner动画效果
-        banner.setBannerAnimation(Transformer.DepthPage);
-        //设置标题集合（当banner样式有显示title时）
-//        fBanner.setBannerTitles(titles);
-        //设置自动轮播，默认为true
-        banner.isAutoPlay(true);
-        //设置轮播时间
-        banner.setDelayTime(2000);
-        //设置指示器位置（当banner模式中有指示器时）
-        banner.setIndicatorGravity(BannerConfig.CENTER);
-        //banner设置方法全部调用完毕时最后调用
-        banner.start();
-    }
 
     @Override
     public void onTabSelected(TabLayout.Tab tab) {

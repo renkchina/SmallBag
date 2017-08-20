@@ -1,6 +1,8 @@
 package bag.small.http.IApi;
 
 
+import java.util.List;
+
 import bag.small.entity.BaseBean;
 import bag.small.entity.LoginResult;
 import bag.small.utils.StringUtil;
@@ -30,7 +32,7 @@ public interface ILoginRequest {
 
     @FormUrlEncoded
     @POST("commons/getroles")
-    Observable<BaseBean<LoginResult>> getAllRole(@Field("login_id") String loginId);
+    Observable<BaseBean<List<LoginResult.RoleBean>>> getAllRole(@Field("login_id") String loginId);
 
     @FormUrlEncoded
     @POST("commons/updeceive")
