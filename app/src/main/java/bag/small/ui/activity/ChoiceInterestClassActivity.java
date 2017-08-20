@@ -83,7 +83,7 @@ public class ChoiceInterestClassActivity extends BaseActivity {
     String firstId = "";
     String secondeId = "";
     String thirdId = "";
-
+    int position = 0;
 
     @Override
     public int getLayoutResId() {
@@ -158,18 +158,24 @@ public class ChoiceInterestClassActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.activity_interest_class_one_content_tv:
+                position = 1;
+                iListRecycler.setVisibility(View.VISIBLE);
                 break;
             case R.id.activity_interest_class_one_del_iv:
                 iOneContentTv.setText("");
 //                view.setVisibility(View.INVISIBLE);
                 break;
             case R.id.activity_interest_class_two_content_tv:
+                position = 2;
+                iListRecycler.setVisibility(View.VISIBLE);
                 break;
             case R.id.activity_interest_class_two_del_iv:
                 iTwoContentTv.setText("");
 //                view.setVisibility(View.INVISIBLE);
                 break;
             case R.id.activity_interest_class_three_content_tv:
+                iListRecycler.setVisibility(View.VISIBLE);
+                position = 3;
                 break;
             case R.id.activity_interest_class_three_del_iv:
                 iThreeContentTv.setText("");
@@ -204,15 +210,20 @@ public class ChoiceInterestClassActivity extends BaseActivity {
 
     @MySubscribe(code = 9999)
     public void clickItem(ChoiceClassLists.KechenBean bean) {
-        if (TextUtils.isEmpty(StringUtil.EditGetString(iOneContentTv))) {
-            firstId = bean.getId();
-            StringUtil.setTextView(iOneContentTv, bean.getName());
-        } else if (TextUtils.isEmpty(StringUtil.EditGetString(iTwoContentTv))) {
-            secondeId = bean.getId();
-            StringUtil.setTextView(iTwoContentTv, bean.getName());
-        } else if (TextUtils.isEmpty(StringUtil.EditGetString(iThreeContentTv))) {
-            thirdId = bean.getId();
-            StringUtil.setTextView(iThreeContentTv, bean.getName());
+        switch (position) {
+            case 1:
+                firstId = bean.getId();
+                StringUtil.setTextView(iOneContentTv, bean.getName());
+                break;
+            case 2:
+                secondeId = bean.getId();
+                StringUtil.setTextView(iTwoContentTv, bean.getName());
+                break;
+            case 3:
+                thirdId = bean.getId();
+                StringUtil.setTextView(iThreeContentTv, bean.getName());
+                break;
         }
+        iListRecycler.setVisibility(View.GONE);
     }
 }
