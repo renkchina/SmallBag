@@ -134,7 +134,8 @@ public class TeacherInformationActivity extends BaseActivity
     public void initView() {
         setToolTitle("老师注册", true);
         listDialog = new ListDialog(this);
-        isMain = getIntent().getExtras().getBoolean("ismain");
+        if (getIntent().getExtras() != null)
+            isMain = getIntent().getExtras().getBoolean("ismain",false);
         getRegisterInfo();
         items = new ArrayList<>();
         items.add(new TeachSubjectClass(false));

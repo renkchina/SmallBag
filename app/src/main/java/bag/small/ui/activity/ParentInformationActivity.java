@@ -119,7 +119,8 @@ public class ParentInformationActivity extends BaseActivity {
     public void initView() {
         setToolTitle("学生注册", true);
         listDialog = new ListDialog(this);
-        isMain = getIntent().getExtras().getBoolean("ismain");
+        if (getIntent().getExtras() != null)
+            isMain = getIntent().getExtras().getBoolean("ismain", false);
         iRegisterReq = HttpUtil.getInstance().createApi(IRegisterReq.class);
         iRegisterSendCode = HttpUtil.getInstance().createApi(IRegisterSendCode.class);
         getRegisterInfo();
