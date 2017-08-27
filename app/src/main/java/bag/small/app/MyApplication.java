@@ -58,6 +58,7 @@ public class MyApplication extends Application implements Application.ActivityLi
                 LogUtil.loge(s+"  "+s1);
             }
         });
+        mPushAgent.setDebugMode(false);
         setDefaultRefresh();
     }
 
