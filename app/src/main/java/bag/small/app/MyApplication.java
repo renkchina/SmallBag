@@ -49,7 +49,6 @@ public class MyApplication extends Application implements Application.ActivityLi
                 //注册成功会返回device token
                 setDeviceToken(deviceToken);
                 LogUtil.loge(deviceToken);
-
             }
 
             @Override

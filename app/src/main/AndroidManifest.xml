@@ -79,10 +79,12 @@
             android:value="Umeng" />
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="59749b1607fe6518c5000b51"></meta-data>
+            android:value="59749b1607fe6518c5000b51">
+        </meta-data>
         <meta-data
             android:name="UMENG_MESSAGE_SECRET"
-            android:value="3cca446d886076e3ff6f87717afad183"></meta-data>
+            android:value="3cca446d886076e3ff6f87717afad183">
+        </meta-data>
 
         <activity android:name=".ui.activity.EducationalNoticeActivity" />
         <activity android:name=".ui.activity.NoticeDetailActivity" />
