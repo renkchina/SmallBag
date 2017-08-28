@@ -24,20 +24,24 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.china.rxbus.MySubscribe;
 import com.china.rxbus.RxBus;
 import com.umeng.analytics.MobclickAgent;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import bag.small.R;
+import bag.small.adapter.MainDrawerLeftAdapter;
 import bag.small.app.MyApplication;
 import bag.small.base.BaseActivity;
 import bag.small.base.BaseFragment;
 import bag.small.entity.BaseBean;
 import bag.small.entity.LoginResult;
+import bag.small.entity.MainLeftBean;
 import bag.small.http.HttpUtil;
 import bag.small.http.IApi.HttpError;
 import bag.small.http.IApi.ILoginRequest;
@@ -78,18 +82,12 @@ public class MainActivity extends BaseActivity
     ImageView activityClickImage;
     @Bind(R.id.main_drawer_left_add_account_btn)
     Button mdlAddAccountBtn;
-    @Bind(R.id.main_drawer_left_account_manager_tv)
-    TextView mdlAccountManagerTv;
-    @Bind(R.id.main_drawer_left_soft_setting_tv)
-    TextView mdlSoftSettingTv;
-    @Bind(R.id.main_drawer_left_help_tv)
-    TextView mdlHelpTv;
-    @Bind(R.id.main_drawer_left_about_tv)
-    TextView mdlAboutTv;
+
+    @Bind(R.id.main_drawer_left_list_view)
+    ListView listView;
+
     @Bind(R.id.toolbar_right_iv)
     ImageView toolbarRightIv;
-    @Bind(R.id.main_drawer_left_exit_tv)
-    TextView mdlExitTv;
     BaseFragment[] fragments;
     private MenuItem lastItem;
     List<Object> itemDatas;
@@ -102,6 +100,8 @@ public class MainActivity extends BaseActivity
     };
     private int[] colors;
     ILoginRequest iLoginRequest;
+    MainDrawerLeftAdapter mainDrawerLeftAdapter;
+    List<MainLeftBean> leftBeen;
 
     @Override
     public int getLayoutResId() {
@@ -125,11 +125,18 @@ public class MainActivity extends BaseActivity
         }
         iLoginRequest = HttpUtil.getInstance().createApi(ILoginRequest.class);
         colors = new int[]{ContextCompat.getColor(this, R.color.main_bottom_gray),
-                ContextCompat.getColor(this, R.color.main_bottom)
-        };
+                ContextCompat.getColor(this, R.color.main_bottom)};
         ColorStateList csl = new ColorStateList(states, colors);
         mBottomNav.setItemTextColor(csl);
         mBottomNav.setItemIconTintList(csl);
+        leftBeen = new ArrayList<>();
+        leftBeen.add(new MainLeftBean(R.mipmap.account_manager, R.string.main_account_manager));
+        leftBeen.add(new MainLeftBean(R.mipmap.soft_setting, R.string.main_soft_setting));
+        leftBeen.add(new MainLeftBean(R.mipmap.help_me, R.string.main_help_str));
+        leftBeen.add(new MainLeftBean(R.mipmap.about_ours, R.string.main_account_about));
+        leftBeen.add(new MainLeftBean(R.mipmap.exit_system, R.string.main_account_exit));
+        mainDrawerLeftAdapter = new MainDrawerLeftAdapter(leftBeen, this);
+        listView.setAdapter(mainDrawerLeftAdapter);
     }
 
     @Override
@@ -156,13 +163,7 @@ public class MainActivity extends BaseActivity
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.open, R.string.close);
         mDrawerToggle.syncState();
         mDrawer.addDrawerListener(mDrawerToggle);
-        mContentLl.setOnTouchListener((view, motionEvent) -> {
-            if (isDrawer) {
-                return mainLeftLl.dispatchTouchEvent(motionEvent);
-            } else {
-                return false;
-            }
-        });
+        mContentLl.setOnTouchListener((view, motionEvent) -> isDrawer && mainLeftLl.dispatchTouchEvent(motionEvent));
         mDrawer.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
@@ -252,28 +253,11 @@ public class MainActivity extends BaseActivity
     }
 
     @OnClick({R.id.main_drawer_left_add_account_btn,
-            R.id.main_drawer_left_account_manager_tv,
-            R.id.main_drawer_left_soft_setting_tv,
-            R.id.main_drawer_left_help_tv,
-            R.id.main_drawer_left_about_tv,
-            R.id.main_drawer_left_exit_tv,
             R.id.activity_click_image})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.main_drawer_left_add_account_btn:
                 showChoiceDialog();
-                break;
-            case R.id.main_drawer_left_account_manager_tv:
-                break;
-            case R.id.main_drawer_left_soft_setting_tv:
-                break;
-            case R.id.main_drawer_left_help_tv:
-                break;
-            case R.id.main_drawer_left_about_tv:
-                break;
-            case R.id.main_drawer_left_exit_tv:
-                UserPreferUtil.getInstanse().clear();
-                skipActivity(LoginActivity.class);
                 break;
             case R.id.activity_click_image:
                 showDrawerLayout();
