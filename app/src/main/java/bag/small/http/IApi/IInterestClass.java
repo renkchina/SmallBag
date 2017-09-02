@@ -25,6 +25,10 @@ public interface IInterestClass {
     Observable<BaseBean<TeacherClass>> getInterestsForTeacher(@Field("role_id") String roleId,
                                                               @Field("login_id") String loginId,
                                                               @Field("school_id") String schoolId);
+    @FormUrlEncoded
+    @POST("users/getinterestdetail")
+    Observable<BaseBean<TeacherClass.ClassBean>> getInterestsForTeachersStudent(@Field("id") String Id,
+                                                              @Field("school_id") String schoolId);
 
     @FormUrlEncoded
     @POST("users/submitchoose")

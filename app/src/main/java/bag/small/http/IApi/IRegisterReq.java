@@ -4,6 +4,9 @@ import java.util.HashMap;
 
 import bag.small.entity.BaseBean;
 import bag.small.entity.ForgetPassword;
+import bag.small.entity.LoginResult;
+import bag.small.entity.NewRegisterStudentOrTeacherBean;
+import bag.small.entity.NewRegisterTeacherBean;
 import bag.small.entity.RegisterBean;
 import bag.small.entity.RegisterInfoBean;
 import io.reactivex.Observable;
@@ -43,9 +46,44 @@ public interface IRegisterReq {
                                                      @Part MultipartBody.Part logo);
 
     @Multipart
+    @POST("commons/reviseroleinfo")
+    Observable<BaseBean<NewRegisterStudentOrTeacherBean>> changeRegisterAsTeacherOrStudent(@PartMap HashMap<String, RequestBody> partMap);
+
+    @Multipart
     @POST("commons/registerstudent")
     Observable<BaseBean<String>> goRegisterAsStudent(@PartMap HashMap<String, RequestBody> partMap,
                                                      @Part MultipartBody.Part logo);
 
+    @FormUrlEncoded
+    @POST("commons/getteacherinfo")
+    Observable<BaseBean<NewRegisterTeacherBean>> getNewTeacherRegisterInfo(@Field("login_id") String loginId,
+                                                                           @Field("phone") String phone);
 
+    @FormUrlEncoded
+    @POST("commons/getroleinfo")
+    Observable<BaseBean<NewRegisterTeacherBean>> getNewTeacherRegisterInfo(@Field("login_id") String loginId,
+                                                                           @Field("role_id") String role,
+                                                                           @Field("school_id") String school);
+
+    @FormUrlEncoded
+    @POST("commons/getroleinfo")
+    Observable<BaseBean<NewRegisterStudentOrTeacherBean>> getStudentInfo(@Field("login_id") String loginId,
+                                                                         @Field("role_id") String role,
+                                                                         @Field("school_id") String school);
+
+    @FormUrlEncoded
+    @POST("commons/getroleinfo")
+    Observable<BaseBean<NewRegisterTeacherBean>> getTeacherInfo(@Field("login_id") String loginId,
+                                                                @Field("role_id") String role,
+                                                                @Field("school_id") String school);
+
+    @FormUrlEncoded
+    @POST("commons/getstudentinfo")
+    Observable<BaseBean<NewRegisterStudentOrTeacherBean>> getNewStudentRegisterInfo(@Field("login_id") String loginId,
+                                                                                    @Field("phone") String phone);
+
+    @FormUrlEncoded
+    @POST("commons/submitregister")
+    Observable<BaseBean<LoginResult>> getNewRegisterInfo(@Field("login_id") String loginId,
+                                                         @Field("phone") String phone);
 }

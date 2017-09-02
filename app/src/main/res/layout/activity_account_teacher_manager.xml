@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include layout="@layout/toolbar" />
+
+        <ImageView
+            android:id="@+id/ac_account_teacher_head_iv"
+            style="@style/head_image_style" />
+
+        <android.support.v7.widget.CardView
+            style="@style/cardview_style"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="5dp"
+            app:contentPadding="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    style="@style/style_ll_info"
+                    android:paddingStart="30dp">
+
+                    <TextView
+                        android:id="@+id/activity_account_teacher_name_tv"
+                        style="@style/style_tv"
+                        android:text="名字：" />
+                </LinearLayout>
+
+                <LinearLayout
+
+                    style="@style/style_ll_info"
+                    android:paddingStart="30dp">
+
+                    <TextView
+
+                        style="@style/style_tv_wrap"
+                        android:text="工号：" />
+
+                    <EditText
+                        android:id="@+id/activity_account_teacher_number_tv"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@color/white"
+                        android:textColor="@color/txt_gray"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/style_ll_info"
+                    android:paddingStart="30dp">
+
+                    <TextView
+
+                        style="@style/style_tv_wrap"
+                        android:text="邮箱：" />
+
+                    <EditText
+                        android:id="@+id/activity_account_teacher_email_tv"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@color/white"
+                        android:textColor="@color/txt_gray"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/style_ll_info"
+                    android:paddingStart="30dp">
+
+                    <TextView
+                        style="@style/style_tv_wrap"
+                        android:text="生日：" />
+
+                    <TextView
+                        android:id="@+id/activity_account_teacher_birthday_tv"
+                        style="@style/style_tv" />
+
+                    <TextView
+                        style="@style/style_tv_wrap"
+                        android:text="性别：" />
+
+                    <TextView
+                        android:id="@+id/activity_account_teacher_gender_tv"
+                        style="@style/style_tv" />
+
+                    <!--<EditText-->
+                    <!--android:id="@+id/activity_account_teacher_gender_tv"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:background="@color/white"-->
+                    <!--android:textSize="16sp" />-->
+                </LinearLayout>
+
+                <LinearLayout
+
+                    style="@style/style_ll_info"
+                    android:paddingStart="30dp">
+
+                    <TextView
+                        android:id="@+id/activity_account_teacher_class_teacher_tv"
+                        style="@style/style_tv"
+                        android:text="班主任:" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="3dp"
+                    android:paddingStart="30dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="任课:"
+                        android:textSize="16sp" />
+
+                    <LinearLayout
+                        android:id="@+id/activity_account_teacher_class_ll"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="40dp"
+                        android:orientation="vertical">
+
+                        <!--<TextView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:textSize="16sp" />-->
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/style_ll_info">
+
+                    <View
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@mipmap/account_manager_password" />
+
+                    <TextView
+                        style="@style/style_tv"
+                        android:layout_marginStart="5dp"
+                        android:text="修改密码" />
+                </LinearLayout>
+
+
+                <EditText
+                    android:id="@+id/activity_account_teacher_change_pwd_edt"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/white"
+                    android:hint="修改密码"
+                    android:imeOptions="actionNext"
+                    android:paddingStart="30dp"
+                    android:textColor="@color/txt_gray"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/activity_account_teacher_agree_pwd_edt"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/white"
+                    android:hint="确认密码"
+                    android:imeOptions="actionDone"
+                    android:paddingStart="30dp"
+                    android:textColor="@color/txt_gray"
+                    android:textSize="16sp" />
+
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <Button
+            android:id="@+id/activity_account_teacher_commit_btn"
+            style="@style/btn_circle_style"
+            android:text="确认" />
+    </LinearLayout>
+</ScrollView>

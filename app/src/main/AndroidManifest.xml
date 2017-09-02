@@ -79,18 +79,65 @@
             android:value="Umeng" />
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="59749b1607fe6518c5000b51">
-        </meta-data>
+            android:value="59749b1607fe6518c5000b51" />
         <meta-data
             android:name="UMENG_MESSAGE_SECRET"
-            android:value="3cca446d886076e3ff6f87717afad183">
-        </meta-data>
+            android:value="3cca446d886076e3ff6f87717afad183" />
 
-        <activity android:name=".ui.activity.EducationalNoticeActivity" />
-        <activity android:name=".ui.activity.NoticeDetailActivity" />
-        <activity android:name=".ui.activity.InterestClassByTeacherActivity" />
-        <activity android:name=".ui.activity.InterestClassByStudentActivity" />
-        <activity android:name=".ui.activity.ChoiceInterestClassActivity" />
+        <activity
+            android:name=".ui.activity.EducationalNoticeActivity"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ui.activity.NoticeDetailActivity"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ui.activity.InterestClassByTeacherActivity"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ui.activity.InterestClassByStudentActivity"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ui.activity.ChoiceInterestClassActivity"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ui.activity.NewRegisterTeacherActivity"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ui.activity.AccountTeacherManagerActivity"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ui.activity.AccountStudentManagerActivity"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ui.activity.NewRegisterStudentActivity"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
     </application>
 
 </manifest>

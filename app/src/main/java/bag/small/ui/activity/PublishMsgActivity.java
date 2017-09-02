@@ -29,6 +29,8 @@ import me.drakeet.multitype.MultiTypeAdapter;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 public class PublishMsgActivity extends BaseActivity {
 
@@ -42,6 +44,7 @@ public class PublishMsgActivity extends BaseActivity {
     MultiTypeAdapter multiTypeAdapter;
     List<Object> mDatas;
     IUpdateImage iUpdateImage;
+    private ProgressDialog progressDialog;
 
     @Override
     public int getLayoutResId() {
@@ -76,15 +79,15 @@ public class PublishMsgActivity extends BaseActivity {
         map.put("content", RxUtil.toRequestBodyTxt(content));
 
 
-        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("正在上传，请等待...");
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
 
-
+//        lubanImage(map);
         iUpdateImage.updateImage(map, getParts())
                 .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
-                .compose(RxLifecycleCompact.bind(this).withObservable())
+                .compose(RxLifecycleCompact.bind(PublishMsgActivity.this).withObservable())
                 .subscribe(bean -> {
                     progressDialog.dismiss();
                     if (bean.isSuccess()) {
@@ -92,6 +95,7 @@ public class PublishMsgActivity extends BaseActivity {
                     }
                     toast(bean.getMsg());
                 }, new HttpError(progressDialog));
+
     }
 
     private MultipartBody.Part[] getParts() {
@@ -103,13 +107,79 @@ public class PublishMsgActivity extends BaseActivity {
                 if (!TextUtils.isEmpty(string)) {
                     String key = "file" + (i + 1);
                     String fileName = System.currentTimeMillis() + ".png";
+//                    int finalI = i;
+//                    Luban.with(this).load(new File(string))
+//                            .setCompressListener(new OnCompressListener() {
+//                                @Override
+//                                public void onStart() {
+//
+//                                }
+//                                @Override
+//                                public void onSuccess(File file) {
+//                                    MultipartBody.Part part = RxUtil.convertImage(key, fileName, file);
+//                                    parts[finalI] = part;
+//                                }
+//                                @Override
+//                                public void onError(Throwable e) {
+//
+//                                }
+//                            }).launch();
                     MultipartBody.Part part = RxUtil.convertImage(key, fileName, new File(string));
                     parts[i] = part;
                 }
+
             }
             return parts;
         } else {
             return null;
+        }
+    }
+
+    private void lubanImage(HashMap<String, RequestBody> map) {
+        if (ListUtil.unEmpty(mDatas)) {
+            int size = mDatas.size();
+            MultipartBody.Part[] parts = new MultipartBody.Part[size];
+            for (int i = 0; i < size; i++) {
+                String string = mDatas.get(i).toString();
+                if (!TextUtils.isEmpty(string)) {
+                    String key = "file" + (i + 1);
+                    String fileName = System.currentTimeMillis() + ".png";
+                    int finalI = i;
+                    final int[] count = {0};
+                    Luban.with(this).load(new File(string))
+                            .setCompressListener(new OnCompressListener() {
+                                @Override
+                                public void onStart() {
+
+                                }
+
+                                @Override
+                                public void onSuccess(File file) {
+                                    MultipartBody.Part part = RxUtil.convertImage(key, fileName, file);
+                                    parts[finalI] = part;
+                                    count[0]++;
+                                    if (count[0] == size) {
+                                        iUpdateImage.updateImage(map, parts)
+                                                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                                                .compose(RxLifecycleCompact.bind(PublishMsgActivity.this).withObservable())
+                                                .subscribe(bean -> {
+                                                    progressDialog.dismiss();
+                                                    if (bean.isSuccess()) {
+                                                        finish();
+                                                    }
+                                                    toast(bean.getMsg());
+                                                }, new HttpError(progressDialog));
+                                    }
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+
+                                }
+                            }).launch();
+                }
+
+            }
         }
     }
 

@@ -130,11 +130,11 @@ public class MainActivity extends BaseActivity
         mBottomNav.setItemTextColor(csl);
         mBottomNav.setItemIconTintList(csl);
         leftBeen = new ArrayList<>();
-        leftBeen.add(new MainLeftBean(R.mipmap.account_manager, R.string.main_account_manager));
-        leftBeen.add(new MainLeftBean(R.mipmap.soft_setting, R.string.main_soft_setting));
-        leftBeen.add(new MainLeftBean(R.mipmap.help_me, R.string.main_help_str));
-        leftBeen.add(new MainLeftBean(R.mipmap.about_ours, R.string.main_account_about));
-        leftBeen.add(new MainLeftBean(R.mipmap.exit_system, R.string.main_account_exit));
+        leftBeen.add(new MainLeftBean(1, R.mipmap.account_manager, R.string.main_account_manager));
+        leftBeen.add(new MainLeftBean(2, R.mipmap.soft_setting, R.string.main_soft_setting));
+        leftBeen.add(new MainLeftBean(3, R.mipmap.help_me, R.string.main_help_str));
+        leftBeen.add(new MainLeftBean(4, R.mipmap.about_ours, R.string.main_account_about));
+        leftBeen.add(new MainLeftBean(5, R.mipmap.exit_system, R.string.main_account_exit));
         mainDrawerLeftAdapter = new MainDrawerLeftAdapter(leftBeen, this);
         listView.setAdapter(mainDrawerLeftAdapter);
     }
@@ -142,11 +142,11 @@ public class MainActivity extends BaseActivity
     @Override
     public void initView() {
         iLoginRequest.updateToken(UserPreferUtil.getInstanse().getUserId(), "", MyApplication.deviceToken,
-                "", "android").compose(RxLifecycleCompact.bind(this).withObservable())
+                "", "android")
+                .compose(RxLifecycleCompact.bind(this).withObservable())
                 .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
                 .subscribe(bean -> {
                     if (bean.isSuccess()) {
-
                     }
                 });
 

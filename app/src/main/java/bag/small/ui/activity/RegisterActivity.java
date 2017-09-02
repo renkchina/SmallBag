@@ -81,7 +81,7 @@ public class RegisterActivity extends BaseActivity {
                 registerPhone(2);
                 break;
             case R.id.activity_register_login_tv:
-                    finish();
+                finish();
                 break;
         }
     }
@@ -119,12 +119,16 @@ public class RegisterActivity extends BaseActivity {
                 .subscribe(bean -> {
                     toast(bean.getMsg());
                     if (bean.isSuccess() && bean.getData() != null) {
-                        UserPreferUtil.getInstanse().setUseId(bean.getData().getLogin_id());
+                        Bundle bundle = new Bundle();
+                        bundle.putString("loginId", bean.getData().getLogin_id());
+                        bundle.putString("phone", phone);
+//                        UserPreferUtil.getInstanse().setUseId(bean.getData().getLogin_id());
                         if (type == 1) {
-                            skipActivity(ParentInformationActivity.class);
+                            goActivity(NewRegisterStudentActivity.class, bundle);
                         } else {
-                            skipActivity(TeacherInformationActivity.class);
+                            goActivity(NewRegisterTeacherActivity.class, bundle);
                         }
+                        finish();
                     } else {
                         toast("获取失败");
                     }

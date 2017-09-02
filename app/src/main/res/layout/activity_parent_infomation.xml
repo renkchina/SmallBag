@@ -88,21 +88,12 @@
 
                 <LinearLayout
                     android:id="@+id/activity_student_gender_ll"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@color/white"
-                    android:orientation="horizontal"
-                    android:padding="3dp">
+                    style="@style/style_ll_info">
 
                     <TextView
                         android:id="@+id/activity_student_gender_tv"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical|start"
                         android:text="性别"
-                        android:textSize="16sp" />
+                        style="@style/style_tv" />
 
                     <ImageView
                         style="@style/imge_down_style"
@@ -112,22 +103,13 @@
 
                 <LinearLayout
                     android:id="@+id/activity_area_school_ll"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@color/white"
-                    android:orientation="horizontal"
-                    android:padding="3dp">
+                    style="@style/style_ll_info">
 
                     <TextView
                         android:id="@+id/activity_area_school_tv"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
 
-                        android:gravity="center_vertical|start"
                         android:text="学生区域"
-                        android:textSize="16sp" />
+                        style="@style/style_tv" />
 
                     <ImageView
                         style="@style/imge_down_style"
@@ -138,22 +120,13 @@
 
                 <LinearLayout
                     android:id="@+id/activity_study_school_ll"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@color/white"
-                    android:orientation="horizontal"
-                    android:padding="3dp">
+                    style="@style/style_ll_info">
 
                     <TextView
                         android:id="@+id/activity_study_school_tv"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
                         android:background="@color/white"
-                        android:gravity="center_vertical|start"
                         android:text="就读学校"
-                        android:textSize="16sp" />
+                        style="@style/style_tv" />
 
                     <ImageView
                         style="@style/imge_down_style"
@@ -164,22 +137,13 @@
 
                 <LinearLayout
                     android:id="@+id/activity_study_num_ll"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@color/white"
-                    android:orientation="horizontal"
-                    android:padding="3dp">
+                    style="@style/style_ll_info">
 
                     <TextView
                         android:id="@+id/activity_study_num_tv"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
                         android:background="@color/white"
-                        android:gravity="center_vertical|start"
                         android:text="入学时间"
-                        android:textSize="16sp" />
+                        style="@style/style_tv" />
 
                     <ImageView
                         style="@style/imge_down_style"
@@ -190,22 +154,13 @@
 
                 <LinearLayout
                     android:id="@+id/activity_grade_ll"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@color/white"
-                    android:orientation="horizontal"
-                    android:padding="3dp">
+                    style="@style/style_ll_info">
 
                     <TextView
                         android:id="@+id/activity_grade_tv"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
                         android:background="@color/white"
-                        android:gravity="center_vertical|start"
                         android:text="就读年级"
-                        android:textSize="16sp" />
+                        style="@style/style_tv" />
 
                     <ImageView
                         style="@style/imge_down_style"
@@ -216,22 +171,13 @@
 
                 <LinearLayout
                     android:id="@+id/activity_class_ll"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@color/white"
-                    android:orientation="horizontal"
-                    android:padding="3dp">
+                    style="@style/style_ll_info">
 
                     <TextView
                         android:id="@+id/activity_class_tv"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
                         android:background="@color/white"
-                        android:gravity="center_vertical|start"
                         android:text="就读班级"
-                        android:textSize="16sp" />
+                        style="@style/style_tv" />
 
                     <ImageView
                         style="@style/imge_down_style"
@@ -242,22 +188,13 @@
 
                 <LinearLayout
                     android:id="@+id/activity_guardian_ll"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@color/white"
-                    android:orientation="horizontal"
-                    android:padding="3dp">
+                    style="@style/style_ll_info">
 
                     <TextView
                         android:id="@+id/activity_guardian_tv"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
                         android:background="@color/white"
-                        android:gravity="center_vertical|start"
                         android:text="监护人关系"
-                        android:textSize="16sp" />
+                        style="@style/style_tv" />
 
                     <ImageView
                         style="@style/imge_down_style"
@@ -346,13 +283,8 @@
 
         <Button
             android:id="@+id/activity_parent_commit_btn"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_margin="20dp"
-            android:background="@drawable/shape_ac_login_btn_back_fill"
             android:text="确认"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
+            style="@style/btn_circle_style" />
     </LinearLayout>
 
 </ScrollView>

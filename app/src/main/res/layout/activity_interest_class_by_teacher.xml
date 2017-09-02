@@ -14,100 +14,169 @@
         <include layout="@layout/toolbar" />
 
         <ImageView
-            android:layout_width="match_parent"
-            android:scaleType="centerCrop"
             android:id="@+id/activity_interest_teacher_banner_iv"
-            android:layout_height="155dp" />
+            android:layout_width="match_parent"
+            android:layout_height="155dp"
+            android:scaleType="centerCrop" />
 
         <LinearLayout
+            android:id="@+id/interest_by_teacher_show_ll"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
-                android:drawablePadding="10dp"
-                android:drawableStart="@mipmap/course_icon"
-                android:gravity="center"
-                android:text="我的兴趣课："
-                android:textColor="@color/txt_gray"
-                android:textSize="17sp" />
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/activity_interest_teacher_class_tv"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="5dp"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@mipmap/course_icon"
+                    android:gravity="center"
+                    android:text="我的兴趣课："
+                    android:textColor="@color/txt_gray"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:id="@+id/activity_interest_teacher_class_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@mipmap/time_icon"
+                    android:gravity="center"
+                    android:text="时间："
+                    android:textColor="@color/txt_gray"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:id="@+id/activity_interest_teacher_time_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@mipmap/classroom_icon"
+                    android:gravity="center"
+                    android:text="教室："
+                    android:textColor="@color/txt_gray"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:id="@+id/activity_interest_teacher_classroom_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/interest_by_teacher_choice_ll"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:gravity="center_horizontal|center_vertical"
+            android:orientation="vertical"
+            >
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="10dp"
-                android:drawablePadding="10dp"
-                android:drawableStart="@mipmap/time_icon"
-                android:gravity="center"
-                android:text="时间："
-                android:textColor="@color/txt_gray"
-                android:textSize="17sp" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/activity_interest_teacher_time_tv"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="5dp"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
+                <View
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/course_icon" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:gravity="center"
+                    android:text="我的兴趣课"
+                    android:textColor="@color/txt_gray"
+                    android:textSize="17sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="50dp"
+                android:layout_height="3dp"
+                android:background="@color/colorPrimary" />
+
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/interest_empty_ll"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
-            android:orientation="horizontal">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginTop="20dp"
+                android:src="@mipmap/no_class_icon" />
 
             <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="10dp"
-                android:drawablePadding="10dp"
-                android:drawableStart="@mipmap/classroom_icon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:gravity="center"
-                android:text="教室："
+                android:text="你没有可以教授的兴趣课"
                 android:textColor="@color/txt_gray"
-                android:textSize="17sp" />
-
-            <TextView
-                android:id="@+id/activity_interest_teacher_classroom_tv"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="5dp"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
+                android:textSize="16sp" />
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
@@ -115,7 +184,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingEnd="24dp"
-
             android:paddingStart="24dp"></android.support.v7.widget.RecyclerView>
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

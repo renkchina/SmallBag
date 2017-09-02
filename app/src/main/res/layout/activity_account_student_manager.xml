@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include layout="@layout/toolbar" />
+
+        <ImageView
+            android:id="@+id/ac_account_student_head_iv"
+            style="@style/head_image_style" />
+
+        <android.support.v7.widget.CardView
+            style="@style/cardview_style"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="5dp"
+            app:contentPadding="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    style="@style/style_ll_info"
+                    android:paddingStart="30dp">
+
+                    <TextView
+                        android:id="@+id/activity_account_student_name_tv"
+                        style="@style/style_tv"
+                        android:text="姓名:" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    style="@style/style_ll_info"
+                    android:paddingStart="30dp">
+
+                    <TextView
+                        android:id="@+id/activity_account_student_grade_tv"
+                        style="@style/style_tv"
+                        android:text="年级:" />
+
+                    <TextView
+                        android:id="@+id/activity_account_student_class_tv"
+                        style="@style/style_tv"
+                        android:text="班级:" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/style_ll_info"
+                    android:paddingStart="30dp">
+
+                    <TextView
+                        android:id="@+id/activity_account_student_number_tv"
+                        style="@style/style_tv"
+                        android:text="学号:" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/style_ll_info"
+                    android:paddingStart="30dp">
+
+                    <TextView
+                        style="@style/style_tv_wrap"
+                        android:text="生日：" />
+
+                    <TextView
+                        android:id="@+id/activity_account_student_birthday_tv"
+                        style="@style/style_tv" />
+
+                </LinearLayout>
+
+                <LinearLayout
+
+                    style="@style/style_ll_info"
+                    android:paddingStart="30dp">
+
+                    <TextView
+                        style="@style/style_tv_wrap"
+                        android:text="性别：" />
+
+                    <TextView
+                        android:id="@+id/activity_account_student_gender_tv"
+                        style="@style/style_tv" />
+                </LinearLayout>
+
+
+                <LinearLayout style="@style/style_ll_info">
+
+                    <View
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@mipmap/account_manager_password" />
+
+                    <TextView
+                        style="@style/style_tv"
+                        android:layout_marginStart="5dp"
+                        android:text="修改密码" />
+                </LinearLayout>
+
+
+                <EditText
+                    android:id="@+id/activity_account_student_change_pwd_edt"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/white"
+                    android:hint="修改密码"
+                    android:imeOptions="actionNext"
+                    android:paddingStart="30dp"
+                    android:textColor="@color/txt_gray"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/activity_account_student_agree_pwd_edt"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/white"
+                    android:hint="确认密码"
+                    android:imeOptions="actionDone"
+                    android:paddingStart="30dp"
+                    android:textColor="@color/txt_gray"
+                    android:textSize="16sp" />
+
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <Button
+            android:id="@+id/activity_account_student_commit_btn"
+            style="@style/btn_circle_style"
+            android:text="确认" />
+    </LinearLayout>
+</ScrollView>

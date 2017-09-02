@@ -8,12 +8,10 @@ import java.util.List;
  * Created by Administrator on 2017/8/10.
  */
 public class TeacherClass {
-
-
     /**
-     * date : 2017-08-10
+     * date : 2017-09-01
      * role : teacher
-     * class : [{"name":"手工航模","class_time":"每周4 下午4点-5点","class_room":"第一教学楼301室","students":[{"name":"刘二莽","xuehao":"2017080614","banji":"1年级1班"}]}]
+     * class : [{"name":"足球","class_time":"每周3 下午4点-5点","class_room":"第二教学楼301室","students":[{"name":"谭琪升","xuehao":"10002","banji":"6年级6班"},{"name":"谭淇生","xuehao":"10002","banji":"5年级5班"}]},{"name":"UI制作","class_time":"上午10:00 ～ 上午 11:00 每周五","class_room":"201","students":[{"name":"杨齐齐","xuehao":"10006","banji":"1年级1班"}]}]
      */
 
     private String date;
@@ -46,17 +44,27 @@ public class TeacherClass {
     }
 
     public static class ClassBean {
+
         /**
-         * name : 手工航模
-         * class_time : 每周4 下午4点-5点
-         * class_room : 第一教学楼301室
-         * students : [{"name":"刘二莽","xuehao":"2017080614","banji":"1年级1班"}]
+         * name : 足球
+         * class_time : 每周3 下午4点-5点
+         * class_room : 第二教学楼301室
+         * students : [{"name":"谭琪升","xuehao":"10002","banji":"6年级6班"},{"name":"谭淇生","xuehao":"10002","banji":"5年级5班"}]
          */
 
+        private String id;
         private String name;
         private String class_time;
         private String class_room;
         private List<StudentsBean> students;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
 
         public String getName() {
             return name;
@@ -92,9 +100,9 @@ public class TeacherClass {
 
         public static class StudentsBean {
             /**
-             * name : 刘二莽
-             * xuehao : 2017080614
-             * banji : 1年级1班
+             * name : 谭琪升
+             * xuehao : 10002
+             * banji : 6年级6班
              */
 
             private String name;

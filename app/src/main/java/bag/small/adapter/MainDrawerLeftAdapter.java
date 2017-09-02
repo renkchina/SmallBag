@@ -13,6 +13,8 @@ import java.util.List;
 
 import bag.small.R;
 import bag.small.entity.MainLeftBean;
+import bag.small.ui.activity.AccountStudentManagerActivity;
+import bag.small.ui.activity.AccountTeacherManagerActivity;
 import bag.small.ui.activity.LoginActivity;
 import bag.small.utils.UserPreferUtil;
 import butterknife.Bind;
@@ -42,8 +44,26 @@ public class MainDrawerLeftAdapter extends MyBaseListViewAdapter<MainLeftBean> {
         holder.itemDrawerLeftV.setBackgroundResource(bean.getResId());
         holder.itemDrawerLeftTv.setText(bean.getTitleRes());
         holder.mainv.setOnClickListener(v -> {
-            UserPreferUtil.getInstanse().clear();
-            skipActivity(LoginActivity.class);
+            switch (bean.getId()) {
+                case 1:
+                    if (UserPreferUtil.getInstanse().isTeacher()) {
+                        gotoActivity(AccountTeacherManagerActivity.class, false, null);
+                    } else {
+                        gotoActivity(AccountStudentManagerActivity.class, false, null);
+                    }
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    UserPreferUtil.getInstanse().clear();
+                    skipActivity(LoginActivity.class);
+                    break;
+            }
+
         });
         return convertView;
     }

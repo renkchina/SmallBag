@@ -5,8 +5,17 @@ package bag.small.entity;
  */
 
 public class MainLeftBean {
+    int id;
     int resId;
-    int  titleRes;
+    int titleRes;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getResId() {
         return resId;
@@ -24,7 +33,8 @@ public class MainLeftBean {
         this.titleRes = titleRes;
     }
 
-    public MainLeftBean(int resId, int titleRes) {
+    public MainLeftBean(int id, int resId, int titleRes) {
+        this.id = id;
         this.resId = resId;
         this.titleRes = titleRes;
     }
@@ -35,7 +45,8 @@ public class MainLeftBean {
     @Override
     public String toString() {
         return "MainLeftBean{" +
-                "resId=" + resId +
+                "id=" + id +
+                ", resId=" + resId +
                 ", titleRes=" + titleRes +
                 '}';
     }

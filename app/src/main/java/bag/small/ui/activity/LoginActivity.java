@@ -7,6 +7,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.china.rxbus.MySubscribe;
+import com.china.rxbus.RxBus;
+
 import bag.small.R;
 import bag.small.app.MyApplication;
 import bag.small.base.BaseActivity;
@@ -56,6 +59,7 @@ public class LoginActivity extends BaseActivity {
         setToolTitle("登录", false);
         iLoginRequest = HttpUtil.getInstance().createApi(ILoginRequest.class);
         loginUserPasswordEdt.setTypeface(loginUserNameEdt.getTypeface());
+        RxBus.get().register(this);
 
     }
 
@@ -100,5 +104,14 @@ public class LoginActivity extends BaseActivity {
                 }, new HttpError());
     }
 
+    @MySubscribe(code = 111)
+    public void loginFinish() {
+        finish();
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RxBus.get().unRegister(this);
+    }
 }
