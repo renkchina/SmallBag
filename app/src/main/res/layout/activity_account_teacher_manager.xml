@@ -54,20 +54,20 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:lines="1"
-                        android:imeOptions="actionNext"
                         android:background="@color/green_bg"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:lines="1"
                         android:textColor="@color/txt_gray"
                         android:textSize="16sp" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:background="@color/green_bg"
                     style="@style/style_ll_info"
+                    android:background="@color/green_bg"
                     android:paddingStart="30dp">
 
                     <TextView
-
                         style="@style/style_tv_wrap"
                         android:text="邮箱：" />
 
@@ -76,9 +76,10 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:lines="1"
-                        android:imeOptions="actionNext"
                         android:background="@color/green_bg"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"
+                        android:lines="1"
                         android:textColor="@color/txt_gray"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -155,8 +156,8 @@
 
                 <LinearLayout
                     android:id="@+id/account_teacher_radio_ll"
-                    android:focusableInTouchMode="true"
-                    style="@style/style_ll_info">
+                    style="@style/style_ll_info"
+                    android:focusableInTouchMode="true">
 
                     <RadioButton
                         android:id="@+id/account_teacher_radio_button"
@@ -179,8 +180,9 @@
                     android:layout_height="40dp"
                     android:background="@color/green_bg"
                     android:hint="修改密码"
-                    android:lines="1"
                     android:imeOptions="actionNext"
+                    android:inputType="textPassword"
+                    android:lines="1"
                     android:paddingStart="30dp"
                     android:textColor="@color/txt_gray"
                     android:textSize="16sp"
@@ -192,8 +194,9 @@
                     android:layout_height="40dp"
                     android:background="@color/green_bg"
                     android:hint="确认密码"
-                    android:lines="1"
                     android:imeOptions="actionDone"
+                    android:inputType="textPassword"
+                    android:lines="1"
                     android:paddingStart="30dp"
                     android:textColor="@color/txt_gray"
                     android:textSize="16sp"
