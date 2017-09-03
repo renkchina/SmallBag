@@ -18,7 +18,8 @@
 
         <ImageView
             android:id="@+id/ac_new_student_head_iv"
-            style="@style/head_image_style" />
+            style="@style/head_image_style"
+            />
 
         <android.support.v7.widget.CardView
             style="@style/cardview_style"
@@ -73,6 +74,7 @@
                         style="@style/style_tv"
                         android:text="班级:" />
                 </LinearLayout>
+
                 <LinearLayout style="@style/style_ll_info">
 
                     <TextView
@@ -80,6 +82,7 @@
                         style="@style/style_tv"
                         android:text="学号:" />
                 </LinearLayout>
+
                 <LinearLayout style="@style/style_ll_info">
 
                     <TextView

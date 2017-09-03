@@ -45,6 +45,7 @@ import bag.small.entity.MainLeftBean;
 import bag.small.http.HttpUtil;
 import bag.small.http.IApi.HttpError;
 import bag.small.http.IApi.ILoginRequest;
+import bag.small.http.IApi.IRegisterReq;
 import bag.small.provider.AccountViewBinder;
 import bag.small.rx.RxUtil;
 import bag.small.ui.fragment.FamiliesSchoolConnectionFragment;
@@ -102,6 +103,7 @@ public class MainActivity extends BaseActivity
     ILoginRequest iLoginRequest;
     MainDrawerLeftAdapter mainDrawerLeftAdapter;
     List<MainLeftBean> leftBeen;
+    private IRegisterReq iRegisterReq;
 
     @Override
     public int getLayoutResId() {
@@ -124,6 +126,7 @@ public class MainActivity extends BaseActivity
             itemDatas.addAll(MyApplication.loginResults);
         }
         iLoginRequest = HttpUtil.getInstance().createApi(ILoginRequest.class);
+        iRegisterReq = HttpUtil.getInstance().createApi(IRegisterReq.class);
         colors = new int[]{ContextCompat.getColor(this, R.color.main_bottom_gray),
                 ContextCompat.getColor(this, R.color.main_bottom)};
         ColorStateList csl = new ColorStateList(states, colors);
@@ -196,6 +199,7 @@ public class MainActivity extends BaseActivity
 
     }
 
+    //返回
     @Override
     public void onBackPressed() {
         if (mDrawer.isDrawerOpen(GravityCompat.START)) {
@@ -205,6 +209,7 @@ public class MainActivity extends BaseActivity
         }
     }
 
+    //bottom选中
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         if (lastItem != item) {
@@ -225,6 +230,7 @@ public class MainActivity extends BaseActivity
         return false;
     }
 
+    //切换fragment
     private void changeFragment(int index) {
         changeFragment(R.id.activity_main_content_frame, fragments[index]);
         if (index == 2) {
@@ -278,14 +284,30 @@ public class MainActivity extends BaseActivity
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         String[] strings = new String[]{"我是学生", "我是老师"};
         builder.setItems(strings, (dialog, which) -> {
-            Bundle bundle = new Bundle();
-            bundle.putBoolean("ismain", true);
             switch (which) {
                 case 0:
-                    goActivity(ParentInformationActivity.class, bundle);
+                    iRegisterReq.addStudentInfo(UserPreferUtil.getInstanse().getUserId(),"student")
+                            .compose(RxLifecycleCompact.bind(this).withObservable())
+                            .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                            .subscribe(bean -> {
+                                if (bean.isSuccess() && bean.getData() != null) {
+                                    goActivity(AddStudentActivity.class);
+                                } else {
+                                    toast(bean.getMsg());
+                                }
+                            }, new HttpError());
                     break;
                 case 1:
-                    goActivity(TeacherInformationActivity.class, bundle);
+                    iRegisterReq.addTeacherInfo(UserPreferUtil.getInstanse().getUserId(),"teacher")
+                            .compose(RxLifecycleCompact.bind(this).withObservable())
+                            .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                            .subscribe(bean -> {
+                                if (bean.isSuccess() && bean.getData() != null) {
+                                    goActivity(AddTeacherActivity.class);
+                                } else {
+                                    toast(bean.getMsg());
+                                }
+                            }, new HttpError());
                     break;
             }
             dialog.dismiss();
@@ -345,7 +367,7 @@ public class MainActivity extends BaseActivity
         }
     }
 
-
+    //改变主题颜色
     public void changeColor(boolean isTeacher) {
         int coler;
         if (isTeacher) {

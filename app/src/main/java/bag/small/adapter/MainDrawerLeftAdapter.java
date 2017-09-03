@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -53,10 +54,9 @@ public class MainDrawerLeftAdapter extends MyBaseListViewAdapter<MainLeftBean> {
                     }
                     break;
                 case 2:
-                    break;
                 case 3:
-                    break;
                 case 4:
+                    Toast.makeText(context, "敬请期待", Toast.LENGTH_SHORT).show();
                     break;
                 case 5:
                     UserPreferUtil.getInstanse().clear();

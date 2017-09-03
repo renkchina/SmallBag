@@ -1,6 +1,5 @@
 package bag.small.ui.activity;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,7 +34,6 @@ import bag.small.utils.ListUtil;
 import bag.small.utils.StringUtil;
 import bag.small.utils.UserPreferUtil;
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
 import okhttp3.MediaType;
@@ -43,7 +41,7 @@ import okhttp3.RequestBody;
 import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
 
-public class AccountStudentManagerActivity extends BaseActivity {
+public class AddStudentActivity extends BaseActivity {
 
     @Bind(R.id.ac_account_student_head_iv)
     ImageView acAccountStudentHeadIv;
@@ -81,7 +79,7 @@ public class AccountStudentManagerActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        setToolTitle("账号管理", true);
+        setToolTitle("添加角色", true);
         iRegisterReq = HttpUtil.getInstance().createApi(IRegisterReq.class);
         getRegisterInfomation();
     }
@@ -97,7 +95,7 @@ public class AccountStudentManagerActivity extends BaseActivity {
                         StringUtil.setTextView(accountStudentNameTv, "姓名：" + bean.getData().getName());
                         StringUtil.setTextView(accountStudentGradeTv, "年级：" + bean.getData().getBanci());
                         StringUtil.setTextView(accountStudentClassTv, "班级：" + bean.getData().getBanji());
-                        StringUtil.setTextView(accountStudentNumberTv,  bean.getData().getStudent_no());
+                        StringUtil.setTextView(accountStudentNumberTv, bean.getData().getStudent_no());
                         StringUtil.setTextView(accountStudentBirthdayTv, bean.getData().getBirth());
                         StringUtil.setTextView(accountStudentGenderTv, bean.getData().getSex());
                         id = bean.getData().getId();

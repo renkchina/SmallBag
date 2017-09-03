@@ -78,6 +78,16 @@ public interface IRegisterReq {
                                                                 @Field("school_id") String school);
 
     @FormUrlEncoded
+    @POST("commons/addrole")
+    Observable<BaseBean<NewRegisterTeacherBean>> addTeacherInfo(@Field("login_id") String loginId,
+                                                                @Field("type") String type);
+
+    @FormUrlEncoded
+    @POST("commons/addrole")
+    Observable<BaseBean<NewRegisterTeacherBean>> addStudentInfo(@Field("login_id") String loginId,
+                                                                @Field("type") String type);
+
+    @FormUrlEncoded
     @POST("commons/getstudentinfo")
     Observable<BaseBean<NewRegisterStudentOrTeacherBean>> getNewStudentRegisterInfo(@Field("login_id") String loginId,
                                                                                     @Field("phone") String phone);

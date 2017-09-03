@@ -63,6 +63,9 @@ public class NewRegisterTeacherActivity extends BaseActivity {
         if (bundle != null) {
             phone = bundle.getString("phone");
             loginId = bundle.getString("loginId");
+        } else {
+            phone = UserPreferUtil.getInstanse().getPhone();
+            loginId = UserPreferUtil.getInstanse().getUserId();
         }
     }
 
@@ -71,6 +74,7 @@ public class NewRegisterTeacherActivity extends BaseActivity {
         setToolTitle("注册", true);
         toolbarRightTv.setText("完成");
         iRegisterReq = HttpUtil.getInstance().createApi(IRegisterReq.class);
+        acNewTeacherHeadIv.setBackgroundResource(R.mipmap.teacher_man);
         getRegisterInfomation();
     }
 

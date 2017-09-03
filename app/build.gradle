@@ -112,6 +112,7 @@ dependencies {
     compile project(':PushSDK')
     //压缩图片
     compile project(path: ':luban')
+//    compile 'top.zibin:Luban:1.1.3'
     //图片浏览
     compile project(path: ':imagebrowserlibrary')
     //

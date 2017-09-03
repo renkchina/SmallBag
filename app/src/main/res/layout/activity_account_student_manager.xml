@@ -20,9 +20,10 @@
 
         <android.support.v7.widget.CardView
             style="@style/cardview_style"
+            android:padding="0dp"
             app:cardCornerRadius="10dp"
             app:cardElevation="5dp"
-            app:contentPadding="8dp">
+            app:contentPadding="0dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -57,16 +58,26 @@
 
                 <LinearLayout
                     style="@style/style_ll_info"
+                    android:background="@color/green_bg"
                     android:paddingStart="30dp">
 
                     <TextView
+                        style="@style/style_tv_wrap"
+                        android:text="学号:" />
+
+                    <EditText
                         android:id="@+id/activity_account_student_number_tv"
                         style="@style/style_tv"
-                        android:text="学号:" />
+                        android:background="@color/green_bg"
+                        android:imeOptions="actionNext"
+                        android:lines="1"
+                        android:textColor="@color/txt_gray"
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <LinearLayout
                     style="@style/style_ll_info"
+                    android:background="@color/green_bg"
                     android:paddingStart="30dp">
 
                     <TextView
@@ -80,8 +91,8 @@
                 </LinearLayout>
 
                 <LinearLayout
-
                     style="@style/style_ll_info"
+                    android:background="@color/green_bg"
                     android:paddingStart="30dp">
 
                     <TextView
@@ -94,13 +105,18 @@
                 </LinearLayout>
 
 
-                <LinearLayout style="@style/style_ll_info">
+                <LinearLayout
+                    android:id="@+id/account_student_password_ll"
+                    style="@style/style_ll_info"
+                    android:focusableInTouchMode="true">
 
-                    <View
+                    <RadioButton
+                        android:id="@+id/account_student_radio_button"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@mipmap/account_manager_password" />
+                        android:background="@drawable/selector_change_password_rb"
+                        android:button="@null" />
 
                     <TextView
                         style="@style/style_tv"
@@ -108,29 +124,33 @@
                         android:text="修改密码" />
                 </LinearLayout>
 
-
                 <EditText
                     android:id="@+id/activity_account_student_change_pwd_edt"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:background="@color/white"
+                    android:background="@color/green_bg"
                     android:hint="修改密码"
                     android:imeOptions="actionNext"
+                    android:lines="1"
+                    android:maxLines="1"
                     android:paddingStart="30dp"
                     android:textColor="@color/txt_gray"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:visibility="gone" />
 
                 <EditText
                     android:id="@+id/activity_account_student_agree_pwd_edt"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:background="@color/white"
+                    android:background="@color/green_bg"
                     android:hint="确认密码"
                     android:imeOptions="actionDone"
+                    android:lines="1"
+                    android:maxLines="1"
                     android:paddingStart="30dp"
                     android:textColor="@color/txt_gray"
-                    android:textSize="16sp" />
-
+                    android:textSize="16sp"
+                    android:visibility="gone" />
 
             </LinearLayout>
 

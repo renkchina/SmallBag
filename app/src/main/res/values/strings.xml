@@ -25,9 +25,9 @@
     <string name="main_account_manager">账号管理</string>
     <string name="main_account_about">关于</string>
     <string name="main_account_exit">退出</string>
-    <string name="main_bottom_second_str">家校互联</string>
+    <string name="main_bottom_second_str">互联</string>
     <string name="main_bottom_first_str">百宝箱</string>
-    <string name="main_bottom_third_str">成长日记</string>
+    <string name="main_bottom_third_str">日记</string>
     <string name="title_activity_scrolling">ScrollingActivity</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"

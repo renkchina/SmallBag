@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import bag.small.R;
 import bag.small.entity.ConnectionBinder;
@@ -48,26 +49,16 @@ public class ConnectionViewBinder extends ItemViewBinder<ConnectionBinder, Conne
         holder.iIconIv.setImageResource(bean.getResImage());
         holder.rootView.setOnClickListener(v -> {
             switch (bean.getId()) {
-                case 1:
-//                    gotoActivity();
-                    break;
                 case 2:
-                    goActivity(EducationalNoticeActivity.class, holder.iIconIv.getContext());
-                    break;
+                goActivity(EducationalNoticeActivity.class, holder.iIconIv.getContext());
+                break;
+                case 1:
                 case 3:
-//                    gotoActivity();
-                    break;
                 case 4:
-//                    gotoActivity();
-                    break;
                 case 5:
-//                    gotoActivity();
-                    break;
                 case 6:
-//                    gotoActivity();
-                    break;
                 case 7:
-//                    gotoActivity();
+                    Toast.makeText(context,"敬请期待",Toast.LENGTH_SHORT).show();
                     break;
                 case 8:
                     if (UserPreferUtil.getInstanse().isTeacher()) {

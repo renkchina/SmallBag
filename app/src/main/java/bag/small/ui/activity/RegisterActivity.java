@@ -8,8 +8,12 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.china.rxbus.RxBus;
+
 import bag.small.R;
+import bag.small.app.MyApplication;
 import bag.small.base.BaseActivity;
+import bag.small.entity.LoginResult;
 import bag.small.http.HttpUtil;
 import bag.small.http.IApi.HttpError;
 import bag.small.http.IApi.IRegisterReq;
@@ -94,6 +98,9 @@ public class RegisterActivity extends BaseActivity {
         if (!password.equals(rePassword)) {
             toast("密码不一致");
             return;
+        } else if (TextUtils.isEmpty(password) || TextUtils.isEmpty(phone) || TextUtils.isEmpty(code)) {
+            toast("请输入内容");
+            return;
         }
         requestRegister(i, phone, password, code);
     }
@@ -119,16 +126,12 @@ public class RegisterActivity extends BaseActivity {
                 .subscribe(bean -> {
                     toast(bean.getMsg());
                     if (bean.isSuccess() && bean.getData() != null) {
-                        Bundle bundle = new Bundle();
-                        bundle.putString("loginId", bean.getData().getLogin_id());
-                        bundle.putString("phone", phone);
-//                        UserPreferUtil.getInstanse().setUseId(bean.getData().getLogin_id());
+                        String loginId = bean.getData().getLogin_id();
                         if (type == 1) {
-                            goActivity(NewRegisterStudentActivity.class, bundle);
+                            goStudent(loginId, phone);
                         } else {
-                            goActivity(NewRegisterTeacherActivity.class, bundle);
+                            goTeacher(loginId, phone);
                         }
-                        finish();
                     } else {
                         toast("获取失败");
                     }
@@ -136,5 +139,38 @@ public class RegisterActivity extends BaseActivity {
                 }, new HttpError());
     }
 
+    private void goStudent(String loginId, String phone) {
+        iRegisterReq.getNewStudentRegisterInfo(loginId, phone)
+                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                .compose(RxLifecycleCompact.bind(this).withObservable())
+                .subscribe(bean -> {
+                    if (bean.isSuccess()) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("loginId", loginId);
+                        bundle.putString("phone", phone);
+                        goActivity(NewRegisterStudentActivity.class, bundle);
+                        finish();
+                    } else {
+                        toast(bean.getMsg());
+                    }
+                }, new HttpError());
+    }
+
+    private void goTeacher(String loginId, String phone) {
+        iRegisterReq.getNewTeacherRegisterInfo(loginId, phone)
+                .compose(RxLifecycleCompact.bind(this).withObservable())
+                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                .subscribe(bean -> {
+                    if (bean.isSuccess() && bean.getData() != null) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("loginId", loginId);
+                        bundle.putString("phone", phone);
+                        goActivity(NewRegisterTeacherActivity.class, bundle);
+                        finish();
+                    } else {
+                        toast(bean.getMsg());
+                    }
+                }, new HttpError());
+    }
 
 }

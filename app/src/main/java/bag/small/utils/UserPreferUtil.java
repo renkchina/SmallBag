@@ -1,6 +1,7 @@
 package bag.small.utils;
 
 
+import bag.small.app.MyApplication;
 import bag.small.entity.LoginResult;
 
 /**
@@ -84,13 +85,15 @@ public class UserPreferUtil {
     private String getTargetType() {
         return getInfomationS("target_type");
     }
+
     private String getSex() {
         return getInfomationS("sex");
     }
 
-    public boolean isMan(){
+    public boolean isMan() {
         return "0".equals(getSex());
     }
+
     public boolean isTeacher() {
         if (getTargetType().equals("teacher")) {
             return true;
@@ -100,6 +103,8 @@ public class UserPreferUtil {
     }
 
     public void clear() {
+        MyApplication.isLogin = false;
+        MyApplication.loginResults.clear();
         preferenceUtil.clear();
     }
 

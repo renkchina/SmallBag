@@ -1,1 +1,1 @@
-include ':app', ':rxbus', ':rxpicker', ':mbanner', ':viewBinder', ':luban', ':PushSDK', ':imagebrowserlibrary'
+include ':app', ':rxbus', ':rxpicker', ':mbanner', ':viewBinder', ':PushSDK', ':imagebrowserlibrary',':luban'

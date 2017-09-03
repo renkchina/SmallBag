@@ -1,15 +1,13 @@
 package bag.small.ui.activity;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.bigkoo.pickerview.TimePickerView;
@@ -20,7 +18,6 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -33,7 +30,6 @@ import bag.small.entity.NewRegisterTeacherBean;
 import bag.small.http.HttpUtil;
 import bag.small.http.IApi.HttpError;
 import bag.small.http.IApi.ILoginRequest;
-import bag.small.http.IApi.IMoments;
 import bag.small.http.IApi.IRegisterReq;
 import bag.small.rx.RxUtil;
 import bag.small.utils.ImageUtil;
@@ -73,6 +69,10 @@ public class AccountTeacherManagerActivity extends BaseActivity {
     EditText aAgreePwdEdt;
     @Bind(R.id.activity_account_teacher_commit_btn)
     Button accountTeacherCommitBtn;
+    @Bind(R.id.account_teacher_radio_button)
+    RadioButton aRadioButton;
+    @Bind(R.id.account_teacher_radio_ll)
+    LinearLayout accountTeacherRadioLl;
     private IRegisterReq iRegisterReq;
     private File logo;
     private String Id;
@@ -145,6 +145,8 @@ public class AccountTeacherManagerActivity extends BaseActivity {
             R.id.activity_account_teacher_email_tv,
             R.id.activity_account_teacher_birthday_tv,
             R.id.activity_account_teacher_gender_tv,
+            R.id.account_teacher_radio_button,
+            R.id.account_teacher_radio_ll,
             R.id.activity_account_teacher_class_teacher_tv,
             R.id.activity_account_teacher_commit_btn})
     public void onViewClicked(View view) {
@@ -160,7 +162,18 @@ public class AccountTeacherManagerActivity extends BaseActivity {
                 break;
             case R.id.activity_account_teacher_number_tv:
                 break;
-            case R.id.activity_account_teacher_email_tv:
+            case R.id.account_teacher_radio_ll:
+            case R.id.account_teacher_radio_button:
+                if (aRadioButton.isChecked()) {
+                    aRadioButton.setChecked(false);
+//                  aRadioButton.setBackgroundResource(R.mipmap.account_manager_password);
+                    aChangePwdEdt.setVisibility(View.GONE);
+                    aAgreePwdEdt.setVisibility(View.GONE);
+                } else {
+                    aRadioButton.setChecked(true);
+                    aChangePwdEdt.setVisibility(View.VISIBLE);
+                    aAgreePwdEdt.setVisibility(View.VISIBLE);
+                }
                 break;
             case R.id.activity_account_teacher_birthday_tv:
                 //时间选择器
@@ -169,9 +182,6 @@ public class AccountTeacherManagerActivity extends BaseActivity {
                     StringUtil.setTextView(accountTeacherBirthdayTv, dateStr);
                 }).setType(new boolean[]{true, true, true, false, false, false})
                         .build();
-                //注：根据需求来决定是否使用该方法（一般是精确到秒的情况），
-                // 此项可以在弹出选择器的时候重新设置当前时间，避免在初始化之后由于时间已经设定，
-                // 导致选中时间与当前时间不匹配的问题。
                 pvTime.setDate(Calendar.getInstance());
                 pvTime.show();
                 break;
@@ -190,10 +200,11 @@ public class AccountTeacherManagerActivity extends BaseActivity {
                 String gender = StringUtil.EditGetString(accountTeacherGenderTv);
                 String number = StringUtil.EditGetString(accountTeacherNumberTv);
                 String email = StringUtil.EditGetString(accountTeacherEmailTv);
-                if (gender.equals("男")) {
-                    gender = "0";
+                String sex;
+                if (gender.contains("男")) {
+                    sex = "0";
                 } else {
-                    gender = "1";
+                    sex = "1";
                 }
                 if (change.equals(agree)) {
                     HashMap<String, RequestBody> map = new HashMap<>();
@@ -203,7 +214,7 @@ public class AccountTeacherManagerActivity extends BaseActivity {
                     map.put("login_id", RxUtil.toRequestBodyTxt(UserPreferUtil.getInstanse().getUserId()));
                     map.put("birth", RxUtil.toRequestBodyTxt(birthday));
                     map.put("pwd", RxUtil.toRequestBodyTxt(change));
-                    map.put("sex", RxUtil.toRequestBodyTxt(gender));
+                    map.put("sex", RxUtil.toRequestBodyTxt(sex));
                     map.put("email", RxUtil.toRequestBodyTxt(email));
                     map.put("id", RxUtil.toRequestBodyTxt(Id));
                     map.put("work_no", RxUtil.toRequestBodyTxt(number));
@@ -279,4 +290,12 @@ public class AccountTeacherManagerActivity extends BaseActivity {
                 }).launch();//启动压缩
 
     }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
+
 }

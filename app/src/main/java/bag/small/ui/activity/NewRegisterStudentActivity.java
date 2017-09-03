@@ -12,13 +12,11 @@ import bag.small.base.BaseActivity;
 import bag.small.entity.LoginResult;
 import bag.small.http.HttpUtil;
 import bag.small.http.IApi.HttpError;
-import bag.small.http.IApi.ILoginRequest;
 import bag.small.http.IApi.IRegisterReq;
 import bag.small.rx.RxUtil;
 import bag.small.utils.StringUtil;
 import bag.small.utils.UserPreferUtil;
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
 
@@ -44,7 +42,7 @@ public class NewRegisterStudentActivity extends BaseActivity {
     TextView studentGenderTv;
     @Bind(R.id.toolbar_right_tv)
     TextView toolbarRightTv;
-    private IRegisterReq iRegisterReq;
+    private IRegisterReq iRegisterRequest;
     private String phone;
     private String loginId;
 
@@ -57,17 +55,21 @@ public class NewRegisterStudentActivity extends BaseActivity {
     public void initData() {
         setToolTitle("注册", true);
         toolbarRightTv.setText("完成");
-        iRegisterReq = HttpUtil.getInstance().createApi(IRegisterReq.class);
+        iRegisterRequest = HttpUtil.getInstance().createApi(IRegisterReq.class);
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             phone = bundle.getString("phone");
             loginId = bundle.getString("loginId");
+        } else {
+            phone = UserPreferUtil.getInstanse().getPhone();
+            loginId = UserPreferUtil.getInstanse().getUserId();
         }
     }
 
     @Override
     public void initView() {
-        iRegisterReq.getNewStudentRegisterInfo(loginId, phone)
+        acNewStudentHeadIv.setBackgroundResource(R.mipmap.student_boy);
+        iRegisterRequest.getNewStudentRegisterInfo(loginId, phone)
                 .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
                 .compose(RxLifecycleCompact.bind(this).withObservable())
                 .subscribe(bean -> {
@@ -98,7 +100,7 @@ public class NewRegisterStudentActivity extends BaseActivity {
 
     @OnClick(R.id.toolbar_right_tv)
     public void onViewClicked() {
-        iRegisterReq.getNewRegisterInfo(loginId, phone)
+        iRegisterRequest.getNewRegisterInfo(loginId, phone)
                 .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
                 .compose(RxLifecycleCompact.bind(this).withObservable())
                 .subscribe(bean -> {
@@ -109,12 +111,11 @@ public class NewRegisterStudentActivity extends BaseActivity {
                         mBean.setSelected(true);
                         UserPreferUtil.getInstanse().setUserInfomation(mBean);
                         UserPreferUtil.getInstanse().setUseId(bean.getData().getLogin_id());
+
                         RxBus.get().send(111);
                         skipActivity(MainActivity.class);
                     }
                 }, new HttpError());
-
-
     }
 
 

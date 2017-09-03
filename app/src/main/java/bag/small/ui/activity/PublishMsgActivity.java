@@ -1,5 +1,6 @@
 package bag.small.ui.activity;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -7,7 +8,10 @@ import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.reactivestreams.Publisher;
+
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,11 +24,26 @@ import bag.small.http.IApi.IUpdateImage;
 import bag.small.provider.CheckImageProvider;
 import bag.small.rx.RxUtil;
 import bag.small.utils.ListUtil;
+import bag.small.utils.LogUtil;
 import bag.small.utils.StringUtil;
 import bag.small.utils.UserPreferUtil;
 import butterknife.Bind;
 import butterknife.OnClick;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
+import io.reactivex.Flowable;
+import io.reactivex.FlowableEmitter;
+import io.reactivex.FlowableOnSubscribe;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 import me.drakeet.multitype.MultiTypeAdapter;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -42,9 +61,10 @@ public class PublishMsgActivity extends BaseActivity {
     RecyclerView acPublishRecycler;
 
     MultiTypeAdapter multiTypeAdapter;
-    List<Object> mDatas;
+    List<String> mDatas;
     IUpdateImage iUpdateImage;
     private ProgressDialog progressDialog;
+    OnCompressListener onCompressListener;
 
     @Override
     public int getLayoutResId() {
@@ -66,11 +86,15 @@ public class PublishMsgActivity extends BaseActivity {
 
     @OnClick(R.id.toolbar_right_tv)
     public void onViewClicked() {
-        String content = StringUtil.EditGetString(acPublishEdt);
-        sendMessage(content);
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("正在上传，请等待...");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
+        getImageCompress();
     }
 
-    private void sendMessage(String content) {
+    private void sendMessage(List<MultipartBody.Part> parts) {
+        String content = StringUtil.EditGetString(acPublishEdt);
         HashMap<String, RequestBody> map = new HashMap<>();
         map.put("role_id", RxUtil.toRequestBodyTxt(UserPreferUtil.getInstanse().getRoleId()));
         map.put("school_id", RxUtil.toRequestBodyTxt(UserPreferUtil.getInstanse().getSchoolId()));
@@ -78,14 +102,7 @@ public class PublishMsgActivity extends BaseActivity {
         map.put("page", RxUtil.toRequestBodyTxt("1"));
         map.put("content", RxUtil.toRequestBodyTxt(content));
 
-
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("正在上传，请等待...");
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.show();
-
-//        lubanImage(map);
-        iUpdateImage.updateImage(map, getParts())
+        iUpdateImage.updateImage(map, parts)
                 .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
                 .compose(RxLifecycleCompact.bind(PublishMsgActivity.this).withObservable())
                 .subscribe(bean -> {
@@ -103,83 +120,17 @@ public class PublishMsgActivity extends BaseActivity {
             int size = mDatas.size();
             MultipartBody.Part[] parts = new MultipartBody.Part[size];
             for (int i = 0; i < size; i++) {
-                String string = mDatas.get(i).toString();
+                String string = mDatas.get(i);
                 if (!TextUtils.isEmpty(string)) {
                     String key = "file" + (i + 1);
                     String fileName = System.currentTimeMillis() + ".png";
-//                    int finalI = i;
-//                    Luban.with(this).load(new File(string))
-//                            .setCompressListener(new OnCompressListener() {
-//                                @Override
-//                                public void onStart() {
-//
-//                                }
-//                                @Override
-//                                public void onSuccess(File file) {
-//                                    MultipartBody.Part part = RxUtil.convertImage(key, fileName, file);
-//                                    parts[finalI] = part;
-//                                }
-//                                @Override
-//                                public void onError(Throwable e) {
-//
-//                                }
-//                            }).launch();
                     MultipartBody.Part part = RxUtil.convertImage(key, fileName, new File(string));
                     parts[i] = part;
                 }
-
             }
             return parts;
         } else {
             return null;
-        }
-    }
-
-    private void lubanImage(HashMap<String, RequestBody> map) {
-        if (ListUtil.unEmpty(mDatas)) {
-            int size = mDatas.size();
-            MultipartBody.Part[] parts = new MultipartBody.Part[size];
-            for (int i = 0; i < size; i++) {
-                String string = mDatas.get(i).toString();
-                if (!TextUtils.isEmpty(string)) {
-                    String key = "file" + (i + 1);
-                    String fileName = System.currentTimeMillis() + ".png";
-                    int finalI = i;
-                    final int[] count = {0};
-                    Luban.with(this).load(new File(string))
-                            .setCompressListener(new OnCompressListener() {
-                                @Override
-                                public void onStart() {
-
-                                }
-
-                                @Override
-                                public void onSuccess(File file) {
-                                    MultipartBody.Part part = RxUtil.convertImage(key, fileName, file);
-                                    parts[finalI] = part;
-                                    count[0]++;
-                                    if (count[0] == size) {
-                                        iUpdateImage.updateImage(map, parts)
-                                                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
-                                                .compose(RxLifecycleCompact.bind(PublishMsgActivity.this).withObservable())
-                                                .subscribe(bean -> {
-                                                    progressDialog.dismiss();
-                                                    if (bean.isSuccess()) {
-                                                        finish();
-                                                    }
-                                                    toast(bean.getMsg());
-                                                }, new HttpError(progressDialog));
-                                    }
-                                }
-
-                                @Override
-                                public void onError(Throwable e) {
-
-                                }
-                            }).launch();
-                }
-
-            }
         }
     }
 
@@ -188,7 +139,7 @@ public class PublishMsgActivity extends BaseActivity {
         if (ListUtil.unEmpty(mDatas)) {
             int size = mDatas.size();
             for (int i = 0; i < size; i++) {
-                String string = mDatas.get(i).toString();
+                String string = mDatas.get(i);
                 if (!TextUtils.isEmpty(string)) {
                     String key = "file" + (i + 1);
                     String fileName = System.currentTimeMillis() + ".png";
@@ -200,5 +151,54 @@ public class PublishMsgActivity extends BaseActivity {
         return builder.build();
     }
 
+    //压缩
+    private void getImageCompress() {
 
+//        Observable.just(mDatas)
+//                .observeOn(Schedulers.io())
+//                .map(list -> {
+//                    // 同步方法直接返回压缩后的文件
+//                    return Luban.with(PublishMsgActivity.this).load(list).get();
+//                })
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(files -> {
+//                    List<MultipartBody.Part> parts = new ArrayList<>(9);
+//                    for (File file : files) {
+//                        String fileName = System.currentTimeMillis() + ".png";
+//                        int count = 1;
+//                        parts.add(RxUtil.convertImage("file" + (++count), fileName, file));
+//                    }
+//                    sendMessage(parts);
+//
+//                }, throwable -> {
+//
+//                });
+        List<MultipartBody.Part> parts = new ArrayList<>(9);
+        final int[] count = {0};
+        Observable.create((ObservableOnSubscribe<String>) e -> {
+            for (String mData : mDatas) {
+                if (!TextUtils.isEmpty(mData))
+                    e.onNext(mData);
+            }
+        }).subscribeOn(Schedulers.io())
+                .map(s -> Luban.with(PublishMsgActivity.this).load(new File(s)).get())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(file -> {
+                    count[0]++;
+                    String fileName = System.currentTimeMillis() + ".png";
+                    parts.add(RxUtil.convertImage("file" + count[0], fileName, file));
+                    if (count[0] == mDatas.size() - 1) {
+                        sendMessage(parts);
+                    }
+                    LogUtil.show("onNext");
+                }, throwable -> {
+                    if (progressDialog != null && progressDialog.isShowing()) {
+                        progressDialog.dismiss();
+                    }
+                    LogUtil.show(throwable.getMessage());
+                }, () -> {
+                    LogUtil.show("complete");
+                });
+
+    }
 }
