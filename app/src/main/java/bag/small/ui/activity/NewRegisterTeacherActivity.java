@@ -15,6 +15,7 @@ import bag.small.http.HttpUtil;
 import bag.small.http.IApi.HttpError;
 import bag.small.http.IApi.IRegisterReq;
 import bag.small.rx.RxUtil;
+import bag.small.utils.LayoutUtil;
 import bag.small.utils.ListUtil;
 import bag.small.utils.StringUtil;
 import bag.small.utils.UserPreferUtil;
@@ -112,6 +113,7 @@ public class NewRegisterTeacherActivity extends BaseActivity {
                 textView.setGravity(Gravity.CENTER_VERTICAL);
                 textView.setTextSize(14);
                 textView.setText(data.getKemuinfo().get(i));
+                LayoutUtil.setMargins(textView, 0, 10, 0, 0);
                 newRegisterClassLl.addView(textView);
             }
         }

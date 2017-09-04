@@ -277,12 +277,10 @@ public class ParentInformationActivity extends BaseActivity {
                     public void onStart() {
                         // 压缩开始前调用，可以在方法内启动 loading UI
                     }
-
                     @Override
                     public void onSuccess(File file) {
                         logo = file;
                     }
-
                     @Override
                     public void onError(Throwable e) {
                         logo = new File(finalPath);
