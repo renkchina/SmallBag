@@ -284,26 +284,33 @@ public class MainActivity extends BaseActivity
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         String[] strings = new String[]{"我是学生", "我是老师"};
         builder.setItems(strings, (dialog, which) -> {
+            Bundle bundle = new Bundle();
             switch (which) {
                 case 0:
-                    iRegisterReq.addStudentInfo(UserPreferUtil.getInstanse().getUserId(),"student")
+                    iRegisterReq.addStudentInfo(UserPreferUtil.getInstanse().getUserId(), "student")
                             .compose(RxLifecycleCompact.bind(this).withObservable())
                             .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
                             .subscribe(bean -> {
                                 if (bean.isSuccess() && bean.getData() != null) {
-                                    goActivity(AddStudentActivity.class);
+                                    bundle.putString("login", bean.getData().getLogin_id());
+                                    bundle.putString("role", bean.getData().getRole_id());
+                                    bundle.putString("school", bean.getData().getSchool_id());
+                                    goActivity(AddStudentActivity.class, bundle);
                                 } else {
                                     toast(bean.getMsg());
                                 }
                             }, new HttpError());
                     break;
                 case 1:
-                    iRegisterReq.addTeacherInfo(UserPreferUtil.getInstanse().getUserId(),"teacher")
+                    iRegisterReq.addTeacherInfo(UserPreferUtil.getInstanse().getUserId(), "teacher")
                             .compose(RxLifecycleCompact.bind(this).withObservable())
                             .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
                             .subscribe(bean -> {
                                 if (bean.isSuccess() && bean.getData() != null) {
-                                    goActivity(AddTeacherActivity.class);
+                                    bundle.putString("login", bean.getData().getLogin_id());
+                                    bundle.putString("role", bean.getData().getRole_id());
+                                    bundle.putString("school", bean.getData().getSchool_id());
+                                    goActivity(AddTeacherActivity.class, bundle);
                                 } else {
                                     toast(bean.getMsg());
                                 }

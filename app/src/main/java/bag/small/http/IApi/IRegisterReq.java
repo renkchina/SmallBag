@@ -3,6 +3,7 @@ package bag.small.http.IApi;
 import java.util.HashMap;
 import java.util.List;
 
+import bag.small.entity.AddAccount;
 import bag.small.entity.BaseBean;
 import bag.small.entity.ForgetPassword;
 import bag.small.entity.LoginResult;
@@ -80,12 +81,12 @@ public interface IRegisterReq {
 
     @FormUrlEncoded
     @POST("commons/addrole")
-    Observable<BaseBean<NewRegisterTeacherBean>> addTeacherInfo(@Field("login_id") String loginId,
-                                                                @Field("type") String type);
+    Observable<BaseBean<AddAccount>> addTeacherInfo(@Field("login_id") String loginId,
+                                                    @Field("type") String type);
 
     @FormUrlEncoded
     @POST("commons/addrole")
-    Observable<BaseBean<NewRegisterTeacherBean>> addStudentInfo(@Field("login_id") String loginId,
+    Observable<BaseBean<AddAccount>> addStudentInfo(@Field("login_id") String loginId,
                                                                 @Field("type") String type);
 
     @FormUrlEncoded

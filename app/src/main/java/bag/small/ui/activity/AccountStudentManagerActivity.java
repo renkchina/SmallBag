@@ -100,7 +100,7 @@ public class AccountStudentManagerActivity extends BaseActivity {
                         StringUtil.setTextView(accountStudentNumberTv,  bean.getData().getStudent_no());
                         StringUtil.setTextView(accountStudentBirthdayTv, bean.getData().getBirth());
                         StringUtil.setTextView(accountStudentGenderTv, bean.getData().getSex());
-                        id = bean.getData().getId();
+                        id = bean.getData().getRole_id();
                     } else {
                         try {
                             toast(bean.getMsg());

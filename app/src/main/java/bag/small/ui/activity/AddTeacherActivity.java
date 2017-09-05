@@ -76,6 +76,9 @@ public class AddTeacherActivity extends BaseActivity {
     private IRegisterReq iRegisterReq;
     private File logo;
     private String Id;
+    String loginId;
+    String roleId;
+    String schoolId;
 
     @Override
     public int getLayoutResId() {
@@ -85,37 +88,44 @@ public class AddTeacherActivity extends BaseActivity {
     @Override
     public void initView() {
         setToolTitle("添加角色", true);
+        Bundle bundle = getIntent().getExtras();
+        if (bundle == null) {
+            finish();
+        } else {
+            loginId = bundle.getString("login");
+            roleId = bundle.getString("role");
+            schoolId = bundle.getString("school");
+        }
         iRegisterReq = HttpUtil.getInstance().createApi(IRegisterReq.class);
         getRegisterInfomation();
     }
 
     private void getRegisterInfomation() {
-        iRegisterReq.getNewTeacherRegisterInfo(UserPreferUtil.getInstanse().getUserId(),
-                UserPreferUtil.getInstanse().getRoleId(), UserPreferUtil.getInstanse().getSchoolId())
+        iRegisterReq.getNewTeacherRegisterInfo(loginId, roleId, schoolId)
                 .compose(RxLifecycleCompact.bind(this).withObservable())
                 .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
                 .subscribe(bean -> {
                     if (bean.isSuccess() && bean.getData() != null) {
                         showView(bean.getData());
+                        Id = bean.getData().getTarget_id();
                     } else {
                         toast(bean.getMsg());
                     }
                 }, new HttpError());
-        iRegisterReq.getStudentInfo(UserPreferUtil.getInstanse().getUserId(),
-                UserPreferUtil.getInstanse().getRoleId(), UserPreferUtil.getInstanse().getSchoolId())
-                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
-                .compose(RxLifecycleCompact.bind(this).withObservable())
-                .subscribe(bean -> {
-                    if (bean.isSuccess() && bean.getData() != null) {
-                        Id = bean.getData().getId();
-                    } else {
-                        try {
-                            toast(bean.getMsg());
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new HttpError());
+//        iRegisterReq.getStudentInfo(loginId, roleId, schoolId)
+//                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+//                .compose(RxLifecycleCompact.bind(this).withObservable())
+//                .subscribe(bean -> {
+//                    if (bean.isSuccess() && bean.getData() != null) {
+//                        Id = bean.getData().getId();
+//                    } else {
+//                        try {
+//                            toast(bean.getMsg());
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }, new HttpError());
     }
 
     private void showView(NewRegisterTeacherBean data) {
@@ -137,6 +147,7 @@ public class AddTeacherActivity extends BaseActivity {
             }
         }
     }
+
     @OnClick({R.id.toolbar_right_tv,
             R.id.ac_account_teacher_head_iv,
             R.id.activity_account_teacher_name_tv,
@@ -208,9 +219,9 @@ public class AddTeacherActivity extends BaseActivity {
                 if (change.equals(agree)) {
                     HashMap<String, RequestBody> map = new HashMap<>();
                     map.put("type", RxUtil.toRequestBodyTxt("teacher"));
-                    map.put("role_id", RxUtil.toRequestBodyTxt(UserPreferUtil.getInstanse().getRoleId()));
-                    map.put("school_id", RxUtil.toRequestBodyTxt(UserPreferUtil.getInstanse().getSchoolId()));
-                    map.put("login_id", RxUtil.toRequestBodyTxt(UserPreferUtil.getInstanse().getUserId()));
+                    map.put("role_id", RxUtil.toRequestBodyTxt(roleId));
+                    map.put("school_id", RxUtil.toRequestBodyTxt(schoolId));
+                    map.put("login_id", RxUtil.toRequestBodyTxt(loginId));
                     map.put("birth", RxUtil.toRequestBodyTxt(birthday));
                     map.put("pwd", RxUtil.toRequestBodyTxt(change));
                     map.put("sex", RxUtil.toRequestBodyTxt(sex));

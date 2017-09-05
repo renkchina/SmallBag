@@ -1,5 +1,6 @@
 package bag.small.ui.activity;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -71,6 +72,9 @@ public class AddStudentActivity extends BaseActivity {
     private ListDialog listDialog;
     private IRegisterReq iRegisterReq;
     private String id;
+    String loginId;
+    String roleId;
+    String schoolId;
 
     @Override
     public int getLayoutResId() {
@@ -81,12 +85,19 @@ public class AddStudentActivity extends BaseActivity {
     public void initView() {
         setToolTitle("添加角色", true);
         iRegisterReq = HttpUtil.getInstance().createApi(IRegisterReq.class);
+        Bundle bundle = getIntent().getExtras();
+        if (bundle == null) {
+            finish();
+        } else {
+            loginId = bundle.getString("login");
+            roleId = bundle.getString("role");
+            schoolId = bundle.getString("school");
+        }
         getRegisterInfomation();
     }
 
     private void getRegisterInfomation() {
-        iRegisterReq.getStudentInfo(UserPreferUtil.getInstanse().getUserId(),
-                UserPreferUtil.getInstanse().getRoleId(), UserPreferUtil.getInstanse().getSchoolId())
+        iRegisterReq.getStudentInfo(loginId, roleId, schoolId)
                 .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
                 .compose(RxLifecycleCompact.bind(this).withObservable())
                 .subscribe(bean -> {
@@ -97,7 +108,7 @@ public class AddStudentActivity extends BaseActivity {
                         StringUtil.setTextView(accountStudentNumberTv, bean.getData().getStudent_no());
                         StringUtil.setTextView(accountStudentBirthdayTv, bean.getData().getBirth());
                         StringUtil.setTextView(accountStudentGenderTv, bean.getData().getSex());
-                        id = bean.getData().getId();
+                        id = bean.getData().getRole_id();
                     } else {
                         try {
                             toast(bean.getMsg());
@@ -184,9 +195,9 @@ public class AddStudentActivity extends BaseActivity {
                 if (change.equals(agree)) {
                     HashMap<String, RequestBody> map = new HashMap<>();
                     map.put("type", RxUtil.toRequestBodyTxt("student"));
-                    map.put("role_id", RxUtil.toRequestBodyTxt(UserPreferUtil.getInstanse().getRoleId()));
-                    map.put("school_id", RxUtil.toRequestBodyTxt(UserPreferUtil.getInstanse().getSchoolId()));
-                    map.put("login_id", RxUtil.toRequestBodyTxt(UserPreferUtil.getInstanse().getUserId()));
+                    map.put("role_id", RxUtil.toRequestBodyTxt(roleId));
+                    map.put("school_id", RxUtil.toRequestBodyTxt(schoolId));
+                    map.put("login_id", RxUtil.toRequestBodyTxt(loginId));
                     map.put("birth", RxUtil.toRequestBodyTxt(birthday));
                     map.put("pwd", RxUtil.toRequestBodyTxt(change));
                     map.put("sex", RxUtil.toRequestBodyTxt(gender));

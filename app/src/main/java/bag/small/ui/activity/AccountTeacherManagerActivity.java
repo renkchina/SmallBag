@@ -107,7 +107,7 @@ public class AccountTeacherManagerActivity extends BaseActivity {
                 .compose(RxLifecycleCompact.bind(this).withObservable())
                 .subscribe(bean -> {
                     if (bean.isSuccess() && bean.getData() != null) {
-                        Id = bean.getData().getId();
+                        Id = bean.getData().getRole_id();
                     } else {
                         try {
                             toast(bean.getMsg());
