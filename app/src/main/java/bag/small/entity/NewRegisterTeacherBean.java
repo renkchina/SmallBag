@@ -30,6 +30,17 @@ public class NewRegisterTeacherBean {
     private String school_name;
     private String is_banzhuren;
     private List<String> kemuinfo;
+    /**
+     * school_id : 47
+     * sex_flag : 1
+     * logo : http://api.vshangsoft.com/images/all/20170904/0_1504507888.jpg
+     * target_id : 96
+     */
+
+    private String school_id;
+    private String sex_flag;
+    private String logo;
+    private String target_id;
 
     public String getName() {
         return name;
@@ -109,5 +120,37 @@ public class NewRegisterTeacherBean {
 
     public void setKemuinfo(List<String> kemuinfo) {
         this.kemuinfo = kemuinfo;
+    }
+
+    public String getSchool_id() {
+        return school_id;
+    }
+
+    public void setSchool_id(String school_id) {
+        this.school_id = school_id;
+    }
+
+    public String getSex_flag() {
+        return sex_flag;
+    }
+
+    public void setSex_flag(String sex_flag) {
+        this.sex_flag = sex_flag;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
+
+    public String getTarget_id() {
+        return target_id;
+    }
+
+    public void setTarget_id(String target_id) {
+        this.target_id = target_id;
     }
 }

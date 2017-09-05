@@ -31,6 +31,13 @@ public class NewRegisterStudentOrTeacherBean {
     private String role_id;
     private String target_type;
     private String id;
+    /**
+     * school_id : 47
+     * target_id : 51
+     */
+
+    private String school_id;
+    private String target_id;
 
     public String getName() {
         return name;
@@ -129,4 +136,19 @@ public class NewRegisterStudentOrTeacherBean {
     }
 
 
+    public String getSchool_id() {
+        return school_id;
+    }
+
+    public void setSchool_id(String school_id) {
+        this.school_id = school_id;
+    }
+
+    public String getTarget_id() {
+        return target_id;
+    }
+
+    public void setTarget_id(String target_id) {
+        this.target_id = target_id;
+    }
 }

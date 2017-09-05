@@ -27,6 +27,7 @@ import bag.small.base.BaseActivity;
 import bag.small.dialog.ListDialog;
 import bag.small.entity.LoginResult;
 import bag.small.entity.NewRegisterStudentOrTeacherBean;
+import bag.small.entity.NewRegisterTeacherBean;
 import bag.small.http.HttpUtil;
 import bag.small.http.IApi.HttpError;
 import bag.small.http.IApi.ILoginRequest;
@@ -99,6 +100,7 @@ public class NewRegisterStudentActivity extends BaseActivity {
     private File logo;
     private ListDialog listDialog;
     private IRegisterReq iRegisterReq;
+    NewRegisterStudentOrTeacherBean current;
 
     @Override
     public int getLayoutResId() {
@@ -153,7 +155,7 @@ public class NewRegisterStudentActivity extends BaseActivity {
         }
         count--;
         NewRegisterStudentOrTeacherBean bean = students.get(index);
-
+        current = bean;
         if (index < count) {
             toolbarRightTv.setText("下一步");
         } else if (index > count) {
@@ -228,14 +230,14 @@ public class NewRegisterStudentActivity extends BaseActivity {
                 if (change.equals(agree)) {
                     HashMap<String, RequestBody> map = new HashMap<>();
                     map.put("type", RxUtil.toRequestBodyTxt("student"));
-                    map.put("role_id", RxUtil.toRequestBodyTxt(UserPreferUtil.getInstanse().getRoleId()));
-                    map.put("school_id", RxUtil.toRequestBodyTxt(UserPreferUtil.getInstanse().getSchoolId()));
-                    map.put("login_id", RxUtil.toRequestBodyTxt(UserPreferUtil.getInstanse().getUserId()));
+                    map.put("role_id", RxUtil.toRequestBodyTxt(current.getRole_id()));
+                    map.put("school_id", RxUtil.toRequestBodyTxt(current.getSchool_id()));
+                    map.put("login_id", RxUtil.toRequestBodyTxt(loginId));
                     map.put("birth", RxUtil.toRequestBodyTxt(birthday));
                     map.put("pwd", RxUtil.toRequestBodyTxt(change));
                     map.put("sex", RxUtil.toRequestBodyTxt(gender));
                     map.put("email", RxUtil.toRequestBodyTxt(""));
-                    map.put("id", RxUtil.toRequestBodyTxt(id));
+                    map.put("id", RxUtil.toRequestBodyTxt(current.getTarget_id()));
                     map.put("work_no", RxUtil.toRequestBodyTxt(""));
                     if (logo != null)
                         map.put("logo", RequestBody.create(MediaType.parse("image/png"), logo));
