@@ -1,54 +1,108 @@
 package bag.small.ui.activity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.bigkoo.pickerview.TimePickerView;
+import com.caimuhao.rxpicker.RxPicker;
+import com.caimuhao.rxpicker.bean.ImageItem;
 import com.china.rxbus.RxBus;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
 
 import bag.small.R;
 import bag.small.app.MyApplication;
 import bag.small.base.BaseActivity;
+import bag.small.dialog.ListDialog;
 import bag.small.entity.LoginResult;
+import bag.small.entity.NewRegisterStudentOrTeacherBean;
 import bag.small.http.HttpUtil;
 import bag.small.http.IApi.HttpError;
+import bag.small.http.IApi.ILoginRequest;
 import bag.small.http.IApi.IRegisterReq;
 import bag.small.rx.RxUtil;
+import bag.small.utils.ImageUtil;
+import bag.small.utils.ListUtil;
 import bag.small.utils.StringUtil;
 import bag.small.utils.UserPreferUtil;
 import butterknife.Bind;
 import butterknife.OnClick;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 public class NewRegisterStudentActivity extends BaseActivity {
 
-    @Bind(R.id.ac_new_student_head_iv)
-    ImageView acNewStudentHeadIv;
-    @Bind(R.id.new_register_student_name_tv)
-    TextView studentNameTv;
-    @Bind(R.id.new_register_student_type_tv)
-    TextView studentTypeTv;
-    @Bind(R.id.new_register_student_school_tv)
-    TextView studentSchoolTv;
-    @Bind(R.id.new_register_student_number_tv)
-    TextView studentNumberTv;
-    @Bind(R.id.new_register_student_class_tv)
-    TextView studentClassTv;
-    @Bind(R.id.new_register_student_class_student_tv)
-    TextView studentxuehaoTv;
-    @Bind(R.id.new_register_student_birthday_tv)
-    TextView studentBirthdayTv;
-    @Bind(R.id.new_register_student_gender_tv)
-    TextView studentGenderTv;
+    //    @Bind(R.id.ac_new_student_head_iv)
+//    ImageView acNewStudentHeadIv;
+//    @Bind(R.id.new_register_student_name_tv)
+//    TextView studentNameTv;
+//    @Bind(R.id.new_register_student_type_tv)
+//    TextView studentTypeTv;
+//    @Bind(R.id.new_register_student_school_tv)
+//    TextView studentSchoolTv;
+//    @Bind(R.id.new_register_student_number_tv)
+//    TextView studentNumberTv;
+//    @Bind(R.id.new_register_student_class_tv)
+//    TextView studentClassTv;
+//    @Bind(R.id.new_register_student_class_student_tv)
+//    TextView studentxuehaoTv;
+//    @Bind(R.id.new_register_student_birthday_tv)
+//    TextView studentBirthdayTv;
+//    @Bind(R.id.new_register_student_gender_tv)
+//    TextView studentGenderTv;
+    @Bind(R.id.ac_account_student_head_iv)
+    ImageView acAccountStudentHeadIv;
+    @Bind(R.id.activity_account_student_name_tv)
+    TextView accountStudentNameTv;
+    @Bind(R.id.activity_account_student_number_tv)
+    TextView accountStudentNumberTv;
+    @Bind(R.id.activity_account_student_grade_tv)
+    TextView accountStudentGradeTv;
+    @Bind(R.id.activity_account_student_class_tv)
+    TextView accountStudentClassTv;
+    @Bind(R.id.activity_account_student_gender_tv)
+    TextView accountStudentGenderTv;
+    @Bind(R.id.activity_account_student_birthday_tv)
+    TextView accountStudentBirthdayTv;
+    @Bind(R.id.activity_account_student_change_pwd_edt)
+    EditText aChangePwdEdt;
+    @Bind(R.id.activity_account_student_agree_pwd_edt)
+    EditText aAgreePwdEdt;
+    @Bind(R.id.activity_account_student_commit_btn)
+    Button accountStudentCommitBtn;
+    @Bind(R.id.account_student_radio_button)
+    RadioButton aRadioButton;
+    @Bind(R.id.account_student_password_ll)
+    LinearLayout accountStudentPasswordLl;
     @Bind(R.id.toolbar_right_tv)
     TextView toolbarRightTv;
     private IRegisterReq iRegisterRequest;
     private String phone;
     private String loginId;
+    private List<NewRegisterStudentOrTeacherBean> students;
+    private int count = 1, index = 0;
+    private String id;
+    private File logo;
+    private ListDialog listDialog;
+    private IRegisterReq iRegisterReq;
 
     @Override
     public int getLayoutResId() {
-        return R.layout.activity_new_register_student;
+        return R.layout.activity_account_student_manager;
     }
 
     @Override
@@ -64,29 +118,21 @@ public class NewRegisterStudentActivity extends BaseActivity {
             phone = UserPreferUtil.getInstanse().getPhone();
             loginId = UserPreferUtil.getInstanse().getUserId();
         }
+        iRegisterReq = HttpUtil.getInstance().createApi(IRegisterReq.class);
     }
 
     @Override
     public void initView() {
-        acNewStudentHeadIv.setBackgroundResource(R.mipmap.student_boy);
+        acAccountStudentHeadIv.setImageResource(R.mipmap.student_boy);
+        accountStudentCommitBtn.setVisibility(View.GONE);
         iRegisterRequest.getNewStudentRegisterInfo(loginId, phone)
                 .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
                 .compose(RxLifecycleCompact.bind(this).withObservable())
                 .subscribe(bean -> {
-                    if (bean.isSuccess() && bean.getData() != null) {
-                        if (bean.getData().getSex() != null && bean.getData().getSex().contains("男")) {
-                            acNewStudentHeadIv.setBackgroundResource(R.mipmap.student_boy);
-                        } else {
-                            acNewStudentHeadIv.setBackgroundResource(R.mipmap.student_girl);
-                        }
-                        StringUtil.setTextView(studentNameTv, "姓名：" + bean.getData().getName());
-                        StringUtil.setTextView(studentTypeTv, "类型：学生");
-                        StringUtil.setTextView(studentSchoolTv, "学校：" + bean.getData().getSchool_name());
-                        StringUtil.setTextView(studentNumberTv, "年级：" + bean.getData().getBanci());
-                        StringUtil.setTextView(studentClassTv, "班级：" + bean.getData().getBanji());
-                        StringUtil.setTextView(studentxuehaoTv, "学号：" + bean.getData().getStudent_no());
-                        StringUtil.setTextView(studentBirthdayTv, "生日：" + bean.getData().getBirth());
-                        StringUtil.setTextView(studentGenderTv, "性别：" + bean.getData().getSex());
+                    if (bean.isSuccess() && ListUtil.unEmpty(bean.getData())) {
+                        students = bean.getData();
+                        count = students.size();
+                        showView();
                     } else {
                         try {
                             toast(bean.getMsg());
@@ -98,25 +144,223 @@ public class NewRegisterStudentActivity extends BaseActivity {
     }
 
 
-    @OnClick(R.id.toolbar_right_tv)
-    public void onViewClicked() {
-        iRegisterRequest.getNewRegisterInfo(loginId, phone)
-                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+    private void showView() {
+        if (count < 1) {
+            return;
+        }
+        if (index > students.size() - 1) {
+            return;
+        }
+        count--;
+        NewRegisterStudentOrTeacherBean bean = students.get(index);
+
+        if (index < count) {
+            toolbarRightTv.setText("下一步");
+        } else if (index > count) {
+            return;
+        } else {
+            toolbarRightTv.setText("完成");
+        }
+        index++;
+        if (bean == null) {
+            return;
+        }
+        if (bean.getSex() != null && bean.getSex().contains("男")) {
+            acAccountStudentHeadIv.setImageResource(R.mipmap.student_boy);
+        } else {
+            acAccountStudentHeadIv.setImageResource(R.mipmap.student_girl);
+        }
+//        StringUtil.setTextView(studentNameTv, "姓名：" + bean.getName());
+//        StringUtil.setTextView(studentTypeTv, "类型：学生");
+//        StringUtil.setTextView(studentSchoolTv, "学校：" + bean.getSchool_name());
+//        StringUtil.setTextView(studentNumberTv, "年级：" + bean.getBanci());
+//        StringUtil.setTextView(studentClassTv, "班级：" + bean.getBanji());
+//        StringUtil.setTextView(studentxuehaoTv, "学号：" + bean.getStudent_no());
+//        StringUtil.setTextView(studentBirthdayTv, "生日：" + bean.getBirth());
+//        StringUtil.setTextView(studentGenderTv, "性别：" + bean.getSex());
+        StringUtil.setTextView(accountStudentNameTv, "姓名：" + bean.getName());
+        StringUtil.setTextView(accountStudentGradeTv, "年级：" + bean.getBanci());
+        StringUtil.setTextView(accountStudentClassTv, "班级：" + bean.getBanji());
+        StringUtil.setTextView(accountStudentNumberTv, bean.getStudent_no());
+        StringUtil.setTextView(accountStudentBirthdayTv, bean.getBirth());
+        StringUtil.setTextView(accountStudentGenderTv, bean.getSex());
+        id = bean.getId();
+    }
+
+
+    @OnClick({R.id.toolbar_right_tv,
+            R.id.ac_account_student_head_iv,
+            R.id.activity_account_student_name_tv,
+            R.id.activity_account_student_number_tv,
+            R.id.activity_account_student_grade_tv,
+            R.id.activity_account_student_class_tv,
+            R.id.activity_account_student_gender_tv,
+            R.id.activity_account_student_birthday_tv,
+            R.id.account_student_password_ll,
+            R.id.account_student_radio_button})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.ac_account_student_head_iv:
+                RxPicker.of()
+                        .single(true)
+                        .camera(true)
+                        .start(this)
+                        .subscribe(this::setImages);
+                break;
+            case R.id.activity_account_student_name_tv:
+                break;
+            case R.id.activity_account_student_number_tv:
+                break;
+            case R.id.toolbar_right_tv:
+
+                String change = StringUtil.EditGetString(aChangePwdEdt);
+                String agree = StringUtil.EditGetString(aAgreePwdEdt);
+                String birthday = StringUtil.EditGetString(accountStudentBirthdayTv);
+                if (birthday.startsWith("生日")) {
+                    birthday = birthday.replace("生日：", "");
+                }
+                String gender = StringUtil.EditGetString(accountStudentGenderTv);
+                if (gender.equals("男")) {
+                    gender = "0";
+                } else {
+                    gender = "1";
+                }
+                if (change.equals(agree)) {
+                    HashMap<String, RequestBody> map = new HashMap<>();
+                    map.put("type", RxUtil.toRequestBodyTxt("student"));
+                    map.put("role_id", RxUtil.toRequestBodyTxt(UserPreferUtil.getInstanse().getRoleId()));
+                    map.put("school_id", RxUtil.toRequestBodyTxt(UserPreferUtil.getInstanse().getSchoolId()));
+                    map.put("login_id", RxUtil.toRequestBodyTxt(UserPreferUtil.getInstanse().getUserId()));
+                    map.put("birth", RxUtil.toRequestBodyTxt(birthday));
+                    map.put("pwd", RxUtil.toRequestBodyTxt(change));
+                    map.put("sex", RxUtil.toRequestBodyTxt(gender));
+                    map.put("email", RxUtil.toRequestBodyTxt(""));
+                    map.put("id", RxUtil.toRequestBodyTxt(id));
+                    map.put("work_no", RxUtil.toRequestBodyTxt(""));
+                    if (logo != null)
+                        map.put("logo", RequestBody.create(MediaType.parse("image/png"), logo));
+                    iRegisterReq.changeRegisterAsTeacherOrStudent(map)
+                            .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                            .compose(RxLifecycleCompact.bind(this).withObservable())
+                            .subscribe(bean -> {
+                                if (bean.isSuccess()) {
+                                    setview();
+                                } else {
+                                    toast(bean.getMsg());
+                                }
+                            }, new HttpError());
+                } else {
+                    toast("密码不一致");
+                }
+
+                break;
+            case R.id.activity_account_student_class_tv:
+                break;
+            case R.id.account_student_password_ll:
+            case R.id.account_student_radio_button:
+                if (aRadioButton.isChecked()) {
+                    aRadioButton.setChecked(false);
+//                  aRadioButton.setBackgroundResource(R.mipmap.account_manager_password);
+                    aChangePwdEdt.setVisibility(View.GONE);
+                    aAgreePwdEdt.setVisibility(View.GONE);
+                } else {
+                    aRadioButton.setChecked(true);
+                    aChangePwdEdt.setVisibility(View.VISIBLE);
+                    aAgreePwdEdt.setVisibility(View.VISIBLE);
+                }
+                break;
+            case R.id.activity_account_student_gender_tv:
+                listDialog = new ListDialog(this);
+                listDialog.setListData(getChoice());
+                listDialog.show(view);
+                listDialog.setListDialog((position, content) ->
+                        StringUtil.setTextView(accountStudentGenderTv, content));
+
+                break;
+            case R.id.activity_account_student_birthday_tv:
+                //时间选择器
+                TimePickerView pvTime = new TimePickerView.Builder(this, (date, v) -> {//选中事件回调
+                    String dateStr = new SimpleDateFormat("yyyy-MM-dd").format(date);
+                    StringUtil.setTextView(accountStudentBirthdayTv, dateStr);
+                }).setType(new boolean[]{true, true, true, false, false, false})
+                        .build();
+                pvTime.setDate(Calendar.getInstance());
+                pvTime.show();
+                break;
+        }
+    }
+
+    private void setview() {
+        if (index >= count) {
+            iRegisterRequest.getNewRegisterInfo(loginId, phone)
+                    .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                    .compose(RxLifecycleCompact.bind(this).withObservable())
+                    .subscribe(data -> {
+                        if (data.isSuccess()) {
+                            MyApplication.isLogin = true;
+                            MyApplication.loginResults = data.getData().getRole();
+                            LoginResult.RoleBean mBean = data.getData().getRole().get(0);
+                            mBean.setSelected(true);
+                            UserPreferUtil.getInstanse().setUserInfomation(mBean);
+                            UserPreferUtil.getInstanse().setUseId(data.getData().getLogin_id());
+                            RxBus.get().send(111);
+                            skipActivity(MainActivity.class);
+                        }
+                    }, new HttpError());
+        } else {
+            showView();
+        }
+    }
+
+    //设置头像
+    private void setImages(List<ImageItem> images) {
+        String path = "";
+        if (ListUtil.unEmpty(images)) {
+            path = images.get(0).getPath();
+        }
+        ImageUtil.loadCircleImages(this, acAccountStudentHeadIv, path);
+        String finalPath = path;
+        Luban.with(this)
+                .load(new File(path))//传入要压缩的图片
+                .setCompressListener(new OnCompressListener() { //设置回调
+                    @Override
+                    public void onStart() {
+                        // 压缩开始前调用，可以在方法内启动 loading UI
+                    }
+
+                    @Override
+                    public void onSuccess(File file) {
+                        logo = file;
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        logo = new File(finalPath);
+                    }
+                }).launch();//启动压缩
+
+    }
+
+    private void getRoles() {
+        HttpUtil.getInstance().createApi(ILoginRequest.class).getAllRole(UserPreferUtil.getInstanse().getUserId())
                 .compose(RxLifecycleCompact.bind(this).withObservable())
+                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
                 .subscribe(bean -> {
                     if (bean.isSuccess()) {
-                        MyApplication.isLogin = true;
-                        MyApplication.loginResults = bean.getData().getRole();
-                        LoginResult.RoleBean mBean = bean.getData().getRole().get(0);
+                        LoginResult.RoleBean mBean = bean.getData().get(0);
                         mBean.setSelected(true);
                         UserPreferUtil.getInstanse().setUserInfomation(mBean);
-                        UserPreferUtil.getInstanse().setUseId(bean.getData().getLogin_id());
-
-                        RxBus.get().send(111);
-                        skipActivity(MainActivity.class);
+                        MyApplication.loginResults = bean.getData();
                     }
+                    finish();
                 }, new HttpError());
     }
 
+    private List<String> getChoice() {
+        List<String> lists = new ArrayList<>();
+        lists.add("男");
+        lists.add("女");
+        return lists;
+    }
 
 }

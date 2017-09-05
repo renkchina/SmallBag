@@ -1,6 +1,7 @@
 package bag.small.http.IApi;
 
 import java.util.HashMap;
+import java.util.List;
 
 import bag.small.entity.BaseBean;
 import bag.small.entity.ForgetPassword;
@@ -56,8 +57,8 @@ public interface IRegisterReq {
 
     @FormUrlEncoded
     @POST("commons/getteacherinfo")
-    Observable<BaseBean<NewRegisterTeacherBean>> getNewTeacherRegisterInfo(@Field("login_id") String loginId,
-                                                                           @Field("phone") String phone);
+    Observable<BaseBean<List<NewRegisterTeacherBean>>> getNewTeacherRegisterInfo(@Field("login_id") String loginId,
+                                                                                 @Field("phone") String phone);
 
     @FormUrlEncoded
     @POST("commons/getroleinfo")
@@ -89,8 +90,8 @@ public interface IRegisterReq {
 
     @FormUrlEncoded
     @POST("commons/getstudentinfo")
-    Observable<BaseBean<NewRegisterStudentOrTeacherBean>> getNewStudentRegisterInfo(@Field("login_id") String loginId,
-                                                                                    @Field("phone") String phone);
+    Observable<BaseBean<List<NewRegisterStudentOrTeacherBean>>> getNewStudentRegisterInfo(@Field("login_id") String loginId,
+                                                                                          @Field("phone") String phone);
 
     @FormUrlEncoded
     @POST("commons/submitregister")

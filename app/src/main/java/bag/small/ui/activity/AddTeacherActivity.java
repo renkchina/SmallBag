@@ -137,7 +137,6 @@ public class AddTeacherActivity extends BaseActivity {
             }
         }
     }
-
     @OnClick({R.id.toolbar_right_tv,
             R.id.ac_account_teacher_head_iv,
             R.id.activity_account_teacher_name_tv,
@@ -254,7 +253,6 @@ public class AddTeacherActivity extends BaseActivity {
                 }, new HttpError());
     }
 
-
     private List<String> getChoice() {
         List<String> lists = new ArrayList<>();
         lists.add("男");
@@ -289,13 +287,6 @@ public class AddTeacherActivity extends BaseActivity {
                     }
                 }).launch();//启动压缩
 
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 
 }

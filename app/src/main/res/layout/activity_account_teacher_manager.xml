@@ -45,7 +45,6 @@
                     android:paddingStart="30dp">
 
                     <TextView
-
                         style="@style/style_tv_wrap"
                         android:text="工号：" />
 

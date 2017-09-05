@@ -6,7 +6,7 @@ import java.util.List;
  * Created by Administrator on 2017/9/2.
  */
 
-public  class NewRegisterTeacherBean {
+public class NewRegisterTeacherBean {
 
     /**
      * name : 刘老师
@@ -26,6 +26,7 @@ public  class NewRegisterTeacherBean {
     private String level;
     private String email;
     private String birth;
+    private String role_id;
     private String school_name;
     private String is_banzhuren;
     private List<String> kemuinfo;
@@ -68,6 +69,14 @@ public  class NewRegisterTeacherBean {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getRole_id() {
+        return role_id;
+    }
+
+    public void setRole_id(String role_id) {
+        this.role_id = role_id;
     }
 
     public String getBirth() {

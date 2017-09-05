@@ -84,7 +84,6 @@ public class AddStudentActivity extends BaseActivity {
         getRegisterInfomation();
     }
 
-
     private void getRegisterInfomation() {
         iRegisterReq.getStudentInfo(UserPreferUtil.getInstanse().getUserId(),
                 UserPreferUtil.getInstanse().getRoleId(), UserPreferUtil.getInstanse().getSchoolId())
