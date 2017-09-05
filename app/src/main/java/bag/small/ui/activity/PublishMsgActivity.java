@@ -105,14 +105,16 @@ public class PublishMsgActivity extends BaseActivity {
         iUpdateImage.updateImage(map, parts)
                 .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
                 .compose(RxLifecycleCompact.bind(PublishMsgActivity.this).withObservable())
+                .doFinally(() -> {
+                    if (progressDialog.isShowing())
+                        progressDialog.dismiss();
+                })
                 .subscribe(bean -> {
-                    progressDialog.dismiss();
                     if (bean.isSuccess()) {
                         finish();
                     }
                     toast(bean.getMsg());
-                }, new HttpError(progressDialog));
-
+                }, new HttpError());
     }
 
     private MultipartBody.Part[] getParts() {
