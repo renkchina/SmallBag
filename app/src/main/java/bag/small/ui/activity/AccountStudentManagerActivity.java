@@ -1,6 +1,7 @@
 package bag.small.ui.activity;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -50,7 +51,7 @@ public class AccountStudentManagerActivity extends BaseActivity {
     @Bind(R.id.activity_account_student_name_tv)
     TextView accountStudentNameTv;
     @Bind(R.id.activity_account_student_number_tv)
-    TextView accountStudentNumberTv;
+    EditText accountStudentNumberTv;
     @Bind(R.id.activity_account_student_grade_tv)
     TextView accountStudentGradeTv;
     @Bind(R.id.activity_account_student_class_tv)
@@ -97,10 +98,13 @@ public class AccountStudentManagerActivity extends BaseActivity {
                         StringUtil.setTextView(accountStudentNameTv, "姓名：" + bean.getData().getName());
                         StringUtil.setTextView(accountStudentGradeTv, "年级：" + bean.getData().getBanci());
                         StringUtil.setTextView(accountStudentClassTv, "班级：" + bean.getData().getBanji());
-                        StringUtil.setTextView(accountStudentNumberTv,  bean.getData().getStudent_no());
+                        StringUtil.setTextView(accountStudentNumberTv, bean.getData().getStudent_no());
                         StringUtil.setTextView(accountStudentBirthdayTv, bean.getData().getBirth());
                         StringUtil.setTextView(accountStudentGenderTv, bean.getData().getSex());
-                        id = bean.getData().getRole_id();
+                        id = bean.getData().getTarget_id();
+                        if (TextUtils.isEmpty(id)) {
+                            id = bean.getData().getId();
+                        }
                     } else {
                         try {
                             toast(bean.getMsg());
@@ -175,6 +179,7 @@ public class AccountStudentManagerActivity extends BaseActivity {
                 String change = StringUtil.EditGetString(aChangePwdEdt);
                 String agree = StringUtil.EditGetString(aAgreePwdEdt);
                 String birthday = StringUtil.EditGetString(accountStudentBirthdayTv);
+                String number = StringUtil.EditGetString(accountStudentNumberTv);
                 if (birthday.startsWith("生日")) {
                     birthday = birthday.replace("生日：", "");
                 }
@@ -196,8 +201,10 @@ public class AccountStudentManagerActivity extends BaseActivity {
                     map.put("email", RxUtil.toRequestBodyTxt(""));
                     map.put("id", RxUtil.toRequestBodyTxt(id));
                     map.put("work_no", RxUtil.toRequestBodyTxt(""));
-                    if (logo != null)
+                    map.put("student_no", RxUtil.toRequestBodyTxt(number));
+                    if (logo != null){
                         map.put("logo", RequestBody.create(MediaType.parse("image/png"), logo));
+                    }
                     iRegisterReq.changeRegisterAsTeacherOrStudent(map)
                             .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
                             .compose(RxLifecycleCompact.bind(this).withObservable())

@@ -1,6 +1,7 @@
 package bag.small.ui.activity;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -108,24 +109,13 @@ public class AddTeacherActivity extends BaseActivity {
                     if (bean.isSuccess() && bean.getData() != null) {
                         showView(bean.getData());
                         Id = bean.getData().getTarget_id();
+//                        if (TextUtils.isEmpty(Id)) {
+//                        }
                     } else {
                         toast(bean.getMsg());
                     }
                 }, new HttpError());
-//        iRegisterReq.getStudentInfo(loginId, roleId, schoolId)
-//                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
-//                .compose(RxLifecycleCompact.bind(this).withObservable())
-//                .subscribe(bean -> {
-//                    if (bean.isSuccess() && bean.getData() != null) {
-//                        Id = bean.getData().getId();
-//                    } else {
-//                        try {
-//                            toast(bean.getMsg());
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                }, new HttpError());
+
     }
 
     private void showView(NewRegisterTeacherBean data) {

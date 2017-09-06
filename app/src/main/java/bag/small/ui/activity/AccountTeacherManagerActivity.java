@@ -1,6 +1,7 @@
 package bag.small.ui.activity;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -107,7 +108,10 @@ public class AccountTeacherManagerActivity extends BaseActivity {
                 .compose(RxLifecycleCompact.bind(this).withObservable())
                 .subscribe(bean -> {
                     if (bean.isSuccess() && bean.getData() != null) {
-                        Id = bean.getData().getRole_id();
+                        Id = bean.getData().getId();
+                        if (TextUtils.isEmpty(Id)) {
+                            Id = bean.getData().getTarget_id();
+                        }
                     } else {
                         try {
                             toast(bean.getMsg());
