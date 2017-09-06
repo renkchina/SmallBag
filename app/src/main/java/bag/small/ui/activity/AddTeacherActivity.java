@@ -109,8 +109,9 @@ public class AddTeacherActivity extends BaseActivity {
                     if (bean.isSuccess() && bean.getData() != null) {
                         showView(bean.getData());
                         Id = bean.getData().getTarget_id();
-//                        if (TextUtils.isEmpty(Id)) {
-//                        }
+                        if (TextUtils.isEmpty(Id)) {
+                            Id = bean.getData().getId();
+                        }
                     } else {
                         toast(bean.getMsg());
                     }

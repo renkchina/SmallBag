@@ -36,11 +36,20 @@ public class NewRegisterTeacherBean {
      * logo : http://api.vshangsoft.com/images/all/20170904/0_1504507888.jpg
      * target_id : 96
      */
+    private String id;
 
     private String school_id;
     private String sex_flag;
     private String logo;
     private String target_id;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

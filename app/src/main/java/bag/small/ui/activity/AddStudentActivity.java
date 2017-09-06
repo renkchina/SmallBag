@@ -208,8 +208,7 @@ public class AddStudentActivity extends BaseActivity {
                     map.put("sex", RxUtil.toRequestBodyTxt(gender));
                     map.put("email", RxUtil.toRequestBodyTxt(""));
                     map.put("id", RxUtil.toRequestBodyTxt(id));
-                    map.put("work_no", RxUtil.toRequestBodyTxt(""));
-                    map.put("student_no", RxUtil.toRequestBodyTxt(number));
+                    map.put("work_no", RxUtil.toRequestBodyTxt(number));
                     if (logo != null)
                         map.put("logo", RequestBody.create(MediaType.parse("image/png"), logo));
                     iRegisterReq.changeRegisterAsTeacherOrStudent(map)
