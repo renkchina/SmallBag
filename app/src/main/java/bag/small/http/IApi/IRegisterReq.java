@@ -52,6 +52,11 @@ public interface IRegisterReq {
     Observable<BaseBean<NewRegisterStudentOrTeacherBean>> changeRegisterAsTeacherOrStudent(@PartMap HashMap<String, RequestBody> partMap);
 
     @Multipart
+    @POST("commons/reviseroleinfo")
+    Observable<BaseBean<NewRegisterStudentOrTeacherBean>> changeRegisterAsTeacherOrStudent(@PartMap HashMap<String, RequestBody> partMap,
+                                                                                           @Part MultipartBody.Part logo);
+
+    @Multipart
     @POST("commons/registerstudent")
     Observable<BaseBean<String>> goRegisterAsStudent(@PartMap HashMap<String, RequestBody> partMap,
                                                      @Part MultipartBody.Part logo);
@@ -87,7 +92,7 @@ public interface IRegisterReq {
     @FormUrlEncoded
     @POST("commons/addrole")
     Observable<BaseBean<AddAccount>> addStudentInfo(@Field("login_id") String loginId,
-                                                                @Field("type") String type);
+                                                    @Field("type") String type);
 
     @FormUrlEncoded
     @POST("commons/getstudentinfo")

@@ -209,18 +209,31 @@ public class AddStudentActivity extends BaseActivity {
                     map.put("email", RxUtil.toRequestBodyTxt(""));
                     map.put("id", RxUtil.toRequestBodyTxt(id));
                     map.put("work_no", RxUtil.toRequestBodyTxt(number));
-                    if (logo != null)
-                        map.put("logo", RequestBody.create(MediaType.parse("image/png"), logo));
-                    iRegisterReq.changeRegisterAsTeacherOrStudent(map)
-                            .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
-                            .compose(RxLifecycleCompact.bind(this).withObservable())
-                            .subscribe(bean -> {
-                                if (bean.isSuccess()) {
-                                    getRoles();
-                                } else {
-                                    toast(bean.getMsg());
-                                }
-                            }, new HttpError());
+                    if (logo != null){
+
+                        iRegisterReq.changeRegisterAsTeacherOrStudent(map,RxUtil.convertImage("logo", logo))
+                                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                                .compose(RxLifecycleCompact.bind(this).withObservable())
+                                .subscribe(bean -> {
+                                    if (bean.isSuccess()) {
+                                        getRoles();
+                                    } else {
+                                        toast(bean.getMsg());
+                                    }
+                                }, new HttpError());
+                    }else{
+
+                        iRegisterReq.changeRegisterAsTeacherOrStudent(map)
+                                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                                .compose(RxLifecycleCompact.bind(this).withObservable())
+                                .subscribe(bean -> {
+                                    if (bean.isSuccess()) {
+                                        getRoles();
+                                    } else {
+                                        toast(bean.getMsg());
+                                    }
+                                }, new HttpError());
+                    }
                 } else {
                     toast("密码不一致");
                 }
