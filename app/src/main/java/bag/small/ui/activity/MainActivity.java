@@ -138,6 +138,7 @@ public class MainActivity extends BaseActivity
         leftBeen.add(new MainLeftBean(3, R.mipmap.help_me, R.string.main_help_str));
         leftBeen.add(new MainLeftBean(4, R.mipmap.about_ours, R.string.main_account_about));
         leftBeen.add(new MainLeftBean(5, R.mipmap.exit_system, R.string.main_account_exit));
+        leftBeen.add(new MainLeftBean(6, 0, R.string.main_account_http));
         mainDrawerLeftAdapter = new MainDrawerLeftAdapter(leftBeen, this);
         listView.setAdapter(mainDrawerLeftAdapter);
     }
@@ -243,7 +244,7 @@ public class MainActivity extends BaseActivity
             if (index == 0) {
                 toolTitle.setText("百宝箱");
             } else {
-                toolTitle.setText("互联-"+UserPreferUtil.getInstanse().getSchoolName());
+                toolTitle.setText("互联-" + UserPreferUtil.getInstanse().getSchoolName());
             }
             toolbarRightIv.setVisibility(View.GONE);
             mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.open, R.string.close);

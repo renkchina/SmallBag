@@ -66,10 +66,11 @@ public class AccountStudentManagerActivity extends BaseActivity {
     EditText aAgreePwdEdt;
     @Bind(R.id.activity_account_student_commit_btn)
     Button accountStudentCommitBtn;
-    @Bind(R.id.account_student_radio_button)
-    RadioButton aRadioButton;
     @Bind(R.id.account_student_password_ll)
     LinearLayout accountStudentPasswordLl;
+    @Bind(R.id.account_student_radio_button)
+    RadioButton aRadioButton;
+
     private File logo;
     private ListDialog listDialog;
     private IRegisterReq iRegisterReq;
@@ -125,7 +126,6 @@ public class AccountStudentManagerActivity extends BaseActivity {
             R.id.activity_account_student_gender_tv,
             R.id.activity_account_student_birthday_tv,
             R.id.account_student_password_ll,
-            R.id.account_student_radio_button,
             R.id.activity_account_student_commit_btn})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -145,7 +145,6 @@ public class AccountStudentManagerActivity extends BaseActivity {
             case R.id.activity_account_student_class_tv:
                 break;
             case R.id.account_student_password_ll:
-            case R.id.account_student_radio_button:
                 if (aRadioButton.isChecked()) {
                     aRadioButton.setChecked(false);
 //                  aRadioButton.setBackgroundResource(R.mipmap.account_manager_password);
@@ -201,9 +200,9 @@ public class AccountStudentManagerActivity extends BaseActivity {
                     map.put("email", RxUtil.toRequestBodyTxt(""));
                     map.put("id", RxUtil.toRequestBodyTxt(id));
                     map.put("work_no", RxUtil.toRequestBodyTxt(number));
-                    if (logo != null){
+                    if (logo != null) {
 //                        map.put("logo", RequestBody.create(MediaType.parse("image/png"), logo));
-                        iRegisterReq.changeRegisterAsTeacherOrStudent(map,RxUtil.convertImage("logo", logo))
+                        iRegisterReq.changeRegisterAsTeacherOrStudent(map, RxUtil.convertImage("logo", logo))
                                 .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
                                 .compose(RxLifecycleCompact.bind(this).withObservable())
                                 .subscribe(bean -> {
@@ -213,7 +212,7 @@ public class AccountStudentManagerActivity extends BaseActivity {
                                         toast(bean.getMsg());
                                     }
                                 }, new HttpError());
-                    }else{
+                    } else {
                         iRegisterReq.changeRegisterAsTeacherOrStudent(map)
                                 .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
                                 .compose(RxLifecycleCompact.bind(this).withObservable())

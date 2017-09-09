@@ -17,6 +17,7 @@ import bag.small.entity.MainLeftBean;
 import bag.small.ui.activity.AccountStudentManagerActivity;
 import bag.small.ui.activity.AccountTeacherManagerActivity;
 import bag.small.ui.activity.LoginActivity;
+import bag.small.ui.activity.WebViewActivity;
 import bag.small.utils.UserPreferUtil;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -42,8 +43,16 @@ public class MainDrawerLeftAdapter extends MyBaseListViewAdapter<MainLeftBean> {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.itemDrawerLeftV.setBackgroundResource(bean.getResId());
+        if (bean.getResId() > 0) {
+            holder.itemDrawerLeftV.setBackgroundResource(bean.getResId());
+            holder.itemDrawerLeftV.setVisibility(View.VISIBLE);
+            holder.itemDrawerLeftTv.setTextSize(16);
+        } else {
+            holder.itemDrawerLeftV.setVisibility(View.GONE);
+            holder.itemDrawerLeftTv.setTextSize(12);
+        }
         holder.itemDrawerLeftTv.setText(bean.getTitleRes());
+
         holder.mainv.setOnClickListener(v -> {
             switch (bean.getId()) {
                 case 1:
@@ -61,6 +70,9 @@ public class MainDrawerLeftAdapter extends MyBaseListViewAdapter<MainLeftBean> {
                 case 5:
                     UserPreferUtil.getInstanse().clear();
                     skipActivity(LoginActivity.class);
+                    break;
+                case 6:
+                    gotoActivity(WebViewActivity.class, false, null);
                     break;
             }
 

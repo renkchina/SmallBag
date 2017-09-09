@@ -156,13 +156,16 @@
                 <LinearLayout
                     android:id="@+id/account_teacher_radio_ll"
                     style="@style/style_ll_info"
+                    android:descendantFocusability="blocksDescendants"
                     android:focusableInTouchMode="true">
 
                     <RadioButton
                         android:id="@+id/account_teacher_radio_button"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
+                        android:clickable="false"
                         android:layout_gravity="center_vertical"
+                        android:focusable="false"
                         android:background="@drawable/selector_change_password_rb"
                         android:button="@null" />
 
