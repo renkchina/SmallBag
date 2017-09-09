@@ -59,7 +59,7 @@ public class NoticeDetailActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        setToolTitle("小书包", true);
+        setToolTitle("教务通知", true);
 //        setBanner(mDetailBanner, bannerImages);
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {

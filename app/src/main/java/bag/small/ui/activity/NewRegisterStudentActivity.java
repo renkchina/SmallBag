@@ -1,6 +1,8 @@
 package bag.small.ui.activity;
 
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -127,6 +129,7 @@ public class NewRegisterStudentActivity extends BaseActivity {
     public void initView() {
         acAccountStudentHeadIv.setImageResource(R.mipmap.student_boy);
         accountStudentCommitBtn.setVisibility(View.GONE);
+        accountStudentPasswordLl.setVisibility(View.GONE);
         iRegisterRequest.getNewStudentRegisterInfo(loginId, phone)
                 .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
                 .compose(RxLifecycleCompact.bind(this).withObservable())
@@ -167,10 +170,15 @@ public class NewRegisterStudentActivity extends BaseActivity {
         if (bean == null) {
             return;
         }
-        if (bean.getSex() != null && bean.getSex().contains("男")) {
-            acAccountStudentHeadIv.setImageResource(R.mipmap.student_boy);
+
+        if (TextUtils.isEmpty(bean.getLogo())) {
+            if (bean.getSex() != null && bean.getSex().contains("男")) {
+                acAccountStudentHeadIv.setImageResource(R.mipmap.student_boy);
+            } else {
+                acAccountStudentHeadIv.setImageResource(R.mipmap.student_girl);
+            }
         } else {
-            acAccountStudentHeadIv.setImageResource(R.mipmap.student_girl);
+            ImageUtil.loadCircleImages(this, acAccountStudentHeadIv, bean.getLogo());
         }
 //        StringUtil.setTextView(studentNameTv, "姓名：" + bean.getName());
 //        StringUtil.setTextView(studentTypeTv, "类型：学生");
