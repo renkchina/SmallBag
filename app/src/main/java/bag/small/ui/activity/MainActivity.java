@@ -373,6 +373,7 @@ public class MainActivity extends BaseActivity
                 break;
             case R.id.item_family:
                 fragments[1].onFragmentShow();
+                toolTitle.setText("互联-" + UserPreferUtil.getInstanse().getSchoolName());
                 break;
             case R.id.item_growth:
                 fragments[2].onFragmentShow();
