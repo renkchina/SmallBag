@@ -1,6 +1,7 @@
 package bag.small.ui.activity;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -128,6 +129,7 @@ public class NewRegisterTeacherActivity extends BaseActivity {
         iRegisterReq = HttpUtil.getInstance().createApi(IRegisterReq.class);
         acAccountTeacherHeadIv.setImageResource(R.mipmap.teacher_man);
         accountTeacherCommitBtn.setVisibility(View.GONE);
+        accountTeacherRadioLl.setVisibility(View.GONE);
         getRegisterInfomation();
     }
 
@@ -167,10 +169,14 @@ public class NewRegisterTeacherActivity extends BaseActivity {
         if (data == null) {
             return;
         }
-        if (data.getSex() != null && data.getSex().contains("男")) {
-            acAccountTeacherHeadIv.setImageResource(R.mipmap.teacher_man);
+        if (TextUtils.isEmpty(data.getLogo())) {
+            if (data.getSex() != null && data.getSex().contains("男")) {
+                acAccountTeacherHeadIv.setImageResource(R.mipmap.teacher_man);
+            } else {
+                acAccountTeacherHeadIv.setImageResource(R.mipmap.teacher_woman);
+            }
         } else {
-            acAccountTeacherHeadIv.setImageResource(R.mipmap.teacher_woman);
+            ImageUtil.loadCircleImages(this, acAccountTeacherHeadIv, data.getLogo());
         }
 
         StringUtil.setTextView(accountTeacherNameTv, "名字：" + data.getName());

@@ -149,7 +149,6 @@ public class AccountTeacherManagerActivity extends BaseActivity {
             R.id.activity_account_teacher_email_tv,
             R.id.activity_account_teacher_birthday_tv,
             R.id.activity_account_teacher_gender_tv,
-            R.id.account_teacher_radio_button,
             R.id.account_teacher_radio_ll,
             R.id.activity_account_teacher_class_teacher_tv,
             R.id.activity_account_teacher_commit_btn})
@@ -167,7 +166,6 @@ public class AccountTeacherManagerActivity extends BaseActivity {
             case R.id.activity_account_teacher_number_tv:
                 break;
             case R.id.account_teacher_radio_ll:
-            case R.id.account_teacher_radio_button:
                 if (aRadioButton.isChecked()) {
                     aRadioButton.setChecked(false);
 //                  aRadioButton.setBackgroundResource(R.mipmap.account_manager_password);

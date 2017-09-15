@@ -22,9 +22,10 @@
     <string name="school_name_str">就职学校</string>
     <string name="main_help_str">反馈与帮助</string>
     <string name="main_soft_setting">软件设置</string>
-    <string name="main_account_manager">账号管理</string>
+    <string name="main_account_manager">角色信息</string>
     <string name="main_account_about">关于</string>
     <string name="main_account_exit">退出</string>
+    <string name="main_account_http">www.wodeshubao.com</string>
     <string name="main_bottom_second_str">互联</string>
     <string name="main_bottom_first_str">百宝箱</string>
     <string name="main_bottom_third_str">日记</string>

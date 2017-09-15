@@ -36,6 +36,7 @@ public class UserPreferUtil {
         setInfomation("target_type", loginBean.getTarget_type());
         setInfomation("logo", loginBean.getLogo());
         setInfomation("sex", loginBean.getSex());
+        setInfomation("school_name", loginBean.getSchool_name());
     }
 
     public void setUserHeadImage(String image) {
@@ -60,6 +61,9 @@ public class UserPreferUtil {
 
     public String getSchoolId() {
         return getInfomationS("school_id");
+    }
+    public String getSchoolName() {
+        return getInfomationS("school_name");
     }
 
     public String getUserId() {

@@ -30,16 +30,15 @@
                 <FrameLayout
                     android:id="@+id/activity_main_content_frame"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                </FrameLayout>
+                    android:layout_height="match_parent"></FrameLayout>
 
                 <ImageView
                     android:id="@+id/activity_click_image"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:elevation="12dp"
-                    android:layout_marginTop="5dp"
                     android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:elevation="12dp"
                     android:scaleType="centerCrop"
                     android:visibility="gone" />
             </FrameLayout>
@@ -50,8 +49,7 @@
                 android:layout_height="wrap_content"
                 app:itemIconTint="@drawable/bottom_navigation_selector"
                 app:itemTextColor="@drawable/bottom_navigation_selector"
-                app:menu="@menu/main_bottom_nav_menu">
-            </android.support.design.widget.BottomNavigationView>
+                app:menu="@menu/main_bottom_nav_menu"></android.support.design.widget.BottomNavigationView>
         </LinearLayout>
 
         <LinearLayout
@@ -66,8 +64,7 @@
                 android:id="@+id/main_drawer_left_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp">
-            </android.support.v7.widget.RecyclerView>
+                android:layout_marginTop="15dp"></android.support.v7.widget.RecyclerView>
 
             <Button
                 android:id="@+id/main_drawer_left_add_account_btn"
@@ -80,66 +77,71 @@
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
-            <ListView
+            <View
                 android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="2dp"
+                android:background="@color/background_gray" />
+
+            <ListView
                 android:id="@+id/main_drawer_left_list_view"
-                android:layout_height="wrap_content">
-            </ListView>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></ListView>
             <!--<TextView-->
-                <!--android:id="@+id/main_drawer_left_account_manager_tv"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="66dp"-->
-                <!--android:layout_marginTop="30dp"-->
-                <!--android:drawableStart="@mipmap/account_manager"-->
-                <!--android:gravity="center_vertical"-->
-                <!--android:paddingEnd="0dp"-->
-                <!--android:paddingStart="46dp"-->
-                <!--android:text="@string/main_account_manager"-->
-                <!--android:textSize="18sp" />-->
+            <!--android:id="@+id/main_drawer_left_account_manager_tv"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="66dp"-->
+            <!--android:layout_marginTop="30dp"-->
+            <!--android:drawableStart="@mipmap/account_manager"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:paddingEnd="0dp"-->
+            <!--android:paddingStart="46dp"-->
+            <!--android:text="@string/main_account_manager"-->
+            <!--android:textSize="18sp" />-->
 
             <!--<TextView-->
-                <!--android:id="@+id/main_drawer_left_soft_setting_tv"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="66dp"-->
-                <!--android:drawableStart="@mipmap/soft_setting"-->
-                <!--android:gravity="center_vertical"-->
-                <!--android:paddingEnd="0dp"-->
-                <!--android:paddingStart="46dp"-->
-                <!--android:text="@string/main_soft_setting"-->
-                <!--android:textSize="18sp" />-->
+            <!--android:id="@+id/main_drawer_left_soft_setting_tv"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="66dp"-->
+            <!--android:drawableStart="@mipmap/soft_setting"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:paddingEnd="0dp"-->
+            <!--android:paddingStart="46dp"-->
+            <!--android:text="@string/main_soft_setting"-->
+            <!--android:textSize="18sp" />-->
 
             <!--<TextView-->
-                <!--android:id="@+id/main_drawer_left_help_tv"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="66dp"-->
-                <!--android:drawableStart="@mipmap/help_me"-->
-                <!--android:gravity="center_vertical"-->
-                <!--android:paddingEnd="0dp"-->
-                <!--android:paddingStart="46dp"-->
-                <!--android:text="@string/main_help_str"-->
-                <!--android:textSize="18sp" />-->
+            <!--android:id="@+id/main_drawer_left_help_tv"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="66dp"-->
+            <!--android:drawableStart="@mipmap/help_me"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:paddingEnd="0dp"-->
+            <!--android:paddingStart="46dp"-->
+            <!--android:text="@string/main_help_str"-->
+            <!--android:textSize="18sp" />-->
 
             <!--<TextView-->
-                <!--android:id="@+id/main_drawer_left_about_tv"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="66dp"-->
-                <!--android:drawableStart="@mipmap/about_ours"-->
-                <!--android:gravity="center_vertical"-->
-                <!--android:paddingEnd="0dp"-->
-                <!--android:paddingStart="46dp"-->
-                <!--android:text="关于"-->
-                <!--android:textSize="18sp" />-->
+            <!--android:id="@+id/main_drawer_left_about_tv"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="66dp"-->
+            <!--android:drawableStart="@mipmap/about_ours"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:paddingEnd="0dp"-->
+            <!--android:paddingStart="46dp"-->
+            <!--android:text="关于"-->
+            <!--android:textSize="18sp" />-->
 
             <!--<TextView-->
-                <!--android:id="@+id/main_drawer_left_exit_tv"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="66dp"-->
-                <!--android:drawableStart="@mipmap/exit_system"-->
-                <!--android:gravity="center_vertical"-->
-                <!--android:paddingEnd="0dp"-->
-                <!--android:paddingStart="46dp"-->
-                <!--android:text="退出"-->
-                <!--android:textSize="18sp" />-->
+            <!--android:id="@+id/main_drawer_left_exit_tv"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="66dp"-->
+            <!--android:drawableStart="@mipmap/exit_system"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:paddingEnd="0dp"-->
+            <!--android:paddingStart="46dp"-->
+            <!--android:text="退出"-->
+            <!--android:textSize="18sp" />-->
         </LinearLayout>
     </android.support.v4.widget.DrawerLayout>
 </LinearLayout>
