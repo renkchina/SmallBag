@@ -124,7 +124,7 @@ public class RegisterActivity extends BaseActivity {
                 .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
                 .compose(RxLifecycleCompact.bind(this).withObservable())
                 .subscribe(bean -> {
-                    toast(bean.getMsg());
+//                    toast(bean.getMsg());
                     if (bean.isSuccess() && bean.getData() != null) {
                         String loginId = bean.getData().getLogin_id();
                         if (type == 1) {
@@ -133,7 +133,7 @@ public class RegisterActivity extends BaseActivity {
                             goTeacher(loginId, phone);
                         }
                     } else {
-                        toast("获取失败");
+                        toast("注册失败");
                     }
 
                 }, new HttpError());

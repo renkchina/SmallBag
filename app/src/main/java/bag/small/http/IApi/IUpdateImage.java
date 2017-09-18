@@ -45,6 +45,9 @@ public interface IUpdateImage {
     @POST("users/submitinfo")
     Observable<BaseBean<List<PublishMsgBean>>> updateImage(@PartMap HashMap<String, RequestBody> partMap,
                                                            @Part List<MultipartBody.Part> parts);
+    @Multipart
+    @POST("users/submitinfo")
+    Observable<BaseBean<List<PublishMsgBean>>> updateImage(@PartMap HashMap<String, RequestBody> partMap);
 
 
 }

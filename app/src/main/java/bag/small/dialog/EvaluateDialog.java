@@ -5,7 +5,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.annotation.StyleRes;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.Window;
@@ -16,11 +15,10 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import bag.small.R;
-import bag.small.entity.MomentsBean;
 import bag.small.interfaze.IDialog;
 import bag.small.utils.LogUtil;
 import bag.small.utils.StringUtil;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -30,11 +28,11 @@ import butterknife.OnClick;
 
 public class EvaluateDialog extends Dialog {
 
-    @Bind(R.id.dialog_fragment_user_note_evaluation_edt)
+    @BindView(R.id.dialog_fragment_user_note_evaluation_edt)
     EditText dEvaluationEdt;
-    @Bind(R.id.dialog_fragment_user_note_evluation_btn)
+    @BindView(R.id.dialog_fragment_user_note_evluation_btn)
     Button dEvluationBtn;
-    @Bind(R.id.dialog_fragment_user_note_evaluation_ll)
+    @BindView(R.id.dialog_fragment_user_note_evaluation_ll)
     LinearLayout dEvaluationLl;
     private IDialog iDialog;
     private Context mContext;

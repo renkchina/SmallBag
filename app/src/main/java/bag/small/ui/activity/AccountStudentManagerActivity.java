@@ -35,40 +35,38 @@ import bag.small.utils.ImageUtil;
 import bag.small.utils.ListUtil;
 import bag.small.utils.StringUtil;
 import bag.small.utils.UserPreferUtil;
-import butterknife.Bind;
-import butterknife.ButterKnife;
+import butterknife.BindView;
 import butterknife.OnClick;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
-import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
 
 public class AccountStudentManagerActivity extends BaseActivity {
 
-    @Bind(R.id.ac_account_student_head_iv)
+    @BindView(R.id.ac_account_student_head_iv)
     ImageView acAccountStudentHeadIv;
-    @Bind(R.id.activity_account_student_name_tv)
+    @BindView(R.id.activity_account_student_name_tv)
     TextView accountStudentNameTv;
-    @Bind(R.id.activity_account_student_number_tv)
+    @BindView(R.id.activity_account_student_number_tv)
     EditText accountStudentNumberTv;
-    @Bind(R.id.activity_account_student_grade_tv)
+    @BindView(R.id.activity_account_student_grade_tv)
     TextView accountStudentGradeTv;
-    @Bind(R.id.activity_account_student_class_tv)
+    @BindView(R.id.activity_account_student_class_tv)
     TextView accountStudentClassTv;
-    @Bind(R.id.activity_account_student_gender_tv)
+    @BindView(R.id.activity_account_student_gender_tv)
     TextView accountStudentGenderTv;
-    @Bind(R.id.activity_account_student_birthday_tv)
+    @BindView(R.id.activity_account_student_birthday_tv)
     TextView accountStudentBirthdayTv;
-    @Bind(R.id.activity_account_student_change_pwd_edt)
+    @BindView(R.id.activity_account_student_change_pwd_edt)
     EditText aChangePwdEdt;
-    @Bind(R.id.activity_account_student_agree_pwd_edt)
+    @BindView(R.id.activity_account_student_agree_pwd_edt)
     EditText aAgreePwdEdt;
-    @Bind(R.id.activity_account_student_commit_btn)
+    @BindView(R.id.activity_account_student_commit_btn)
     Button accountStudentCommitBtn;
-    @Bind(R.id.account_student_password_ll)
+    @BindView(R.id.account_student_password_ll)
     LinearLayout accountStudentPasswordLl;
-    @Bind(R.id.account_student_radio_button)
+    @BindView(R.id.account_student_radio_button)
     RadioButton aRadioButton;
 
     private File logo;

@@ -1,11 +1,10 @@
 package bag.small.ui.fragment;
 
-import android.support.v4.app.Fragment;
 import android.widget.ImageView;
 
 import bag.small.R;
 import bag.small.base.BaseFragment;
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * Created by Administrator on 2017/5/16.
@@ -13,7 +12,7 @@ import butterknife.Bind;
 
 public class GuideFragment extends BaseFragment {
     int imageRes;
-    @Bind(R.id.fragment_guide_iv)
+    @BindView(R.id.fragment_guide_iv)
     ImageView fragmentGuideIv;
 
     @Override

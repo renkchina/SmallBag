@@ -14,19 +14,19 @@ import java.util.List;
 import bag.small.R;
 import bag.small.base.BaseActivity;
 import bag.small.utils.GlideImageLoader;
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class InterestClassByStudentActivity extends BaseActivity {
 
-    @Bind(R.id.activity_interest_class_student_banner)
+    @BindView(R.id.activity_interest_class_student_banner)
     Banner iStudentBanner;
-    @Bind(R.id.activity_interest_student_class_tv)
+    @BindView(R.id.activity_interest_student_class_tv)
     TextView iStudentClassTv;
-    @Bind(R.id.activity_interest_student_teacher_tv)
+    @BindView(R.id.activity_interest_student_teacher_tv)
     TextView iStudentTeacherTv;
-    @Bind(R.id.activity_interest_student_time_tv)
+    @BindView(R.id.activity_interest_student_time_tv)
     TextView iStudentTimeTv;
-    @Bind(R.id.activity_interest_student_classroom_tv)
+    @BindView(R.id.activity_interest_student_classroom_tv)
     TextView iStudentClassroomTv;
 
     private List<Object> bannerImages;

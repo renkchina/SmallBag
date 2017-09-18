@@ -26,20 +26,20 @@ import bag.small.utils.GlideImageLoader;
 import bag.small.utils.ImageUtil;
 import bag.small.utils.StringUtil;
 import bag.small.utils.UserPreferUtil;
-import butterknife.Bind;
+import butterknife.BindView;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
 
 public class NoticeDetailActivity extends BaseActivity {
 
-//    @Bind(R.id.activity_notice_detail_banner)
+//    @BindView(R.id.activity_notice_detail_banner)
 //    Banner mDetailBanner;
-    @Bind(R.id.activity_notice_title_tv)
+    @BindView(R.id.activity_notice_title_tv)
     TextView mTitleTv;
-    @Bind(R.id.activity_notice_time_tv)
+    @BindView(R.id.activity_notice_time_tv)
     TextView mTimeTv;
-    @Bind(R.id.activity_notice_image_iv)
+    @BindView(R.id.activity_notice_image_iv)
     ImageView mImageIv;
-    @Bind(R.id.activity_notice_content_tv)
+    @BindView(R.id.activity_notice_content_tv)
     TextView mContentTv;
     private List<Object> bannerImages;
     INotification iNotification;

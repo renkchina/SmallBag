@@ -19,6 +19,7 @@ import bag.small.R;
 import bag.small.interfaze.IFragment;
 import bag.small.interfaze.IRegister;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * Created by Administrator on 2017/7/22.
@@ -28,6 +29,7 @@ public abstract class BaseFragment extends Fragment implements IFragment, IRegis
     private static final String STATE_IS_HIDDEN = "isHidden";
     private Toolbar mToolbar;
     private TextView mTitle;
+    private Unbinder viewBind;
 
 
     @Override
@@ -43,7 +45,7 @@ public abstract class BaseFragment extends Fragment implements IFragment, IRegis
         View parentView = inflater.inflate(getLayoutResId(), container, false);
         mToolbar = (Toolbar) parentView.findViewById(R.id.toolbar);
         mTitle = (TextView) parentView.findViewById(R.id.toolbar_title);
-        ButterKnife.bind(this, parentView);
+        viewBind = ButterKnife.bind(this, parentView);
         initData();
         initView();
         return parentView;
@@ -100,7 +102,7 @@ public abstract class BaseFragment extends Fragment implements IFragment, IRegis
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ButterKnife.unbind(this);
+        viewBind.unbind();
         unRegister();
     }
 

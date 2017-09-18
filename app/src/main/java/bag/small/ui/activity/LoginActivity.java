@@ -13,7 +13,6 @@ import com.china.rxbus.RxBus;
 import bag.small.R;
 import bag.small.app.MyApplication;
 import bag.small.base.BaseActivity;
-import bag.small.entity.BaseBean;
 import bag.small.entity.LoginResult;
 import bag.small.http.HttpUtil;
 import bag.small.http.IApi.HttpError;
@@ -21,32 +20,26 @@ import bag.small.http.IApi.ILoginRequest;
 import bag.small.rx.RxUtil;
 import bag.small.utils.StringUtil;
 import bag.small.utils.UserPreferUtil;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
-import io.reactivex.ObservableSource;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Administrator on 2017/7/22.
  */
 
 public class LoginActivity extends BaseActivity {
-    @Bind(R.id.activity_login_image)
+    @BindView(R.id.activity_login_image)
     ImageView loginImage;
-    @Bind(R.id.activity_login_user_name_edt)
+    @BindView(R.id.activity_login_user_name_edt)
     EditText loginUserNameEdt;
-    @Bind(R.id.activity_login_user_password_edt)
+    @BindView(R.id.activity_login_user_password_edt)
     EditText loginUserPasswordEdt;
-    @Bind(R.id.activity_login_commit_btn)
+    @BindView(R.id.activity_login_commit_btn)
     Button loginCommitBtn;
-    @Bind(R.id.activity_login_register_tv)
+    @BindView(R.id.activity_login_register_tv)
     TextView loginRegisterTv;
-    @Bind(R.id.activity_login_forget_password_tv)
+    @BindView(R.id.activity_login_forget_password_tv)
     TextView loginForgetPasswordTv;
 
     ILoginRequest iLoginRequest;

@@ -19,15 +19,15 @@ import bag.small.http.IApi.INotification;
 import bag.small.provider.ConnectionViewBinder;
 import bag.small.rx.RxUtil;
 import bag.small.utils.UserPreferUtil;
-import butterknife.Bind;
+import butterknife.BindView;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
 import me.drakeet.multitype.MultiTypeAdapter;
 
 
 public class FamiliesSchoolConnectionFragment extends BaseFragment {
-    @Bind(R.id.banner_imageview)
+    @BindView(R.id.banner_imageview)
     ImageView bannerImage;
-    @Bind(R.id.fragment_family_grid_view)
+    @BindView(R.id.fragment_family_grid_view)
     RecyclerView recyclerView;
     MultiTypeAdapter mAdapter;
     List<Object> mItemBeans;

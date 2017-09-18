@@ -7,8 +7,6 @@ import android.widget.EditText;
 
 import bag.small.R;
 import bag.small.base.BaseActivity;
-import bag.small.entity.BaseBean;
-import bag.small.entity.RegisterBean;
 import bag.small.http.HttpUtil;
 import bag.small.http.IApi.HttpError;
 import bag.small.http.IApi.IRegisterReq;
@@ -17,26 +15,24 @@ import bag.small.rx.RxCountDown;
 import bag.small.rx.RxUtil;
 import bag.small.utils.GlobalValues;
 import bag.small.utils.StringUtil;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Consumer;
 
 public class PasswordForgetActivity extends BaseActivity {
 
 
-    @Bind(R.id.activity_pwd_forget_phone_edt)
+    @BindView(R.id.activity_pwd_forget_phone_edt)
     EditText pfPhoneEdt;
-    @Bind(R.id.activity_pwd_forget_verification_code_edt)
+    @BindView(R.id.activity_pwd_forget_verification_code_edt)
     EditText pfVerificationCodeEdt;
-    @Bind(R.id.activity_pwd_forget_send_code_btn)
+    @BindView(R.id.activity_pwd_forget_send_code_btn)
     Button pfSendCodeBtn;
-    @Bind(R.id.activity_pwd_forget_password_edt)
+    @BindView(R.id.activity_pwd_forget_password_edt)
     EditText pfPasswordEdt;
-    @Bind(R.id.activity_pwd_forget_reset_password_edt)
+    @BindView(R.id.activity_pwd_forget_reset_password_edt)
     EditText pfResetPasswordEdt;
-    @Bind(R.id.activity_pwd_forget_commit_btn)
+    @BindView(R.id.activity_pwd_forget_commit_btn)
     Button pfCommitBtn;
     IRegisterSendCode iRegisterSendCode;
     IRegisterReq iRegisterReq;

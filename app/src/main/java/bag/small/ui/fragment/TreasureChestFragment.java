@@ -5,22 +5,14 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
-
-import com.youth.banner.Banner;
-import com.youth.banner.BannerConfig;
-import com.youth.banner.Transformer;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import bag.small.R;
 import bag.small.app.MyApplication;
 import bag.small.base.BaseFragment;
 import bag.small.entity.ConnectionBinder;
-import bag.small.provider.ConnectionViewBinder;
 import bag.small.provider.ConnectionViewBinder2;
-import bag.small.utils.GlideImageLoader;
-import butterknife.Bind;
+import butterknife.BindView;
 import me.drakeet.multitype.MultiTypeAdapter;
 
 /**
@@ -30,9 +22,9 @@ import me.drakeet.multitype.MultiTypeAdapter;
 public class TreasureChestFragment extends BaseFragment {
 
     List<Object> mItemBeans;
-    @Bind(R.id.fragment_family_grid_view)
+    @BindView(R.id.fragment_family_grid_view)
     RecyclerView recyclerView;
-    @Bind(R.id.banner_imageview)
+    @BindView(R.id.banner_imageview)
     ImageView bannerImage;
     private MultiTypeAdapter mAdapter;
 
