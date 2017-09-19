@@ -125,6 +125,7 @@ public class GrowthDiaryFragment extends BaseFragment implements IDialog {
     }
 
     private void setHttp() {
+        pageIndex = 1;
         requestHTTP(pageIndex, null);
         noticeBanner.setBannerImages(MyApplication.bannerImage);
         noticeBanner.setHeadImage(UserPreferUtil.getInstanse().getHeadImagePath());
@@ -186,15 +187,16 @@ public class GrowthDiaryFragment extends BaseFragment implements IDialog {
     public void callBackMiddleMethod() {
 
     }
+
     private class SpaceItemDecoration extends RecyclerView.ItemDecoration {
 
-        private int space =1;
+        private int space = 1;
 
         @Override
         public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
             outRect.bottom = space;
             int position = parent.getChildLayoutPosition(view);
-            if(position==0){
+            if (position == 0) {
                 outRect.bottom = 0;
             }
         }

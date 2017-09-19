@@ -32,6 +32,7 @@ import me.drakeet.multitype.ItemViewBinder;
  */
 public class AccountViewBinder extends ItemViewBinder<LoginResult.RoleBean, AccountViewBinder.ViewHolder> {
 
+
     @NonNull
     @Override
     protected ViewHolder onCreateViewHolder(
@@ -43,21 +44,7 @@ public class AccountViewBinder extends ItemViewBinder<LoginResult.RoleBean, Acco
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull LoginResult.RoleBean bean) {
         Context context = holder.rootView.getContext();
-//        if ("teacher".equals(bean.getTarget_type())) {
-//            if ("0".equals(bean.getSex())) {
-//                holder.drawerImageIv.setImageResource(R.mipmap.teacher_man);
-//            } else {
-//                holder.drawerImageIv.setImageResource(R.mipmap.teacher_woman);
-//            }
-//
-//        } else {
-//            if ("0".equals(bean.getSex())) {
-//                holder.drawerImageIv.setImageResource(R.mipmap.student_boy);
-//            } else {
-//                holder.drawerImageIv.setImageResource(R.mipmap.student_girl);
-//            }
-//
-//        }
+
         ImageUtil.loadCircleImages(context, holder.drawerImageIv, bean.getLogo());
         holder.drawerNameTv.setText(bean.getName());
         holder.rootView.setOnClickListener(v -> {
@@ -67,6 +54,7 @@ public class AccountViewBinder extends ItemViewBinder<LoginResult.RoleBean, Acco
                 UserPreferUtil.getInstanse().setUserInfomation(bean);
                 RxBus.get().send(300);
                 getAdapter().notifyDataSetChanged();
+
             }
         });
         if (bean.isSelected()) {

@@ -166,8 +166,9 @@ public class PublishMsgActivity extends BaseActivity {
             final int[] count = {0};
             Observable.create((ObservableOnSubscribe<String>) e -> {
                 for (String mData : mDatas) {
-                    if (!TextUtils.isEmpty(mData))
+                    if (!TextUtils.isEmpty(mData)){
                         e.onNext(mData);
+                    }
                 }
             }).subscribeOn(Schedulers.io())
                     .map(s -> Luban.with(PublishMsgActivity.this).load(new File(s)).get())
