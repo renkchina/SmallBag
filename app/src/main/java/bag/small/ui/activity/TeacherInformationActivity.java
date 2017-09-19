@@ -49,7 +49,7 @@ import bag.small.utils.LogUtil;
 import bag.small.utils.StringUtil;
 import bag.small.utils.UserPreferUtil;
 import bag.small.view.RecycleViewDivider;
-import butterknife.BindView;
+import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
@@ -62,41 +62,41 @@ import top.zibin.luban.OnCompressListener;
 
 public class TeacherInformationActivity extends BaseActivity
         implements IViewBinder {
-    @BindView(R.id.ac_teacher_head_iv)
+    @Bind(R.id.ac_teacher_head_iv)
     ImageView mHeadImage;
-    @BindView(R.id.activity_guardian_tv)
+    @Bind(R.id.activity_guardian_tv)
     TextView aGuardianTv;
-    @BindView(R.id.activity_guardian_ll)
+    @Bind(R.id.activity_guardian_ll)
     LinearLayout aGuardianLl;
-    @BindView(R.id.activity_teacher_send_code_btn)
+    @Bind(R.id.activity_teacher_send_code_btn)
     Button sendCode;
-    @BindView(R.id.activity_teacher_verification_code_edt)
+    @Bind(R.id.activity_teacher_verification_code_edt)
     EditText vertifyCode;
-    @BindView(R.id.activity_charge_class_tv)
+    @Bind(R.id.activity_charge_class_tv)
     TextView aChargeClassTv;
-    @BindView(R.id.activity_is_teacher_tv)
+    @Bind(R.id.activity_is_teacher_tv)
     TextView isClassTeacher;
-    @BindView(R.id.activity_charge_class_ll)
+    @Bind(R.id.activity_charge_class_ll)
     LinearLayout aChargeClassLl;
-    @BindView(R.id.ac_teacher_number_tv)
+    @Bind(R.id.ac_teacher_number_tv)
     TextView acTeacherNumberTv;
-    @BindView(R.id.ac_teacher_grade_tv)
+    @Bind(R.id.ac_teacher_grade_tv)
     TextView acTeacherGradeTv;
-    @BindView(R.id.ac_teacher_class_tv)
+    @Bind(R.id.ac_teacher_class_tv)
     TextView acTeacherClassTv;
-    @BindView(R.id.activity_teacher_class_ll)
+    @Bind(R.id.activity_teacher_class_ll)
     LinearLayout masterClassLl;
-    @BindView(R.id.activity_teacher_subject_recycler)
+    @Bind(R.id.activity_teacher_subject_recycler)
     RecyclerView subjectRecycler;
-    @BindView(R.id.activity_teacher_commit_btn)
+    @Bind(R.id.activity_teacher_commit_btn)
     Button aTeacherCommitBtn;
-    @BindView(R.id.activity_teacher_name_edit)
+    @Bind(R.id.activity_teacher_name_edit)
     EditText aTeacherNameEdit;
-    @BindView(R.id.activity_teacher_phone_edit)
+    @Bind(R.id.activity_teacher_phone_edit)
     EditText aTeacherPhoneEdit;
-    @BindView(R.id.activity_area_school_tv)
+    @Bind(R.id.activity_area_school_tv)
     TextView aAreaSchoolTv;
-    @BindView(R.id.activity_area_school_ll)
+    @Bind(R.id.activity_area_school_ll)
     LinearLayout aAreaSchoolLl;
 
     List<Object> items;
@@ -104,9 +104,9 @@ public class TeacherInformationActivity extends BaseActivity
     IRegisterSendCode iRegisterSendCode;
 
     ListDialog listDialog;
-    @BindView(R.id.activity_teacher_gender_tv)
+    @Bind(R.id.activity_teacher_gender_tv)
     TextView mGenderTv;
-    @BindView(R.id.activity_teacher_gender_ll)
+    @Bind(R.id.activity_teacher_gender_ll)
     LinearLayout mGenderLl;
     private IRegisterReq iRegisterReq;
     private RegisterInfoBean.SchoolArea area;

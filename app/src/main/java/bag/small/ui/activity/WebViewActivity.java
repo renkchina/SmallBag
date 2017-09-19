@@ -8,13 +8,13 @@ import android.webkit.WebViewClient;
 
 import bag.small.R;
 import bag.small.base.BaseActivity;
-import butterknife.BindView;
+import butterknife.Bind;
 
 import static android.view.KeyEvent.KEYCODE_BACK;
 
 public class WebViewActivity extends BaseActivity {
 
-    @BindView(R.id.web_view)
+    @Bind(R.id.web_view)
     WebView webView;
 
     @Override

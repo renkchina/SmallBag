@@ -12,17 +12,17 @@ import bag.small.adapter.GuideAdapter;
 import bag.small.base.BaseActivity;
 import bag.small.base.BaseFragment;
 import bag.small.ui.fragment.GuideFragment;
-import butterknife.BindView;
+import butterknife.Bind;
 import butterknife.OnClick;
 
 public class GuideActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
 
-    @BindView(R.id.activity_guide_viewpager)
+    @Bind(R.id.activity_guide_viewpager)
     ViewPager mViewpager;
 
     List<BaseFragment> fragments;
     GuideAdapter mGuideAdapter;
-    @BindView(R.id.activity_guide_btn)
+    @Bind(R.id.activity_guide_btn)
     Button mGuideBtn;
     GuideFragment guideFragment1;
     GuideFragment guideFragment2;

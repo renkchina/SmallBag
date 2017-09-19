@@ -37,7 +37,7 @@ import bag.small.utils.ImageUtil;
 import bag.small.utils.ListUtil;
 import bag.small.utils.StringUtil;
 import bag.small.utils.UserPreferUtil;
-import butterknife.BindView;
+import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
@@ -47,31 +47,31 @@ import top.zibin.luban.OnCompressListener;
 
 public class AccountTeacherManagerActivity extends BaseActivity {
 
-    @BindView(R.id.ac_account_teacher_head_iv)
+    @Bind(R.id.ac_account_teacher_head_iv)
     ImageView acAccountTeacherHeadIv;
-    @BindView(R.id.activity_account_teacher_name_tv)
+    @Bind(R.id.activity_account_teacher_name_tv)
     TextView accountTeacherNameTv;
-    @BindView(R.id.activity_account_teacher_number_tv)
+    @Bind(R.id.activity_account_teacher_number_tv)
     EditText accountTeacherNumberTv;
-    @BindView(R.id.activity_account_teacher_email_tv)
+    @Bind(R.id.activity_account_teacher_email_tv)
     EditText accountTeacherEmailTv;
-    @BindView(R.id.activity_account_teacher_birthday_tv)
+    @Bind(R.id.activity_account_teacher_birthday_tv)
     TextView accountTeacherBirthdayTv;
-    @BindView(R.id.activity_account_teacher_gender_tv)
+    @Bind(R.id.activity_account_teacher_gender_tv)
     TextView accountTeacherGenderTv;
-    @BindView(R.id.activity_account_teacher_class_teacher_tv)
+    @Bind(R.id.activity_account_teacher_class_teacher_tv)
     TextView accountTeacherClassTeacherTv;
-    @BindView(R.id.activity_account_teacher_class_ll)
+    @Bind(R.id.activity_account_teacher_class_ll)
     LinearLayout accountTeacherClassLl;
-    @BindView(R.id.activity_account_teacher_change_pwd_edt)
+    @Bind(R.id.activity_account_teacher_change_pwd_edt)
     EditText aChangePwdEdt;
-    @BindView(R.id.activity_account_teacher_agree_pwd_edt)
+    @Bind(R.id.activity_account_teacher_agree_pwd_edt)
     EditText aAgreePwdEdt;
-    @BindView(R.id.activity_account_teacher_commit_btn)
+    @Bind(R.id.activity_account_teacher_commit_btn)
     Button accountTeacherCommitBtn;
-    @BindView(R.id.account_teacher_radio_button)
+    @Bind(R.id.account_teacher_radio_button)
     RadioButton aRadioButton;
-    @BindView(R.id.account_teacher_radio_ll)
+    @Bind(R.id.account_teacher_radio_ll)
     LinearLayout accountTeacherRadioLl;
     private IRegisterReq iRegisterReq;
     private File logo;

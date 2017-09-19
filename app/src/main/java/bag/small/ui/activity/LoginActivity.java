@@ -20,7 +20,7 @@ import bag.small.http.IApi.ILoginRequest;
 import bag.small.rx.RxUtil;
 import bag.small.utils.StringUtil;
 import bag.small.utils.UserPreferUtil;
-import butterknife.BindView;
+import butterknife.Bind;
 import butterknife.OnClick;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
 
@@ -29,17 +29,17 @@ import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
  */
 
 public class LoginActivity extends BaseActivity {
-    @BindView(R.id.activity_login_image)
+    @Bind(R.id.activity_login_image)
     ImageView loginImage;
-    @BindView(R.id.activity_login_user_name_edt)
+    @Bind(R.id.activity_login_user_name_edt)
     EditText loginUserNameEdt;
-    @BindView(R.id.activity_login_user_password_edt)
+    @Bind(R.id.activity_login_user_password_edt)
     EditText loginUserPasswordEdt;
-    @BindView(R.id.activity_login_commit_btn)
+    @Bind(R.id.activity_login_commit_btn)
     Button loginCommitBtn;
-    @BindView(R.id.activity_login_register_tv)
+    @Bind(R.id.activity_login_register_tv)
     TextView loginRegisterTv;
-    @BindView(R.id.activity_login_forget_password_tv)
+    @Bind(R.id.activity_login_forget_password_tv)
     TextView loginForgetPasswordTv;
 
     ILoginRequest iLoginRequest;

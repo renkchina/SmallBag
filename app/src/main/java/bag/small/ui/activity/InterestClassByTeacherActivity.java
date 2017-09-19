@@ -26,7 +26,7 @@ import bag.small.utils.ListUtil;
 import bag.small.utils.StringUtil;
 import bag.small.utils.UserPreferUtil;
 import bag.small.view.RecycleViewDivider;
-import butterknife.BindView;
+import butterknife.Bind;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
@@ -35,21 +35,21 @@ import me.drakeet.multitype.MultiTypeAdapter;
 
 
 public class InterestClassByTeacherActivity extends BaseActivity {
-    @BindView(R.id.activity_interest_teacher_banner_iv)
+    @Bind(R.id.activity_interest_teacher_banner_iv)
     ImageView bannerIv;
-    @BindView(R.id.activity_interest_teacher_class_tv)
+    @Bind(R.id.activity_interest_teacher_class_tv)
     TextView tClassTv;
-    @BindView(R.id.activity_interest_teacher_time_tv)
+    @Bind(R.id.activity_interest_teacher_time_tv)
     TextView tTimeTv;
-    @BindView(R.id.activity_interest_teacher_classroom_tv)
+    @Bind(R.id.activity_interest_teacher_classroom_tv)
     TextView tClassroomTv;
-    @BindView(R.id.activity_interest_teacher_recycler)
+    @Bind(R.id.activity_interest_teacher_recycler)
     RecyclerView tRecycler;
-    @BindView(R.id.interest_by_teacher_show_ll)
+    @Bind(R.id.interest_by_teacher_show_ll)
     LinearLayout teacherShowLl;
-    @BindView(R.id.interest_by_teacher_choice_ll)
+    @Bind(R.id.interest_by_teacher_choice_ll)
     LinearLayout teacherChoiceLl;
-    @BindView(R.id.interest_empty_ll)
+    @Bind(R.id.interest_empty_ll)
     LinearLayout emptyLL;
     MultiTypeAdapter multiTypeAdapter;
     List<Object> mItems;

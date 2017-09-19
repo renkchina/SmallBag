@@ -6,12 +6,12 @@ import android.util.Base64;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.io.File;
 import java.io.FileInputStream;
 
 import bag.small.R;
-import bag.small.view.GlideCircleTransform;
 
 
 /**
@@ -34,9 +34,14 @@ public class ImageUtil {
             Glide.with(context).load(url).into(imageView);
         }
     }
+
     public static void loadLocalImageForChoice(Context context, ImageView imageView, String url) {
         if (context != null) {
-            Glide.with(context).load(url).placeholder(R.mipmap.add_photo).into(imageView);
+            RequestOptions options = new RequestOptions()
+                    .centerCrop()
+                    .placeholder(R.mipmap.add_photo);
+            Glide.with(context).load(url).apply(options).into(imageView);
+            //placeholder(R.mipmap.add_photo)
         }
     }
 
@@ -45,8 +50,11 @@ public class ImageUtil {
             if (url == null) {
                 url = "http://www.bz55.com/uploads/allimg/150701/140-150F1142638.jpg";
             }
-            Glide.with(context).load(url).transform(new GlideCircleTransform(context)).into(imageView);
-//            .placeholder(R.mipmap.photo_update_nomal)
+            RequestOptions options = new RequestOptions()
+                    .centerCrop()
+                    .placeholder(R.mipmap.photo_update_nomal);
+            Glide.with(context).load(url).apply(options).into(imageView);
+//            .placeholder(R.mipmap.photo_update_nomal)  .transform(new GlideCircleTransform(context))
         }
     }
 
@@ -55,8 +63,11 @@ public class ImageUtil {
             if (url == null) {
                 url = "http://www.bz55.com/uploads/allimg/150701/140-150F1142638.jpg";
             }
-            Glide.with(context).load(url).placeholder(R.mipmap.photo_update_nomal).transform(new GlideCircleTransform(context)).into(imageView);
-//
+            RequestOptions options = new RequestOptions()
+                    .centerCrop()
+                    .placeholder(R.mipmap.photo_update_nomal);
+            Glide.with(context).load(url).apply(options).into(imageView);
+//.placeholder(R.mipmap.photo_update_nomal).transform(new GlideCircleTransform(context))
         }
     }
 

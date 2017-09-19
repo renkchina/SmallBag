@@ -16,15 +16,13 @@ public class GlideImageLoader extends ImageLoader implements RxPickerImageLoader
     @Override public void display(ImageView imageView, String path, int width, int height) {
         Glide.with(imageView.getContext())
                 .load(path)
-                .centerCrop()
-                .override(width, height)
+//                .override(width, height)
                 .into(imageView);
     }
      public void display(ImageView imageView, int path, int width, int height) {
         Glide.with(imageView.getContext())
                 .load(path)
-                .centerCrop()
-                .override(width, height)
+//                .override(width, height)
                 .into(imageView);
     }
 

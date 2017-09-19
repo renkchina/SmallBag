@@ -15,24 +15,24 @@ import bag.small.rx.RxCountDown;
 import bag.small.rx.RxUtil;
 import bag.small.utils.GlobalValues;
 import bag.small.utils.StringUtil;
-import butterknife.BindView;
+import butterknife.Bind;
 import butterknife.OnClick;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
 
 public class PasswordForgetActivity extends BaseActivity {
 
 
-    @BindView(R.id.activity_pwd_forget_phone_edt)
+    @Bind(R.id.activity_pwd_forget_phone_edt)
     EditText pfPhoneEdt;
-    @BindView(R.id.activity_pwd_forget_verification_code_edt)
+    @Bind(R.id.activity_pwd_forget_verification_code_edt)
     EditText pfVerificationCodeEdt;
-    @BindView(R.id.activity_pwd_forget_send_code_btn)
+    @Bind(R.id.activity_pwd_forget_send_code_btn)
     Button pfSendCodeBtn;
-    @BindView(R.id.activity_pwd_forget_password_edt)
+    @Bind(R.id.activity_pwd_forget_password_edt)
     EditText pfPasswordEdt;
-    @BindView(R.id.activity_pwd_forget_reset_password_edt)
+    @Bind(R.id.activity_pwd_forget_reset_password_edt)
     EditText pfResetPasswordEdt;
-    @BindView(R.id.activity_pwd_forget_commit_btn)
+    @Bind(R.id.activity_pwd_forget_commit_btn)
     Button pfCommitBtn;
     IRegisterSendCode iRegisterSendCode;
     IRegisterReq iRegisterReq;

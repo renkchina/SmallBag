@@ -53,7 +53,7 @@ import bag.small.ui.fragment.GrowthDiaryFragment;
 import bag.small.ui.fragment.TreasureChestFragment;
 import bag.small.utils.ListUtil;
 import bag.small.utils.UserPreferUtil;
-import butterknife.BindView;
+import butterknife.Bind;
 import butterknife.OnClick;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
 import io.reactivex.functions.Consumer;
@@ -63,31 +63,31 @@ import me.drakeet.multitype.MultiTypeAdapter;
 public class MainActivity extends BaseActivity
         implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    @BindView(R.id.toolbar)
+    @Bind(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.toolbar_title)
+    @Bind(R.id.toolbar_title)
     TextView toolTitle;
-    @BindView(R.id.activity_main_content_frame)
+    @Bind(R.id.activity_main_content_frame)
     FrameLayout mContentFrame;
-    @BindView(R.id.activity_main_bottom_nav)
+    @Bind(R.id.activity_main_bottom_nav)
     BottomNavigationView mBottomNav;
-    @BindView(R.id.activity_main_content_ll)
+    @Bind(R.id.activity_main_content_ll)
     LinearLayout mContentLl;
-    @BindView(R.id.main_left_ll)
+    @Bind(R.id.main_left_ll)
     LinearLayout mainLeftLl;
-    @BindView(R.id.activity_main_drawer)
+    @Bind(R.id.activity_main_drawer)
     DrawerLayout mDrawer;
-    @BindView(R.id.main_drawer_left_recycler)
+    @Bind(R.id.main_drawer_left_recycler)
     RecyclerView mdlRecycler;
-    @BindView(R.id.activity_click_image)
+    @Bind(R.id.activity_click_image)
     ImageView activityClickImage;
-    @BindView(R.id.main_drawer_left_add_account_btn)
+    @Bind(R.id.main_drawer_left_add_account_btn)
     Button mdlAddAccountBtn;
 
-    @BindView(R.id.main_drawer_left_list_view)
+    @Bind(R.id.main_drawer_left_list_view)
     ListView listView;
 
-    @BindView(R.id.toolbar_right_iv)
+    @Bind(R.id.toolbar_right_iv)
     ImageView toolbarRightIv;
     BaseFragment[] fragments;
     private MenuItem lastItem;

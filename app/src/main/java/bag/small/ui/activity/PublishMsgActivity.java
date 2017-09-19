@@ -24,7 +24,7 @@ import bag.small.utils.ListUtil;
 import bag.small.utils.LogUtil;
 import bag.small.utils.StringUtil;
 import bag.small.utils.UserPreferUtil;
-import butterknife.BindView;
+import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
@@ -41,11 +41,11 @@ import top.zibin.luban.OnCompressListener;
 
 public class PublishMsgActivity extends BaseActivity {
 
-    @BindView(R.id.toolbar_right_tv)
+    @Bind(R.id.toolbar_right_tv)
     TextView toolbarRightTv;
-    @BindView(R.id.ac_publish_edt)
+    @Bind(R.id.ac_publish_edt)
     EditText acPublishEdt;
-    @BindView(R.id.ac_publish_recycler)
+    @Bind(R.id.ac_publish_recycler)
     RecyclerView acPublishRecycler;
 
     MultiTypeAdapter multiTypeAdapter;

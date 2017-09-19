@@ -24,16 +24,16 @@ import bag.small.utils.GlideImageLoader;
 import bag.small.utils.ListUtil;
 import bag.small.utils.UserPreferUtil;
 import bag.small.view.RecycleViewDivider;
-import butterknife.BindView;
+import butterknife.Bind;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
 import me.drakeet.multitype.MultiTypeAdapter;
 
 public class EducationalNoticeActivity extends BaseActivity implements TabLayout.OnTabSelectedListener {
     //    @Bind(R.id.activity_education_banner)
 //    Banner eBanner;
-    @BindView(R.id.activity_education_tab_layout)
+    @Bind(R.id.activity_education_tab_layout)
     TabLayout eTabLayout;
-    @BindView(R.id.activity_education_recycler)
+    @Bind(R.id.activity_education_recycler)
     RecyclerView eRecycler;
 
     private List<Object> bannerImages;

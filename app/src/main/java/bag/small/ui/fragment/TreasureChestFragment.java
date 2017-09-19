@@ -12,7 +12,7 @@ import bag.small.app.MyApplication;
 import bag.small.base.BaseFragment;
 import bag.small.entity.ConnectionBinder;
 import bag.small.provider.ConnectionViewBinder2;
-import butterknife.BindView;
+import butterknife.Bind;
 import me.drakeet.multitype.MultiTypeAdapter;
 
 /**
@@ -22,9 +22,9 @@ import me.drakeet.multitype.MultiTypeAdapter;
 public class TreasureChestFragment extends BaseFragment {
 
     List<Object> mItemBeans;
-    @BindView(R.id.fragment_family_grid_view)
+    @Bind(R.id.fragment_family_grid_view)
     RecyclerView recyclerView;
-    @BindView(R.id.banner_imageview)
+    @Bind(R.id.banner_imageview)
     ImageView bannerImage;
     private MultiTypeAdapter mAdapter;
 

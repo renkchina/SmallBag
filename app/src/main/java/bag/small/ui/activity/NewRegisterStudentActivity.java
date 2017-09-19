@@ -39,7 +39,7 @@ import bag.small.utils.ImageUtil;
 import bag.small.utils.ListUtil;
 import bag.small.utils.StringUtil;
 import bag.small.utils.UserPreferUtil;
-import butterknife.BindView;
+import butterknife.Bind;
 import butterknife.OnClick;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
 import okhttp3.MediaType;
@@ -49,49 +49,49 @@ import top.zibin.luban.OnCompressListener;
 
 public class NewRegisterStudentActivity extends BaseActivity {
 
-    //    @BindView(R.id.ac_new_student_head_iv)
+    //    @Bind(R.id.ac_new_student_head_iv)
 //    ImageView acNewStudentHeadIv;
-//    @BindView(R.id.new_register_student_name_tv)
+//    @Bind(R.id.new_register_student_name_tv)
 //    TextView studentNameTv;
-//    @BindView(R.id.new_register_student_type_tv)
+//    @Bind(R.id.new_register_student_type_tv)
 //    TextView studentTypeTv;
-//    @BindView(R.id.new_register_student_school_tv)
+//    @Bind(R.id.new_register_student_school_tv)
 //    TextView studentSchoolTv;
-//    @BindView(R.id.new_register_student_number_tv)
+//    @Bind(R.id.new_register_student_number_tv)
 //    TextView studentNumberTv;
-//    @BindView(R.id.new_register_student_class_tv)
+//    @Bind(R.id.new_register_student_class_tv)
 //    TextView studentClassTv;
-//    @BindView(R.id.new_register_student_class_student_tv)
+//    @Bind(R.id.new_register_student_class_student_tv)
 //    TextView studentxuehaoTv;
-//    @BindView(R.id.new_register_student_birthday_tv)
+//    @Bind(R.id.new_register_student_birthday_tv)
 //    TextView studentBirthdayTv;
-//    @BindView(R.id.new_register_student_gender_tv)
+//    @Bind(R.id.new_register_student_gender_tv)
 //    TextView studentGenderTv;
-    @BindView(R.id.ac_account_student_head_iv)
+    @Bind(R.id.ac_account_student_head_iv)
     ImageView acAccountStudentHeadIv;
-    @BindView(R.id.activity_account_student_name_tv)
+    @Bind(R.id.activity_account_student_name_tv)
     TextView accountStudentNameTv;
-    @BindView(R.id.activity_account_student_number_tv)
+    @Bind(R.id.activity_account_student_number_tv)
     TextView accountStudentNumberTv;
-    @BindView(R.id.activity_account_student_grade_tv)
+    @Bind(R.id.activity_account_student_grade_tv)
     TextView accountStudentGradeTv;
-    @BindView(R.id.activity_account_student_class_tv)
+    @Bind(R.id.activity_account_student_class_tv)
     TextView accountStudentClassTv;
-    @BindView(R.id.activity_account_student_gender_tv)
+    @Bind(R.id.activity_account_student_gender_tv)
     TextView accountStudentGenderTv;
-    @BindView(R.id.activity_account_student_birthday_tv)
+    @Bind(R.id.activity_account_student_birthday_tv)
     TextView accountStudentBirthdayTv;
-    @BindView(R.id.activity_account_student_change_pwd_edt)
+    @Bind(R.id.activity_account_student_change_pwd_edt)
     EditText aChangePwdEdt;
-    @BindView(R.id.activity_account_student_agree_pwd_edt)
+    @Bind(R.id.activity_account_student_agree_pwd_edt)
     EditText aAgreePwdEdt;
-    @BindView(R.id.activity_account_student_commit_btn)
+    @Bind(R.id.activity_account_student_commit_btn)
     Button accountStudentCommitBtn;
-    @BindView(R.id.account_student_radio_button)
+    @Bind(R.id.account_student_radio_button)
     RadioButton aRadioButton;
-    @BindView(R.id.account_student_password_ll)
+    @Bind(R.id.account_student_password_ll)
     LinearLayout accountStudentPasswordLl;
-    @BindView(R.id.toolbar_right_tv)
+    @Bind(R.id.toolbar_right_tv)
     TextView toolbarRightTv;
     private IRegisterReq iRegisterRequest;
     private String phone;
