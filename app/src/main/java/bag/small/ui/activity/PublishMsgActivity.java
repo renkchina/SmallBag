@@ -167,22 +167,24 @@ public class PublishMsgActivity extends BaseActivity {
         } else {
             List<MultipartBody.Part> parts = new ArrayList<>(9);
             final int[] count = {0};
-            Flowable.just(getImageSize())
-                    .observeOn(Schedulers.io())
-                    .map(new Function<List<String>, List<File>>() {
-                        @Override
-                        public List<File> apply(@NonNull List<String> list) throws Exception {
-                            // 同步方法直接返回压缩后的文件
-                            return Luban.with(PublishMsgActivity.this).load(list).get();
-                        }
-                    })
+            int size = getImageSize();
+            Observable.create((ObservableOnSubscribe<String>) e -> {
+                for (String mData : mDatas) {
+                    if (!TextUtils.isEmpty(mData)){
+                        e.onNext(mData);
+                    }
+                }
+            }).subscribeOn(Schedulers.io())
+                    .map(s -> Luban.with(PublishMsgActivity.this).load(new File(s)).get())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(files -> {
-                        for (File file : files) {
-                            String fileName = System.currentTimeMillis() + ".png";
-                            parts.add(RxUtil.convertImage("file" + count[0], fileName, file));
+                    .subscribe(file -> {
+                        count[0]++;
+                        String fileName = System.currentTimeMillis() + ".png";
+                        parts.add(RxUtil.convertImage("file" + count[0], fileName, file));
+                        if (count[0] == size) {
+                            sendMessage(parts);
                         }
-                        sendMessage(parts);
+                        LogUtil.show("onNext");
                     }, throwable -> {
                         if (progressDialog != null && progressDialog.isShowing()) {
                             progressDialog.dismiss();
@@ -194,7 +196,7 @@ public class PublishMsgActivity extends BaseActivity {
         }
     }
 
-    private List<String> getImageSize() {
+    private List<String> getImage() {
         List<String> images = new ArrayList<>(9);
         for (String data : mDatas) {
             if (!TextUtils.isEmpty(data)) {
@@ -202,6 +204,15 @@ public class PublishMsgActivity extends BaseActivity {
             }
         }
         return images;
+    }
+    private int  getImageSize() {
+        int size = 0;
+        for (String data : mDatas) {
+            if (!TextUtils.isEmpty(data)) {
+               size++;
+            }
+        }
+        return size;
     }
 
     private boolean isEmptyImage() {
