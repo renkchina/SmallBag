@@ -95,7 +95,7 @@ public class FamiliesSchoolConnectionFragment extends BaseFragment {
     public void initView() {
         mAdapter.register(ConnectionBinder.class, new ConnectionViewBinder());
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
-        recyclerView.addItemDecoration(new SpaceItemDecoration(10));
+        recyclerView.addItemDecoration(new SpaceItemDecoration(7));
         recyclerView.setAdapter(mAdapter);
 
 

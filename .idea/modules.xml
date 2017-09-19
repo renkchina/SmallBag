@@ -6,7 +6,6 @@
       <module fileurl="file://$PROJECT_DIR$/SmallBag.iml" filepath="$PROJECT_DIR$/SmallBag.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/imagebrowserlibrary/imagebrowserlibrary.iml" filepath="$PROJECT_DIR$/imagebrowserlibrary/imagebrowserlibrary.iml" />
-      <module fileurl="file://$PROJECT_DIR$/luban/luban.iml" filepath="$PROJECT_DIR$/luban/luban.iml" />
       <module fileurl="file://$PROJECT_DIR$/mbanner/mbanner.iml" filepath="$PROJECT_DIR$/mbanner/mbanner.iml" />
       <module fileurl="file://$PROJECT_DIR$/rxbus/rxbus.iml" filepath="$PROJECT_DIR$/rxbus/rxbus.iml" />
       <module fileurl="file://$PROJECT_DIR$/rxpicker/rxpicker.iml" filepath="$PROJECT_DIR$/rxpicker/rxpicker.iml" />

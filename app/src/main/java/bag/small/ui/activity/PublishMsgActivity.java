@@ -28,9 +28,12 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import me.drakeet.multitype.MultiTypeAdapter;
 import okhttp3.MediaType;
@@ -164,23 +167,22 @@ public class PublishMsgActivity extends BaseActivity {
         } else {
             List<MultipartBody.Part> parts = new ArrayList<>(9);
             final int[] count = {0};
-            Observable.create((ObservableOnSubscribe<String>) e -> {
-                for (String mData : mDatas) {
-                    if (!TextUtils.isEmpty(mData)){
-                        e.onNext(mData);
-                    }
-                }
-            }).subscribeOn(Schedulers.io())
-                    .map(s -> Luban.with(PublishMsgActivity.this).load(new File(s)).get())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(file -> {
-                        count[0]++;
-                        String fileName = System.currentTimeMillis() + ".png";
-                        parts.add(RxUtil.convertImage("file" + count[0], fileName, file));
-                        if (count[0] == mDatas.size() - 1) {
-                            sendMessage(parts);
+            Flowable.just(getImageSize())
+                    .observeOn(Schedulers.io())
+                    .map(new Function<List<String>, List<File>>() {
+                        @Override
+                        public List<File> apply(@NonNull List<String> list) throws Exception {
+                            // 同步方法直接返回压缩后的文件
+                            return Luban.with(PublishMsgActivity.this).load(list).get();
                         }
-                        LogUtil.show("onNext");
+                    })
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(files -> {
+                        for (File file : files) {
+                            String fileName = System.currentTimeMillis() + ".png";
+                            parts.add(RxUtil.convertImage("file" + count[0], fileName, file));
+                        }
+                        sendMessage(parts);
                     }, throwable -> {
                         if (progressDialog != null && progressDialog.isShowing()) {
                             progressDialog.dismiss();
@@ -190,6 +192,16 @@ public class PublishMsgActivity extends BaseActivity {
                         LogUtil.show("complete");
                     });
         }
+    }
+
+    private List<String> getImageSize() {
+        List<String> images = new ArrayList<>(9);
+        for (String data : mDatas) {
+            if (!TextUtils.isEmpty(data)) {
+                images.add(data);
+            }
+        }
+        return images;
     }
 
     private boolean isEmptyImage() {

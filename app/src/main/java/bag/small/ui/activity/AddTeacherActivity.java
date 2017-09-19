@@ -118,7 +118,15 @@ public class AddTeacherActivity extends BaseActivity {
     }
 
     private void showView(NewRegisterTeacherBean data) {
-        ImageUtil.loadImages(this, acAccountTeacherHeadIv, UserPreferUtil.getInstanse().getHeadImagePath());
+        if (TextUtils.isEmpty(data.getLogo())) {
+            if (!TextUtils.isEmpty(data.getSex()) && data.getSex().contains("男")) {
+                acAccountTeacherHeadIv.setImageResource(R.mipmap.teacher_man);
+            } else {
+                acAccountTeacherHeadIv.setImageResource(R.mipmap.teacher_woman);
+            }
+        } else {
+            ImageUtil.loadImages(this, acAccountTeacherHeadIv, data.getLogo());
+        }
         StringUtil.setTextView(accountTeacherNameTv, "名字：" + data.getName());
         StringUtil.setTextView(accountTeacherNumberTv, data.getWork_no());
         StringUtil.setTextView(accountTeacherEmailTv, data.getEmail());
@@ -228,7 +236,7 @@ public class AddTeacherActivity extends BaseActivity {
                                         toast(bean.getMsg());
                                     }
                                 }, new HttpError());
-                    } else{
+                    } else {
                         iRegisterReq.changeRegisterAsTeacherOrStudent(map)
                                 .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
                                 .compose(RxLifecycleCompact.bind(this).withObservable())

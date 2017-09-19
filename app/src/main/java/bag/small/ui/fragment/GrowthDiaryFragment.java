@@ -83,8 +83,6 @@ public class GrowthDiaryFragment extends BaseFragment implements IDialog {
     @Override
     public void initView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//        recyclerView.addItemDecoration(new RecycleViewDivider(getContext(), LinearLayoutManager.HORIZONTAL, 1,
-//                ContextCompat.getColor(getContext(), R.color.un_enable_gray)));
         recyclerView.addItemDecoration(new SpaceItemDecoration());
         recyclerView.setAdapter(multiTypeAdapter);
         requestHTTP(pageIndex, null);
@@ -96,25 +94,26 @@ public class GrowthDiaryFragment extends BaseFragment implements IDialog {
                 UserPreferUtil.getInstanse().getSchoolId(), page)
                 .compose(RxLifecycleCompact.bind(this).withObservable())
                 .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
-                .subscribe(bean -> {
+                .doFinally(()->{
                     if (refresh != null) {
                         refresh.finishRefresh();
                         refresh.finishLoadmore();
                     }
+                })
+                .subscribe(bean -> {
                     if (bean.isSuccess()) {
-                        if (ListUtil.isEmpty(bean.getData())) {
-                            return;
+                        if (ListUtil.unEmpty(bean.getData())) {
+                            if (page == 1) {
+                                mItems.clear();
+                                mItems.add(noticeBanner);
+                            }
+                            mItems.addAll(bean.getData());
+                            multiTypeAdapter.notifyDataSetChanged();
                         }
-                        if (page == 1) {
-                            mItems.clear();
-                            mItems.add(noticeBanner);
-                        }
-                        mItems.addAll(bean.getData());
-                        multiTypeAdapter.notifyDataSetChanged();
                     } else {
                         toast(bean.getMsg());
                     }
-                }, new HttpError(refresh));
+                }, new HttpError());
     }
 
 
@@ -126,10 +125,9 @@ public class GrowthDiaryFragment extends BaseFragment implements IDialog {
 
     private void setHttp() {
         pageIndex = 1;
-        requestHTTP(pageIndex, null);
         noticeBanner.setBannerImages(MyApplication.bannerImage);
         noticeBanner.setHeadImage(UserPreferUtil.getInstanse().getHeadImagePath());
-        multiTypeAdapter.notifyDataSetChanged();
+        requestHTTP(pageIndex, null);
     }
 
     @Override

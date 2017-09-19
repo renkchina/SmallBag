@@ -14,7 +14,7 @@
 
         <include layout="@layout/toolbar" />
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ac_account_teacher_head_iv"
             style="@style/head_image_style" />
 

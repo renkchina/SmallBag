@@ -108,6 +108,16 @@ public class AddStudentActivity extends BaseActivity {
                         StringUtil.setTextView(accountStudentNumberTv, bean.getData().getStudent_no());
                         StringUtil.setTextView(accountStudentBirthdayTv, bean.getData().getBirth());
                         StringUtil.setTextView(accountStudentGenderTv, bean.getData().getSex());
+                        String logo = bean.getData().getLogo();
+                        if (TextUtils.isEmpty(logo)) {
+                            if (!TextUtils.isEmpty(bean.getData().getSex()) && bean.getData().getSex().contains("男")) {
+                                acAccountStudentHeadIv.setImageResource(R.mipmap.student_boy);
+                            } else {
+                                acAccountStudentHeadIv.setImageResource(R.mipmap.student_girl);
+                            }
+                        } else {
+                            ImageUtil.loadImages(this, acAccountStudentHeadIv, logo);
+                        }
                         id = bean.getData().getTarget_id();
                         if (TextUtils.isEmpty(id)) {
                             id = bean.getData().getId();
@@ -120,7 +130,6 @@ public class AddStudentActivity extends BaseActivity {
                         }
                     }
                 }, new HttpError());
-        ImageUtil.loadImages(this, acAccountStudentHeadIv, UserPreferUtil.getInstanse().getHeadImagePath());
     }
 
     @OnClick({R.id.toolbar_right_tv,
@@ -208,9 +217,9 @@ public class AddStudentActivity extends BaseActivity {
                     map.put("email", RxUtil.toRequestBodyTxt(""));
                     map.put("id", RxUtil.toRequestBodyTxt(id));
                     map.put("work_no", RxUtil.toRequestBodyTxt(number));
-                    if (logo != null){
+                    if (logo != null) {
 
-                        iRegisterReq.changeRegisterAsTeacherOrStudent(map,RxUtil.convertImage("logo", logo))
+                        iRegisterReq.changeRegisterAsTeacherOrStudent(map, RxUtil.convertImage("logo", logo))
                                 .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
                                 .compose(RxLifecycleCompact.bind(this).withObservable())
                                 .subscribe(bean -> {
@@ -220,7 +229,7 @@ public class AddStudentActivity extends BaseActivity {
                                         toast(bean.getMsg());
                                     }
                                 }, new HttpError());
-                    }else{
+                    } else {
 
                         iRegisterReq.changeRegisterAsTeacherOrStudent(map)
                                 .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
