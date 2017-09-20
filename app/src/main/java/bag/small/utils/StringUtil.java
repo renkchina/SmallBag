@@ -2,6 +2,7 @@ package bag.small.utils;
 
 import android.text.TextUtils;
 import android.util.Patterns;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -87,6 +88,14 @@ public class StringUtil {
         if (TextUtils.isEmpty(content)) {
             tv.setText("");
         } else {
+            tv.setText(content);
+        }
+    }
+    public static void setTextViewGone(TextView tv, String content) {
+        if (TextUtils.isEmpty(content)) {
+            tv.setVisibility(View.GONE);
+        } else {
+            tv.setVisibility(View.VISIBLE);
             tv.setText(content);
         }
     }

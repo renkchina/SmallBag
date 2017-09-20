@@ -67,7 +67,7 @@ public class MomentsViewBinder extends ItemViewBinder<MomentsBean, MomentsViewBi
         Context context = holder.iLikeIv.getContext();
         StringUtil.setTextView(holder.iNoteNameTv, bean.getTitle());
 
-        StringUtil.setTextView(holder.iNoteTxtContentTv, String.valueOf(Html.fromHtml(bean.getContent())));
+        StringUtil.setTextViewGone(holder.iNoteTxtContentTv, String.valueOf(Html.fromHtml(bean.getContent())));
         ImageUtil.loadImages(context, holder.iNoteHeadIv, bean.getIcon());
 
 

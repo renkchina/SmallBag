@@ -94,7 +94,7 @@ public class GrowthDiaryFragment extends BaseFragment implements IDialog {
                 UserPreferUtil.getInstanse().getSchoolId(), page)
                 .compose(RxLifecycleCompact.bind(this).withObservable())
                 .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
-                .doFinally(()->{
+                .doFinally(() -> {
                     if (refresh != null) {
                         refresh.finishRefresh();
                         refresh.finishLoadmore();
@@ -102,20 +102,19 @@ public class GrowthDiaryFragment extends BaseFragment implements IDialog {
                 })
                 .subscribe(bean -> {
                     if (bean.isSuccess()) {
-                        if (ListUtil.unEmpty(bean.getData())) {
-                            if (page == 1) {
-                                mItems.clear();
-                                mItems.add(noticeBanner);
-                            }
-                            mItems.addAll(bean.getData());
-                            multiTypeAdapter.notifyDataSetChanged();
+                        if (page == 1) {
+                            mItems.clear();
+                            mItems.add(noticeBanner);
                         }
+                        if (ListUtil.unEmpty(bean.getData())) {
+                            mItems.addAll(bean.getData());
+                        }
+                        multiTypeAdapter.notifyDataSetChanged();
                     } else {
                         toast(bean.getMsg());
                     }
                 }, new HttpError());
     }
-
 
     //第一次初始化不执行
     @Override
