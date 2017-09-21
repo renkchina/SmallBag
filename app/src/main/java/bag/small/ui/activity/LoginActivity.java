@@ -83,7 +83,8 @@ public class LoginActivity extends BaseActivity {
                     toast(bean.getMsg());
                     if (bean.isSuccess()) {
                         MyApplication.isLogin = true;
-                        MyApplication.loginResults = bean.getData().getRole();
+                        MyApplication.loginResults.clear();
+                        MyApplication.loginResults.addAll(bean.getData().getRole());
                         LoginResult.RoleBean mBean = bean.getData().getRole().get(0);
                         mBean.setSelected(true);
                         UserPreferUtil.getInstanse().setPhone(phone);

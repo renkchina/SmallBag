@@ -498,7 +498,8 @@ public class TeacherInformationActivity extends BaseActivity
                         LoginResult.RoleBean mBean = bean.getData().get(0);
                         mBean.setSelected(true);
                         UserPreferUtil.getInstanse().setUserInfomation(mBean);
-                        MyApplication.loginResults = bean.getData();
+                        MyApplication.loginResults.clear();
+                        MyApplication.loginResults.addAll(bean.getData());
                     }
                     finish();
                 }, new HttpError());

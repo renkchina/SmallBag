@@ -50,24 +50,20 @@ public class AccountStudentManagerActivity extends BaseActivity {
     TextView accountStudentNameTv;
     @Bind(R.id.activity_account_student_number_tv)
     EditText accountStudentNumberTv;
-    @Bind(R.id.activity_account_student_grade_tv)
-    TextView accountStudentGradeTv;
+//    @Bind(R.id.activity_account_student_grade_tv)
+//    TextView accountStudentGradeTv;
     @Bind(R.id.activity_account_student_class_tv)
     TextView accountStudentClassTv;
     @Bind(R.id.activity_account_student_gender_tv)
     TextView accountStudentGenderTv;
     @Bind(R.id.activity_account_student_birthday_tv)
     TextView accountStudentBirthdayTv;
-    @Bind(R.id.activity_account_student_change_pwd_edt)
-    EditText aChangePwdEdt;
+    @Bind(R.id.activity_account_student_school_tv)
+    TextView schoolTv;
     @Bind(R.id.activity_account_student_agree_pwd_edt)
     EditText aAgreePwdEdt;
     @Bind(R.id.activity_account_student_commit_btn)
     Button accountStudentCommitBtn;
-    @Bind(R.id.account_student_password_ll)
-    LinearLayout accountStudentPasswordLl;
-    @Bind(R.id.account_student_radio_button)
-    RadioButton aRadioButton;
 
     private File logo;
     private ListDialog listDialog;
@@ -94,9 +90,9 @@ public class AccountStudentManagerActivity extends BaseActivity {
                 .compose(RxLifecycleCompact.bind(this).withObservable())
                 .subscribe(bean -> {
                     if (bean.isSuccess() && bean.getData() != null) {
-                        StringUtil.setTextView(accountStudentNameTv, "姓名：" + bean.getData().getName());
-                        StringUtil.setTextView(accountStudentGradeTv, "年级：" + bean.getData().getBanci());
-                        StringUtil.setTextView(accountStudentClassTv, "班级：" + bean.getData().getBanji());
+                        StringUtil.setTextView(accountStudentNameTv, bean.getData().getName());
+                        StringUtil.setTextView(schoolTv, bean.getData().getSchool_name());
+                        StringUtil.setTextView(accountStudentClassTv, bean.getData().getBanci());
                         StringUtil.setTextView(accountStudentNumberTv, bean.getData().getStudent_no());
                         StringUtil.setTextView(accountStudentBirthdayTv, bean.getData().getBirth());
                         StringUtil.setTextView(accountStudentGenderTv, bean.getData().getSex());
@@ -119,11 +115,9 @@ public class AccountStudentManagerActivity extends BaseActivity {
             R.id.ac_account_student_head_iv,
             R.id.activity_account_student_name_tv,
             R.id.activity_account_student_number_tv,
-            R.id.activity_account_student_grade_tv,
             R.id.activity_account_student_class_tv,
             R.id.activity_account_student_gender_tv,
             R.id.activity_account_student_birthday_tv,
-            R.id.account_student_password_ll,
             R.id.activity_account_student_commit_btn})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -138,21 +132,7 @@ public class AccountStudentManagerActivity extends BaseActivity {
                 break;
             case R.id.activity_account_student_number_tv:
                 break;
-            case R.id.activity_account_student_grade_tv:
-                break;
             case R.id.activity_account_student_class_tv:
-                break;
-            case R.id.account_student_password_ll:
-                if (aRadioButton.isChecked()) {
-                    aRadioButton.setChecked(false);
-//                  aRadioButton.setBackgroundResource(R.mipmap.account_manager_password);
-                    aChangePwdEdt.setVisibility(View.GONE);
-                    aAgreePwdEdt.setVisibility(View.GONE);
-                } else {
-                    aRadioButton.setChecked(true);
-                    aChangePwdEdt.setVisibility(View.VISIBLE);
-                    aAgreePwdEdt.setVisibility(View.VISIBLE);
-                }
                 break;
             case R.id.activity_account_student_gender_tv:
                 listDialog = new ListDialog(this);
@@ -164,16 +144,15 @@ public class AccountStudentManagerActivity extends BaseActivity {
                 break;
             case R.id.activity_account_student_birthday_tv:
                 //时间选择器
-                TimePickerView pvTime = new TimePickerView.Builder(this, (date, v) -> {//选中事件回调
-                    String dateStr = new SimpleDateFormat("yyyy-MM-dd").format(date);
-                    StringUtil.setTextView(accountStudentBirthdayTv, dateStr);
-                }).setType(new boolean[]{true, true, true, false, false, false})
-                        .build();
-                pvTime.setDate(Calendar.getInstance());
-                pvTime.show();
+//                TimePickerView pvTime = new TimePickerView.Builder(this, (date, v) -> {//选中事件回调
+//                    String dateStr = new SimpleDateFormat("yyyy-MM-dd").format(date);
+//                    StringUtil.setTextView(accountStudentBirthdayTv, dateStr);
+//                }).setType(new boolean[]{true, true, true, false, false, false})
+//                        .build();
+//                pvTime.setDate(Calendar.getInstance());
+//                pvTime.show();
                 break;
             case R.id.activity_account_student_commit_btn:
-                String change = StringUtil.EditGetString(aChangePwdEdt);
                 String agree = StringUtil.EditGetString(aAgreePwdEdt);
                 String birthday = StringUtil.EditGetString(accountStudentBirthdayTv);
                 String number = StringUtil.EditGetString(accountStudentNumberTv);
@@ -186,46 +165,40 @@ public class AccountStudentManagerActivity extends BaseActivity {
                 } else {
                     gender = "1";
                 }
-                if (change.equals(agree)) {
-                    HashMap<String, RequestBody> map = new HashMap<>();
-                    map.put("type", RxUtil.toRequestBodyTxt("student"));
-                    map.put("role_id", RxUtil.toRequestBodyTxt(UserPreferUtil.getInstanse().getRoleId()));
-                    map.put("school_id", RxUtil.toRequestBodyTxt(UserPreferUtil.getInstanse().getSchoolId()));
-                    map.put("login_id", RxUtil.toRequestBodyTxt(UserPreferUtil.getInstanse().getUserId()));
-                    map.put("birth", RxUtil.toRequestBodyTxt(birthday));
-                    map.put("pwd", RxUtil.toRequestBodyTxt(change));
-                    map.put("sex", RxUtil.toRequestBodyTxt(gender));
-                    map.put("email", RxUtil.toRequestBodyTxt(""));
-                    map.put("id", RxUtil.toRequestBodyTxt(id));
-                    map.put("work_no", RxUtil.toRequestBodyTxt(number));
-                    if (logo != null) {
+                HashMap<String, RequestBody> map = new HashMap<>();
+                map.put("type", RxUtil.toRequestBodyTxt("student"));
+                map.put("role_id", RxUtil.toRequestBodyTxt(UserPreferUtil.getInstanse().getRoleId()));
+                map.put("school_id", RxUtil.toRequestBodyTxt(UserPreferUtil.getInstanse().getSchoolId()));
+                map.put("login_id", RxUtil.toRequestBodyTxt(UserPreferUtil.getInstanse().getUserId()));
+                map.put("birth", RxUtil.toRequestBodyTxt(birthday));
+                map.put("sex", RxUtil.toRequestBodyTxt(gender));
+                map.put("email", RxUtil.toRequestBodyTxt(""));
+                map.put("id", RxUtil.toRequestBodyTxt(id));
+                map.put("work_no", RxUtil.toRequestBodyTxt(number));
+                if (logo != null) {
 //                        map.put("logo", RequestBody.create(MediaType.parse("image/png"), logo));
-                        iRegisterReq.changeRegisterAsTeacherOrStudent(map, RxUtil.convertImage("logo", logo))
-                                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
-                                .compose(RxLifecycleCompact.bind(this).withObservable())
-                                .subscribe(bean -> {
-                                    if (bean.isSuccess()) {
-                                        getRoles();
-                                    } else {
-                                        toast(bean.getMsg());
-                                    }
-                                }, new HttpError());
-                    } else {
-                        iRegisterReq.changeRegisterAsTeacherOrStudent(map)
-                                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
-                                .compose(RxLifecycleCompact.bind(this).withObservable())
-                                .subscribe(bean -> {
-                                    if (bean.isSuccess()) {
-                                        getRoles();
-                                    } else {
-                                        toast(bean.getMsg());
-                                    }
-                                }, new HttpError());
-                    }
+                    iRegisterReq.changeRegisterAsTeacherOrStudent(map, RxUtil.convertImage("logo", logo))
+                            .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                            .compose(RxLifecycleCompact.bind(this).withObservable())
+                            .subscribe(bean -> {
+                                if (bean.isSuccess()) {
+                                    getRoles();
+                                } else {
+                                    toast(bean.getMsg());
+                                }
+                            }, new HttpError());
                 } else {
-                    toast("密码不一致");
+                    iRegisterReq.changeRegisterAsTeacherOrStudent(map)
+                            .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                            .compose(RxLifecycleCompact.bind(this).withObservable())
+                            .subscribe(bean -> {
+                                if (bean.isSuccess()) {
+                                    getRoles();
+                                } else {
+                                    toast(bean.getMsg());
+                                }
+                            }, new HttpError());
                 }
-
                 break;
         }
     }
@@ -240,7 +213,8 @@ public class AccountStudentManagerActivity extends BaseActivity {
                         LoginResult.RoleBean mBean = bean.getData().get(0);
                         mBean.setSelected(true);
                         UserPreferUtil.getInstanse().setUserInfomation(mBean);
-                        MyApplication.loginResults = bean.getData();
+                        MyApplication.loginResults.clear();
+                        MyApplication.loginResults.addAll(bean.getData());
                     }
                     finish();
                 }, new HttpError());

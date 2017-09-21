@@ -12,6 +12,7 @@ import com.umeng.analytics.game.UMGameAgent;
 import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.PushAgent;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import bag.small.R;
@@ -59,6 +60,7 @@ public class MyApplication extends Application implements Application.ActivityLi
         });
         mPushAgent.setDebugMode(false);
         setDefaultRefresh();
+        loginResults = new ArrayList<>(5);
     }
 
     private void setDefaultRefresh() {

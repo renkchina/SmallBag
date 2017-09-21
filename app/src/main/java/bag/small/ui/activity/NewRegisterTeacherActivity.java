@@ -85,14 +85,8 @@ public class NewRegisterTeacherActivity extends BaseActivity {
     LinearLayout accountTeacherClassLl;
     @Bind(R.id.activity_account_teacher_change_pwd_edt)
     EditText aChangePwdEdt;
-    @Bind(R.id.activity_account_teacher_agree_pwd_edt)
-    EditText aAgreePwdEdt;
     @Bind(R.id.activity_account_teacher_commit_btn)
     Button accountTeacherCommitBtn;
-    @Bind(R.id.account_teacher_radio_button)
-    RadioButton aRadioButton;
-    @Bind(R.id.account_teacher_radio_ll)
-    LinearLayout accountTeacherRadioLl;
     IRegisterReq iRegisterReq;
     @Bind(R.id.toolbar_right_tv)
     TextView toolbarRightTv;
@@ -128,7 +122,6 @@ public class NewRegisterTeacherActivity extends BaseActivity {
         iRegisterReq = HttpUtil.getInstance().createApi(IRegisterReq.class);
         acAccountTeacherHeadIv.setImageResource(R.mipmap.teacher_man);
         accountTeacherCommitBtn.setVisibility(View.GONE);
-        accountTeacherRadioLl.setVisibility(View.GONE);
         getRegisterInfomation();
     }
 
@@ -178,12 +171,12 @@ public class NewRegisterTeacherActivity extends BaseActivity {
             ImageUtil.loadCircleImages(this, acAccountTeacherHeadIv, data.getLogo());
         }
 
-        StringUtil.setTextView(accountTeacherNameTv, "名字：" + data.getName());
+        StringUtil.setTextView(accountTeacherNameTv, data.getName());
         StringUtil.setTextView(accountTeacherNumberTv, data.getWork_no());
         StringUtil.setTextView(accountTeacherEmailTv, data.getEmail());
         StringUtil.setTextView(accountTeacherBirthdayTv, data.getBirth());
         StringUtil.setTextView(accountTeacherGenderTv, data.getSex());
-        StringUtil.setTextView(accountTeacherClassTeacherTv, "班主任：" + data.getIs_banzhuren());
+        StringUtil.setTextView(accountTeacherClassTeacherTv,  data.getIs_banzhuren());
         if (ListUtil.unEmpty(data.getKemuinfo())) {
             int size = data.getKemuinfo().size();
             for (int i = 0; i < size; i++) {
@@ -196,27 +189,7 @@ public class NewRegisterTeacherActivity extends BaseActivity {
         }
         id = data.getTarget_id();
     }
-//        StringUtil.setTextView(newRegisterNameTv, "名字：" + data.getName());
-//        StringUtil.setTextView(newRegisterTypeTv, "类型：" + data.getLevel());
-//        StringUtil.setTextView(newRegisterSchoolTv, "学校：" + data.getSchool_name());
-//        StringUtil.setTextView(newRegisterNumberTv, "工号：" + data.getWork_no());
-//        StringUtil.setTextView(newRegisterEmailTv, "邮箱：" + data.getEmail());
-//        StringUtil.setTextView(newRegisterBirthdayTv, "生日：" + data.getBirth());
-//        StringUtil.setTextView(newRegisterGenderTv, "性别：" + data.getSex());
-//        StringUtil.setTextView(newRegisterClassTeacherTv, "班主任：" + data.getIs_banzhuren());
-//        if (ListUtil.unEmpty(data.getKemuinfo())) {
-//            int size = data.getKemuinfo().size();
-//            for (int i = 0; i < size; i++) {
-//                TextView textView = new TextView(this);
-//                textView.setGravity(Gravity.CENTER_VERTICAL);
-//                textView.setTextSize(14);
-//                if (ListUtil.unEmpty(data.getKemuinfo())) {
-//                    textView.setText(data.getKemuinfo().get(i));
-//                }
-//                newRegisterClassLl.addView(textView);
-//            }
-//        }
-//    }
+
 
     @OnClick({R.id.toolbar_right_tv,
             R.id.ac_account_teacher_head_iv,
@@ -225,8 +198,6 @@ public class NewRegisterTeacherActivity extends BaseActivity {
             R.id.activity_account_teacher_email_tv,
             R.id.activity_account_teacher_birthday_tv,
             R.id.activity_account_teacher_gender_tv,
-            R.id.account_teacher_radio_button,
-            R.id.account_teacher_radio_ll,
             R.id.activity_account_teacher_class_teacher_tv,
             R.id.activity_account_teacher_commit_btn})
     public void onViewClicked(View view) {
@@ -242,28 +213,15 @@ public class NewRegisterTeacherActivity extends BaseActivity {
                 break;
             case R.id.activity_account_teacher_number_tv:
                 break;
-            case R.id.account_teacher_radio_ll:
-            case R.id.account_teacher_radio_button:
-                if (aRadioButton.isChecked()) {
-                    aRadioButton.setChecked(false);
-//                  aRadioButton.setBackgroundResource(R.mipmap.account_manager_password);
-                    aChangePwdEdt.setVisibility(View.GONE);
-                    aAgreePwdEdt.setVisibility(View.GONE);
-                } else {
-                    aRadioButton.setChecked(true);
-                    aChangePwdEdt.setVisibility(View.VISIBLE);
-                    aAgreePwdEdt.setVisibility(View.VISIBLE);
-                }
-                break;
             case R.id.activity_account_teacher_birthday_tv:
                 //时间选择器
-                TimePickerView pvTime = new TimePickerView.Builder(this, (date, v) -> {//选中事件回调
-                    String dateStr = new SimpleDateFormat("yyyy-MM-dd").format(date);
-                    StringUtil.setTextView(accountTeacherBirthdayTv, dateStr);
-                }).setType(new boolean[]{true, true, true, false, false, false})
-                        .build();
-                pvTime.setDate(Calendar.getInstance());
-                pvTime.show();
+//                TimePickerView pvTime = new TimePickerView.Builder(this, (date, v) -> {//选中事件回调
+//                    String dateStr = new SimpleDateFormat("yyyy-MM-dd").format(date);
+//                    StringUtil.setTextView(accountTeacherBirthdayTv, dateStr);
+//                }).setType(new boolean[]{true, true, true, false, false, false})
+//                        .build();
+//                pvTime.setDate(Calendar.getInstance());
+//                pvTime.show();
                 break;
             case R.id.activity_account_teacher_gender_tv:
                 ListDialog listDialog = new ListDialog(this);
@@ -275,7 +233,6 @@ public class NewRegisterTeacherActivity extends BaseActivity {
                 break;
             case R.id.toolbar_right_tv:
                 String change = StringUtil.EditGetString(aChangePwdEdt);
-                String agree = StringUtil.EditGetString(aAgreePwdEdt);
                 String birthday = StringUtil.EditGetString(accountTeacherBirthdayTv);
                 String gender = StringUtil.EditGetString(accountTeacherGenderTv);
                 String number = StringUtil.EditGetString(accountTeacherNumberTv);
@@ -286,7 +243,6 @@ public class NewRegisterTeacherActivity extends BaseActivity {
                 } else {
                     sex = "1";
                 }
-                if (change.equals(agree)) {
                     HashMap<String, RequestBody> map = new HashMap<>();
                     map.put("type", RxUtil.toRequestBodyTxt("teacher"));
                     map.put("role_id", RxUtil.toRequestBodyTxt(current.getRole_id()));
@@ -310,9 +266,6 @@ public class NewRegisterTeacherActivity extends BaseActivity {
                                     toast(bean.getMsg());
                                 }
                             }, new HttpError());
-                } else {
-                    toast("密码不一致");
-                }
 
 
                 break;
@@ -327,7 +280,8 @@ public class NewRegisterTeacherActivity extends BaseActivity {
                     .subscribe(bean -> {
                         if (bean.isSuccess()) {
                             MyApplication.isLogin = true;
-                            MyApplication.loginResults = bean.getData().getRole();
+                            MyApplication.loginResults.clear();
+                            MyApplication.loginResults.addAll(bean.getData().getRole());
                             LoginResult.RoleBean mBean = bean.getData().getRole().get(0);
                             mBean.setSelected(true);
                             UserPreferUtil.getInstanse().setUserInfomation(mBean);

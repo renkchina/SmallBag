@@ -186,7 +186,7 @@ public class MainActivity extends BaseActivity
             @Override
             public void onDrawerClosed(View drawerView) {
                 isDrawer = false;
-                setUserImage();
+                changeRole();
             }
 
             @Override
@@ -328,7 +328,6 @@ public class MainActivity extends BaseActivity
         builder.show();
     }
 
-
     @OnClick(R.id.toolbar_right_iv)
     public void onViewClicked() {
         goActivity(PublishMsgActivity.class, null);
@@ -342,11 +341,18 @@ public class MainActivity extends BaseActivity
             itemDatas.addAll(MyApplication.loginResults);
             multiTypeAdapter.notifyDataSetChanged();
         }
-        setUserImage();
+        changeRole();
     }
 
     @MySubscribe(code = 300)
     public void setUserImage() {
+        if (mDrawer.isDrawerOpen(Gravity.START)) {
+            mDrawer.closeDrawer(Gravity.START);
+        }
+//        changeRole();
+    }
+
+    private void changeRole() {
         if (UserPreferUtil.getInstanse().isTeacher()) {
             if (UserPreferUtil.getInstanse().isMan()) {
                 MyApplication.roleImage = R.mipmap.teacher_man;

@@ -64,14 +64,10 @@ public class AddTeacherActivity extends BaseActivity {
     LinearLayout accountTeacherClassLl;
     @Bind(R.id.activity_account_teacher_change_pwd_edt)
     EditText aChangePwdEdt;
-    @Bind(R.id.activity_account_teacher_agree_pwd_edt)
-    EditText aAgreePwdEdt;
     @Bind(R.id.activity_account_teacher_commit_btn)
     Button accountTeacherCommitBtn;
-    @Bind(R.id.account_teacher_radio_button)
-    RadioButton aRadioButton;
-    @Bind(R.id.account_teacher_radio_ll)
-    LinearLayout accountTeacherRadioLl;
+    @Bind(R.id.activity_account_teacher_school_tv)
+    TextView schoolTv;
     private IRegisterReq iRegisterReq;
     private File logo;
     private String Id;
@@ -127,12 +123,13 @@ public class AddTeacherActivity extends BaseActivity {
         } else {
             ImageUtil.loadImages(this, acAccountTeacherHeadIv, data.getLogo());
         }
-        StringUtil.setTextView(accountTeacherNameTv, "名字：" + data.getName());
+        StringUtil.setTextView(accountTeacherNameTv, data.getName());
         StringUtil.setTextView(accountTeacherNumberTv, data.getWork_no());
         StringUtil.setTextView(accountTeacherEmailTv, data.getEmail());
         StringUtil.setTextView(accountTeacherBirthdayTv, data.getBirth());
         StringUtil.setTextView(accountTeacherGenderTv, data.getSex());
-        StringUtil.setTextView(accountTeacherClassTeacherTv, "班主任：" + data.getIs_banzhuren());
+        StringUtil.setTextView(schoolTv, data.getSchool_name());
+        StringUtil.setTextView(accountTeacherClassTeacherTv, data.getIs_banzhuren());
         if (ListUtil.unEmpty(data.getKemuinfo())) {
             int size = data.getKemuinfo().size();
             for (int i = 0; i < size; i++) {
@@ -152,8 +149,6 @@ public class AddTeacherActivity extends BaseActivity {
             R.id.activity_account_teacher_email_tv,
             R.id.activity_account_teacher_birthday_tv,
             R.id.activity_account_teacher_gender_tv,
-            R.id.account_teacher_radio_button,
-            R.id.account_teacher_radio_ll,
             R.id.activity_account_teacher_class_teacher_tv,
             R.id.activity_account_teacher_commit_btn})
     public void onViewClicked(View view) {
@@ -169,28 +164,15 @@ public class AddTeacherActivity extends BaseActivity {
                 break;
             case R.id.activity_account_teacher_number_tv:
                 break;
-            case R.id.account_teacher_radio_ll:
-            case R.id.account_teacher_radio_button:
-                if (aRadioButton.isChecked()) {
-                    aRadioButton.setChecked(false);
-//                  aRadioButton.setBackgroundResource(R.mipmap.account_manager_password);
-                    aChangePwdEdt.setVisibility(View.GONE);
-                    aAgreePwdEdt.setVisibility(View.GONE);
-                } else {
-                    aRadioButton.setChecked(true);
-                    aChangePwdEdt.setVisibility(View.VISIBLE);
-                    aAgreePwdEdt.setVisibility(View.VISIBLE);
-                }
-                break;
             case R.id.activity_account_teacher_birthday_tv:
                 //时间选择器
-                TimePickerView pvTime = new TimePickerView.Builder(this, (date, v) -> {//选中事件回调
-                    String dateStr = new SimpleDateFormat("yyyy-MM-dd").format(date);
-                    StringUtil.setTextView(accountTeacherBirthdayTv, dateStr);
-                }).setType(new boolean[]{true, true, true, false, false, false})
-                        .build();
-                pvTime.setDate(Calendar.getInstance());
-                pvTime.show();
+//                TimePickerView pvTime = new TimePickerView.Builder(this, (date, v) -> {//选中事件回调
+//                    String dateStr = new SimpleDateFormat("yyyy-MM-dd").format(date);
+//                    StringUtil.setTextView(accountTeacherBirthdayTv, dateStr);
+//                }).setType(new boolean[]{true, true, true, false, false, false})
+//                        .build();
+//                pvTime.setDate(Calendar.getInstance());
+//                pvTime.show();
                 break;
             case R.id.activity_account_teacher_gender_tv:
                 ListDialog listDialog = new ListDialog(this);
@@ -201,8 +183,6 @@ public class AddTeacherActivity extends BaseActivity {
             case R.id.activity_account_teacher_class_teacher_tv:
                 break;
             case R.id.activity_account_teacher_commit_btn:
-                String change = StringUtil.EditGetString(aChangePwdEdt);
-                String agree = StringUtil.EditGetString(aAgreePwdEdt);
                 String birthday = StringUtil.EditGetString(accountTeacherBirthdayTv);
                 String gender = StringUtil.EditGetString(accountTeacherGenderTv);
                 String number = StringUtil.EditGetString(accountTeacherNumberTv);
@@ -213,45 +193,39 @@ public class AddTeacherActivity extends BaseActivity {
                 } else {
                     sex = "1";
                 }
-                if (change.equals(agree)) {
-                    HashMap<String, RequestBody> map = new HashMap<>();
-                    map.put("type", RxUtil.toRequestBodyTxt("teacher"));
-                    map.put("role_id", RxUtil.toRequestBodyTxt(roleId));
-                    map.put("school_id", RxUtil.toRequestBodyTxt(schoolId));
-                    map.put("login_id", RxUtil.toRequestBodyTxt(loginId));
-                    map.put("birth", RxUtil.toRequestBodyTxt(birthday));
-                    map.put("pwd", RxUtil.toRequestBodyTxt(change));
-                    map.put("sex", RxUtil.toRequestBodyTxt(sex));
-                    map.put("email", RxUtil.toRequestBodyTxt(email));
-                    map.put("id", RxUtil.toRequestBodyTxt(Id));
-                    map.put("work_no", RxUtil.toRequestBodyTxt(number));
-                    if (logo != null) {
-                        iRegisterReq.changeRegisterAsTeacherOrStudent(map, RxUtil.convertImage("logo", logo))
-                                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
-                                .compose(RxLifecycleCompact.bind(this).withObservable())
-                                .subscribe(bean -> {
-                                    if (bean.isSuccess()) {
-                                        getRoles();
-                                    } else {
-                                        toast(bean.getMsg());
-                                    }
-                                }, new HttpError());
-                    } else {
-                        iRegisterReq.changeRegisterAsTeacherOrStudent(map)
-                                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
-                                .compose(RxLifecycleCompact.bind(this).withObservable())
-                                .subscribe(bean -> {
-                                    if (bean.isSuccess()) {
-                                        getRoles();
-                                    } else {
-                                        toast(bean.getMsg());
-                                    }
-                                }, new HttpError());
-                    }
+                HashMap<String, RequestBody> map = new HashMap<>();
+                map.put("type", RxUtil.toRequestBodyTxt("teacher"));
+                map.put("role_id", RxUtil.toRequestBodyTxt(roleId));
+                map.put("school_id", RxUtil.toRequestBodyTxt(schoolId));
+                map.put("login_id", RxUtil.toRequestBodyTxt(loginId));
+                map.put("birth", RxUtil.toRequestBodyTxt(birthday));
+                map.put("sex", RxUtil.toRequestBodyTxt(sex));
+                map.put("email", RxUtil.toRequestBodyTxt(email));
+                map.put("id", RxUtil.toRequestBodyTxt(Id));
+                map.put("work_no", RxUtil.toRequestBodyTxt(number));
+                if (logo != null) {
+                    iRegisterReq.changeRegisterAsTeacherOrStudent(map, RxUtil.convertImage("logo", logo))
+                            .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                            .compose(RxLifecycleCompact.bind(this).withObservable())
+                            .subscribe(bean -> {
+                                if (bean.isSuccess()) {
+                                    getRoles();
+                                } else {
+                                    toast(bean.getMsg());
+                                }
+                            }, new HttpError());
                 } else {
-                    toast("密码不一致");
+                    iRegisterReq.changeRegisterAsTeacherOrStudent(map)
+                            .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                            .compose(RxLifecycleCompact.bind(this).withObservable())
+                            .subscribe(bean -> {
+                                if (bean.isSuccess()) {
+                                    getRoles();
+                                } else {
+                                    toast(bean.getMsg());
+                                }
+                            }, new HttpError());
                 }
-
 
                 break;
         }
@@ -266,7 +240,8 @@ public class AddTeacherActivity extends BaseActivity {
                         LoginResult.RoleBean mBean = bean.getData().get(0);
                         mBean.setSelected(true);
                         UserPreferUtil.getInstanse().setUserInfomation(mBean);
-                        MyApplication.loginResults = bean.getData();
+                        MyApplication.loginResults.clear();
+                        MyApplication.loginResults.addAll(bean.getData());
                     }
                     finish();
                 }, new HttpError());
