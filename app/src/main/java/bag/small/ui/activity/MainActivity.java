@@ -349,7 +349,7 @@ public class MainActivity extends BaseActivity
         if (mDrawer.isDrawerOpen(Gravity.START)) {
             mDrawer.closeDrawer(Gravity.START);
         }
-//        changeRole();
+        changeRole();
     }
 
     private void changeRole() {

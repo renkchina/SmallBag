@@ -184,7 +184,6 @@ public class NewRegisterStudentActivity extends BaseActivity {
         id = bean.getId();
     }
 
-
     @OnClick({R.id.toolbar_right_tv,
             R.id.ac_account_student_head_iv,
             R.id.activity_account_student_name_tv,

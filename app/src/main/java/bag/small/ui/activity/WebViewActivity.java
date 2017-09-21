@@ -63,7 +63,7 @@ public class WebViewActivity extends BaseActivity {
     @Override
     public void initView() {
         setToolTitle("我的书包", true);
-        webView.loadUrl("http://www.wodeshubao.com");
+        webView.loadUrl("http://www.wodeshubao.com.cn");
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {

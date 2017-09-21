@@ -162,7 +162,6 @@ public class AccountTeacherManagerActivity extends BaseActivity {
                 break;
             case R.id.activity_account_teacher_number_tv:
                 break;
-
             case R.id.activity_account_teacher_birthday_tv:
                 //时间选择器
 //                TimePickerView pvTime = new TimePickerView.Builder(this, (date, v) -> {//选中事件回调

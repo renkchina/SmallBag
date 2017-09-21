@@ -140,7 +140,6 @@ public class AccountStudentManagerActivity extends BaseActivity {
                 listDialog.show(view);
                 listDialog.setListDialog((position, content) ->
                         StringUtil.setTextView(accountStudentGenderTv, content));
-
                 break;
             case R.id.activity_account_student_birthday_tv:
                 //时间选择器
