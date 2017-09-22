@@ -50,10 +50,14 @@ public class AddStudentActivity extends BaseActivity {
     TextView accountStudentNameTv;
     @Bind(R.id.activity_account_student_number_tv)
     EditText accountStudentNumberTv;
-//    @Bind(R.id.activity_account_student_grade_tv)
+    //    @Bind(R.id.activity_account_student_grade_tv)
 //    TextView accountStudentGradeTv;
     @Bind(R.id.activity_account_student_school_tv)
     TextView schoolTv;
+    @Bind(R.id.activity_account_student_xueji_number_tv)
+    TextView xuejiNumberTv;
+    @Bind(R.id.activity_account_student_id_tv)
+    TextView codeIdTv;
     @Bind(R.id.activity_account_student_class_tv)
     TextView accountStudentClassTv;
     @Bind(R.id.activity_account_student_gender_tv)
@@ -98,12 +102,14 @@ public class AddStudentActivity extends BaseActivity {
                 .compose(RxLifecycleCompact.bind(this).withObservable())
                 .subscribe(bean -> {
                     if (bean.isSuccess() && bean.getData() != null) {
-                        StringUtil.setTextView(accountStudentNameTv,  bean.getData().getName());
+                        StringUtil.setTextView(accountStudentNameTv, bean.getData().getName());
                         StringUtil.setTextView(schoolTv, bean.getData().getSchool_name());
-                        StringUtil.setTextView(accountStudentClassTv,  bean.getData().getBanji());
+                        StringUtil.setTextView(accountStudentClassTv, bean.getData().getBanji());
                         StringUtil.setTextView(accountStudentNumberTv, bean.getData().getStudent_no());
                         StringUtil.setTextView(accountStudentBirthdayTv, bean.getData().getBirth());
                         StringUtil.setTextView(accountStudentGenderTv, bean.getData().getSex());
+                        StringUtil.setTextView(xuejiNumberTv, bean.getData().getXueji());
+                        StringUtil.setTextView(codeIdTv, bean.getData().getShenfenno());
                         String logo = bean.getData().getLogo();
                         if (TextUtils.isEmpty(logo)) {
                             if (!TextUtils.isEmpty(bean.getData().getSex()) && bean.getData().getSex().contains("男")) {
@@ -160,17 +166,19 @@ public class AddStudentActivity extends BaseActivity {
                 break;
             case R.id.activity_account_student_birthday_tv:
                 //时间选择器
-//                TimePickerView pvTime = new TimePickerView.Builder(this, (date, v) -> {//选中事件回调
-//                    String dateStr = new SimpleDateFormat("yyyy-MM-dd").format(date);
-//                    StringUtil.setTextView(accountStudentBirthdayTv, dateStr);
-//                }).setType(new boolean[]{true, true, true, false, false, false})
-//                        .build();
-//                pvTime.setDate(Calendar.getInstance());
-//                pvTime.show();
+                TimePickerView pvTime = new TimePickerView.Builder(this, (date, v) -> {//选中事件回调
+                    String dateStr = new SimpleDateFormat("yyyy-MM-dd").format(date);
+                    StringUtil.setTextView(accountStudentBirthdayTv, dateStr);
+                }).setType(new boolean[]{true, true, true, false, false, false})
+                        .build();
+                pvTime.setDate(Calendar.getInstance());
+                pvTime.show();
                 break;
             case R.id.activity_account_student_commit_btn:
                 String birthday = StringUtil.EditGetString(accountStudentBirthdayTv);
                 String number = StringUtil.EditGetString(accountStudentNumberTv);
+                String xueji = StringUtil.EditGetString(xuejiNumberTv);
+                String codeId = StringUtil.EditGetString(codeIdTv);
                 if (birthday.startsWith("生日")) {
                     birthday = birthday.replace("生日：", "");
                 }
@@ -180,41 +188,42 @@ public class AddStudentActivity extends BaseActivity {
                 } else {
                     gender = "1";
                 }
-                    HashMap<String, RequestBody> map = new HashMap<>();
-                    map.put("type", RxUtil.toRequestBodyTxt("student"));
-                    map.put("role_id", RxUtil.toRequestBodyTxt(roleId));
-                    map.put("school_id", RxUtil.toRequestBodyTxt(schoolId));
-                    map.put("login_id", RxUtil.toRequestBodyTxt(loginId));
-                    map.put("birth", RxUtil.toRequestBodyTxt(birthday));
-                    map.put("sex", RxUtil.toRequestBodyTxt(gender));
-                    map.put("email", RxUtil.toRequestBodyTxt(""));
-                    map.put("id", RxUtil.toRequestBodyTxt(id));
-                    map.put("work_no", RxUtil.toRequestBodyTxt(number));
-                    if (logo != null) {
+                HashMap<String, RequestBody> map = new HashMap<>();
+                map.put("type", RxUtil.toRequestBodyTxt("student"));
+                map.put("role_id", RxUtil.toRequestBodyTxt(roleId));
+                map.put("school_id", RxUtil.toRequestBodyTxt(schoolId));
+                map.put("login_id", RxUtil.toRequestBodyTxt(loginId));
+                map.put("birth", RxUtil.toRequestBodyTxt(birthday));
+                map.put("sex", RxUtil.toRequestBodyTxt(gender));
+                map.put("xueji", RxUtil.toRequestBodyTxt(xueji));
+                map.put("shenfenno", RxUtil.toRequestBodyTxt(codeId));
+                map.put("email", RxUtil.toRequestBodyTxt(""));
+                map.put("id", RxUtil.toRequestBodyTxt(id));
+                map.put("work_no", RxUtil.toRequestBodyTxt(number));
+                if (logo != null) {
+                    iRegisterReq.changeRegisterAsTeacherOrStudent(map, RxUtil.convertImage("logo", logo))
+                            .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                            .compose(RxLifecycleCompact.bind(this).withObservable())
+                            .subscribe(bean -> {
+                                if (bean.isSuccess()) {
+                                    getRoles();
+                                } else {
+                                    toast(bean.getMsg());
+                                }
+                            }, new HttpError());
+                } else {
 
-                        iRegisterReq.changeRegisterAsTeacherOrStudent(map, RxUtil.convertImage("logo", logo))
-                                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
-                                .compose(RxLifecycleCompact.bind(this).withObservable())
-                                .subscribe(bean -> {
-                                    if (bean.isSuccess()) {
-                                        getRoles();
-                                    } else {
-                                        toast(bean.getMsg());
-                                    }
-                                }, new HttpError());
-                    } else {
-
-                        iRegisterReq.changeRegisterAsTeacherOrStudent(map)
-                                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
-                                .compose(RxLifecycleCompact.bind(this).withObservable())
-                                .subscribe(bean -> {
-                                    if (bean.isSuccess()) {
-                                        getRoles();
-                                    } else {
-                                        toast(bean.getMsg());
-                                    }
-                                }, new HttpError());
-                    }
+                    iRegisterReq.changeRegisterAsTeacherOrStudent(map)
+                            .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                            .compose(RxLifecycleCompact.bind(this).withObservable())
+                            .subscribe(bean -> {
+                                if (bean.isSuccess()) {
+                                    getRoles();
+                                } else {
+                                    toast(bean.getMsg());
+                                }
+                            }, new HttpError());
+                }
 
                 break;
         }

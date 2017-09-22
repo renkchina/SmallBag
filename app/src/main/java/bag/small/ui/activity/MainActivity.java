@@ -47,6 +47,8 @@ import bag.small.http.IApi.HttpError;
 import bag.small.http.IApi.ILoginRequest;
 import bag.small.http.IApi.IRegisterReq;
 import bag.small.provider.AccountViewBinder;
+import bag.small.provider.MainLeftBtnViewBinder;
+import bag.small.provider.RoleAddBeanViewBinder;
 import bag.small.rx.RxUtil;
 import bag.small.ui.fragment.FamiliesSchoolConnectionFragment;
 import bag.small.ui.fragment.GrowthDiaryFragment;
@@ -81,11 +83,11 @@ public class MainActivity extends BaseActivity
     RecyclerView mdlRecycler;
     @Bind(R.id.activity_click_image)
     ImageView activityClickImage;
-    @Bind(R.id.main_drawer_left_add_account_btn)
-    Button mdlAddAccountBtn;
+//    @Bind(R.id.main_drawer_left_add_account_btn)
+//    Button mdlAddAccountBtn;
 
-    @Bind(R.id.main_drawer_left_list_view)
-    ListView listView;
+//    @Bind(R.id.main_drawer_left_list_view)
+//    ListView listView;
 
     @Bind(R.id.toolbar_right_iv)
     ImageView toolbarRightIv;
@@ -121,9 +123,18 @@ public class MainActivity extends BaseActivity
         lastItem = mBottomNav.getMenu().getItem(1);
         lastItem.setChecked(true);
         mBottomNav.setSelectedItemId(R.id.item_family);
+        leftBeen = new ArrayList<>();
+        leftBeen.add(new MainLeftBean(1, R.mipmap.account_manager, R.string.main_account_manager));
+        leftBeen.add(new MainLeftBean(2, R.mipmap.soft_setting, R.string.main_soft_setting));
+        leftBeen.add(new MainLeftBean(3, R.mipmap.help_me, R.string.main_help_str));
+        leftBeen.add(new MainLeftBean(4, R.mipmap.about_ours, R.string.main_account_about));
+        leftBeen.add(new MainLeftBean(5, R.mipmap.exit_system, R.string.main_account_exit));
+        leftBeen.add(new MainLeftBean(6, 0, R.string.main_account_http));
         itemDatas = new Items();
         if (ListUtil.unEmpty(MyApplication.loginResults)) {
             itemDatas.addAll(MyApplication.loginResults);
+            itemDatas.add("");
+            itemDatas.addAll(leftBeen);
         }
         iLoginRequest = HttpUtil.getInstance().createApi(ILoginRequest.class);
         iRegisterReq = HttpUtil.getInstance().createApi(IRegisterReq.class);
@@ -132,15 +143,6 @@ public class MainActivity extends BaseActivity
         ColorStateList csl = new ColorStateList(states, colors);
         mBottomNav.setItemTextColor(csl);
         mBottomNav.setItemIconTintList(csl);
-        leftBeen = new ArrayList<>();
-        leftBeen.add(new MainLeftBean(1, R.mipmap.account_manager, R.string.main_account_manager));
-        leftBeen.add(new MainLeftBean(2, R.mipmap.soft_setting, R.string.main_soft_setting));
-        leftBeen.add(new MainLeftBean(3, R.mipmap.help_me, R.string.main_help_str));
-        leftBeen.add(new MainLeftBean(4, R.mipmap.about_ours, R.string.main_account_about));
-        leftBeen.add(new MainLeftBean(5, R.mipmap.exit_system, R.string.main_account_exit));
-        leftBeen.add(new MainLeftBean(6, 0, R.string.main_account_http));
-        mainDrawerLeftAdapter = new MainDrawerLeftAdapter(leftBeen, this);
-        listView.setAdapter(mainDrawerLeftAdapter);
     }
 
     @Override
@@ -150,13 +152,24 @@ public class MainActivity extends BaseActivity
                 .compose(RxLifecycleCompact.bind(this).withObservable())
                 .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
                 .subscribe(bean -> {
-                    if (bean.isSuccess()) {
-                    }
                 });
-
         multiTypeAdapter = new MultiTypeAdapter(itemDatas);
         multiTypeAdapter.register(LoginResult.RoleBean.class, new AccountViewBinder());
-        mdlRecycler.setLayoutManager(new GridLayoutManager(this, 2));
+        multiTypeAdapter.register(String.class, new RoleAddBeanViewBinder());
+        multiTypeAdapter.register(MainLeftBean.class, new MainLeftBtnViewBinder());
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                if (itemDatas.get(position) instanceof LoginResult.RoleBean) {
+                    return 1;
+                } else {
+                    return 2;
+                }
+            }
+        });
+        mdlRecycler.setHasFixedSize(true);
+        mdlRecycler.setLayoutManager(layoutManager);
         mdlRecycler.setAdapter(multiTypeAdapter);
         toolbar.setTitle("");
 
@@ -252,11 +265,8 @@ public class MainActivity extends BaseActivity
             mDrawer.addDrawerListener(mDrawerToggle);
             activityClickImage.setVisibility(View.VISIBLE);
             activityClickImage.setImageResource(MyApplication.roleImage);
-
         }
-
     }
-
 
     @Override
     protected void onDestroy() {
@@ -264,13 +274,9 @@ public class MainActivity extends BaseActivity
         MobclickAgent.onKillProcess(this);
     }
 
-    @OnClick({R.id.main_drawer_left_add_account_btn,
-            R.id.activity_click_image})
+    @OnClick({R.id.activity_click_image})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.main_drawer_left_add_account_btn:
-                showChoiceDialog();
-                break;
             case R.id.activity_click_image:
                 showDrawerLayout();
                 break;
@@ -286,7 +292,8 @@ public class MainActivity extends BaseActivity
         }
     }
 
-    protected void showChoiceDialog() {
+    @MySubscribe(code = 301)
+    public void showChoiceDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         String[] strings = new String[]{"我是学生", "我是老师"};
         builder.setItems(strings, (dialog, which) -> {
@@ -339,6 +346,8 @@ public class MainActivity extends BaseActivity
         if (ListUtil.unEmpty(MyApplication.loginResults)) {
             itemDatas.clear();
             itemDatas.addAll(MyApplication.loginResults);
+            itemDatas.add("");
+            itemDatas.addAll(leftBeen);
             multiTypeAdapter.notifyDataSetChanged();
         }
         changeRole();

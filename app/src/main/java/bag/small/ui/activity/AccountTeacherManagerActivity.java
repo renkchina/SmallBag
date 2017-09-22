@@ -1,6 +1,7 @@
 package bag.small.ui.activity;
 
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
@@ -65,12 +66,12 @@ public class AccountTeacherManagerActivity extends BaseActivity {
     LinearLayout accountTeacherClassLl;
     @Bind(R.id.activity_account_teacher_change_pwd_edt)
     EditText aChangePwdEdt;
-    //    @Bind(R.id.activity_account_teacher_agree_pwd_edt)
-//    EditText aAgreePwdEdt;
     @Bind(R.id.activity_account_teacher_commit_btn)
     Button accountTeacherCommitBtn;
     @Bind(R.id.activity_account_teacher_school_tv)
     TextView schoolTv;
+    @Bind(R.id.password_card_view)
+    CardView cardView;
     private IRegisterReq iRegisterReq;
     private File logo;
     private String Id;
@@ -85,6 +86,7 @@ public class AccountTeacherManagerActivity extends BaseActivity {
         setToolTitle("账号管理", true);
         iRegisterReq = HttpUtil.getInstance().createApi(IRegisterReq.class);
         getRegisterInfomation();
+        cardView.setVisibility(View.VISIBLE);
     }
 
     private void getRegisterInfomation() {
@@ -283,13 +285,6 @@ public class AccountTeacherManagerActivity extends BaseActivity {
                     }
                 }).launch();//启动压缩
 
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 
 }

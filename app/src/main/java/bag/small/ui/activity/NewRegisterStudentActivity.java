@@ -49,32 +49,12 @@ import top.zibin.luban.OnCompressListener;
 
 public class NewRegisterStudentActivity extends BaseActivity {
 
-    //    @Bind(R.id.ac_new_student_head_iv)
-//    ImageView acNewStudentHeadIv;
-//    @Bind(R.id.new_register_student_name_tv)
-//    TextView studentNameTv;
-//    @Bind(R.id.new_register_student_type_tv)
-//    TextView studentTypeTv;
-//    @Bind(R.id.new_register_student_school_tv)
-//    TextView studentSchoolTv;
-//    @Bind(R.id.new_register_student_number_tv)
-//    TextView studentNumberTv;
-//    @Bind(R.id.new_register_student_class_tv)
-//    TextView studentClassTv;
-//    @Bind(R.id.new_register_student_class_student_tv)
-//    TextView studentxuehaoTv;
-//    @Bind(R.id.new_register_student_birthday_tv)
-//    TextView studentBirthdayTv;
-//    @Bind(R.id.new_register_student_gender_tv)
-//    TextView studentGenderTv;
     @Bind(R.id.ac_account_student_head_iv)
     ImageView acAccountStudentHeadIv;
     @Bind(R.id.activity_account_student_name_tv)
     TextView accountStudentNameTv;
     @Bind(R.id.activity_account_student_number_tv)
     TextView accountStudentNumberTv;
-//    @Bind(R.id.activity_account_student_grade_tv)
-//    TextView accountStudentGradeTv;
     @Bind(R.id.activity_account_student_class_tv)
     TextView accountStudentClassTv;
     @Bind(R.id.activity_account_student_gender_tv)
@@ -87,6 +67,10 @@ public class NewRegisterStudentActivity extends BaseActivity {
     Button accountStudentCommitBtn;
     @Bind(R.id.activity_account_student_school_tv)
     TextView schoolTv;
+    @Bind(R.id.activity_account_student_xueji_number_tv)
+    TextView xuejiNumberTv;
+    @Bind(R.id.activity_account_student_id_tv)
+    TextView codeIdTv;
     @Bind(R.id.toolbar_right_tv)
     TextView toolbarRightTv;
     private IRegisterReq iRegisterRequest;
@@ -99,12 +83,10 @@ public class NewRegisterStudentActivity extends BaseActivity {
     private ListDialog listDialog;
     private IRegisterReq iRegisterReq;
     NewRegisterStudentOrTeacherBean current;
-
     @Override
     public int getLayoutResId() {
         return R.layout.activity_account_student_manager;
     }
-
     @Override
     public void initData() {
         setToolTitle("注册", true);
@@ -120,7 +102,6 @@ public class NewRegisterStudentActivity extends BaseActivity {
         }
         iRegisterReq = HttpUtil.getInstance().createApi(IRegisterReq.class);
     }
-
     @Override
     public void initView() {
         acAccountStudentHeadIv.setImageResource(R.mipmap.student_boy);
@@ -142,8 +123,6 @@ public class NewRegisterStudentActivity extends BaseActivity {
                     }
                 }, new HttpError());
     }
-
-
     private void showView() {
         if (count < 1) {
             return;
@@ -165,7 +144,6 @@ public class NewRegisterStudentActivity extends BaseActivity {
         if (bean == null) {
             return;
         }
-
         if (TextUtils.isEmpty(bean.getLogo())) {
             if (bean.getSex() != null && bean.getSex().contains("男")) {
                 acAccountStudentHeadIv.setImageResource(R.mipmap.student_boy);
@@ -181,9 +159,13 @@ public class NewRegisterStudentActivity extends BaseActivity {
         StringUtil.setTextView(accountStudentNumberTv, bean.getStudent_no());
         StringUtil.setTextView(accountStudentBirthdayTv, bean.getBirth());
         StringUtil.setTextView(accountStudentGenderTv, bean.getSex());
+        StringUtil.setTextView(xuejiNumberTv, bean.getXueji());
+        StringUtil.setTextView(codeIdTv, bean.getShenfenno());
         id = bean.getId();
+        if (TextUtils.isEmpty(id)) {
+            id = bean.getTarget_id();
+        }
     }
-
     @OnClick({R.id.toolbar_right_tv,
             R.id.ac_account_student_head_iv,
             R.id.activity_account_student_name_tv,
@@ -207,6 +189,8 @@ public class NewRegisterStudentActivity extends BaseActivity {
                 break;
             case R.id.toolbar_right_tv:
                 String birthday = StringUtil.EditGetString(accountStudentBirthdayTv);
+                String xueji = StringUtil.EditGetString(xuejiNumberTv);
+                String codeId = StringUtil.EditGetString(codeIdTv);
                 if (birthday.startsWith("生日")) {
                     birthday = birthday.replace("生日：", "");
                 }
@@ -224,6 +208,8 @@ public class NewRegisterStudentActivity extends BaseActivity {
                 map.put("birth", RxUtil.toRequestBodyTxt(birthday));
                 map.put("sex", RxUtil.toRequestBodyTxt(gender));
                 map.put("email", RxUtil.toRequestBodyTxt(""));
+                map.put("xueji", RxUtil.toRequestBodyTxt(xueji));
+                map.put("shenfenno", RxUtil.toRequestBodyTxt(codeId));
                 map.put("id", RxUtil.toRequestBodyTxt(current.getTarget_id()));
                 map.put("work_no", RxUtil.toRequestBodyTxt(""));
                 if (logo != null)
@@ -251,17 +237,16 @@ public class NewRegisterStudentActivity extends BaseActivity {
                 break;
             case R.id.activity_account_student_birthday_tv:
                 //时间选择器
-//                TimePickerView pvTime = new TimePickerView.Builder(this, (date, v) -> {//选中事件回调
-//                    String dateStr = new SimpleDateFormat("yyyy-MM-dd").format(date);
-//                    StringUtil.setTextView(accountStudentBirthdayTv, dateStr);
-//                }).setType(new boolean[]{true, true, true, false, false, false})
-//                        .build();
-//                pvTime.setDate(Calendar.getInstance());
-//                pvTime.show();
+                TimePickerView pvTime = new TimePickerView.Builder(this, (date, v) -> {//选中事件回调
+                    String dateStr = new SimpleDateFormat("yyyy-MM-dd").format(date);
+                    StringUtil.setTextView(accountStudentBirthdayTv, dateStr);
+                }).setType(new boolean[]{true, true, true, false, false, false})
+                        .build();
+                pvTime.setDate(Calendar.getInstance());
+                pvTime.show();
                 break;
         }
     }
-
     private void setview() {
         if (index >= count) {
             iRegisterRequest.getNewRegisterInfo(loginId, phone)
@@ -284,7 +269,6 @@ public class NewRegisterStudentActivity extends BaseActivity {
             showView();
         }
     }
-
     //设置头像
     private void setImages(List<ImageItem> images) {
         String path = "";
@@ -313,7 +297,6 @@ public class NewRegisterStudentActivity extends BaseActivity {
                 }).launch();//启动压缩
 
     }
-
     private void getRoles() {
         HttpUtil.getInstance().createApi(ILoginRequest.class).getAllRole(UserPreferUtil.getInstanse().getUserId())
                 .compose(RxLifecycleCompact.bind(this).withObservable())
@@ -329,12 +312,10 @@ public class NewRegisterStudentActivity extends BaseActivity {
                     finish();
                 }, new HttpError());
     }
-
     private List<String> getChoice() {
         List<String> lists = new ArrayList<>();
         lists.add("男");
         lists.add("女");
         return lists;
     }
-
 }

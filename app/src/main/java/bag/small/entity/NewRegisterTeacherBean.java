@@ -42,6 +42,24 @@ public class NewRegisterTeacherBean {
     private String sex_flag;
     private String logo;
     private String target_id;
+    private String xueji_no;
+    private String shenfen_no;
+
+    public String getXueji() {
+        return xueji_no;
+    }
+
+    public void setXueji(String xueji) {
+        this.xueji_no = xueji;
+    }
+
+    public String getShenfenno() {
+        return shenfen_no;
+    }
+
+    public void setShenfenno(String shenfenno) {
+        this.shenfen_no = shenfenno;
+    }
 
     public String getId() {
         return id;

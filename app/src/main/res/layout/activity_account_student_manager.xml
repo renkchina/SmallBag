@@ -16,16 +16,30 @@
 
         <android.support.v7.widget.CardView
             style="@style/cardview_style"
+            android:layout_marginTop="0dp"
             app:cardCornerRadius="10dp"
             app:cardElevation="5dp"
             app:contentPadding="0dp">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/ac_account_student_head_iv"
-                style="@style/head_image_style"
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp" />
+                android:layout_marginTop="10dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/ac_account_student_head_iv"
+                    style="@style/head_image_style" />
+
+                <View
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="bottom|end"
+                    android:background="@mipmap/check_image" />
+            </FrameLayout>
+
+
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
@@ -86,7 +100,6 @@
                         android:id="@+id/activity_account_student_birthday_tv"
                         style="@style/style_tv"
                         android:gravity="start|center_vertical" />
-
                 </LinearLayout>
 
                 <View
@@ -104,8 +117,8 @@
 
                     <TextView
                         android:id="@+id/activity_account_student_school_tv"
-                        android:textSize="14sp"
-                        style="@style/style_tv" />
+                        style="@style/style_tv"
+                        android:textSize="14sp" />
 
                     <View
                         android:layout_width="0.5dp"
@@ -206,7 +219,7 @@
                         android:background="@color/green_bg"
                         android:gravity="start|center_vertical"
                         android:imeOptions="actionNext"
-                        android:inputType="number"
+                        android:inputType="text"
                         android:lines="1"
                         android:textColor="@color/txt_gray"
                         android:textSize="16sp" />
@@ -219,6 +232,8 @@
             style="@style/cardview_style"
             app:cardCornerRadius="10dp"
             app:cardElevation="5dp"
+            android:visibility="gone"
+            android:id="@+id/password_card_view"
             app:contentPadding="0dp">
 
             <LinearLayout

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.china.rxbus.RxBus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import bag.small.R;
@@ -25,6 +26,7 @@ import bag.small.utils.UserPreferUtil;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import me.drakeet.multitype.ItemViewBinder;
+import me.drakeet.multitype.Items;
 
 
 /**
@@ -65,7 +67,16 @@ public class AccountViewBinder extends ItemViewBinder<LoginResult.RoleBean, Acco
     }
 
     private void setAllUnSelect() {
-        List<LoginResult.RoleBean> lists = (List<LoginResult.RoleBean>) getAdapter().getItems();
+        List<?> items = getAdapter().getItems();
+        if (ListUtil.isEmpty(items)) {
+            return;
+        }
+        List<LoginResult.RoleBean> lists = new ArrayList<>();
+        for (Object o : items) {
+            if (o instanceof LoginResult.RoleBean) {
+                lists.add((LoginResult.RoleBean) o);
+            }
+        }
         if (ListUtil.unEmpty(lists)) {
             for (LoginResult.RoleBean bean : lists) {
                 bean.setSelected(false);
