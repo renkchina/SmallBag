@@ -98,12 +98,12 @@ public class EducationalNoticeActivity extends BaseActivity implements TabLayout
         currentPosition = -1;
         if (ListUtil.unEmpty(data)) {
             int size = data.size();
-            if (size < 4) {
+            if (size < 21) {
                 for (EducationNoticeBean bean : data) {
                     eTabLayout.addTab(eTabLayout.newTab().setText(bean.getLabel()));
                 }
             } else {
-                for (int i = 0; i < 3; i++) {
+                for (int i = 0; i < 20; i++) {
                     eTabLayout.addTab(eTabLayout.newTab().setText(data.get(i).getLabel()));
                 }
             }
