@@ -182,7 +182,7 @@ public class NewRegisterTeacherActivity extends BaseActivity {
             for (int i = 0; i < size; i++) {
                 TextView textView = new TextView(this);
                 textView.setGravity(Gravity.CENTER_VERTICAL);
-                textView.setTextSize(14);
+                textView.setTextSize(15);
                 textView.setText(data.getKemuinfo().get(i));
                 accountTeacherClassLl.addView(textView);
             }

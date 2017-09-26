@@ -30,7 +30,8 @@
                 <FrameLayout
                     android:id="@+id/activity_main_content_frame"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"></FrameLayout>
+                    android:layout_height="match_parent">
+                </FrameLayout>
 
                 <ImageView
                     android:id="@+id/activity_click_image"
@@ -49,7 +50,8 @@
                 android:layout_height="wrap_content"
                 app:itemIconTint="@drawable/bottom_navigation_selector"
                 app:itemTextColor="@drawable/bottom_navigation_selector"
-                app:menu="@menu/main_bottom_nav_menu"></android.support.design.widget.BottomNavigationView>
+                app:menu="@menu/main_bottom_nav_menu">
+            </android.support.design.widget.BottomNavigationView>
         </LinearLayout>
 
         <LinearLayout

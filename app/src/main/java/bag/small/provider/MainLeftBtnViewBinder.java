@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,15 +39,17 @@ public class MainLeftBtnViewBinder extends ItemViewBinder<MainLeftBean, MainLeft
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull MainLeftBean bean) {
         Context context = holder.mainv.getContext();
+        String content = context.getString(bean.getTitleRes());
         if (bean.getResId() > 0) {
             holder.itemDrawerLeftV.setBackgroundResource(bean.getResId());
             holder.itemDrawerLeftV.setVisibility(View.VISIBLE);
             holder.itemDrawerLeftTv.setTextSize(16);
+            holder.itemDrawerLeftTv.setText(content);
         } else {
+            holder.itemDrawerLeftTv.setText(Html.fromHtml("<u>" + content + "</u>"));
             holder.itemDrawerLeftV.setVisibility(View.GONE);
             holder.itemDrawerLeftTv.setTextSize(12);
         }
-        holder.itemDrawerLeftTv.setText(bean.getTitleRes());
 
         holder.mainv.setOnClickListener(v -> {
             switch (bean.getId()) {

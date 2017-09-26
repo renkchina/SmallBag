@@ -14,12 +14,7 @@
 
         <include layout="@layout/toolbar" />
 
-        <android.support.v7.widget.CardView
-            style="@style/cardview_style"
-            android:layout_marginTop="0dp"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="5dp"
-            app:contentPadding="0dp">
+
 
             <FrameLayout
                 android:layout_width="wrap_content"
@@ -38,7 +33,6 @@
                     android:layout_gravity="bottom|end"
                     android:background="@mipmap/check_image" />
             </FrameLayout>
-        </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
             style="@style/cardview_style"
@@ -162,7 +156,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:minHeight="40dp"
-                        android:orientation="vertical"></LinearLayout>
+                        android:orientation="vertical">
+                    </LinearLayout>
 
                 </LinearLayout>
 

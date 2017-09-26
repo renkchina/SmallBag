@@ -103,7 +103,6 @@ public class MainActivity extends BaseActivity
     };
     private int[] colors;
     ILoginRequest iLoginRequest;
-    MainDrawerLeftAdapter mainDrawerLeftAdapter;
     List<MainLeftBean> leftBeen;
     private IRegisterReq iRegisterReq;
 
@@ -257,7 +256,7 @@ public class MainActivity extends BaseActivity
             if (index == 0) {
                 toolTitle.setText("百宝箱");
             } else {
-                toolTitle.setText("互联-" + UserPreferUtil.getInstanse().getSchoolName());
+                toolTitle.setText(UserPreferUtil.getInstanse().getSchoolName());
             }
             toolbarRightIv.setVisibility(View.GONE);
             mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.open, R.string.close);
@@ -388,14 +387,13 @@ public class MainActivity extends BaseActivity
                 break;
             case R.id.item_family:
                 fragments[1].onFragmentShow();
-                toolTitle.setText("互联-" + UserPreferUtil.getInstanse().getSchoolName());
+                toolTitle.setText( UserPreferUtil.getInstanse().getSchoolName());
                 break;
             case R.id.item_growth:
                 fragments[2].onFragmentShow();
                 break;
         }
     }
-
     //改变主题颜色
     public void changeColor(boolean isTeacher) {
         int coler;
