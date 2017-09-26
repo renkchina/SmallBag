@@ -23,9 +23,9 @@
         android:id="@+id/activity_education_tab_layout"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        app:tabGravity="fill"
+        app:tabGravity="center"
         app:tabIndicatorColor="@color/colorPrimary"
-        app:tabMode="fixed"
+        app:tabMode="scrollable"
         app:tabSelectedTextColor="@color/button_green"
         app:tabTextColor="@color/txt_gray">
 
@@ -35,6 +35,5 @@
         android:id="@+id/activity_education_recycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
-    </android.support.v7.widget.RecyclerView>
+        android:layout_weight="1"></android.support.v7.widget.RecyclerView>
 </LinearLayout>
