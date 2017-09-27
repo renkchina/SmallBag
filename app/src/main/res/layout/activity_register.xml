@@ -199,7 +199,7 @@
             <View
                 android:layout_width="120dp"
                 android:layout_height="120dp"
-                android:background="@mipmap/student_btn" />
+                android:background="@mipmap/student_all" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -209,7 +209,6 @@
                 android:textColor="@color/txt_gray"
                 android:textSize="16sp" />
         </LinearLayout>
-
 
         <Space
             android:layout_width="0dp"
