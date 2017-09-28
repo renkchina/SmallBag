@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="82dp"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:paddingEnd="23dp"
@@ -49,9 +50,9 @@
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
                 android:ellipsize="end"
-                tools:text="title"
                 android:textColor="@color/font_black"
-                android:textSize="17sp" />
+                android:textSize="17sp"
+                tools:text="title" />
 
             <TextView
                 android:id="@+id/item_education_notice_time_tv"
@@ -67,9 +68,9 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="2dp"
             android:layout_marginTop="2dp"
-            tools:text="content"
             android:ellipsize="end"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            tools:text="content" />
     </LinearLayout>
 
 </LinearLayout>

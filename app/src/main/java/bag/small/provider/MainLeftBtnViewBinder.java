@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -43,10 +44,12 @@ public class MainLeftBtnViewBinder extends ItemViewBinder<MainLeftBean, MainLeft
         if (bean.getResId() > 0) {
             holder.itemDrawerLeftV.setBackgroundResource(bean.getResId());
             holder.itemDrawerLeftV.setVisibility(View.VISIBLE);
+            holder.itemDrawerLeftTv.setTextColor(ContextCompat.getColor(context, R.color.txt_gray));
             holder.itemDrawerLeftTv.setTextSize(16);
             holder.itemDrawerLeftTv.setText(content);
         } else {
             holder.itemDrawerLeftTv.setText(Html.fromHtml("<u>" + content + "</u>"));
+            holder.itemDrawerLeftTv.setTextColor(ContextCompat.getColor(context, R.color.link_blue));
             holder.itemDrawerLeftV.setVisibility(View.GONE);
             holder.itemDrawerLeftTv.setTextSize(12);
         }

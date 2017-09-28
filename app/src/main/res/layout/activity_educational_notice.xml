@@ -23,17 +23,20 @@
         android:id="@+id/activity_education_tab_layout"
         android:layout_width="match_parent"
         android:layout_height="55dp"
+        android:background="@color/background_gray"
         app:tabGravity="center"
         app:tabIndicatorColor="@color/colorPrimary"
+        app:tabIndicatorHeight="0dp"
         app:tabMode="scrollable"
         app:tabSelectedTextColor="@color/button_green"
+        app:tabTextAppearance="@style/tablayout_divider_txt_size"
         app:tabTextColor="@color/txt_gray">
-
     </android.support.design.widget.TabLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/activity_education_recycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"></android.support.v7.widget.RecyclerView>
+        android:layout_weight="1">
+    </android.support.v7.widget.RecyclerView>
 </LinearLayout>

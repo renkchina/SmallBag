@@ -4,6 +4,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.LinearLayout;
 
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -107,8 +108,14 @@ public class EducationalNoticeActivity extends BaseActivity implements TabLayout
                     eTabLayout.addTab(eTabLayout.newTab().setText(data.get(i).getLabel()));
                 }
             }
-            if (eTabLayout.getTabAt(position) != null)
+            if (eTabLayout.getTabAt(position) != null){
                 eTabLayout.getTabAt(position).select();
+            }
+
+            LinearLayout linearLayout = (LinearLayout) eTabLayout.getChildAt(0);
+            linearLayout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
+            linearLayout.setDividerDrawable(ContextCompat.getDrawable(this,R.drawable.divider_item_tablayout));
+            linearLayout.setDividerPadding(20);
         }
     }
 

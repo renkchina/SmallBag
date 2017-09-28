@@ -18,5 +18,7 @@
     <color name="font_black">#7c7c7c</color>
     <color name="background_gray">#EEEEEE</color>
     <color name="green_bg">#E0FFFA</color>
+    <color name="account_bg">#E3E8EB</color>
+    <color name="link_blue">#47CBD7</color>
 
 </resources>

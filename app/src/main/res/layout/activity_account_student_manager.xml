@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/account_bg"
     android:fillViewport="true"
     android:scrollbars="none">
 
@@ -15,24 +16,23 @@
         <include layout="@layout/toolbar" />
 
 
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp">
 
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/ac_account_student_head_iv"
+                style="@style/head_image_style" />
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/ac_account_student_head_iv"
-                    style="@style/head_image_style" />
-
-                <View
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="bottom|end"
-                    android:background="@mipmap/check_image" />
-            </FrameLayout>
+            <View
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="bottom|end"
+                android:background="@mipmap/check_image" />
+        </FrameLayout>
 
 
         <android.support.v7.widget.CardView
@@ -222,11 +222,11 @@
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
+            android:id="@+id/password_card_view"
             style="@style/cardview_style"
+            android:visibility="gone"
             app:cardCornerRadius="10dp"
             app:cardElevation="5dp"
-            android:visibility="gone"
-            android:id="@+id/password_card_view"
             app:contentPadding="0dp">
 
             <LinearLayout
@@ -256,6 +256,6 @@
         <Button
             android:id="@+id/activity_account_student_commit_btn"
             style="@style/btn_circle_style"
-            android:text="确认" />
+            android:text="保存" />
     </LinearLayout>
 </ScrollView>
