@@ -131,12 +131,14 @@ public class AccountTeacherManagerActivity extends BaseActivity {
         StringUtil.setTextView(schoolTv, data.getSchool_name());
         StringUtil.setTextView(accountTeacherClassTeacherTv, data.getIs_banzhuren());
         if (ListUtil.unEmpty(data.getKemuinfo())) {
+//            int size = 3;
             int size = data.getKemuinfo().size();
             for (int i = 0; i < size; i++) {
                 TextView textView = new TextView(this);
                 textView.setGravity(Gravity.CENTER_VERTICAL);
                 textView.setTextSize(15);
                 textView.setText(data.getKemuinfo().get(i));
+//                textView.setText(data.getKemuinfo().get(0));
                 accountTeacherClassLl.addView(textView);
             }
         }
