@@ -18,7 +18,7 @@ import bag.small.entity.RegisterInfoBean;
 import bag.small.interfaze.IListDialog;
 import bag.small.interfaze.IViewBinder;
 import bag.small.utils.ListUtil;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.drakeet.multitype.ItemViewBinder;
 
@@ -157,17 +157,17 @@ public class TeachSubjectClassViewBinder extends ItemViewBinder<TeachSubjectClas
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.item_subject_tv)
+        @BindView(R.id.item_subject_tv)
         TextView itemSubjectTv;
-        @Bind(R.id.item_subject_add_iv)
+        @BindView(R.id.item_subject_add_iv)
         ImageView itemSubjectAddIv;
-        @Bind(R.id.item_teacher_number_tv)
+        @BindView(R.id.item_teacher_number_tv)
         TextView itemTeacherNumberTv;
-        @Bind(R.id.item_teacher_grade_tv)
+        @BindView(R.id.item_teacher_grade_tv)
         TextView itemTeacherGradeTv;
-        @Bind(R.id.item_teacher_class_tv)
+        @BindView(R.id.item_teacher_class_tv)
         TextView itemTeacherClassTv;
-        @Bind(R.id.item_class_add_num_iv)
+        @BindView(R.id.item_class_add_num_iv)
         ImageView itemClassAddNumIv;
         View rootView;
 

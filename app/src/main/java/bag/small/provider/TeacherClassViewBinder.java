@@ -12,7 +12,7 @@ import android.widget.TextView;
 import bag.small.R;
 import bag.small.entity.TeacherClass;
 import bag.small.utils.StringUtil;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.drakeet.multitype.ItemViewBinder;
 
@@ -43,11 +43,11 @@ public class TeacherClassViewBinder extends ItemViewBinder<TeacherClass.ClassBea
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.item_text_one)
+        @BindView(R.id.item_text_one)
         TextView itemTextOne;
-        @Bind(R.id.item_text_two)
+        @BindView(R.id.item_text_two)
         TextView itemTextTwo;
-        @Bind(R.id.item_text_three)
+        @BindView(R.id.item_text_three)
         TextView itemTextThree;
 
         ViewHolder(View view) {

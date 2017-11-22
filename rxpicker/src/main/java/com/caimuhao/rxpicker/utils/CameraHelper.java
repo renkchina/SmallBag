@@ -8,6 +8,9 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
+
+import com.caimuhao.rxpicker.R;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -30,7 +33,7 @@ public class CameraHelper {
       takeImageFile = createFile(takeImageFile, "IMG_", ".jpg");
       Uri uri;
       if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
-        uri = FileProvider.getUriForFile(fragment.getActivity(), "com.caimuhao", takeImageFile);
+        uri = FileProvider.getUriForFile(fragment.getActivity(), fragment.getContext().getString(R.string.provider_name), takeImageFile);
       } else {
         uri = Uri.fromFile(takeImageFile);
       }

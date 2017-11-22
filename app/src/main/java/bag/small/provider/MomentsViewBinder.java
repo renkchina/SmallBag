@@ -34,7 +34,7 @@ import bag.small.utils.ImageUtil;
 import bag.small.utils.ListUtil;
 import bag.small.utils.StringUtil;
 import bag.small.utils.UserPreferUtil;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.functions.Consumer;
 import me.drakeet.multitype.ItemViewBinder;
@@ -206,35 +206,35 @@ public class MomentsViewBinder extends ItemViewBinder<MomentsBean, MomentsViewBi
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.item_fragment_user_note_head_iv)
+        @BindView(R.id.item_fragment_user_note_head_iv)
         ImageView iNoteHeadIv;
-        @Bind(R.id.item_fragment_user_note_name_tv)
+        @BindView(R.id.item_fragment_user_note_name_tv)
         TextView iNoteNameTv;
-        @Bind(R.id.item_fragment_delete_message_v)
+        @BindView(R.id.item_fragment_delete_message_v)
         View iDeleteMessageV;
-        @Bind(R.id.item_fragment_user_note_txt_content_tv)
+        @BindView(R.id.item_fragment_user_note_txt_content_tv)
         TextView iNoteTxtContentTv;
-        @Bind(R.id.item_fragment_user_note_image_content_recycler)
+        @BindView(R.id.item_fragment_user_note_image_content_recycler)
         RecyclerView iNoteImageRecycler;
-        @Bind(R.id.item_fragment_note_time_tv)
+        @BindView(R.id.item_fragment_note_time_tv)
         TextView iTimeTv;
-        @Bind(R.id.item_fragment_like_icon)
+        @BindView(R.id.item_fragment_like_icon)
         ImageView iLikeIcon;
-        @Bind(R.id.item_fragment_note_like_iv)
+        @BindView(R.id.item_fragment_note_like_iv)
         ImageView iLikeIv;
-        @Bind(R.id.item_fragment_note_show_send_message_iv)
+        @BindView(R.id.item_fragment_note_show_send_message_iv)
         ImageView iShowSendMessageIv;
-        @Bind(R.id.item_fragment_like_names_list_tv)
+        @BindView(R.id.item_fragment_like_names_list_tv)
         TextView nameListsTv;
-        @Bind(R.id.item_fragment_user_note_evaluation_recycler)
+        @BindView(R.id.item_fragment_user_note_evaluation_recycler)
         RecyclerView iNoteEvaluationRecycler;
-        @Bind(R.id.item_fragment_user_note_evaluation_edt)
+        @BindView(R.id.item_fragment_user_note_evaluation_edt)
         EditText iNoteEvaluationEdt;
-        @Bind(R.id.item_fragment_notice_send_body_tv)
+        @BindView(R.id.item_fragment_notice_send_body_tv)
         TextView sendBodyTv;
-        @Bind(R.id.item_fragment_user_note_evluation_btn)
+        @BindView(R.id.item_fragment_user_note_evluation_btn)
         Button iNoteEvaluationBtn;
-        @Bind(R.id.item_fragment_user_note_evaluation_ll)
+        @BindView(R.id.item_fragment_user_note_evaluation_ll)
         LinearLayout iNoteEvaluationLl;
 
         ViewHolder(View view) {

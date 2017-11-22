@@ -10,7 +10,7 @@ import android.widget.Button;
 import bag.small.R;
 import bag.small.entity.TeacherClass;
 import bag.small.ui.activity.InterestClassByTeacherActivity;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.drakeet.multitype.ItemViewBinder;
 
@@ -44,7 +44,7 @@ public class InterestClassViewBinder extends ItemViewBinder<TeacherClass.ClassBe
 
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.item_interest_btn)
+        @BindView(R.id.item_interest_btn)
         Button itemInterestBtn;
 
         ViewHolder(View view) {

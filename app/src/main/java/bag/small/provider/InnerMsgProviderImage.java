@@ -14,7 +14,7 @@ import java.util.List;
 
 import bag.small.R;
 import bag.small.utils.ImageUtil;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.drakeet.multitype.ItemViewBinder;
 
@@ -41,7 +41,7 @@ public class InnerMsgProviderImage extends ItemViewBinder<String, InnerMsgProvid
     }
 
     static class MViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.item_inner_life_provider_iv)
+        @BindView(R.id.item_inner_life_provider_iv)
         ImageView imageView;
 
         MViewHolder(View view) {

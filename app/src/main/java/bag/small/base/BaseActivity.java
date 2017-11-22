@@ -20,6 +20,7 @@ import bag.small.R;
 import bag.small.interfaze.IActivity;
 import bag.small.interfaze.IRegister;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * Created by Administrator on 2017/7/22.
@@ -31,6 +32,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IActivit
     private SharedPreferences sharedPreferences;
     private Toolbar mToolbar;
     private TextView mTitle;
+    private Unbinder butter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,7 +41,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IActivit
         initPre();
         BaseActivityStack.getInstance().addActivity(this);
         setContentView(getLayoutResId());
-        ButterKnife.bind(this);
+        butter =ButterKnife.bind(this);
         sharedPreferences = getSharedPreferences("renkchina", Activity.MODE_PRIVATE);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mTitle = (TextView) findViewById(R.id.toolbar_title);
@@ -189,7 +191,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IActivit
         BaseActivityStack.getInstance().finishActivity(this);
         unRegister();
         super.onDestroy();
-        ButterKnife.unbind(this);
+        butter.unbind();
     }
 
     public void toast(Object object) {

@@ -19,7 +19,7 @@ import bag.small.utils.GlideImageLoader;
 import bag.small.utils.ImageUtil;
 import bag.small.utils.StringUtil;
 import bag.small.utils.UserPreferUtil;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.drakeet.multitype.ItemViewBinder;
 
@@ -45,11 +45,11 @@ public class NoticeBannerViewBinder extends ItemViewBinder<NoticeBanner, NoticeB
 
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.fragment_growth_head_image_iv)
+        @BindView(R.id.fragment_growth_head_image_iv)
         ImageView fHeadImageIv;
-        @Bind(R.id.banner_imageview)
+        @BindView(R.id.banner_imageview)
         ImageView ImageIv;
-        @Bind(R.id.head_banner_tv)
+        @BindView(R.id.head_banner_tv)
         TextView name;
 
         ViewHolder(View view) {

@@ -20,7 +20,7 @@ import java.util.List;
 import bag.small.R;
 import bag.small.ui.activity.PublishMsgActivity;
 import bag.small.utils.ImageUtil;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.drakeet.multitype.ItemViewBinder;
 
@@ -101,9 +101,9 @@ public class CheckImageProvider extends ItemViewBinder<String, CheckImageProvide
     }
 
     static class MyViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.item_ac_check_content_iv)
+        @BindView(R.id.item_ac_check_content_iv)
         ImageView itemAcCheckContentIv;
-        @Bind(R.id.item_ac_check_del)
+        @BindView(R.id.item_ac_check_del)
         View itemAcCheckDel;
         View rootView;
 

@@ -32,7 +32,7 @@ import bag.small.rx.RxUtil;
 import bag.small.utils.ListUtil;
 import bag.small.utils.UserPreferUtil;
 import bag.small.view.RecycleViewDivider;
-import butterknife.Bind;
+import butterknife.BindView;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
 import me.drakeet.multitype.Items;
 import me.drakeet.multitype.MultiTypeAdapter;
@@ -42,9 +42,9 @@ import me.drakeet.multitype.MultiTypeAdapter;
  */
 
 public class GrowthDiaryFragment extends BaseFragment implements IDialog {
-    @Bind(R.id.fragment_growth_root_refresh)
+    @BindView(R.id.fragment_growth_root_refresh)
     SmartRefreshLayout refreshLayout;
-    @Bind(R.id.fragment_growth_recycler)
+    @BindView(R.id.fragment_growth_recycler)
     RecyclerView recyclerView;
     MultiTypeAdapter multiTypeAdapter;
     Items mItems;

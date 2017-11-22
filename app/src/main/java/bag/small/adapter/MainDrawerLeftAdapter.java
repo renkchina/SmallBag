@@ -19,7 +19,7 @@ import bag.small.ui.activity.AccountTeacherManagerActivity;
 import bag.small.ui.activity.LoginActivity;
 import bag.small.ui.activity.WebViewActivity;
 import bag.small.utils.UserPreferUtil;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -86,11 +86,11 @@ public class MainDrawerLeftAdapter extends MyBaseListViewAdapter<MainLeftBean> {
     }
 
     static class ViewHolder {
-        @Bind(R.id.item_drawer_left_v)
+        @BindView(R.id.item_drawer_left_v)
         View itemDrawerLeftV;
-        @Bind(R.id.item_drawer_left_tv)
+        @BindView(R.id.item_drawer_left_tv)
         TextView itemDrawerLeftTv;
-        @Bind(R.id.main_drawer_left_account_manager_ll)
+        @BindView(R.id.main_drawer_left_account_manager_ll)
         LinearLayout mainv;
 
         ViewHolder(View view) {

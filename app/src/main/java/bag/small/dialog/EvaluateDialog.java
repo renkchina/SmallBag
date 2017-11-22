@@ -18,7 +18,7 @@ import bag.small.R;
 import bag.small.interfaze.IDialog;
 import bag.small.utils.LogUtil;
 import bag.small.utils.StringUtil;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -28,11 +28,11 @@ import butterknife.OnClick;
 
 public class EvaluateDialog extends Dialog {
 
-    @Bind(R.id.dialog_fragment_user_note_evaluation_edt)
+    @BindView(R.id.dialog_fragment_user_note_evaluation_edt)
     EditText dEvaluationEdt;
-    @Bind(R.id.dialog_fragment_user_note_evluation_btn)
+    @BindView(R.id.dialog_fragment_user_note_evluation_btn)
     Button dEvluationBtn;
-    @Bind(R.id.dialog_fragment_user_note_evaluation_ll)
+    @BindView(R.id.dialog_fragment_user_note_evaluation_ll)
     LinearLayout dEvaluationLl;
     private IDialog iDialog;
     private Context mContext;

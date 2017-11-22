@@ -1,39 +1,55 @@
 package bag.small.ui.fragment;
 
 import android.graphics.Rect;
+import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
-import android.widget.ImageView;
-
+import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
+import com.youth.banner.Transformer;
+import com.youth.banner.listener.OnBannerListener;
 import java.util.ArrayList;
 import java.util.List;
-
 import bag.small.R;
-import bag.small.app.MyApplication;
 import bag.small.base.BaseFragment;
+import bag.small.dialog.AdvertisingDialog;
+import bag.small.entity.AdvertisingBean;
+import bag.small.entity.AdvertisingDetailBean;
 import bag.small.entity.ConnectionBinder;
+import bag.small.entity.ImageString;
 import bag.small.http.HttpUtil;
 import bag.small.http.IApi.HttpError;
+import bag.small.http.IApi.IAdvertising;
 import bag.small.http.IApi.INotification;
 import bag.small.provider.ConnectionViewBinder;
 import bag.small.rx.RxUtil;
+import bag.small.ui.activity.WebViewActivity;
+import bag.small.utils.GlideImageLoader;
+import bag.small.utils.ListUtil;
+import bag.small.utils.LogUtil;
 import bag.small.utils.UserPreferUtil;
-import butterknife.Bind;
+import butterknife.BindView;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
 import me.drakeet.multitype.MultiTypeAdapter;
 
-
-public class FamiliesSchoolConnectionFragment extends BaseFragment {
-    @Bind(R.id.banner_imageview)
-    ImageView bannerImage;
-    @Bind(R.id.fragment_family_grid_view)
+public class FamiliesSchoolConnectionFragment extends BaseFragment implements  OnBannerListener {
+    //    @BindView(R.id.banner_imageview)
+//    ImageView bannerImage;
+    @BindView(R.id.top_banner)
+    Banner banner;
+    @BindView(R.id.fragment_family_grid_view)
     RecyclerView recyclerView;
     MultiTypeAdapter mAdapter;
     List<Object> mItemBeans;
     INotification iNotification;
     private ConnectionBinder biner2;
     private ConnectionBinder biner8;
+    private List bannerImages;
+    private IAdvertising iAdvertising;
+    private List<AdvertisingBean> advertisingBeen;
+    private AdvertisingDialog advertisingDialog;
 
     @Override
     public int getLayoutResId() {
@@ -89,6 +105,9 @@ public class FamiliesSchoolConnectionFragment extends BaseFragment {
         mItemBeans.add(biner8);
         mItemBeans.add(biner9);
         mAdapter = new MultiTypeAdapter(mItemBeans);
+        bannerImages = new ArrayList<>();
+        advertisingBeen = new ArrayList<>();
+        advertisingDialog = new AdvertisingDialog(getContext());
     }
 
     @Override
@@ -98,10 +117,12 @@ public class FamiliesSchoolConnectionFragment extends BaseFragment {
         recyclerView.addItemDecoration(new SpaceItemDecoration(7));
         recyclerView.setAdapter(mAdapter);
 
-
         iNotification = HttpUtil.getInstance().createApi(INotification.class);
+        iAdvertising = HttpUtil.getInstance().createApi(IAdvertising.class);
         setNoticeCount();
-        setImage();
+        getTopBannerImage();
+        setBanner(banner, bannerImages);
+        banner.setOnBannerListener(this);
     }
 
     private void setNoticeCount() {
@@ -118,15 +139,100 @@ public class FamiliesSchoolConnectionFragment extends BaseFragment {
                 }, new HttpError());
     }
 
+    private void getTopBannerImage() {
+        iAdvertising.getAdvertisings(UserPreferUtil.getInstanse().getRoleId(),
+                UserPreferUtil.getInstanse().getUserId(), UserPreferUtil.getInstanse().getSchoolId())
+                .compose(RxLifecycleCompact.bind(this).withObservable())
+                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                .subscribe(bean -> {
+                    List<AdvertisingBean> list = bean.getData();
+                    if (bean.isSuccess() && ListUtil.unEmpty(list)) {
+                        advertisingBeen.clear();
+                        bannerImages.clear();
+                        advertisingBeen.addAll(list);
+                        for (AdvertisingBean advertising : list) {
+                            bannerImages.add(advertising.getImg());
+                        }
+                    } else {
+                        bannerImages.add(R.mipmap.banner_icon1);
+                        bannerImages.add(R.mipmap.banner_icon2);
+                    }
+                    banner.update(bannerImages);
+
+                }, new HttpError());
+    }
+
+    private void getBannerDetail(int absId,String comeFrom){
+        iAdvertising.getAdvertisingsDetail(UserPreferUtil.getInstanse().getRoleId(),
+                UserPreferUtil.getInstanse().getUserId(),UserPreferUtil.getInstanse().getSchoolId(),
+                absId,comeFrom).compose(RxLifecycleCompact.bind(this).withObservable())
+                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                .subscribe(bean->{
+                    if(bean.isSuccess()){
+                        AdvertisingDetailBean detail = bean.getData();
+                        List list = new ArrayList();
+                        if(!TextUtils.isEmpty(detail.getContent())){
+                            list.add(detail.getContent());
+                        }
+                        if(ListUtil.unEmpty(detail.getImages())){
+                            for (String s : detail.getImages()) {
+                                ImageString imageString = new ImageString();
+                                imageString.setUrl(s);
+                                list.add(imageString);
+                            }
+                        }
+                        if(ListUtil.unEmpty(list)){
+                            advertisingDialog.setListData(list);
+                            advertisingDialog.show(recyclerView);
+                        }
+                    }
+                },new HttpError());
+    }
 
     @Override
     public void onFragmentShow() {
         setNoticeCount();
-        setImage();
+        banner.startAutoPlay();
     }
 
-    public void setImage() {
-        bannerImage.setBackgroundResource(MyApplication.bannerImage);
+    @Override
+    public void onFragmentHide() {
+        banner.stopAutoPlay();
+    }
+
+    private void setBanner(Banner banner, List images) {
+        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
+        //设置图片加载器
+        banner.setImageLoader(new GlideImageLoader());
+        //设置图片集合
+        banner.setImages(images);
+        //设置banner动画效果
+        banner.setBannerAnimation(Transformer.DepthPage);
+        //设置标题集合（当banner样式有显示title时）
+//        fBanner.setBannerTitles(titles);
+        //设置自动轮播，默认为true
+        banner.isAutoPlay(true);
+        //设置轮播时间
+        banner.setDelayTime(2000);
+        //设置指示器位置（当banner模式中有指示器时）
+        banner.setIndicatorGravity(BannerConfig.CENTER);
+        //banner设置方法全部调用完毕时最后调用
+        banner.start();
+    }
+
+    @Override
+    public void OnBannerClick(int position) {
+        LogUtil.show("position: " + position);
+        AdvertisingBean bean = advertisingBeen.get(position);
+        if (TextUtils.isEmpty(bean.getUrl())) {
+            //弹框
+            getBannerDetail(bean.getAds_id(),bean.getCame_from());
+        } else {
+            //网页
+            Bundle bundle = new Bundle();
+            bundle.putString("url", bean.getUrl());
+            goActivity(WebViewActivity.class, bundle);
+        }
     }
 
 
@@ -150,9 +256,9 @@ public class FamiliesSchoolConnectionFragment extends BaseFragment {
             //由于每行都只有3个，所以第一个都是3的倍数，把左边距设为0
             if (result == 0) {
                 outRect.left = 0;
-            } else if (result ==1){
+            } else if (result == 1) {
                 outRect.left = 0;
-            }else if(result==2){
+            } else if (result == 2) {
                 outRect.right = 0;
                 outRect.left = 0;
             }

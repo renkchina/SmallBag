@@ -1,6 +1,8 @@
 package bag.small.ui.activity;
 
 import android.annotation.SuppressLint;
+import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -8,14 +10,15 @@ import android.webkit.WebViewClient;
 
 import bag.small.R;
 import bag.small.base.BaseActivity;
-import butterknife.Bind;
+import butterknife.BindView;
 
 import static android.view.KeyEvent.KEYCODE_BACK;
 
 public class WebViewActivity extends BaseActivity {
 
-    @Bind(R.id.web_view)
+    @BindView(R.id.web_view)
     WebView webView;
+    String urlStr;
 
     @Override
     public int getLayoutResId() {
@@ -25,14 +28,14 @@ public class WebViewActivity extends BaseActivity {
     //    @SuppressLint("SetJavaScriptEnabled")
     @Override
     public void initData() {
-//声明WebSettings子类
+        //声明WebSettings子类
         WebSettings webSettings = webView.getSettings();
 
-//设置自适应屏幕，两者合用
+        //设置自适应屏幕，两者合用
         webSettings.setUseWideViewPort(true); //将图片调整到适合webview的大小
         webSettings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
 
-//其他细节操作
+        //其他细节操作
         webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK); //关闭webview中缓存
         webSettings.setAllowFileAccess(true); //设置可以访问文件
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true); //支持通过JS打开新窗口
@@ -63,7 +66,17 @@ public class WebViewActivity extends BaseActivity {
     @Override
     public void initView() {
         setToolTitle("我的书包", true);
-        webView.loadUrl("http://www.wodeshubao.com.cn");
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            urlStr = bundle.getString("url");
+        }
+
+        if (TextUtils.isEmpty(urlStr)) {
+            webView.loadUrl("http://www.wodeshubao.com.cn");
+        } else {
+            webView.loadUrl(urlStr);
+        }
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {

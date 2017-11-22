@@ -23,7 +23,7 @@ import bag.small.rx.RxUtil;
 import bag.small.utils.GlobalValues;
 import bag.small.utils.StringUtil;
 import bag.small.utils.UserPreferUtil;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
 
@@ -32,21 +32,21 @@ import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
  */
 
 public class RegisterActivity extends BaseActivity {
-    @Bind(R.id.activity_register_phone_edt)
+    @BindView(R.id.activity_register_phone_edt)
     EditText rPhoneEdt;
-    @Bind(R.id.activity_register_verification_code_edt)
+    @BindView(R.id.activity_register_verification_code_edt)
     EditText rVerificationCodeEdt;
-    @Bind(R.id.activity_register_send_code_btn)
+    @BindView(R.id.activity_register_send_code_btn)
     Button rSendCodeBtn;
-    @Bind(R.id.activity_register_password_edt)
+    @BindView(R.id.activity_register_password_edt)
     EditText rPasswordEdt;
-    @Bind(R.id.activity_register_reset_password_edt)
+    @BindView(R.id.activity_register_reset_password_edt)
     EditText rResetPasswordEdt;
-    @Bind(R.id.ac_register_parent_ll)
+    @BindView(R.id.ac_register_parent_ll)
     LinearLayout rParentLl;
-    @Bind(R.id.ac_register_teacher_ll)
+    @BindView(R.id.ac_register_teacher_ll)
     LinearLayout rTeacherLl;
-    @Bind(R.id.activity_register_login_tv)
+    @BindView(R.id.activity_register_login_tv)
     TextView LoginTv;
 
     IRegisterSendCode iRegisterSendCode;

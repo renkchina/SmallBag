@@ -22,7 +22,7 @@ import bag.small.rx.RxUtil;
 import bag.small.utils.ListUtil;
 import bag.small.utils.StringUtil;
 import bag.small.utils.UserPreferUtil;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.functions.Consumer;
 import me.drakeet.multitype.ItemViewBinder;
@@ -91,9 +91,9 @@ public class EvaluationListBinder extends ItemViewBinder<MomentsBean.RepayBean, 
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.item_evaluation_title_tv)
+        @BindView(R.id.item_evaluation_title_tv)
         TextView eTitleTv;
-        @Bind(R.id.item_evaluation_content_tv)
+        @BindView(R.id.item_evaluation_content_tv)
         TextView eContentTv;
         View rootView;
 

@@ -19,7 +19,7 @@ import bag.small.ui.activity.EducationalNoticeActivity;
 import bag.small.ui.activity.InterestClassByTeacherActivity;
 import bag.small.utils.StringUtil;
 import bag.small.utils.UserPreferUtil;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.drakeet.multitype.ItemViewBinder;
 
@@ -73,11 +73,11 @@ public class ConnectionViewBinder extends ItemViewBinder<ConnectionBinder, Conne
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.item_connection_icon_iv)
+        @BindView(R.id.item_connection_icon_iv)
         ImageView iIconIv;
-        @Bind(R.id.item_connection_title_iv)
+        @BindView(R.id.item_connection_title_iv)
         TextView iTitleIv;
-        @Bind(R.id.item_connection_count_iv)
+        @BindView(R.id.item_connection_count_iv)
         TextView iCountIv;
         View rootView;
 

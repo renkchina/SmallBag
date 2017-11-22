@@ -39,7 +39,7 @@ import bag.small.utils.ImageUtil;
 import bag.small.utils.ListUtil;
 import bag.small.utils.StringUtil;
 import bag.small.utils.UserPreferUtil;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
 import okhttp3.MediaType;
@@ -49,29 +49,29 @@ import top.zibin.luban.OnCompressListener;
 
 public class NewRegisterStudentActivity extends BaseActivity {
 
-    @Bind(R.id.ac_account_student_head_iv)
+    @BindView(R.id.ac_account_student_head_iv)
     ImageView acAccountStudentHeadIv;
-    @Bind(R.id.activity_account_student_name_tv)
+    @BindView(R.id.activity_account_student_name_tv)
     TextView accountStudentNameTv;
-    @Bind(R.id.activity_account_student_number_tv)
+    @BindView(R.id.activity_account_student_number_tv)
     TextView accountStudentNumberTv;
-    @Bind(R.id.activity_account_student_class_tv)
+    @BindView(R.id.activity_account_student_class_tv)
     TextView accountStudentClassTv;
-    @Bind(R.id.activity_account_student_gender_tv)
+    @BindView(R.id.activity_account_student_gender_tv)
     TextView accountStudentGenderTv;
-    @Bind(R.id.activity_account_student_birthday_tv)
+    @BindView(R.id.activity_account_student_birthday_tv)
     TextView accountStudentBirthdayTv;
-    @Bind(R.id.activity_account_student_agree_pwd_edt)
+    @BindView(R.id.activity_account_student_agree_pwd_edt)
     EditText aAgreePwdEdt;
-    @Bind(R.id.activity_account_student_commit_btn)
+    @BindView(R.id.activity_account_student_commit_btn)
     Button accountStudentCommitBtn;
-    @Bind(R.id.activity_account_student_school_tv)
+    @BindView(R.id.activity_account_student_school_tv)
     TextView schoolTv;
-    @Bind(R.id.activity_account_student_xueji_number_tv)
+    @BindView(R.id.activity_account_student_xueji_number_tv)
     TextView xuejiNumberTv;
-    @Bind(R.id.activity_account_student_id_tv)
+    @BindView(R.id.activity_account_student_id_tv)
     TextView codeIdTv;
-    @Bind(R.id.toolbar_right_tv)
+    @BindView(R.id.toolbar_right_tv)
     TextView toolbarRightTv;
     private IRegisterReq iRegisterRequest;
     private String phone;

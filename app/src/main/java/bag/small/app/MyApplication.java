@@ -8,7 +8,6 @@ import android.os.Bundle;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.BezierRadarHeader;
-import com.umeng.analytics.game.UMGameAgent;
 import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.PushAgent;
 
@@ -42,6 +41,12 @@ public class MyApplication extends Application implements Application.ActivityLi
         super.onCreate();
         mContext = this;
         registerActivityLifecycleCallbacks(this);
+        setDefaultRefresh();
+        loginResults = new ArrayList<>(5);
+    }
+
+
+    private void setPushInit(){
         PushAgent mPushAgent = PushAgent.getInstance(this);
         //注册推送服务，每次调用register方法都会回调该接口
         mPushAgent.register(new IUmengRegisterCallback() {
@@ -59,9 +64,8 @@ public class MyApplication extends Application implements Application.ActivityLi
             }
         });
         mPushAgent.setDebugMode(false);
-        setDefaultRefresh();
-        loginResults = new ArrayList<>(5);
     }
+
 
     private void setDefaultRefresh() {
         SmartRefreshLayout.setDefaultRefreshHeaderCreater((context, layout) -> {
@@ -81,7 +85,7 @@ public class MyApplication extends Application implements Application.ActivityLi
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
         LogUtil.loge(activity.getLocalClassName() + " onCreate");
-        PushAgent.getInstance(activity).onAppStart();
+//        PushAgent.getInstance(activity).onAppStart();
     }
 
     @Override
@@ -92,13 +96,13 @@ public class MyApplication extends Application implements Application.ActivityLi
     @Override
     public void onActivityResumed(Activity activity) {
         LogUtil.loge(activity.getLocalClassName() + " onResume");
-        UMGameAgent.onResume(activity);
+//        UMGameAgent.onResume(activity);
     }
 
     @Override
     public void onActivityPaused(Activity activity) {
         LogUtil.loge(activity.getLocalClassName() + " onPause");
-        UMGameAgent.onPause(activity);
+//        UMGameAgent.onPause(activity);
     }
 
     @Override

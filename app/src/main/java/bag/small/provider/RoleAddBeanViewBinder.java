@@ -10,7 +10,7 @@ import android.widget.Button;
 import com.china.rxbus.RxBus;
 
 import bag.small.R;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
 import me.drakeet.multitype.ItemViewBinder;
@@ -33,7 +33,7 @@ public class RoleAddBeanViewBinder extends ItemViewBinder<String, RoleAddBeanVie
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.main_drawer_left_add_account_btn)
+        @BindView(R.id.main_drawer_left_add_account_btn)
         Button addRole;
 
         ViewHolder(View itemView) {

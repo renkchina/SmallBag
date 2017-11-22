@@ -23,7 +23,7 @@ import bag.small.ui.activity.MainActivity;
 import bag.small.utils.ImageUtil;
 import bag.small.utils.ListUtil;
 import bag.small.utils.UserPreferUtil;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.drakeet.multitype.ItemViewBinder;
 import me.drakeet.multitype.Items;
@@ -85,9 +85,9 @@ public class AccountViewBinder extends ItemViewBinder<LoginResult.RoleBean, Acco
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.item_main_drawer_image_iv)
+        @BindView(R.id.item_main_drawer_image_iv)
         ImageView drawerImageIv;
-        @Bind(R.id.item_main_drawer_name_tv)
+        @BindView(R.id.item_main_drawer_name_tv)
         TextView drawerNameTv;
         View rootView;
 

@@ -14,7 +14,7 @@ import android.widget.TextView;
 import bag.small.R;
 import bag.small.entity.EducationNoticeBean;
 import bag.small.ui.activity.NoticeDetailActivity;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.drakeet.multitype.ItemViewBinder;
 
@@ -55,13 +55,13 @@ public class EducationNoticeViewBinder extends ItemViewBinder<EducationNoticeBea
 
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.item_education_notice_state_v)
+        @BindView(R.id.item_education_notice_state_v)
         View iNoticeStateV;
-        @Bind(R.id.item_education_notice_title_tv)
+        @BindView(R.id.item_education_notice_title_tv)
         TextView iNoticeTitleTv;
-        @Bind(R.id.item_education_notice_time_tv)
+        @BindView(R.id.item_education_notice_time_tv)
         TextView iNoticeTimeTv;
-        @Bind(R.id.item_education_notice_content_tv)
+        @BindView(R.id.item_education_notice_content_tv)
         TextView iNoticeContentTv;
         View root;
 

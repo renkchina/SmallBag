@@ -37,7 +37,7 @@ import bag.small.utils.ImageUtil;
 import bag.small.utils.ListUtil;
 import bag.small.utils.StringUtil;
 import bag.small.utils.UserPreferUtil;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
 import okhttp3.MediaType;
@@ -47,48 +47,48 @@ import top.zibin.luban.OnCompressListener;
 
 public class NewRegisterTeacherActivity extends BaseActivity {
 
-    //    @Bind(R.id.ac_new_teacher_head_iv)
+    //    @BindView(R.id.ac_new_teacher_head_iv)
 //    ImageView acNewTeacherHeadIv;
-//    @Bind(R.id.new_register_name_tv)
+//    @BindView(R.id.new_register_name_tv)
 //    TextView newRegisterNameTv;
-//    @Bind(R.id.new_register_type_tv)
+//    @BindView(R.id.new_register_type_tv)
 //    TextView newRegisterTypeTv;
-//    @Bind(R.id.new_register_school_tv)
+//    @BindView(R.id.new_register_school_tv)
 //    TextView newRegisterSchoolTv;
-//    @Bind(R.id.new_register_number_tv)
+//    @BindView(R.id.new_register_number_tv)
 //    TextView newRegisterNumberTv;
-//    @Bind(R.id.new_register_email_tv)
+//    @BindView(R.id.new_register_email_tv)
 //    TextView newRegisterEmailTv;
-//    @Bind(R.id.new_register_birthday_tv)
+//    @BindView(R.id.new_register_birthday_tv)
 //    TextView newRegisterBirthdayTv;
-//    @Bind(R.id.new_register_gender_tv)
+//    @BindView(R.id.new_register_gender_tv)
 //    TextView newRegisterGenderTv;
-//    @Bind(R.id.new_register_class_teacher_tv)
+//    @BindView(R.id.new_register_class_teacher_tv)
 //    TextView newRegisterClassTeacherTv;
-//    @Bind(R.id.new_register_class_ll)
+//    @BindView(R.id.new_register_class_ll)
 //    LinearLayout newRegisterClassLl;
-    @Bind(R.id.ac_account_teacher_head_iv)
+    @BindView(R.id.ac_account_teacher_head_iv)
     ImageView acAccountTeacherHeadIv;
-    @Bind(R.id.activity_account_teacher_name_tv)
+    @BindView(R.id.activity_account_teacher_name_tv)
     TextView accountTeacherNameTv;
-    @Bind(R.id.activity_account_teacher_number_tv)
+    @BindView(R.id.activity_account_teacher_number_tv)
     EditText accountTeacherNumberTv;
-    @Bind(R.id.activity_account_teacher_email_tv)
+    @BindView(R.id.activity_account_teacher_email_tv)
     EditText accountTeacherEmailTv;
-    @Bind(R.id.activity_account_teacher_birthday_tv)
+    @BindView(R.id.activity_account_teacher_birthday_tv)
     TextView accountTeacherBirthdayTv;
-    @Bind(R.id.activity_account_teacher_gender_tv)
+    @BindView(R.id.activity_account_teacher_gender_tv)
     TextView accountTeacherGenderTv;
-    @Bind(R.id.activity_account_teacher_class_teacher_tv)
+    @BindView(R.id.activity_account_teacher_class_teacher_tv)
     TextView accountTeacherClassTeacherTv;
-    @Bind(R.id.activity_account_teacher_class_ll)
+    @BindView(R.id.activity_account_teacher_class_ll)
     LinearLayout accountTeacherClassLl;
-    @Bind(R.id.activity_account_teacher_change_pwd_edt)
+    @BindView(R.id.activity_account_teacher_change_pwd_edt)
     EditText aChangePwdEdt;
-    @Bind(R.id.activity_account_teacher_commit_btn)
+    @BindView(R.id.activity_account_teacher_commit_btn)
     Button accountTeacherCommitBtn;
     IRegisterReq iRegisterReq;
-    @Bind(R.id.toolbar_right_tv)
+    @BindView(R.id.toolbar_right_tv)
     TextView toolbarRightTv;
     private String phone;
     private String loginId;

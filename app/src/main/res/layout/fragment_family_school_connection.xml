@@ -5,20 +5,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
-    <FrameLayout
+        <!--<ImageView-->
+            <!--android:id="@+id/banner_imageview"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="155dp"-->
+            <!--android:background="@mipmap/banner_icon1"-->
+            <!--android:scaleType="centerCrop" />-->
+    <com.youth.banner.Banner
+        android:id="@+id/top_banner"
         android:layout_width="match_parent"
-        android:layout_height="155dp">
-
-        <ImageView
-            android:id="@+id/banner_imageview"
-            android:layout_width="match_parent"
-            android:layout_height="155dp"
-            android:background="@mipmap/banner_icon1"
-            android:scaleType="centerCrop" />
-
-    </FrameLayout>
-
+        android:layout_height="155dp"
+        app:image_scale_type="center_crop" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/fragment_family_grid_view"

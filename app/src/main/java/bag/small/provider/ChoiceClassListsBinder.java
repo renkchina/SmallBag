@@ -12,7 +12,7 @@ import com.china.rxbus.RxBus;
 import bag.small.R;
 import bag.small.entity.ChoiceClassLists;
 import bag.small.utils.StringUtil;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.drakeet.multitype.ItemViewBinder;
 
@@ -56,13 +56,13 @@ public class ChoiceClassListsBinder extends ItemViewBinder<ChoiceClassLists.Kech
 
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.item_choice_class_tv)
+        @BindView(R.id.item_choice_class_tv)
         TextView iClassTv;
-        @Bind(R.id.item_choice_teacher_tv)
+        @BindView(R.id.item_choice_teacher_tv)
         TextView iTeacherTv;
-        @Bind(R.id.item_choice_classroom_tv)
+        @BindView(R.id.item_choice_classroom_tv)
         TextView iClassroomTv;
-        @Bind(R.id.item_choice_time_tv)
+        @BindView(R.id.item_choice_time_tv)
         TextView iTimeTv;
         View rootView;
 

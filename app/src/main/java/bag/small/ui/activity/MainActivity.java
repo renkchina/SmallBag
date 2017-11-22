@@ -1,6 +1,5 @@
 package bag.small.ui.activity;
 
-
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
@@ -17,29 +16,21 @@ import android.support.v7.widget.Toolbar;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
-
 import com.china.rxbus.MySubscribe;
 import com.china.rxbus.RxBus;
-import com.umeng.analytics.MobclickAgent;
-
+//import com.umeng.analytics.MobclickAgent;
 import java.util.ArrayList;
 import java.util.List;
-
 import bag.small.R;
-import bag.small.adapter.MainDrawerLeftAdapter;
 import bag.small.app.MyApplication;
 import bag.small.base.BaseActivity;
 import bag.small.base.BaseFragment;
-import bag.small.entity.BaseBean;
 import bag.small.entity.LoginResult;
 import bag.small.entity.MainLeftBean;
 import bag.small.http.HttpUtil;
@@ -55,41 +46,40 @@ import bag.small.ui.fragment.GrowthDiaryFragment;
 import bag.small.ui.fragment.TreasureChestFragment;
 import bag.small.utils.ListUtil;
 import bag.small.utils.UserPreferUtil;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
-import io.reactivex.functions.Consumer;
 import me.drakeet.multitype.Items;
 import me.drakeet.multitype.MultiTypeAdapter;
 
 public class MainActivity extends BaseActivity
         implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.toolbar_title)
+    @BindView(R.id.toolbar_title)
     TextView toolTitle;
-    @Bind(R.id.activity_main_content_frame)
+    @BindView(R.id.activity_main_content_frame)
     FrameLayout mContentFrame;
-    @Bind(R.id.activity_main_bottom_nav)
+    @BindView(R.id.activity_main_bottom_nav)
     BottomNavigationView mBottomNav;
-    @Bind(R.id.activity_main_content_ll)
+    @BindView(R.id.activity_main_content_ll)
     LinearLayout mContentLl;
-    @Bind(R.id.main_left_ll)
+    @BindView(R.id.main_left_ll)
     LinearLayout mainLeftLl;
-    @Bind(R.id.activity_main_drawer)
+    @BindView(R.id.activity_main_drawer)
     DrawerLayout mDrawer;
-    @Bind(R.id.main_drawer_left_recycler)
+    @BindView(R.id.main_drawer_left_recycler)
     RecyclerView mdlRecycler;
-    @Bind(R.id.activity_click_image)
+    @BindView(R.id.activity_click_image)
     ImageView activityClickImage;
-//    @Bind(R.id.main_drawer_left_add_account_btn)
+//    @BindView(R.id.main_drawer_left_add_account_btn)
 //    Button mdlAddAccountBtn;
 
-//    @Bind(R.id.main_drawer_left_list_view)
+//    @BindView(R.id.main_drawer_left_list_view)
 //    ListView listView;
 
-    @Bind(R.id.toolbar_right_iv)
+    @BindView(R.id.toolbar_right_iv)
     ImageView toolbarRightIv;
     BaseFragment[] fragments;
     private MenuItem lastItem;
@@ -270,7 +260,7 @@ public class MainActivity extends BaseActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        MobclickAgent.onKillProcess(this);
+//        MobclickAgent.onKillProcess(this);
     }
 
     @OnClick({R.id.activity_click_image})
