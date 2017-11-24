@@ -27,6 +27,7 @@ import bag.small.provider.ConnectionViewBinder;
 import bag.small.rx.RxUtil;
 import bag.small.ui.activity.WebViewActivity;
 import bag.small.utils.GlideImageLoader;
+import bag.small.utils.LayoutUtil;
 import bag.small.utils.ListUtil;
 import bag.small.utils.LogUtil;
 import bag.small.utils.UserPreferUtil;
@@ -121,7 +122,7 @@ public class FamiliesSchoolConnectionFragment extends BaseFragment implements  O
         iAdvertising = HttpUtil.getInstance().createApi(IAdvertising.class);
         setNoticeCount();
         getTopBannerImage();
-        setBanner(banner, bannerImages);
+        LayoutUtil.setBanner(banner, bannerImages);
         banner.setOnBannerListener(this);
     }
 
@@ -157,7 +158,8 @@ public class FamiliesSchoolConnectionFragment extends BaseFragment implements  O
                         bannerImages.add(R.mipmap.banner_icon1);
                         bannerImages.add(R.mipmap.banner_icon2);
                     }
-                    banner.update(bannerImages);
+                    banner.setImages(bannerImages);
+                    //banner.update(bannerImages);
 
                 }, new HttpError());
     }
@@ -200,25 +202,6 @@ public class FamiliesSchoolConnectionFragment extends BaseFragment implements  O
         banner.stopAutoPlay();
     }
 
-    private void setBanner(Banner banner, List images) {
-        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
-        //设置图片加载器
-        banner.setImageLoader(new GlideImageLoader());
-        //设置图片集合
-        banner.setImages(images);
-        //设置banner动画效果
-        banner.setBannerAnimation(Transformer.DepthPage);
-        //设置标题集合（当banner样式有显示title时）
-//        fBanner.setBannerTitles(titles);
-        //设置自动轮播，默认为true
-        banner.isAutoPlay(true);
-        //设置轮播时间
-        banner.setDelayTime(2000);
-        //设置指示器位置（当banner模式中有指示器时）
-        banner.setIndicatorGravity(BannerConfig.CENTER);
-        //banner设置方法全部调用完毕时最后调用
-        banner.start();
-    }
 
     @Override
     public void OnBannerClick(int position) {

@@ -103,8 +103,6 @@ dependencies {
     compile project(path: ':viewBinder')
 
     //友盟
-//    provided files('src/main/jniLibs/umeng-analytics-v6.1.1.jar')
-//    provided files('src/main/jniLibs/utdid4all-1.0.4.jar')
     compile project(':PushSDK')
 
     //压缩图片
@@ -153,4 +151,5 @@ dependencies {
     implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.3'
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    implementation 'com.github.rubensousa:gravitysnaphelper:1.3'
 }

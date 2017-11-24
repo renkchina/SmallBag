@@ -15,8 +15,12 @@ import android.widget.Toast;
 import bag.small.R;
 import bag.small.entity.ConnectionBinder;
 import bag.small.ui.activity.ChoiceInterestClassActivity;
+import bag.small.ui.activity.ClassScheduleActivity;
 import bag.small.ui.activity.EducationalNoticeActivity;
 import bag.small.ui.activity.InterestClassByTeacherActivity;
+import bag.small.ui.activity.MassOrgActivity;
+import bag.small.ui.activity.StudentMemorandumActivity;
+import bag.small.ui.activity.TeacherMemorandumActivity;
 import bag.small.utils.StringUtil;
 import bag.small.utils.UserPreferUtil;
 import butterknife.BindView;
@@ -50,15 +54,24 @@ public class ConnectionViewBinder extends ItemViewBinder<ConnectionBinder, Conne
         holder.rootView.setOnClickListener(v -> {
             switch (bean.getId()) {
                 case 2:
-                goActivity(EducationalNoticeActivity.class, holder.iIconIv.getContext());
-                break;
+                    goActivity(EducationalNoticeActivity.class, context);
+                    break;
                 case 1:
-                case 3:
+                    if (UserPreferUtil.getInstanse().isTeacher()) {
+                        goActivity(TeacherMemorandumActivity.class, context);
+                    } else
+                        goActivity(StudentMemorandumActivity.class, context);
+                    break;
                 case 4:
+                    goActivity(ClassScheduleActivity.class, context);
+                    break;
+                case 3:
                 case 5:
                 case 6:
+                    Toast.makeText(context, "敬请期待", Toast.LENGTH_SHORT).show();
+                    break;
                 case 7:
-                    Toast.makeText(context,"敬请期待",Toast.LENGTH_SHORT).show();
+                    goActivity(MassOrgActivity.class, context);
                     break;
                 case 8:
                     if (UserPreferUtil.getInstanse().isTeacher()) {

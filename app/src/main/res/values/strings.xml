@@ -120,10 +120,10 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_settings">Settings</string>
-    <string name="committed_str">确认提交</string>
-    <string name="three_volunteer">第三志愿</string>
-    <string name="two_volunteer">第二志愿</string>
-    <string name="first_volunteer">第一志愿</string>
+    <string name="committed_str">所有兴趣课</string>
+    <string name="three_volunteer">第三兴趣课</string>
+    <string name="two_volunteer">第二兴趣课</string>
+    <string name="first_volunteer">第一兴趣课</string>
     <string name="you_can_choice_the_interest_class_str">请选择你要报名的兴趣课：</string>
     <string name="open">drawerOpen</string>
     <string name="close">drawerClose</string>

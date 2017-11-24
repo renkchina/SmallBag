@@ -16,9 +16,13 @@
     <color name="main_bottom">#F5A623</color>
     <color name="main_bottom_gray">#A7A7A7</color>
     <color name="font_black">#7c7c7c</color>
+    <color name="font_black2">#363636</color>
     <color name="background_gray">#EEEEEE</color>
     <color name="green_bg">#E0FFFA</color>
     <color name="account_bg">#E3E8EB</color>
     <color name="link_blue">#47CBD7</color>
+    <color name="font_blue">#728AF4</color>
+    <color name="data_month_gray">#E6E6E6</color>
+    <color name="data_day_gray">#EBEFFA</color>
 
 </resources>

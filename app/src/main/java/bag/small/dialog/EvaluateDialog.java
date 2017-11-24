@@ -31,7 +31,7 @@ public class EvaluateDialog extends Dialog {
     @BindView(R.id.dialog_fragment_user_note_evaluation_edt)
     EditText dEvaluationEdt;
     @BindView(R.id.dialog_fragment_user_note_evluation_btn)
-    Button dEvluationBtn;
+    Button dEvaluationBtn;
     @BindView(R.id.dialog_fragment_user_note_evaluation_ll)
     LinearLayout dEvaluationLl;
     private IDialog iDialog;

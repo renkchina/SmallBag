@@ -49,7 +49,7 @@ public class ChoiceInterestClassActivity extends BaseActivity {
     @BindView(R.id.activity_interest_class_three_del_iv)
     ImageView iThreeDelIv;
     @BindView(R.id.activity_interest_class_commit_btn)
-    Button iCommitBtn;
+    TextView iCommitBtn;
     @BindView(R.id.activity_interest_class_list_recycler)
     RecyclerView iListRecycler;
     @BindView(R.id.activity_interest_student_class_tv)
@@ -141,8 +141,7 @@ public class ChoiceInterestClassActivity extends BaseActivity {
             R.id.activity_interest_class_two_content_tv,
             R.id.activity_interest_class_two_del_iv,
             R.id.activity_interest_class_three_content_tv,
-            R.id.activity_interest_class_three_del_iv,
-            R.id.activity_interest_class_commit_btn})
+            R.id.activity_interest_class_three_del_iv})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.activity_interest_class_one_content_tv:
@@ -167,22 +166,21 @@ public class ChoiceInterestClassActivity extends BaseActivity {
                 break;
             case R.id.activity_interest_class_three_del_iv:
                 iThreeContentTv.setText("");
-//                view.setVisibility(View.INVISIBLE);
                 break;
-            case R.id.activity_interest_class_commit_btn:
-                iInterestClass.getInterestsSubmit(UserPreferUtil.getInstanse().getRoleId(),
-                        UserPreferUtil.getInstanse().getUserId(),
-                        UserPreferUtil.getInstanse().getSchoolId(),
-                        firstId, secondeId, thirdId)
-                        .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
-                        .compose(RxLifecycleCompact.bind(this).withObservable())
-                        .subscribe(bean -> {
-                            if (bean.isSuccess()) {
-                                finish();
-                            }
-                            toast(bean.getMsg());
-                        }, new HttpError());
-                break;
+//            case R.id.activity_interest_class_commit_btn:
+//                iInterestClass.getInterestsSubmit(UserPreferUtil.getInstanse().getRoleId(),
+//                        UserPreferUtil.getInstanse().getUserId(),
+//                        UserPreferUtil.getInstanse().getSchoolId(),
+//                        firstId, secondeId, thirdId)
+//                        .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+//                        .compose(RxLifecycleCompact.bind(this).withObservable())
+//                        .subscribe(bean -> {
+//                            if (bean.isSuccess()) {
+//                                finish();
+//                            }
+//                            toast(bean.getMsg());
+//                        }, new HttpError());
+//                break;
         }
     }
 
