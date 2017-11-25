@@ -18,8 +18,6 @@ import me.drakeet.multitype.ItemViewBinder;
  */
 public class MemorandumTxtViewBinder extends ItemViewBinder<MemorandumItemBean, MemorandumTxtViewBinder.ViewHolder> {
 
-    //0学科//1,时间
-    private int sortType = 0;
 
     @NonNull
     @Override
@@ -29,18 +27,22 @@ public class MemorandumTxtViewBinder extends ItemViewBinder<MemorandumItemBean, 
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull MemorandumItemBean memorandumTxt) {
-
-        if (sortType > 0) {
-            holder.itemText.setText("数学");
+    protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull MemorandumItemBean memorandum) {
+        if (memorandum.isHasnew()) {
+            holder.itemRound.setVisibility(View.VISIBLE);
         } else {
-            holder.itemText.setText("思想品德");
+            holder.itemRound.setVisibility(View.GONE);
         }
+        holder.itemText.setText(memorandum.getName());
     }
 
+    //0学科//1,时间
+    public void setSortType(int sortType) {
+        if (sortType > 0) {
 
-    public void setSortType(int type) {
-        sortType = type;
+        } else {
+
+        }
         getAdapter().notifyDataSetChanged();
     }
 

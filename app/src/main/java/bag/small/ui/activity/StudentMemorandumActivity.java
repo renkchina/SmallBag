@@ -18,14 +18,22 @@ import java.util.List;
 import bag.small.R;
 import bag.small.base.BaseActivity;
 import bag.small.dialog.BottemDialog;
+import bag.small.entity.BaseBean;
+import bag.small.entity.MemorandumBean;
 import bag.small.entity.MemorandumItemBean;
 import bag.small.http.HttpUtil;
+import bag.small.http.IApi.HttpError;
 import bag.small.http.IApi.IMemorandum;
 import bag.small.interfaze.IDialog;
 import bag.small.provider.MemorandumTxtViewBinder;
+import bag.small.rx.RxUtil;
 import bag.small.utils.GlideImageLoader;
+import bag.small.utils.ListUtil;
+import bag.small.utils.UserPreferUtil;
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
+import io.reactivex.functions.Consumer;
 import me.drakeet.multitype.Items;
 import me.drakeet.multitype.MultiTypeAdapter;
 
@@ -78,9 +86,19 @@ public class StudentMemorandumActivity extends BaseActivity implements IDialog {
     }
 
     private void getMemorandum() {
-
+        iMemorandum.getMemorandum(UserPreferUtil.getInstanse().getRoleId(),
+                UserPreferUtil.getInstanse().getUserId(),
+                UserPreferUtil.getInstanse().getSchoolId())
+                .compose(RxLifecycleCompact.bind(this).withObservable())
+                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                .subscribe(listBaseBean -> {
+                    if (listBaseBean != null && ListUtil.unEmpty(listBaseBean.getData())) {
+                            items.clear();
+                            items.addAll(listBaseBean.getData());
+                            multiTypeAdapter.notifyDataSetChanged();
+                    }
+                }, new HttpError());
     }
-
 
 
     @OnClick(R.id.toolbar_right_iv)

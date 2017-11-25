@@ -1,7 +1,9 @@
 package bag.small.http.IApi;
 
+import java.util.List;
+
 import bag.small.entity.BaseBean;
-import bag.small.entity.MemorandumBean;
+import bag.small.entity.MemorandumItemBean;
 import io.reactivex.Observable;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -14,8 +16,8 @@ import retrofit2.http.POST;
 public interface IMemorandum {
 
     @FormUrlEncoded
-    @POST("commons/getnotifycount")
-    Observable<BaseBean<MemorandumBean>> getMemorandum(@Field("role_id") String roleId,
-                                                       @Field("login_id") String loginId,
-                                                       @Field("school_id") String schoolId);
+    @POST("beiwanglus/classlist")
+    Observable<BaseBean<List<MemorandumItemBean>>> getMemorandum(@Field("role_id") String roleId,
+                                                                 @Field("login_id") String loginId,
+                                                                 @Field("school_id") String schoolId);
 }
