@@ -167,7 +167,8 @@ public class FamiliesSchoolConnectionFragment extends BaseFragment implements  O
     private void getBannerDetail(int absId,String comeFrom){
         iAdvertising.getAdvertisingsDetail(UserPreferUtil.getInstanse().getRoleId(),
                 UserPreferUtil.getInstanse().getUserId(),UserPreferUtil.getInstanse().getSchoolId(),
-                absId,comeFrom).compose(RxLifecycleCompact.bind(this).withObservable())
+                absId,comeFrom)
+                .compose(RxLifecycleCompact.bind(this).withObservable())
                 .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
                 .subscribe(bean->{
                     if(bean.isSuccess()){
