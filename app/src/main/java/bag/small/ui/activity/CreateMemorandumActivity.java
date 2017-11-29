@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.china.rxbus.MySubscribe;
+import com.china.rxbus.RxBus;
 import com.china.rxbus.ThreadMode;
 
 import java.util.ArrayList;
@@ -82,6 +83,7 @@ public class CreateMemorandumActivity extends BaseActivity implements IDialog {
         listDialog = new ListDialog(this);
         classList = new ArrayList<>();
         subjectList = new ArrayList<>();
+        RxBus.get().register(this);
     }
 
 
@@ -175,5 +177,11 @@ public class CreateMemorandumActivity extends BaseActivity implements IDialog {
     @Override
     public void callBackMiddleMethod() {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RxBus.get().unRegister(this);
     }
 }
