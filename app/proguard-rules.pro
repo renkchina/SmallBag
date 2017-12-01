@@ -1,4 +1,4 @@
-
+#-ignorewarnings
 # 代码混淆压缩比，在0~7之间，默认为5，一般不做修改
 -optimizationpasses 5
 
@@ -164,16 +164,22 @@
 -keep class bag.small.entity.** { *; }
 
 
-# OkHttp3
--dontwarn com.squareup.okhttp3.**
--keep class com.squareup.okhttp3.** { *;}
--dontwarn okio.**
+#okhttp
+-dontwarn okhttp3.**
+-keep class okhttp3.**{*;}
 
-# Okio
--dontwarn com.squareup.**
+#okio
 -dontwarn okio.**
--keep public class org.codehaus.* { *; }
--keep public class java.nio.* { *; }
+-keep class okio.**{*;}
+
+
+-keepattributes SourceFile,LineNumberTable
+-keep class com.parse.*{ *; }
+-dontwarn com.parse.**
+-dontwarn com.squareup.picasso.**
+-keepclasseswithmembernames class * {
+    native <methods>;
+}
 
 # Retrofit
 -dontwarn retrofit2.**

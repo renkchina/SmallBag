@@ -46,14 +46,14 @@ android {
             minifyEnabled true
             shrinkResources false
             buildConfigField "String", "BaseApi", "\"http://api.vshangsoft.com/v1/\""
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
         debug {
             minifyEnabled false
             shrinkResources false
             buildConfigField "String", "BaseApi", "\"http://api.vshangsoft.com/v1/\""
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
     }
@@ -66,6 +66,9 @@ android {
         ) {
             task.enabled = false
         }
+    }
+    lintOptions {
+        abortOnError false
     }
     compileOptions {
         targetCompatibility 1.8
