@@ -20,7 +20,7 @@ import butterknife.OnClick;
  * Created by Administrator on 2017/11/24.
  */
 
-public class BottemDialog extends Dialog {
+public class BottomDialog extends Dialog {
 
     @BindView(R.id.dialog_sort_by_subject_txt)
     TextView dialogSortBySubjectTxt;
@@ -29,16 +29,18 @@ public class BottemDialog extends Dialog {
     @BindView(R.id.dialog_cancel_sort_txt)
     TextView dialogCancelSortTxt;
     private IDialog iDialog;
+    String[] texts;
 
-    public BottemDialog(@NonNull Context context) {
+    public BottomDialog(@NonNull Context context) {
         super(context, R.style.myNoFrame_Dialog);
-        iDialog = (IDialog) context;
+        if (context instanceof IDialog)
+            iDialog = (IDialog) context;
     }
 
 
     public void setText(String... text) {
-        dialogSortBySubjectTxt.setText(text[0]);
-        dialogSortByTimeTxt.setText(text[1]);
+        texts = text;
+
     }
 
     @Override
@@ -47,6 +49,7 @@ public class BottemDialog extends Dialog {
         setContentView(R.layout.dialog_bottem_layout);
 
         ButterKnife.bind(this);
+        initView();
         // 设置宽度
         Window window = getWindow();
         assert window != null;
@@ -58,13 +61,20 @@ public class BottemDialog extends Dialog {
 
     }
 
+    private void initView() {
+        if (texts != null && texts.length > 1) {
+            dialogSortBySubjectTxt.setText(texts[0]);
+            dialogSortByTimeTxt.setText(texts[1]);
+        }
+    }
+
     @OnClick({R.id.dialog_sort_by_subject_txt, R.id.dialog_sort_by_time_txt, R.id.dialog_cancel_sort_txt})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.dialog_sort_by_subject_txt:
+            case R.id.dialog_sort_by_subject_txt://上
                 iDialog.callBackMethod(null, null);
                 break;
-            case R.id.dialog_sort_by_time_txt:
+            case R.id.dialog_sort_by_time_txt://下
                 iDialog.callBackMiddleMethod();
                 break;
             case R.id.dialog_cancel_sort_txt:

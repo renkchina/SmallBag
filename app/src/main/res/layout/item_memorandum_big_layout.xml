@@ -4,7 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="10dp"
-    android:layout_marginTop="10dp">
+    android:layout_marginTop="10dp"
+    android:background="@drawable/shape_rounded_corner_white"
+    android:elevation="2dp">
+
+    <TextView
+        android:layout_width="10dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/shape_rounded_corner_green"
+        android:maxEms="1" />
 
     <TextView
         android:id="@+id/item_memorandum_text"
@@ -12,11 +21,11 @@
         android:layout_height="60dp"
         android:layout_gravity="center"
         android:layout_marginEnd="2dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="2dp"
-        android:background="@drawable/shape_rounded_corner_green"
         android:gravity="start|center"
         android:paddingStart="15dp"
-        android:textColor="@color/white"
+        android:textColor="@color/font_black2"
         android:textSize="16sp" />
 
     <TextView

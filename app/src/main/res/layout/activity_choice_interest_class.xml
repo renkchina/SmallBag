@@ -155,8 +155,10 @@
             android:orientation="vertical">
 
             <android.support.v7.widget.CardView
+                android:id="@+id/interest_class_one_cv"
                 style="@style/cardview_style"
                 android:layout_marginTop="10dp"
+                android:visibility="gone"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="3dp"
                 app:contentPadding="0dp">
@@ -170,9 +172,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="23dp"
                         android:drawablePadding="15dp"
-                        android:drawableStart="@mipmap/one_icon"
+                        android:drawableStart="@mipmap/first_inter"
                         android:gravity="center_vertical"
                         android:text="@string/first_volunteer"
                         android:textColor="@color/font_black"
@@ -191,19 +192,53 @@
                         android:textColor="@color/font_black"
                         android:textSize="15sp" />
 
-                    <ImageView
-                        android:id="@+id/activity_interest_class_one_del_iv"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:id="@+id/activity_interest_class_one_del_ll"
+                        android:layout_width="30dp"
                         android:layout_height="match_parent"
-                        android:layout_marginEnd="26dp"
+                        android:orientation="horizontal">
 
-                        android:src="@mipmap/delete_circle" />
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginStart="10dp"
+                            android:src="@mipmap/inter_edit_icon" />
+                    </LinearLayout>
+
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
+            <LinearLayout
+                android:id="@+id/interest_class_one_ll"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@mipmap/line_bg"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center"
+                    android:background="@mipmap/inter_add" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:gravity="center"
+                    android:text="点击选择第一兴趣课" />
+            </LinearLayout>
+
             <android.support.v7.widget.CardView
+                android:id="@+id/interest_class_two_cv"
                 style="@style/cardview_style"
                 android:layout_marginTop="10dp"
+                android:visibility="gone"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="5dp"
                 app:contentPadding="0dp">
@@ -217,9 +252,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="23dp"
                         android:drawablePadding="15dp"
-                        android:drawableStart="@mipmap/two_icon"
+                        android:drawableStart="@mipmap/secend_inter"
                         android:gravity="center_vertical"
                         android:text="@string/two_volunteer"
                         android:textColor="@color/font_black"
@@ -238,18 +272,53 @@
                         android:textColor="@color/font_black"
                         android:textSize="15sp" />
 
-                    <ImageView
-                        android:id="@+id/activity_interest_class_two_del_iv"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:id="@+id/activity_interest_class_two_del_ll"
+                        android:layout_width="30dp"
                         android:layout_height="match_parent"
-                        android:layout_marginEnd="26dp"
-                        android:src="@mipmap/delete_circle" />
+                        android:orientation="horizontal">
+
+                        <ImageView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginStart="10dp"
+                            android:src="@mipmap/inter_edit_icon" />
+                    </LinearLayout>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
+            <LinearLayout
+                android:id="@+id/interest_class_two_ll"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@mipmap/line_bg"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center"
+                    android:background="@mipmap/inter_add" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:gravity="center"
+                    android:text="点击选择第二兴趣课" />
+            </LinearLayout>
+
             <android.support.v7.widget.CardView
+                android:id="@+id/interest_class_three_cv"
                 style="@style/cardview_style"
                 android:layout_marginTop="10dp"
+                android:visibility="gone"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="5dp"
                 app:contentPadding="0dp">
@@ -263,9 +332,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="23dp"
                         android:drawablePadding="15dp"
-                        android:drawableStart="@mipmap/three_icon"
+                        android:drawableStart="@mipmap/therd_inter"
                         android:gravity="center_vertical"
                         android:text="@string/three_volunteer"
                         android:textColor="@color/font_black"
@@ -284,14 +352,47 @@
                         android:textColor="@color/font_black"
                         android:textSize="15sp" />
 
-                    <ImageView
-                        android:id="@+id/activity_interest_class_three_del_iv"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:id="@+id/activity_interest_class_three_del_ll"
+                        android:layout_width="30dp"
                         android:layout_height="match_parent"
-                        android:layout_marginEnd="26dp"
-                        android:src="@mipmap/delete_circle" />
+                        android:orientation="horizontal">
+
+                        <ImageView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginStart="10dp"
+                            android:src="@mipmap/inter_edit_icon" />
+                    </LinearLayout>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
+
+            <LinearLayout
+                android:id="@+id/interest_class_three_ll"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@mipmap/line_bg"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center"
+                    android:background="@mipmap/inter_add" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:gravity="center"
+                    android:text="点击选择第三兴趣课" />
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -321,8 +422,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:paddingEnd="10dp"
-                android:paddingStart="10dp">
-            </android.support.v7.widget.RecyclerView>
+                android:paddingStart="10dp" />
         </LinearLayout>
     </LinearLayout>
 

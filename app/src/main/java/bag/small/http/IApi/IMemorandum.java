@@ -17,7 +17,12 @@ public interface IMemorandum {
 
     @FormUrlEncoded
     @POST("beiwanglus/classlist")
-    Observable<BaseBean<List<MemorandumItemBean>>> getMemorandum(@Field("role_id") String roleId,
+    Observable<BaseBean<List<MemorandumItemBean>>> getSubjectMemorandum(@Field("role_id") String roleId,
+                                                                 @Field("login_id") String loginId,
+                                                                 @Field("school_id") String schoolId);
+    @FormUrlEncoded
+    @POST("beiwanglus/beiwanglutimelist")
+    Observable<BaseBean<List<MemorandumItemBean>>> getTimeMemorandum(@Field("role_id") String roleId,
                                                                  @Field("login_id") String loginId,
                                                                  @Field("school_id") String schoolId);
 }

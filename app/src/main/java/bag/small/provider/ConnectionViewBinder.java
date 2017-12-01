@@ -63,7 +63,10 @@ public class ConnectionViewBinder extends ItemViewBinder<ConnectionBinder, Conne
                         goActivity(StudentMemorandumActivity.class, context);
                     break;
                 case 4:
-                    goActivity(ClassScheduleActivity.class, context);
+                    if (UserPreferUtil.getInstanse().isTeacher()) {
+                        goActivity(TeacherMemorandumActivity.class, context, true);
+                    } else
+                        goActivity(ClassScheduleActivity.class, context);
                     break;
                 case 3:
                 case 5:
@@ -105,7 +108,13 @@ public class ConnectionViewBinder extends ItemViewBinder<ConnectionBinder, Conne
                             Context context) {
         Intent intent = new Intent(context, cls);
         context.startActivity(intent);
+    }
 
+    private void goActivity(Class<? extends Activity> cls,
+                            Context context, boolean isClass) {
+        Intent intent = new Intent(context, cls);
+        intent.putExtra("isClass", isClass);
+        context.startActivity(intent);
     }
 
 }

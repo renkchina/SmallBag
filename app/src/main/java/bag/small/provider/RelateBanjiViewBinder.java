@@ -38,7 +38,7 @@ public class RelateBanjiViewBinder extends ItemViewBinder<RelateBanjiBean, Relat
                 bean.setChecked(true);
             }
         });
-        holder.itemCheckTv.setText(bean.getNianji() + "年级" + bean.getBanci() + "班");
+        holder.itemCheckTv.setText(bean.getNianji() + "年级（" + bean.getBanci() + "）班");
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

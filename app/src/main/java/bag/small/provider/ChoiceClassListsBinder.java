@@ -50,7 +50,7 @@ public class ChoiceClassListsBinder extends ItemViewBinder<ChoiceClassLists.Kech
             StringUtil.setTextView(holder.iTeacherTv, kechen.getTeacher());
             StringUtil.setTextView(holder.iClassroomTv, kechen.getClass_room());
             StringUtil.setTextView(holder.iTimeTv, kechen.getClass_time());
-            holder.rootView.setOnClickListener(v -> RxBus.get().send(9999,kechen));
+            holder.rootView.setOnClickListener(v -> RxBus.get().send(99999,kechen));
         }
     }
 

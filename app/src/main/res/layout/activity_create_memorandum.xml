@@ -125,7 +125,6 @@
             android:layout_marginEnd="15dp"
             android:layout_weight="1"
             android:gravity="end|center"
-            android:text="语文"
             android:textColor="@color/font_blue"
             android:textSize="16sp" />
 
@@ -181,7 +180,6 @@
             android:gravity="end|center|start"
             android:lineSpacingExtra="5dp"
             android:maxEms="15"
-            android:text="三年（4）班，三年（4）班"
             android:textColor="@color/font_blue"
             android:textSize="16sp" />
 

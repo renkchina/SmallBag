@@ -1,19 +1,11 @@
 package bag.small.ui.activity;
 
-import android.os.Bundle;
-import android.widget.EditText;
 import android.widget.TextView;
-
 import com.youth.banner.Banner;
-import com.youth.banner.BannerConfig;
-import com.youth.banner.Transformer;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import bag.small.R;
 import bag.small.base.BaseActivity;
-import bag.small.utils.GlideImageLoader;
 import bag.small.utils.LayoutUtil;
 import butterknife.BindView;
 

@@ -1,23 +1,43 @@
 package bag.small.ui.activity;
 
 
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+
 import com.youth.banner.Banner;
+import com.youth.banner.listener.OnBannerListener;
+
+import java.util.ArrayList;
 import java.util.List;
+
 import bag.small.R;
 import bag.small.base.BaseActivity;
+import bag.small.dialog.AdvertisingDialog;
+import bag.small.entity.AdvertisingBean;
+import bag.small.entity.AdvertisingDetailBean;
+import bag.small.entity.ImageString;
 import bag.small.entity.TeacherMemorandumBean;
+import bag.small.http.HttpUtil;
+import bag.small.http.IApi.HttpError;
+import bag.small.http.IApi.IAdvertising;
+import bag.small.http.IApi.ITeachClasses;
 import bag.small.provider.TeacherMemorandumViewBinder;
+import bag.small.rx.RxUtil;
+import bag.small.utils.LayoutUtil;
+import bag.small.utils.ListUtil;
+import bag.small.utils.LogUtil;
+import bag.small.utils.UserPreferUtil;
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
 import me.drakeet.multitype.Items;
 import me.drakeet.multitype.MultiTypeAdapter;
 
-public class TeacherMemorandumActivity extends BaseActivity {
-
+public class TeacherMemorandumActivity extends BaseActivity implements OnBannerListener {
 
     @BindView(R.id.top_banner)
     Banner topBanner;
@@ -25,10 +45,14 @@ public class TeacherMemorandumActivity extends BaseActivity {
     RecyclerView mRecyclerView;
     @BindView(R.id.memorandum_edit_float_image)
     ImageView mFloatImage;
-
     MultiTypeAdapter multiTypeAdapter;
     List items;
     List bannerImages;
+    ITeachClasses iTeachClasses;
+    private List<AdvertisingBean> advertisingBeen;
+    IAdvertising iAdvertising;
+    private AdvertisingDialog advertisingDialog;
+    private boolean isClass;
 
     @Override
     public int getLayoutResId() {
@@ -37,21 +61,117 @@ public class TeacherMemorandumActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        setToolTitle("备忘录", true);
+
+        isClass = getIntent().getBooleanExtra("isClass", false);
+        if (isClass) {
+            setToolTitle("课程表", true);
+        } else {
+            setToolTitle("备忘录", true);
+        }
         items = new Items();
-        items.add(new TeacherMemorandumBean());
-        items.add(new TeacherMemorandumBean());
-        items.add(new TeacherMemorandumBean());
+        advertisingBeen = new ArrayList<>(5);
+        bannerImages = new ArrayList<>(5);
         multiTypeAdapter = new MultiTypeAdapter(items);
         mFloatImage.setVisibility(View.VISIBLE);
+        iTeachClasses = HttpUtil.getInstance().createApi(ITeachClasses.class);
+        iAdvertising = HttpUtil.getInstance().createApi(IAdvertising.class);
+        topBanner.setOnBannerListener(this);
+        advertisingDialog = new AdvertisingDialog(this);
     }
 
     @Override
     public void initView() {
-        multiTypeAdapter.register(TeacherMemorandumBean.class, new TeacherMemorandumViewBinder());
+        TeacherMemorandumViewBinder teacher = new TeacherMemorandumViewBinder();
+        teacher.setClass(isClass);
+        multiTypeAdapter.register(TeacherMemorandumBean.class, teacher);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(multiTypeAdapter);
+        initHttp();
+        getTopBannerImage();
     }
+
+    private void initHttp() {
+        iTeachClasses.getTeachClasses(UserPreferUtil.getInstanse().getRoleId(),
+                UserPreferUtil.getInstanse().getUserId(), UserPreferUtil.getInstanse().getSchoolId())
+                .compose(RxLifecycleCompact.bind(this).withObservable())
+                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                .subscribe(listBaseBean -> {
+                    if (listBaseBean.isSuccess() && listBaseBean.getData() != null) {
+                        if (!listBaseBean.getData().isEmpty()) {
+                            items.clear();
+                            items.addAll(listBaseBean.getData());
+                            multiTypeAdapter.notifyDataSetChanged();
+                        }
+                    }
+                }, new HttpError());
+    }
+
+    private void getTopBannerImage() {
+        iAdvertising.getAdvertisings(UserPreferUtil.getInstanse().getRoleId(),
+                UserPreferUtil.getInstanse().getUserId(), UserPreferUtil.getInstanse().getSchoolId())
+                .compose(RxLifecycleCompact.bind(this).withObservable())
+                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                .subscribe(bean -> {
+                    List<AdvertisingBean> list = bean.getData();
+                    if (bean.isSuccess() && ListUtil.unEmpty(list)) {
+                        advertisingBeen.clear();
+                        bannerImages.clear();
+                        advertisingBeen.addAll(list);
+                        for (AdvertisingBean advertising : list) {
+                            bannerImages.add(advertising.getImg());
+                        }
+                    } else {
+                        bannerImages.add(R.mipmap.banner_icon1);
+                        bannerImages.add(R.mipmap.banner_icon2);
+                    }
+                    LayoutUtil.setBanner(topBanner, bannerImages);
+                }, new HttpError());
+    }
+
+
+    @Override
+    public void OnBannerClick(int position) {
+        LogUtil.show("position: " + position);
+        AdvertisingBean bean = advertisingBeen.get(position);
+        if (TextUtils.isEmpty(bean.getUrl())) {
+            //弹框
+            getBannerDetail(bean.getAds_id(), bean.getCame_from());
+        } else {
+            //网页
+            Bundle bundle = new Bundle();
+            bundle.putString("url", bean.getUrl());
+            goActivity(WebViewActivity.class, bundle);
+        }
+    }
+
+    private void getBannerDetail(int absId, String comeFrom) {
+        iAdvertising.getAdvertisingsDetail(UserPreferUtil.getInstanse().getRoleId(),
+                UserPreferUtil.getInstanse().getUserId(), UserPreferUtil.getInstanse().getSchoolId(),
+                absId, comeFrom)
+                .compose(RxLifecycleCompact.bind(this).withObservable())
+                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                .subscribe(bean -> {
+                    if (bean.isSuccess()) {
+                        AdvertisingDetailBean detail = bean.getData();
+                        List list = new ArrayList();
+                        if (!TextUtils.isEmpty(detail.getContent())) {
+                            list.add(detail.getContent());
+                        }
+                        if (ListUtil.unEmpty(detail.getImages())) {
+                            for (String s : detail.getImages()) {
+                                ImageString imageString = new ImageString();
+                                imageString.setUrl(s);
+                                list.add(imageString);
+                            }
+                        }
+                        if (ListUtil.unEmpty(list)) {
+                            advertisingDialog.setListData(list);
+                            advertisingDialog.show(topBanner);
+                        }
+                    }
+                }, new HttpError());
+    }
+
 
     @OnClick(R.id.memorandum_edit_float_image)
     public void onViewClicked() {

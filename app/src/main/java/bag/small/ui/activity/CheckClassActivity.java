@@ -15,6 +15,7 @@ import java.util.List;
 
 import bag.small.R;
 import bag.small.base.BaseActivity;
+import bag.small.entity.GradeClass;
 import bag.small.entity.RelateBanjiBean;
 import bag.small.provider.RelateBanjiViewBinder;
 import butterknife.BindView;
@@ -59,7 +60,7 @@ public class CheckClassActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        multiTypeAdapter.register(RelateBanjiBean.class,new RelateBanjiViewBinder());
+        multiTypeAdapter.register(RelateBanjiBean.class, new RelateBanjiViewBinder());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(multiTypeAdapter);
     }
@@ -70,7 +71,9 @@ public class CheckClassActivity extends BaseActivity {
             case R.id.check_class_cancel_tv:
                 break;
             case R.id.check_class_send_tv:
-                RxBus.get().send(333333,items);
+                GradeClass gradeClass = new GradeClass();
+                gradeClass.setRelate_banji(items);
+                RxBus.get().send(333333,gradeClass);
                 break;
         }
         finish();

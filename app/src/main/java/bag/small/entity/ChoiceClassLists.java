@@ -172,6 +172,24 @@ public class ChoiceClassLists {
         private String class_room;
         private String class_time;
         private String teacher;
+        private String descriptions;
+        private List<String> images;
+
+        public List<String> getImages() {
+            return images;
+        }
+
+        public void setImages(List<String> images) {
+            this.images = images;
+        }
+
+        public String getDescriptions() {
+            return descriptions;
+        }
+
+        public void setDescriptions(String descriptions) {
+            this.descriptions = descriptions;
+        }
 
         public KechenBean() {
         }

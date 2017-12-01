@@ -1,7 +1,9 @@
 package bag.small.provider;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import android.widget.TextView;
 
 import bag.small.R;
 import bag.small.entity.MemorandumItemBean;
+import bag.small.ui.activity.StudentMemorandumSubjectOrTimeActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.drakeet.multitype.ItemViewBinder;
@@ -33,18 +36,19 @@ public class MemorandumTxtViewBinder extends ItemViewBinder<MemorandumItemBean, 
         } else {
             holder.itemRound.setVisibility(View.GONE);
         }
-        holder.itemText.setText(memorandum.getName());
-    }
-
-    //0学科//1,时间
-    public void setSortType(int sortType) {
-        if (sortType > 0) {
-
+        if (TextUtils.isEmpty(memorandum.getName())) {
+            holder.itemText.setText(memorandum.getPublishdate());
         } else {
-
+            holder.itemText.setText(memorandum.getName());
         }
-        getAdapter().notifyDataSetChanged();
+        holder.view.setOnClickListener(v -> {
+            Intent it = new Intent();
+            it.setClass(v.getContext(), StudentMemorandumSubjectOrTimeActivity.class);
+            it.putExtra("bean", memorandum);
+            v.getContext().startActivity(it);
+        });
     }
+
 
     class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.item_memorandum_text)

@@ -17,23 +17,23 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         tools:ignore="NotSibling" />
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/memorandum_edit_float_image"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginBottom="35dp"
         android:layout_marginEnd="35dp"
-        android:background="@color/red"
+        android:background="@mipmap/pen_three"
         android:elevation="3dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@mipmap/code_icon" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/memorandum_recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginBottom="5dp"
         android:paddingEnd="15dp"
         android:paddingStart="15dp"
         app:layout_constraintBottom_toBottomOf="parent"

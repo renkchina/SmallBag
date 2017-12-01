@@ -24,42 +24,35 @@ import io.reactivex.functions.Consumer;
  */
 
 public class HttpError implements Consumer<Throwable> {
-    //    private CommonProgressDialog dialog;
     private SwipeRefreshLayout swipeRefresh;
     private RefreshLayout refreshLayout;
-    ProgressDialog progressDialog;
-    public HttpError(SwipeRefreshLayout swipeRefresh) {
-        this.swipeRefresh = swipeRefresh;
-    }
-
+    private ProgressDialog progressDialog;
     public HttpError() {
     }
-//    public HttpError(CommonProgressDialog dialog) {
-//        this.dialog = dialog;
+
+//    public HttpError(SwipeRefreshLayout swipeRefresh) {
+//        this.swipeRefresh = swipeRefresh;
 //    }
-
-    public HttpError(RefreshLayout refreshLayout) {
-        this.refreshLayout = refreshLayout;
-    }
-
-    public HttpError(ProgressDialog progressDialog) {
-        this.progressDialog = progressDialog;
-    }
+//
+//    public HttpError(RefreshLayout refreshLayout) {
+//        this.refreshLayout = refreshLayout;
+//    }
+//
+//    public HttpError(ProgressDialog progressDialog) {
+//        this.progressDialog = progressDialog;
+//    }
 
     @Override
     public void accept(@NonNull Throwable throwable) throws Exception {
-//        if (dialog != null && dialog.isShowing()) {
-//            dialog.dismiss();
+//        if (swipeRefresh != null && swipeRefresh.isEnabled()) {
+//            swipeRefresh.setRefreshing(false);
 //        }
-        if (swipeRefresh != null && swipeRefresh.isEnabled()) {
-            swipeRefresh.setRefreshing(false);
-        }
-        if (refreshLayout != null) {
-            refreshLayout.finishRefresh();
-        }
-        if (progressDialog != null) {
-            progressDialog.dismiss();
-        }
+//        if (refreshLayout != null) {
+//            refreshLayout.finishRefresh();
+//        }
+//        if (progressDialog != null) {
+//            progressDialog.dismiss();
+//        }
         String exce;
         if (throwable instanceof HttpException) {
             HttpException httpException = (HttpException) throwable;

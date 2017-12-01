@@ -1,17 +1,23 @@
 package bag.small.ui.fragment;
 
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.TextUtils;
 import android.view.View;
+
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
 import com.youth.banner.listener.OnBannerListener;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
 import bag.small.R;
 import bag.small.base.BaseFragment;
 import bag.small.dialog.AdvertisingDialog;
@@ -35,7 +41,9 @@ import butterknife.BindView;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
 import me.drakeet.multitype.MultiTypeAdapter;
 
-public class FamiliesSchoolConnectionFragment extends BaseFragment implements  OnBannerListener {
+import static android.support.v7.widget.helper.ItemTouchHelper.Callback.makeMovementFlags;
+
+public class FamiliesSchoolConnectionFragment extends BaseFragment implements OnBannerListener {
     //    @BindView(R.id.banner_imageview)
 //    ImageView bannerImage;
     @BindView(R.id.top_banner)
@@ -51,6 +59,7 @@ public class FamiliesSchoolConnectionFragment extends BaseFragment implements  O
     private IAdvertising iAdvertising;
     private List<AdvertisingBean> advertisingBeen;
     private AdvertisingDialog advertisingDialog;
+    private ItemTouchHelper mItemTouchHelper;
 
     @Override
     public int getLayoutResId() {
@@ -117,13 +126,92 @@ public class FamiliesSchoolConnectionFragment extends BaseFragment implements  O
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         recyclerView.addItemDecoration(new SpaceItemDecoration(7));
         recyclerView.setAdapter(mAdapter);
-
+        setTouch();
         iNotification = HttpUtil.getInstance().createApi(INotification.class);
         iAdvertising = HttpUtil.getInstance().createApi(IAdvertising.class);
         setNoticeCount();
         getTopBannerImage();
-        LayoutUtil.setBanner(banner, bannerImages);
         banner.setOnBannerListener(this);
+    }
+
+    private void setTouch() {
+        mItemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
+
+            /**
+             * 是否处理滑动事件 以及拖拽和滑动的方向 如果是列表类型的RecyclerView的只存在UP和DOWN，如果是网格类RecyclerView则还应该多有LEFT和RIGHT
+             * @param recyclerView
+             * @param viewHolder
+             * @return
+             */
+            @Override
+            public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+                final int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN |
+                        ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
+                final int swipeFlags = 0;
+                return makeMovementFlags(dragFlags, swipeFlags);
+            }
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                //得到当拖拽的viewHolder的Position
+                int fromPosition = viewHolder.getAdapterPosition();
+                //拿到当前拖拽到的item的viewHolder
+                int toPosition = target.getAdapterPosition();
+                if (fromPosition < toPosition) {
+                    for (int i = fromPosition; i < toPosition; i++) {
+                        Collections.swap(mItemBeans, i, i + 1);
+                    }
+                } else {
+                    for (int i = fromPosition; i > toPosition; i--) {
+                        Collections.swap(mItemBeans, i, i - 1);
+                    }
+                }
+                mAdapter.notifyItemMoved(fromPosition, toPosition);
+                return true;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+//                int position = viewHolder.getAdapterPosition();
+//                myAdapter.notifyItemRemoved(position);
+//                datas.remove(position);
+            }
+
+            /**
+             * 重写拖拽可用
+             * @return
+             */
+            @Override
+            public boolean isLongPressDragEnabled() {
+                return true;
+            }
+
+            /**
+             * 长按选中Item的时候开始调用
+             *
+             * @param viewHolder
+             * @param actionState
+             */
+            @Override
+            public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
+                if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
+                    viewHolder.itemView.setBackgroundColor(Color.LTGRAY);
+                }
+                super.onSelectedChanged(viewHolder, actionState);
+            }
+
+            /**
+             * 手指松开的时候还原
+             * @param recyclerView
+             * @param viewHolder
+             */
+            @Override
+            public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+                super.clearView(recyclerView, viewHolder);
+                viewHolder.itemView.setBackgroundResource(R.color.item_touch_bg);
+            }
+        });
+        mItemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
     private void setNoticeCount() {
@@ -158,38 +246,51 @@ public class FamiliesSchoolConnectionFragment extends BaseFragment implements  O
                         bannerImages.add(R.mipmap.banner_icon1);
                         bannerImages.add(R.mipmap.banner_icon2);
                     }
-                    banner.setImages(bannerImages);
-                    //banner.update(bannerImages);
-
+                    LayoutUtil.setBanner(banner, bannerImages);
                 }, new HttpError());
     }
 
-    private void getBannerDetail(int absId,String comeFrom){
+    private void getBannerDetail(int absId, String comeFrom) {
         iAdvertising.getAdvertisingsDetail(UserPreferUtil.getInstanse().getRoleId(),
-                UserPreferUtil.getInstanse().getUserId(),UserPreferUtil.getInstanse().getSchoolId(),
-                absId,comeFrom)
+                UserPreferUtil.getInstanse().getUserId(), UserPreferUtil.getInstanse().getSchoolId(),
+                absId, comeFrom)
                 .compose(RxLifecycleCompact.bind(this).withObservable())
                 .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
-                .subscribe(bean->{
-                    if(bean.isSuccess()){
+                .subscribe(bean -> {
+                    if (bean.isSuccess()) {
                         AdvertisingDetailBean detail = bean.getData();
                         List list = new ArrayList();
-                        if(!TextUtils.isEmpty(detail.getContent())){
+                        if (!TextUtils.isEmpty(detail.getContent())) {
                             list.add(detail.getContent());
                         }
-                        if(ListUtil.unEmpty(detail.getImages())){
+                        if (ListUtil.unEmpty(detail.getImages())) {
                             for (String s : detail.getImages()) {
                                 ImageString imageString = new ImageString();
                                 imageString.setUrl(s);
                                 list.add(imageString);
                             }
                         }
-                        if(ListUtil.unEmpty(list)){
+                        if (ListUtil.unEmpty(list)) {
                             advertisingDialog.setListData(list);
                             advertisingDialog.show(recyclerView);
                         }
                     }
-                },new HttpError());
+                }, new HttpError());
+    }
+
+    @Override
+    public void OnBannerClick(int position) {
+        LogUtil.show("position: " + position);
+        AdvertisingBean bean = advertisingBeen.get(position);
+        if (TextUtils.isEmpty(bean.getUrl())) {
+            //弹框
+            getBannerDetail(bean.getAds_id(), bean.getCame_from());
+        } else {
+            //网页
+            Bundle bundle = new Bundle();
+            bundle.putString("url", bean.getUrl());
+            goActivity(WebViewActivity.class, bundle);
+        }
     }
 
     @Override
@@ -201,22 +302,6 @@ public class FamiliesSchoolConnectionFragment extends BaseFragment implements  O
     @Override
     public void onFragmentHide() {
         banner.stopAutoPlay();
-    }
-
-
-    @Override
-    public void OnBannerClick(int position) {
-        LogUtil.show("position: " + position);
-        AdvertisingBean bean = advertisingBeen.get(position);
-        if (TextUtils.isEmpty(bean.getUrl())) {
-            //弹框
-            getBannerDetail(bean.getAds_id(),bean.getCame_from());
-        } else {
-            //网页
-            Bundle bundle = new Bundle();
-            bundle.putString("url", bean.getUrl());
-            goActivity(WebViewActivity.class, bundle);
-        }
     }
 
 

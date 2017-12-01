@@ -29,7 +29,7 @@ public class LayoutUtil {
         banner.setImages(images);
         banner.setBannerAnimation(Transformer.DepthPage);
         banner.isAutoPlay(true);
-        banner.setDelayTime(2000);
+        banner.setDelayTime(4000);
         banner.setIndicatorGravity(BannerConfig.CENTER);
         banner.start();
     }

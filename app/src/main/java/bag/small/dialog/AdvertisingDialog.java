@@ -36,6 +36,7 @@ public class AdvertisingDialog implements IListDialog {
     }
 
     public AdvertisingDialog(Context context) {
+
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_advertising_layout, null);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.dialog_advertising_recycler_list);
         View close  = view.findViewById(R.id.dialog_advertising_close_view);

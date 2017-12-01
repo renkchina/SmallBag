@@ -1,6 +1,7 @@
 package bag.small.ui.activity;
 
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v7.widget.Toolbar;
@@ -21,6 +22,7 @@ import bag.small.R;
 import bag.small.base.BaseActivity;
 import bag.small.dialog.ListDialog;
 import bag.small.dialog.NoticeDialogSnap;
+import bag.small.entity.BaseBean;
 import bag.small.entity.GradeClass;
 import bag.small.entity.RelateBanjiBean;
 import bag.small.http.HttpUtil;
@@ -34,6 +36,8 @@ import bag.small.utils.UserPreferUtil;
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 
 public class CreateMemorandumActivity extends BaseActivity implements IDialog {
     @BindView(R.id.toolbar)
@@ -68,6 +72,7 @@ public class CreateMemorandumActivity extends BaseActivity implements IDialog {
     private List<GradeClass> beanList;
 
     private String subjectId;
+    private ProgressDialog progressDialog;
 
     @Override
     public int getLayoutResId() {
@@ -84,8 +89,11 @@ public class CreateMemorandumActivity extends BaseActivity implements IDialog {
         classList = new ArrayList<>();
         subjectList = new ArrayList<>();
         RxBus.get().register(this);
-    }
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("正在上传，请等待...");
+        progressDialog.setCanceledOnTouchOutside(false);
 
+    }
 
     @Override
     public void initView() {
@@ -108,7 +116,8 @@ public class CreateMemorandumActivity extends BaseActivity implements IDialog {
     @OnClick({R.id.create_memorandum_type_ll,
             R.id.create_memorandum_selected_class_ll,
             R.id.create_memorandum_preview_tv,
-            R.id.create_memorandum_send_tv})
+            R.id.create_memorandum_send_tv,
+            R.id.create_memorandum_cancel_tv})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.create_memorandum_type_ll:
@@ -125,7 +134,7 @@ public class CreateMemorandumActivity extends BaseActivity implements IDialog {
                 }
                 break;
             case R.id.create_memorandum_selected_class_ll:
-                if (!banjiList.isEmpty()) {
+                if (banjiList != null && !banjiList.isEmpty()) {
                     Bundle bundle = new Bundle();
                     bundle.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) banjiList);
                     goActivity(CheckClassActivity.class, bundle);
@@ -134,20 +143,68 @@ public class CreateMemorandumActivity extends BaseActivity implements IDialog {
                 }
                 break;
             case R.id.create_memorandum_preview_tv:
-                noticeDialogSnap.show();
+                String mtitle = StringUtil.EditGetString(mTitleEdt);
+                String mcontent = StringUtil.EditGetString(mContentEdt);
+                if (!checkIsNull(mtitle, mcontent)) {
+                    noticeDialogSnap.setShowContent(mtitle, mcontent);
+                    noticeDialogSnap.show();
+                }
                 break;
             case R.id.create_memorandum_send_tv:
                 String title = StringUtil.EditGetString(mTitleEdt);
                 String content = StringUtil.EditGetString(mContentEdt);
-                if (!TextUtils.isEmpty(content) && !TextUtils.isEmpty(title)) {
-
+                String subject = StringUtil.EditGetString(mSubjectTv);
+                String mClass = StringUtil.EditGetString(mClassesTv);
+                if (!checkIsNull(title, content, subject, mClass)) {
+                    progressDialog.show();
+                    iGradeClass.publishMemorandum(UserPreferUtil.getInstanse().getRoleId(),
+                            UserPreferUtil.getInstanse().getUserId(), UserPreferUtil.getInstanse().getSchoolId(),
+                            subjectId, getClassIds(), title, content)
+                            .compose(RxLifecycleCompact.bind(this).withObservable())
+                            .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                            .doOnComplete(() -> progressDialog.dismiss())
+                            .subscribe(listBaseBean -> {
+                                if(listBaseBean.isSuccess()){
+                                    CreateMemorandumActivity.this.finish();
+                                }
+                                toast(listBaseBean.getMsg());
+                            }, new HttpError());
+                } else {
+                    toast("请输入完整");
                 }
+                break;
+            case R.id.create_memorandum_cancel_tv:
+                finish();
                 break;
         }
     }
 
+    private boolean checkIsNull(String... content) {
+        for (String s : content) {
+            if (TextUtils.isEmpty(s)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private String getClassIds() {
+        StringBuilder sb = new StringBuilder();
+        for (RelateBanjiBean bean : banjiList) {
+            if (bean.isChecked()) {
+                sb.append(bean.getBanjiid());
+                sb.append(",");
+            }
+        }
+        return sb.toString();
+    }
+
     @MySubscribe(code = 333333, threadMode = ThreadMode.MAIN)
-    public void getCheckedClass(List<RelateBanjiBean> list) {
+    public void getCheckedClass(GradeClass gradeClass) {
+        List<RelateBanjiBean> list = gradeClass.getRelate();
+        if (list == null || list.isEmpty()) {
+            return;
+        }
         banjiList = list;
         StringBuilder sb = new StringBuilder();
         for (RelateBanjiBean bean : list) {

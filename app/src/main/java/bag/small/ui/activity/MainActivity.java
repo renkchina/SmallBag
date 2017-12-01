@@ -103,12 +103,12 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void initData() {
-        fragments = new BaseFragment[3];
-        fragments[0] = new TreasureChestFragment();
-        fragments[1] = new FamiliesSchoolConnectionFragment();
-        fragments[2] = new GrowthDiaryFragment();
+        fragments = new BaseFragment[2];
+//        fragments[0] = new TreasureChestFragment();
+        fragments[0] = new FamiliesSchoolConnectionFragment();
+        fragments[1] = new GrowthDiaryFragment();
         mBottomNav.setOnNavigationItemSelectedListener(this);
-        changeFragment(1);
+        changeFragment(0);
         lastItem = mBottomNav.getMenu().getItem(1);
         lastItem.setChecked(true);
         mBottomNav.setSelectedItemId(R.id.item_family);
@@ -218,14 +218,14 @@ public class MainActivity extends BaseActivity
         if (lastItem != item) {
             lastItem = item;
             switch (item.getItemId()) {
-                case R.id.item_treasure:
+//                case R.id.item_treasure:
+//                    changeFragment(0);
+//                    break;
+                case R.id.item_family:
                     changeFragment(0);
                     break;
-                case R.id.item_family:
-                    changeFragment(1);
-                    break;
                 case R.id.item_growth:
-                    changeFragment(2);
+                    changeFragment(1);
                     break;
             }
             return true;
@@ -236,18 +236,18 @@ public class MainActivity extends BaseActivity
     //切换fragment
     private void changeFragment(int index) {
         changeFragment(R.id.activity_main_content_frame, fragments[index]);
-        if (index == 2) {
+        if (index == 1) {
             toolTitle.setText("成长日记");//设置Toolbar标题
             toolbarRightIv.setVisibility(View.VISIBLE);
             toolbarRightIv.setImageResource(R.mipmap.icon_riji_gray);
             toolbar.setNavigationIcon(null);
             activityClickImage.setVisibility(View.GONE);
         } else {
-            if (index == 0) {
-                toolTitle.setText("百宝箱");
-            } else {
-                toolTitle.setText(UserPreferUtil.getInstanse().getSchoolName());
-            }
+//            if (index == 0) {
+//                toolTitle.setText("百宝箱");
+//            } else {
+//            }
+            toolTitle.setText(UserPreferUtil.getInstanse().getSchoolName());
             toolbarRightIv.setVisibility(View.GONE);
             mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.open, R.string.close);
             mDrawerToggle.syncState();
@@ -372,15 +372,15 @@ public class MainActivity extends BaseActivity
         }
         changeColor(UserPreferUtil.getInstanse().isTeacher());
         switch (lastItem.getItemId()) {
-            case R.id.item_treasure:
-                fragments[0].onFragmentShow();
-                break;
+//            case R.id.item_treasure:
+//                fragments[0].onFragmentShow();
+//                break;
             case R.id.item_family:
-                fragments[1].onFragmentShow();
+                fragments[0].onFragmentShow();
                 toolTitle.setText( UserPreferUtil.getInstanse().getSchoolName());
                 break;
             case R.id.item_growth:
-                fragments[2].onFragmentShow();
+                fragments[1].onFragmentShow();
                 break;
         }
     }
