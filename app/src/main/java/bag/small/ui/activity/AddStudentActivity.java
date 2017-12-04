@@ -112,11 +112,12 @@ public class AddStudentActivity extends BaseActivity {
                         StringUtil.setTextView(codeIdTv, bean.getData().getShenfenno());
                         String logo = bean.getData().getLogo();
                         if (TextUtils.isEmpty(logo)) {
-                            if (!TextUtils.isEmpty(bean.getData().getSex()) && bean.getData().getSex().contains("男")) {
-                                acAccountStudentHeadIv.setImageResource(R.mipmap.student_boy);
-                            } else {
-                                acAccountStudentHeadIv.setImageResource(R.mipmap.student_girl);
-                            }
+//                            if (!TextUtils.isEmpty(bean.getData().getSex()) && bean.getData().getSex().contains("男")) {
+//                                acAccountStudentHeadIv.setImageResource(R.mipmap.student_boy);
+//                            } else {
+//                                acAccountStudentHeadIv.setImageResource(R.mipmap.student_girl);
+//                            }
+                            acAccountStudentHeadIv.setImageResource(R.mipmap.student_icon);
                         } else {
                             ImageUtil.loadImages(this, acAccountStudentHeadIv, logo);
                         }

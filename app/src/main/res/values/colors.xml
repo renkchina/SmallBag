@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#0FDCC0</color>
-    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorPrimaryDark">#627DF2</color>
     <color name="colorAccent">#FF4081</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
@@ -10,10 +10,11 @@
 
     <color name="zifubao">#0299CA</color>
     <color name="wechat">#00D30D</color>
+    <color name="main_bottom_green">#19AE3A</color>
     <color name="red">#FF0000</color>
     <color name="button_green">#0FDCC0</color>
     <color name="font_green">#51A8EC</color>
-    <color name="main_bottom">#F5A623</color>
+    <color name="main_bottom">#E8572A</color>
     <color name="main_bottom_gray">#A7A7A7</color>
     <color name="font_black">#7c7c7c</color>
     <color name="font_black2">#363636</color>

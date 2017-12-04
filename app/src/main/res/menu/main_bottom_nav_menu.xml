@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <!--<item-->
-        <!--android:id="@+id/item_treasure"-->
-        <!--android:icon="@mipmap/icon_baibao_yellow"-->
-        <!--android:title="@string/main_bottom_first_str"-->
-        <!--android:visible="true" />-->
     <item
         android:id="@+id/item_family"
-        android:icon="@mipmap/icon_jiaxiao_yellow"
+        android:icon="@mipmap/interconnect_check_red"
         android:title="@string/main_bottom_second_str"
         android:visible="true" />
     <item
+        android:id="@+id/item_treasure"
+        android:icon="@mipmap/chest_check_red"
+        android:title="@string/main_bottom_first_str"
+        android:visible="true" />
+    <item
         android:id="@+id/item_growth"
-        android:icon="@mipmap/icon_riji_yellow"
+        android:icon="@mipmap/diary_check_red"
         android:title="@string/main_bottom_third_str"
         android:visible="true" />
 </menu>

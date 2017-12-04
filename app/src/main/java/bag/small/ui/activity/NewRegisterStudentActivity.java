@@ -104,7 +104,7 @@ public class NewRegisterStudentActivity extends BaseActivity {
     }
     @Override
     public void initView() {
-        acAccountStudentHeadIv.setImageResource(R.mipmap.student_boy);
+        acAccountStudentHeadIv.setImageResource(R.mipmap.student_icon);
         accountStudentCommitBtn.setVisibility(View.GONE);
         iRegisterRequest.getNewStudentRegisterInfo(loginId, phone)
                 .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
@@ -145,11 +145,12 @@ public class NewRegisterStudentActivity extends BaseActivity {
             return;
         }
         if (TextUtils.isEmpty(bean.getLogo())) {
-            if (bean.getSex() != null && bean.getSex().contains("男")) {
-                acAccountStudentHeadIv.setImageResource(R.mipmap.student_boy);
-            } else {
-                acAccountStudentHeadIv.setImageResource(R.mipmap.student_girl);
-            }
+//            if (bean.getSex() != null && bean.getSex().contains("男")) {
+//                acAccountStudentHeadIv.setImageResource(R.mipmap.student_boy);
+//            } else {
+//                acAccountStudentHeadIv.setImageResource(R.mipmap.student_girl);
+//            }
+            acAccountStudentHeadIv.setImageResource(R.mipmap.student_icon);
         } else {
             ImageUtil.loadCircleImages(this, acAccountStudentHeadIv, bean.getLogo());
         }

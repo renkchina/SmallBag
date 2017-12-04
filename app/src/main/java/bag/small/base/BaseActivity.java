@@ -41,7 +41,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IActivit
         initPre();
         BaseActivityStack.getInstance().addActivity(this);
         setContentView(getLayoutResId());
-        butter =ButterKnife.bind(this);
+        butter = ButterKnife.bind(this);
         sharedPreferences = getSharedPreferences("renkchina", Activity.MODE_PRIVATE);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mTitle = (TextView) findViewById(R.id.toolbar_title);
@@ -61,6 +61,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IActivit
         if (!TextUtils.isEmpty(title)) {
             mTitle.setText(title);
             if (isTurnLeft) {
+                mToolbar.setNavigationIcon(R.mipmap.turn_left);
                 mToolbar.setNavigationOnClickListener(view -> finish());
             } else {
                 mToolbar.setNavigationIcon(null);
@@ -70,6 +71,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IActivit
 
     public void setToolTitle(boolean isTurnLeft) {
         if (isTurnLeft) {
+            mToolbar.setNavigationIcon(R.mipmap.turn_left);
             mToolbar.setNavigationOnClickListener(view -> finish());
         }
     }

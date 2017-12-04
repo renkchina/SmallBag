@@ -28,7 +28,7 @@ public class MyApplication extends Application implements Application.ActivityLi
     public static List<LoginResult.RoleBean> loginResults;
 
     public static int bannerImage = R.mipmap.banner_icon2;
-    public static int roleImage = R.mipmap.teacher_man;
+    public static int roleImage = R.mipmap.teacher_head;
 
     public static String deviceToken;
 

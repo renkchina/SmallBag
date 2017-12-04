@@ -71,7 +71,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="10dp"
                     android:drawablePadding="10dp"
-                    android:drawableStart="@mipmap/teacher_icon"
+                    android:drawableStart="@mipmap/ic_launcher"
                     android:gravity="center"
                     android:text="任课老师："
                     android:textColor="@color/txt_gray"

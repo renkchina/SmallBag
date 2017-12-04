@@ -1,5 +1,6 @@
 package bag.small.ui.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
@@ -22,11 +23,13 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.china.rxbus.MySubscribe;
 import com.china.rxbus.RxBus;
 //import com.umeng.analytics.MobclickAgent;
 import java.util.ArrayList;
 import java.util.List;
+
 import bag.small.R;
 import bag.small.app.MyApplication;
 import bag.small.base.BaseActivity;
@@ -71,14 +74,6 @@ public class MainActivity extends BaseActivity
     DrawerLayout mDrawer;
     @BindView(R.id.main_drawer_left_recycler)
     RecyclerView mdlRecycler;
-    @BindView(R.id.activity_click_image)
-    ImageView activityClickImage;
-//    @BindView(R.id.main_drawer_left_add_account_btn)
-//    Button mdlAddAccountBtn;
-
-//    @BindView(R.id.main_drawer_left_list_view)
-//    ListView listView;
-
     @BindView(R.id.toolbar_right_iv)
     ImageView toolbarRightIv;
     BaseFragment[] fragments;
@@ -103,21 +98,21 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void initData() {
-        fragments = new BaseFragment[2];
-//        fragments[0] = new TreasureChestFragment();
+        fragments = new BaseFragment[3];
         fragments[0] = new FamiliesSchoolConnectionFragment();
-        fragments[1] = new GrowthDiaryFragment();
+        fragments[1] = new TreasureChestFragment();
+        fragments[2] = new GrowthDiaryFragment();
         mBottomNav.setOnNavigationItemSelectedListener(this);
         changeFragment(0);
-        lastItem = mBottomNav.getMenu().getItem(1);
+        lastItem = mBottomNav.getMenu().getItem(0);
         lastItem.setChecked(true);
         mBottomNav.setSelectedItemId(R.id.item_family);
         leftBeen = new ArrayList<>();
-        leftBeen.add(new MainLeftBean(1, R.mipmap.account_manager, R.string.main_account_manager));
-        leftBeen.add(new MainLeftBean(2, R.mipmap.soft_setting, R.string.main_soft_setting));
-        leftBeen.add(new MainLeftBean(3, R.mipmap.help_me, R.string.main_help_str));
-        leftBeen.add(new MainLeftBean(4, R.mipmap.about_ours, R.string.main_account_about));
-        leftBeen.add(new MainLeftBean(5, R.mipmap.exit_system, R.string.main_account_exit));
+        leftBeen.add(new MainLeftBean(1, R.mipmap.manager_account, R.string.main_account_manager));
+        leftBeen.add(new MainLeftBean(2, R.mipmap.setting_icon, R.string.main_soft_setting));
+        leftBeen.add(new MainLeftBean(3, R.mipmap.help, R.string.main_help_str));
+        leftBeen.add(new MainLeftBean(4, R.mipmap.about_icon, R.string.main_account_about));
+        leftBeen.add(new MainLeftBean(5, R.mipmap.exit_icon, R.string.main_account_exit));
         leftBeen.add(new MainLeftBean(6, 0, R.string.main_account_http));
         itemDatas = new Items();
         if (ListUtil.unEmpty(MyApplication.loginResults)) {
@@ -134,6 +129,7 @@ public class MainActivity extends BaseActivity
         mBottomNav.setItemIconTintList(csl);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public void initView() {
         iLoginRequest.updateToken(UserPreferUtil.getInstanse().getUserId(), "", MyApplication.deviceToken,
@@ -144,7 +140,7 @@ public class MainActivity extends BaseActivity
                 });
         multiTypeAdapter = new MultiTypeAdapter(itemDatas);
         multiTypeAdapter.register(LoginResult.RoleBean.class, new AccountViewBinder());
-        multiTypeAdapter.register(String.class, new RoleAddBeanViewBinder());
+//        multiTypeAdapter.register(String.class, new RoleAddBeanViewBinder());
         multiTypeAdapter.register(MainLeftBean.class, new MainLeftBtnViewBinder());
         GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
@@ -169,7 +165,8 @@ public class MainActivity extends BaseActivity
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.open, R.string.close);
         mDrawerToggle.syncState();
         mDrawer.addDrawerListener(mDrawerToggle);
-        mContentLl.setOnTouchListener((view, motionEvent) -> isDrawer && mainLeftLl.dispatchTouchEvent(motionEvent));
+        mContentLl.setOnTouchListener((view, motionEvent) ->
+                isDrawer && mainLeftLl.dispatchTouchEvent(motionEvent));
         mDrawer.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
@@ -177,8 +174,11 @@ public class MainActivity extends BaseActivity
                 //获取屏幕的宽高
                 WindowManager manager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
                 Display display = manager.getDefaultDisplay();
-                //设置右面的布局位置  根据左面菜单的right作为右面布局的left   左面的right+屏幕的宽度（或者right的宽度这里是相等的）为右面布局的right
-                mContentLl.layout(mainLeftLl.getRight(), 0, mainLeftLl.getRight() + display.getWidth(), display.getHeight());
+                //设置右面的布局位置  根据左面菜单的right作为右面布局的left
+                // 左面的right+屏幕的宽度（或者right的宽度这里是相等的）为右面布局的right
+                mContentLl.layout(mainLeftLl.getRight(), 0,
+                        mainLeftLl.getRight() + display.getWidth(),
+                        display.getHeight());
             }
 
             @Override
@@ -218,14 +218,14 @@ public class MainActivity extends BaseActivity
         if (lastItem != item) {
             lastItem = item;
             switch (item.getItemId()) {
-//                case R.id.item_treasure:
-//                    changeFragment(0);
-//                    break;
                 case R.id.item_family:
                     changeFragment(0);
                     break;
-                case R.id.item_growth:
+                case R.id.item_treasure:
                     changeFragment(1);
+                    break;
+                case R.id.item_growth:
+                    changeFragment(2);
                     break;
             }
             return true;
@@ -236,24 +236,23 @@ public class MainActivity extends BaseActivity
     //切换fragment
     private void changeFragment(int index) {
         changeFragment(R.id.activity_main_content_frame, fragments[index]);
-        if (index == 1) {
-            toolTitle.setText("成长日记");//设置Toolbar标题
-            toolbarRightIv.setVisibility(View.VISIBLE);
-            toolbarRightIv.setImageResource(R.mipmap.icon_riji_gray);
-            toolbar.setNavigationIcon(null);
-            activityClickImage.setVisibility(View.GONE);
-        } else {
-//            if (index == 0) {
-//                toolTitle.setText("百宝箱");
-//            } else {
-//            }
-            toolTitle.setText(UserPreferUtil.getInstanse().getSchoolName());
-            toolbarRightIv.setVisibility(View.GONE);
-            mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.open, R.string.close);
-            mDrawerToggle.syncState();
-            mDrawer.addDrawerListener(mDrawerToggle);
-            activityClickImage.setVisibility(View.VISIBLE);
-            activityClickImage.setImageResource(MyApplication.roleImage);
+        switch (index) {
+            case 0:
+                toolTitle.setText(UserPreferUtil.getInstanse().getSchoolName());
+                toolbarRightIv.setVisibility(View.GONE);
+                mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.open, R.string.close);
+                mDrawerToggle.syncState();
+                mDrawer.addDrawerListener(mDrawerToggle);
+                break;
+            case 1:
+                toolTitle.setText("百宝箱");
+                break;
+            case 2:
+                toolTitle.setText("成长日记");//设置Toolbar标题
+                toolbarRightIv.setVisibility(View.VISIBLE);
+                toolbarRightIv.setImageResource(R.mipmap.publish_icon);
+                toolbar.setNavigationIcon(null);
+                break;
         }
     }
 
@@ -263,14 +262,6 @@ public class MainActivity extends BaseActivity
 //        MobclickAgent.onKillProcess(this);
     }
 
-    @OnClick({R.id.activity_click_image})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.activity_click_image:
-                showDrawerLayout();
-                break;
-        }
-    }
 
     @MySubscribe(code = 9527)
     public void showDrawerLayout() {
@@ -335,7 +326,7 @@ public class MainActivity extends BaseActivity
         if (ListUtil.unEmpty(MyApplication.loginResults)) {
             itemDatas.clear();
             itemDatas.addAll(MyApplication.loginResults);
-            itemDatas.add("");
+            itemDatas.add(new LoginResult.RoleBean());
             itemDatas.addAll(leftBeen);
             multiTypeAdapter.notifyDataSetChanged();
         }
@@ -352,47 +343,34 @@ public class MainActivity extends BaseActivity
 
     private void changeRole() {
         if (UserPreferUtil.getInstanse().isTeacher()) {
-            if (UserPreferUtil.getInstanse().isMan()) {
-                MyApplication.roleImage = R.mipmap.teacher_man;
-                activityClickImage.setImageResource(R.mipmap.teacher_man);
-            } else {
-                MyApplication.roleImage = R.mipmap.teacher_woman;
-                activityClickImage.setImageResource(R.mipmap.teacher_woman);
-            }
             MyApplication.bannerImage = R.mipmap.banner_icon2;
         } else {
             MyApplication.bannerImage = R.mipmap.banner_icon1;
-            if (UserPreferUtil.getInstanse().isMan()) {
-                MyApplication.roleImage = R.mipmap.student_boy;
-                activityClickImage.setImageResource(R.mipmap.student_boy);
-            } else {
-                MyApplication.roleImage = R.mipmap.student_girl;
-                activityClickImage.setImageResource(R.mipmap.student_girl);
-            }
         }
         changeColor(UserPreferUtil.getInstanse().isTeacher());
         switch (lastItem.getItemId()) {
-//            case R.id.item_treasure:
-//                fragments[0].onFragmentShow();
-//                break;
             case R.id.item_family:
                 fragments[0].onFragmentShow();
-                toolTitle.setText( UserPreferUtil.getInstanse().getSchoolName());
+                toolTitle.setText(UserPreferUtil.getInstanse().getSchoolName());
+                break;
+            case R.id.item_treasure:
+                fragments[1].onFragmentShow();
                 break;
             case R.id.item_growth:
-                fragments[1].onFragmentShow();
+                fragments[2].onFragmentShow();
                 break;
         }
     }
+
     //改变主题颜色
     public void changeColor(boolean isTeacher) {
-        int coler;
+        int color;
         if (isTeacher) {
-            coler = ContextCompat.getColor(this, R.color.colorPrimary);
+            color = ContextCompat.getColor(this, R.color.main_bottom_green);
         } else {
-            coler = ContextCompat.getColor(this, R.color.main_bottom);
+            color = ContextCompat.getColor(this, R.color.main_bottom);
         }
-        colors = new int[]{ContextCompat.getColor(this, R.color.main_bottom_gray), coler};
+        colors = new int[]{ContextCompat.getColor(this, R.color.main_bottom_gray), color};
         ColorStateList csl = new ColorStateList(states, colors);
         mBottomNav.setItemTextColor(csl);
         mBottomNav.setItemIconTintList(csl);

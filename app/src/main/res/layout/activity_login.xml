@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/loginbg"
+    android:background="@mipmap/register_bg"
     android:orientation="vertical">
 
     <include layout="@layout/toolbar" />
@@ -22,7 +22,6 @@
         android:layout_marginEnd="24dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
-        android:background="@mipmap/border"
         android:orientation="vertical">
 
         <LinearLayout
@@ -35,7 +34,7 @@
                 android:layout_height="25dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="20dp"
-                android:background="@mipmap/user_icon" />
+                android:background="@mipmap/email" />
 
             <EditText
                 android:id="@+id/activity_login_user_name_edt"
@@ -50,7 +49,7 @@
                 android:maxLength="11"
                 android:maxLines="1"
                 android:textColor="@color/black"
-                android:textColorHint="@color/txt_gray"
+                android:textColorHint="@color/white"
                 android:textSize="14sp" />
         </LinearLayout>
 
@@ -69,7 +68,7 @@
                 android:layout_height="25dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="20dp"
-                android:background="@mipmap/password_icon" />
+                android:background="@mipmap/password" />
 
             <EditText
                 android:id="@+id/activity_login_user_password_edt"
@@ -83,9 +82,13 @@
                 android:inputType="textPassword"
                 android:maxLength="20"
                 android:textColor="@color/black"
-                android:textColorHint="@color/txt_gray"
+                android:textColorHint="@color/white"
                 android:textSize="14sp" />
         </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@mipmap/line_h" />
     </LinearLayout>
 
     <LinearLayout
@@ -108,7 +111,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
             android:text="@string/activity_login_forget_str"
-            android:textColor="@color/font_green"
+            android:textColor="@color/white"
             android:textSize="13sp" />
     </LinearLayout>
 
@@ -121,7 +124,7 @@
         android:layout_marginTop="38dp"
         android:background="@drawable/shape_ac_login_btn_back_fill"
         android:text="登录"
-        android:textColor="@color/white"
+        android:textColor="@color/font_blue"
         android:textSize="18sp" />
 
     <Space
@@ -140,12 +143,13 @@
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:layout_weight="1"
-            android:background="@color/button_green" />
+            android:background="@color/white" />
 
         <TextView
             android:id="@+id/activity_login_register_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/white"
             android:text="@string/go_register_str"
             android:textSize="16sp" />
 
@@ -153,7 +157,7 @@
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:layout_weight="1"
-            android:background="@color/button_green" />
+            android:background="@color/white" />
     </LinearLayout>
 
 </LinearLayout>

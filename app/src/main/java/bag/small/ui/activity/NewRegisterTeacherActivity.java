@@ -120,7 +120,7 @@ public class NewRegisterTeacherActivity extends BaseActivity {
     public void initView() {
         setToolTitle("注册", true);
         iRegisterReq = HttpUtil.getInstance().createApi(IRegisterReq.class);
-        acAccountTeacherHeadIv.setImageResource(R.mipmap.teacher_man);
+        acAccountTeacherHeadIv.setImageResource(R.mipmap.teacher_head);
         accountTeacherCommitBtn.setVisibility(View.GONE);
         getRegisterInfomation();
     }
@@ -162,11 +162,12 @@ public class NewRegisterTeacherActivity extends BaseActivity {
             return;
         }
         if (TextUtils.isEmpty(data.getLogo())) {
-            if (data.getSex() != null && data.getSex().contains("男")) {
-                acAccountTeacherHeadIv.setImageResource(R.mipmap.teacher_man);
-            } else {
-                acAccountTeacherHeadIv.setImageResource(R.mipmap.teacher_woman);
-            }
+//            if (data.getSex() != null && data.getSex().contains("男")) {
+//                acAccountTeacherHeadIv.setImageResource(R.mipmap.teacher_man);
+//            } else {
+//                acAccountTeacherHeadIv.setImageResource(R.mipmap.teacher_woman);
+//            }
+            acAccountTeacherHeadIv.setImageResource(R.mipmap.teacher_head);
         } else {
             ImageUtil.loadCircleImages(this, acAccountTeacherHeadIv, data.getLogo());
         }

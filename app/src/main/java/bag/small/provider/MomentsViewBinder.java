@@ -120,9 +120,9 @@ public class MomentsViewBinder extends ItemViewBinder<MomentsBean, MomentsViewBi
         }
 
         if (bean.isCan_dianzan()) {
-            holder.iLikeIv.setImageResource(R.mipmap.heart_icon);
+            holder.iLikeIv.setImageResource(R.mipmap.zan_nomal);
         } else {
-            holder.iLikeIv.setImageResource(R.mipmap.heart_active_icon);
+            holder.iLikeIv.setImageResource(R.mipmap.zan_star);
         }
 
         holder.iLikeIv.setOnClickListener(v -> {

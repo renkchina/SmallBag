@@ -43,7 +43,7 @@
         android:layout_height="60dp"
         android:layout_marginBottom="35dp"
         android:layout_marginEnd="35dp"
-        android:background="@mipmap/pen_three"
+        android:background="@mipmap/pen_two"
         android:elevation="3dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -38,7 +38,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="10dp"
                     android:drawablePadding="10dp"
-                    android:drawableStart="@mipmap/telephone_icon"
+                    android:drawableStart="@mipmap/phone"
                     android:gravity="center"
                     android:text="@string/ac_register_phone_tv_str"
                     android:textColor="@color/txt_gray"
@@ -199,7 +199,7 @@
             <View
                 android:layout_width="120dp"
                 android:layout_height="120dp"
-                android:background="@mipmap/student_all" />
+                android:background="@mipmap/student_icon" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -226,7 +226,7 @@
             <View
                 android:layout_width="120dp"
                 android:layout_height="120dp"
-                android:background="@mipmap/teacher_btn" />
+                android:background="@mipmap/teacher_head" />
 
             <TextView
                 android:layout_width="wrap_content"

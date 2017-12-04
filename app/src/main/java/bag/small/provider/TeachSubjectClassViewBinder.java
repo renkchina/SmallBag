@@ -54,7 +54,7 @@ public class TeachSubjectClassViewBinder extends ItemViewBinder<TeachSubjectClas
     protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull TeachSubjectClass bean) {
         int position = getPosition(holder);
         if (bean.isAdd()) {
-            holder.itemSubjectAddIv.setImageResource(R.mipmap.del_subject);
+            holder.itemSubjectAddIv.setImageResource(R.mipmap.delete_circle);
         } else {
             holder.itemSubjectAddIv.setImageResource(R.mipmap.add_line_circle);
         }

@@ -18,8 +18,8 @@
         <ImageView
             android:id="@+id/item_fragment_user_note_head_iv"
             android:layout_width="51dp"
-            android:scaleType="centerCrop"
-            android:layout_height="51dp" />
+            android:layout_height="51dp"
+            android:scaleType="centerCrop" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -95,15 +95,14 @@
         <ImageView
             android:id="@+id/item_fragment_note_like_iv"
             android:layout_width="21dp"
-            android:layout_height="21dp"
-             />
+            android:layout_height="21dp" />
 
         <ImageView
             android:id="@+id/item_fragment_note_show_send_message_iv"
             android:layout_width="21dp"
             android:layout_height="21dp"
             android:layout_marginStart="13dp"
-            android:background="@mipmap/comment_icon" />
+            android:background="@mipmap/reply_icon" />
     </LinearLayout>
 
     <LinearLayout
@@ -118,7 +117,7 @@
             android:id="@+id/item_fragment_like_icon"
             android:layout_width="15dp"
             android:layout_height="15dp"
-            android:background="@mipmap/heart_icon" />
+            android:background="@mipmap/zan_star" />
 
         <TextView
             android:id="@+id/item_fragment_like_names_list_tv"
@@ -129,7 +128,6 @@
             android:gravity="center_vertical"
             android:textSize="12sp" />
     </LinearLayout>
-
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/item_fragment_user_note_evaluation_recycler"

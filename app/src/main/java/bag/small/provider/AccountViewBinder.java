@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,24 +47,29 @@ public class AccountViewBinder extends ItemViewBinder<LoginResult.RoleBean, Acco
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull LoginResult.RoleBean bean) {
         Context context = holder.rootView.getContext();
-
-        ImageUtil.loadCircleImages(context, holder.drawerImageIv, bean.getLogo());
-        holder.drawerNameTv.setText(bean.getName());
-        holder.rootView.setOnClickListener(v -> {
-            if (!bean.isSelected()) {
-                setAllUnSelect();
-                bean.setSelected(true);
-                UserPreferUtil.getInstanse().setUserInfomation(bean);
-                RxBus.get().send(300);
-                getAdapter().notifyDataSetChanged();
-
-            }
-        });
-        if (bean.isSelected()) {
-            holder.rootView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
+        if (TextUtils.isEmpty(bean.getName())) {
+            holder.drawerImageIv.setImageResource(R.mipmap.add_role);
+            holder.drawerNameTv.setText("添加角色");
+            holder.rootView.setOnClickListener(v -> RxBus.get().send(301));
         } else {
-            holder.rootView.setBackgroundColor(ContextCompat.getColor(context, R.color.white));
+            ImageUtil.loadCircleImages(context, holder.drawerImageIv, bean.getLogo());
+            holder.drawerNameTv.setText(bean.getName());
+            holder.rootView.setOnClickListener(v -> {
+                if (!bean.isSelected()) {
+                    setAllUnSelect();
+                    bean.setSelected(true);
+                    UserPreferUtil.getInstanse().setUserInfomation(bean);
+                    RxBus.get().send(300);
+                    getAdapter().notifyDataSetChanged();
+                }
+            });
+            if (bean.isSelected()) {
+                holder.rootView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
+            } else {
+                holder.rootView.setBackgroundColor(ContextCompat.getColor(context, R.color.white));
+            }
         }
+
     }
 
     private void setAllUnSelect() {

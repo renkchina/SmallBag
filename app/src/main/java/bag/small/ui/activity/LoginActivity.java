@@ -1,6 +1,7 @@
 package bag.small.ui.activity;
 
 
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,6 +30,9 @@ import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
  */
 
 public class LoginActivity extends BaseActivity {
+
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     @BindView(R.id.activity_login_image)
     ImageView loginImage;
     @BindView(R.id.activity_login_user_name_edt)
@@ -49,7 +53,9 @@ public class LoginActivity extends BaseActivity {
     }
 
     public void initView() {
-        setToolTitle("登录", false);
+        toolbar.setVisibility(View.GONE);
+        //setToolTitle("登录", false);
+
         iLoginRequest = HttpUtil.getInstance().createApi(ILoginRequest.class);
         loginUserPasswordEdt.setTypeface(loginUserNameEdt.getTypeface());
         RxBus.get().register(this);

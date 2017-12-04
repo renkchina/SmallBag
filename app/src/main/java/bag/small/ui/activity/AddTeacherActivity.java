@@ -115,11 +115,12 @@ public class AddTeacherActivity extends BaseActivity {
 
     private void showView(NewRegisterTeacherBean data) {
         if (TextUtils.isEmpty(data.getLogo())) {
-            if (!TextUtils.isEmpty(data.getSex()) && data.getSex().contains("男")) {
-                acAccountTeacherHeadIv.setImageResource(R.mipmap.teacher_man);
-            } else {
-                acAccountTeacherHeadIv.setImageResource(R.mipmap.teacher_woman);
-            }
+//            if (!TextUtils.isEmpty(data.getSex()) && data.getSex().contains("男")) {
+//                acAccountTeacherHeadIv.setImageResource(R.mipmap.teacher_man);
+//            } else {
+//                acAccountTeacherHeadIv.setImageResource(R.mipmap.teacher_woman);
+//            }
+            acAccountTeacherHeadIv.setImageResource(R.mipmap.teacher_head);
         } else {
             ImageUtil.loadImages(this, acAccountTeacherHeadIv, data.getLogo());
         }
