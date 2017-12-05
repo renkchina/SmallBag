@@ -8,13 +8,7 @@
     android:orientation="vertical"
     tools:context="bag.small.ui.activity.InterestClassByStudentActivity">
 
-    <include layout="@layout/toolbar" />
 
-    <com.youth.banner.Banner
-        android:id="@+id/activity_interest_class_student_banner"
-        android:layout_width="match_parent"
-        android:layout_height="155dp"
-        app:image_scale_type="center_crop" />
 
 
 

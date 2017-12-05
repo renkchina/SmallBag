@@ -64,7 +64,7 @@ public class ClassScheduleBean {
          * week_7 : {"coloums":1,"show":true,"name":"","ischange":false}
          */
 
-        private String label;
+        private LabelBean label;
         private WeekBean week_1;
         private WeekBean week_2;
         private WeekBean week_3;
@@ -73,11 +73,11 @@ public class ClassScheduleBean {
         private WeekBean week_6;
         private WeekBean week_7;
 
-        public String getLabel() {
+        public LabelBean getLabel() {
             return label;
         }
 
-        public void setLabel(String label) {
+        public void setLabel(LabelBean label) {
             this.label = label;
         }
 

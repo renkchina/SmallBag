@@ -37,7 +37,8 @@ public class ClassScheduleViewBinder extends ItemViewBinder<ClassScheduleItemBea
         if (getPosition(holder) == 0) {
             holder.view.setBackgroundResource(R.color.data_day_gray);
             List<WeeklyBean> weekly = itemBean.getWeeklyBean();
-            StringUtil.setTextView(holder.TopDateTv, weekly.get(0).getLabel() + "月");
+            holder.TopDateTv.setTextSize(14);
+            StringUtil.setTextView(holder.TopDateTv, weekly.get(0).getLabel() + "\n月");
             StringUtil.setTextView(holder.OneTv, weekly.get(1).getLabel() + weekly.get(1).getDate_label());
             StringUtil.setTextView(holder.TwoTv, weekly.get(2).getLabel() + weekly.get(2).getDate_label());
             StringUtil.setTextView(holder.ThreeTv, weekly.get(3).getLabel() + weekly.get(3).getDate_label());
@@ -48,7 +49,13 @@ public class ClassScheduleViewBinder extends ItemViewBinder<ClassScheduleItemBea
         } else {
             holder.view.setBackgroundResource(R.color.white);//data_month_gray
             List<WeekBean> weekbean = itemBean.getItem();
-            StringUtil.setTextView(holder.TopDateTv, itemBean.getSubject());
+            holder.TopDateTv.setTextSize(12);
+            if(itemBean.getSubject().isShowtitle()){
+                StringUtil.setTextView(holder.TopDateTv, itemBean.getSubject().getTitle());
+            }else{
+                StringUtil.setTextView(holder.TopDateTv,
+                        itemBean.getSubject().getStart_at()+"\n"+itemBean.getSubject().getEnd_at());
+            }
             StringUtil.setTextView(holder.OneTv, weekbean.get(0).getName());
             StringUtil.setTextView(holder.TwoTv, weekbean.get(1).getName());
             StringUtil.setTextView(holder.ThreeTv, weekbean.get(2).getName());

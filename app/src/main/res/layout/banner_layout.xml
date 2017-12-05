@@ -5,6 +5,6 @@
     <com.youth.banner.Banner
         android:id="@+id/mbanner"
         android:layout_width="match_parent"
-        android:layout_height="155dp"
+        android:layout_height="220dp"
         app:image_scale_type="center_crop" />
 </merge>

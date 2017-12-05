@@ -103,12 +103,6 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".ui.activity.InterestClassByStudentActivity"
-            android:configChanges="orientation|screenSize"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
             android:name=".ui.activity.ChoiceInterestClassActivity"
             android:configChanges="orientation|screenSize"
             android:launchMode="singleTask"

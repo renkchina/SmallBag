@@ -2,8 +2,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:gravity="center"
-    android:background="@color/item_touch_bg">
+    android:background="@color/item_touch_bg"
+    android:gravity="center">
 
     <TextView
         android:id="@+id/item_connection_count_iv"
@@ -24,7 +24,7 @@
         <ImageView
             android:id="@+id/item_connection_icon_iv"
             android:layout_width="130dp"
-            android:layout_height="94dp"
+            android:layout_height="74dp"
             android:scaleType="centerCrop" />
 
         <TextView

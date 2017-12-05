@@ -146,11 +146,14 @@
 
 
 # Glide
+-dontwarn com.bumptech.glide.load.**
+-keep class com.bumptech.glide.load.resource**{*;}
 -keep public class * implements com.bumptech.glide.module.GlideModule
 -keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
   **[] $VALUES;
   public *;
 }
+
 # banner 的混淆代码
 -keep class com.youth.banner.** {
     *;
@@ -175,6 +178,7 @@
 
 -keepattributes SourceFile,LineNumberTable
 -keep class com.parse.*{ *; }
+-keep class com.squareup.picasso.**{*;}
 -dontwarn com.parse.**
 -dontwarn com.squareup.picasso.**
 -keepclasseswithmembernames class * {
@@ -208,6 +212,10 @@
 -keep class * {
      @com.china.rxbus.MySubscribe <fields>;
  }
+-keep class com.china.rxbus.**{*;}
+-keepclassmembers class ** {
+ @com.china.rxbus.MySubscribe <fields>;
+ }
 
 #友盟
 -dontwarn com.taobao.**
@@ -237,6 +245,11 @@
 }
 
 
+-keep class com.bigkoo.**{*;}
+-keep class com.github.chrisbanes.**{*;}
+-keep class com.jcodecraeer.xrecyclerview.**{*;}
+-keep class com.maning.imagebrowserlibrary.**{*;}
+-keep class com.scwang.smartrefresh.**{*;}
 
 ##视频播放
 #-keep class tv.danmaku.ijk.** { *; }

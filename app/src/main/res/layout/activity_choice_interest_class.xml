@@ -18,7 +18,7 @@
         <ImageView
             android:id="@+id/ac_choice_student_banner_iv"
             android:layout_width="match_parent"
-            android:layout_height="155dp"
+            android:layout_height="220dp"
             android:scaleType="centerCrop" />
 
         <LinearLayout
@@ -42,9 +42,9 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="10dp"
                     android:drawablePadding="10dp"
-                    android:drawableStart="@mipmap/course_icon"
+                    android:drawableStart="@mipmap/subject"
                     android:gravity="center"
-                    android:text="我的兴趣课："
+                    android:text="课程："
                     android:textColor="@color/txt_gray"
                     android:textSize="17sp" />
 
@@ -71,7 +71,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="10dp"
                     android:drawablePadding="10dp"
-                    android:drawableStart="@mipmap/ic_launcher"
+                    android:drawableStart="@mipmap/manager_account"
                     android:gravity="center"
                     android:text="任课老师："
                     android:textColor="@color/txt_gray"
@@ -130,7 +130,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="10dp"
                     android:drawablePadding="10dp"
-                    android:drawableStart="@mipmap/classroom_icon"
+                    android:drawableStart="@mipmap/classroom"
                     android:gravity="center"
                     android:text="教室："
                     android:textColor="@color/txt_gray"

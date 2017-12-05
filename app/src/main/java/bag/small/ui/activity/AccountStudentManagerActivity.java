@@ -1,27 +1,21 @@
 package bag.small.ui.activity;
 
-import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.TextView;
-
 import com.bigkoo.pickerview.TimePickerView;
 import com.caimuhao.rxpicker.RxPicker;
 import com.caimuhao.rxpicker.bean.ImageItem;
-
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
-
 import bag.small.R;
 import bag.small.app.MyApplication;
 import bag.small.base.BaseActivity;
@@ -51,8 +45,6 @@ public class AccountStudentManagerActivity extends BaseActivity {
     TextView accountStudentNameTv;
     @BindView(R.id.activity_account_student_number_tv)
     EditText accountStudentNumberTv;
-    //    @BindView(R.id.activity_account_student_grade_tv)
-//    TextView accountStudentGradeTv;
     @BindView(R.id.activity_account_student_class_tv)
     TextView accountStudentClassTv;
     @BindView(R.id.activity_account_student_gender_tv)

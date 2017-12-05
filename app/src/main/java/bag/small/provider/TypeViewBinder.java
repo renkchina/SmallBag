@@ -8,7 +8,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.List;
+
 import bag.small.R;
+import bag.small.entity.GradeClass;
 import bag.small.entity.RelateBanjiBean;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -17,7 +20,7 @@ import me.drakeet.multitype.ItemViewBinder;
 /**
  * Created by Administrator on 2017/11/29.
  */
-public class RelateBanjiViewBinder extends ItemViewBinder<RelateBanjiBean, RelateBanjiViewBinder.ViewHolder> {
+public class TypeViewBinder extends ItemViewBinder<GradeClass, TypeViewBinder.ViewHolder> {
 
 
     @NonNull
@@ -28,17 +31,25 @@ public class RelateBanjiViewBinder extends ItemViewBinder<RelateBanjiBean, Relat
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull RelateBanjiBean bean) {
+    protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull GradeClass bean) {
         holder.view.setOnClickListener(v -> {
-            if (bean.isChecked()) {
-                holder.itemCheckBtn.setBackground(null);
-                bean.setChecked(false);
-            } else {
-                holder.itemCheckBtn.setBackgroundResource(R.mipmap.choice);
-                bean.setChecked(true);
-            }
+            setAllUnchecked();
+            bean.setChecked(true);
+            getAdapter().notifyDataSetChanged();
         });
-        holder.itemCheckTv.setText(bean.getNianji() + "年级（" + bean.getBanci() + "）班");
+        if (!bean.isChecked()) {
+            holder.itemCheckBtn.setBackground(null);
+        } else {
+            holder.itemCheckBtn.setBackgroundResource(R.mipmap.choice);
+        }
+        holder.itemCheckTv.setText(bean.getKemuName());
+    }
+
+    private void setAllUnchecked() {
+        List<GradeClass> lists = (List<GradeClass>) getAdapter().getItems();
+        for (GradeClass grade : lists) {
+            grade.setChecked(false);
+        }
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

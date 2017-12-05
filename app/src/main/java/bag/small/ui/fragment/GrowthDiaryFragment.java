@@ -72,7 +72,6 @@ public class GrowthDiaryFragment extends BaseFragment implements IDialog {
         refreshLayout.setRefreshHeader(new MaterialHeader(getContext()).setShowBezierWave(true));
         //设置 Footer 为 球脉冲
         refreshLayout.setRefreshFooter(new BallPulseFooter(getContext()).setSpinnerStyle(SpinnerStyle.Scale));
-
         refreshLayout.setOnRefreshListener(refresh -> requestHTTP(pageIndex = 1, refresh));
         refreshLayout.setOnLoadmoreListener(refresh -> requestHTTP(++pageIndex, refresh));
         iMoments = HttpUtil.getInstance().createApi(IMoments.class);
@@ -99,6 +98,7 @@ public class GrowthDiaryFragment extends BaseFragment implements IDialog {
                         refresh.finishRefresh();
                         refresh.finishLoadmore();
                     }
+                    multiTypeAdapter.notifyDataSetChanged();
                 })
                 .subscribe(bean -> {
                     if (bean.isSuccess()) {
@@ -109,7 +109,6 @@ public class GrowthDiaryFragment extends BaseFragment implements IDialog {
                         if (ListUtil.unEmpty(bean.getData())) {
                             mItems.addAll(bean.getData());
                         }
-                        multiTypeAdapter.notifyDataSetChanged();
                     } else {
                         toast(bean.getMsg());
                     }

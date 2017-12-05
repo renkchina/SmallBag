@@ -138,10 +138,8 @@ public class FamiliesSchoolConnectionFragment extends BaseFragment implements On
         mItemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
 
             /**
-             * 是否处理滑动事件 以及拖拽和滑动的方向 如果是列表类型的RecyclerView的只存在UP和DOWN，如果是网格类RecyclerView则还应该多有LEFT和RIGHT
-             * @param recyclerView
-             * @param viewHolder
-             * @return
+             * 是否处理滑动事件 以及拖拽和滑动的方向 如果是列表类型的RecyclerView的只存在UP和DOWN，
+             * 如果是网格类RecyclerView则还应该多有LEFT和RIGHT
              */
             @Override
             public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
@@ -153,9 +151,9 @@ public class FamiliesSchoolConnectionFragment extends BaseFragment implements On
 
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                //得到当拖拽的viewHolder的Position
+                //得到当前拖拽的viewHolder的Position
                 int fromPosition = viewHolder.getAdapterPosition();
-                //拿到当前拖拽到的item的viewHolder
+                //拿到拖拽到的item的viewHolder
                 int toPosition = target.getAdapterPosition();
                 if (fromPosition < toPosition) {
                     for (int i = fromPosition; i < toPosition; i++) {
@@ -209,6 +207,7 @@ public class FamiliesSchoolConnectionFragment extends BaseFragment implements On
             public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
                 super.clearView(recyclerView, viewHolder);
                 viewHolder.itemView.setBackgroundResource(R.color.item_touch_bg);
+                recyclerView.getAdapter().notifyDataSetChanged();
             }
         });
         mItemTouchHelper.attachToRecyclerView(recyclerView);

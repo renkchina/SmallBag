@@ -11,13 +11,12 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:lines="2"
         android:maxEms="2"
-        android:lineSpacingExtra="-3dp"
+        android:padding="6dp"
         android:includeFontPadding="false"
         android:maxLines="2"
-        android:text=""
-        android:textSize="14sp" />
+        android:text="11"
+        android:textSize="12sp" />
 
     <View
         android:layout_width="0.5dp"
@@ -99,8 +98,8 @@
         android:layout_weight="1"
         android:gravity="center"
         android:maxEms="2"
-        android:maxLines="2"
         android:padding="5dp"
+        android:maxLines="2"
         android:text="5"
         android:textSize="14sp" />
 

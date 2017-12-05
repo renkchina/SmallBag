@@ -140,16 +140,16 @@ public class ClassScheduleActivity extends BaseActivity implements OnBannerListe
                             firstBean.getWeeklyBean().add(weeklyBean);
                         }
                         items.add(firstBean);
-                        for (ClassScheduleBean.KechensBean kechensBean : clazz) {
+                        for (ClassScheduleBean.KechensBean kechen : clazz) {
                             itemBean = new ClassScheduleItemBean();
-                            itemBean.setSubject(kechensBean.getLabel());
-                            itemBean.getItem().add(kechensBean.getWeek_1());
-                            itemBean.getItem().add(kechensBean.getWeek_2());
-                            itemBean.getItem().add(kechensBean.getWeek_3());
-                            itemBean.getItem().add(kechensBean.getWeek_4());
-                            itemBean.getItem().add(kechensBean.getWeek_5());
-                            itemBean.getItem().add(kechensBean.getWeek_6());
-                            itemBean.getItem().add(kechensBean.getWeek_7());
+                            itemBean.setLabelBean(kechen.getLabel());
+                            itemBean.getItem().add(kechen.getWeek_1());
+                            itemBean.getItem().add(kechen.getWeek_2());
+                            itemBean.getItem().add(kechen.getWeek_3());
+                            itemBean.getItem().add(kechen.getWeek_4());
+                            itemBean.getItem().add(kechen.getWeek_5());
+                            itemBean.getItem().add(kechen.getWeek_6());
+                            itemBean.getItem().add(kechen.getWeek_7());
                             items.add(itemBean);
                         }
                         multiTypeAdapter.notifyDataSetChanged();

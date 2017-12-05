@@ -27,13 +27,14 @@ public class EducationNoticeViewBinder extends ItemViewBinder<EducationNoticeBea
     @Override
     protected ViewHolder onCreateViewHolder(
             @NonNull LayoutInflater inflater, @NonNull ViewGroup parent) {
-        View root = inflater.inflate(R.layout.item_education_notice, parent, false);
+        View root = inflater.inflate(R.layout.item_class_memorandum, parent, false);
         return new ViewHolder(root);
     }
 
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull EducationNoticeBean.ResultsBean bean) {
         Context context = holder.root.getContext();
+        holder.mSubject.setText("");
         holder.root.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             Intent intent = new Intent(context, NoticeDetailActivity.class);
@@ -44,25 +45,27 @@ public class EducationNoticeViewBinder extends ItemViewBinder<EducationNoticeBea
             getAdapter().notifyDataSetChanged();
         });
         if (bean.isIs_readed()) {
-            holder.iNoticeStateV.setVisibility(View.GONE);
+            holder.mDeleteTv.setVisibility(View.GONE);
         } else {
-            holder.iNoticeStateV.setVisibility(View.VISIBLE);
+            holder.mDeleteTv.setVisibility(View.VISIBLE);
         }
-        holder.iNoticeContentTv.setText(bean.getTitle());
-        holder.iNoticeTimeTv.setText(bean.getCreate_at());
-        holder.iNoticeTitleTv.setText("教务通知");
+        holder.mContentTv.setText(bean.getTitle());
+        holder.mTimeTv.setText(bean.getCreate_at());
+        holder.mTitleTv.setText("教务通知");
     }
 
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.item_education_notice_state_v)
-        View iNoticeStateV;
-        @BindView(R.id.item_education_notice_title_tv)
-        TextView iNoticeTitleTv;
-        @BindView(R.id.item_education_notice_time_tv)
-        TextView iNoticeTimeTv;
-        @BindView(R.id.item_education_notice_content_tv)
-        TextView iNoticeContentTv;
+        @BindView(R.id.item_class_memorandum_title_tv)
+        TextView mTitleTv;
+        @BindView(R.id.item_class_memorandum_content_tv)
+        TextView mContentTv;
+        @BindView(R.id.item_class_memorandum_time_tv)
+        TextView mTimeTv;
+        @BindView(R.id.item_class_memorandum_subject_tv)
+        TextView mSubject;
+        @BindView(R.id.item_class_memorandum_delete_tv)
+        TextView mDeleteTv;
         View root;
 
         ViewHolder(View view) {

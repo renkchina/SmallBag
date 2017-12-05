@@ -12,13 +12,13 @@ public class ClassScheduleItemBean {
     private List<WeeklyBean> weeklyBean = new ArrayList<>();
 
     private List<WeekBean> item = new ArrayList<>();
-    private String subject;
+    private LabelBean subject;
 
-    public String getSubject() {
+    public LabelBean getSubject() {
         return subject;
     }
 
-    public void setSubject(String subject) {
+    public void setLabelBean(LabelBean subject) {
         this.subject = subject;
     }
 

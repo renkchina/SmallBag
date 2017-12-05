@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -121,21 +122,28 @@ public class CreateMemorandumActivity extends BaseActivity implements IDialog {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.create_memorandum_type_ll:
-                if (!subjectList.isEmpty()) {
-                    setListDialog(subjectList, mSubjectTv);
-                    listDialog.setListDialog((position, content) -> {
-                        StringUtil.setTextView(mSubjectTv, content);
-                        GradeClass bean = beanList.get(position);
-                        subjectId = bean.getKemuId();
-                        if (bean.getRelate() != null && !bean.getRelate().isEmpty()) {
-                            banjiList = bean.getRelate();
-                        }
-                    });
+//                if (!subjectList.isEmpty()) {
+//                    setListDialog(subjectList, mSubjectTv);
+//                    listDialog.setListDialog((position, content) -> {
+//                        StringUtil.setTextView(mSubjectTv, content);
+//                        GradeClass bean = beanList.get(position);
+//                        subjectId = bean.getKemuId();
+//                        if (bean.getRelate() != null && !bean.getRelate().isEmpty()) {
+//                            banjiList = bean.getRelate();
+//                        }
+//                    });
+//                }
+                if (beanList != null && !beanList.isEmpty()) {
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) beanList);
+                    goActivity(CheckClassActivity.class, bundle);
                 }
+
                 break;
             case R.id.create_memorandum_selected_class_ll:
                 if (banjiList != null && !banjiList.isEmpty()) {
                     Bundle bundle = new Bundle();
+                    bundle.putBoolean("isClass", true);
                     bundle.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) banjiList);
                     goActivity(CheckClassActivity.class, bundle);
                 } else {
@@ -164,7 +172,7 @@ public class CreateMemorandumActivity extends BaseActivity implements IDialog {
                             .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
                             .doOnComplete(() -> progressDialog.dismiss())
                             .subscribe(listBaseBean -> {
-                                if(listBaseBean.isSuccess()){
+                                if (listBaseBean.isSuccess()) {
                                     CreateMemorandumActivity.this.finish();
                                 }
                                 toast(listBaseBean.getMsg());
@@ -213,18 +221,24 @@ public class CreateMemorandumActivity extends BaseActivity implements IDialog {
                 sb.append("年级");
                 sb.append(bean.getBanci());
                 sb.append("班");
-                sb.append(",");
+                sb.append("，");
             }
         }
         String string = sb.toString();
         string = string.substring(0, string.length() - 1);
+        if (list.size() > 2) {
+            mClassesTv.setGravity(Gravity.START | Gravity.CENTER_VERTICAL);
+        }
         mClassesTv.setText(string);
     }
 
-    private void setListDialog(List<String> list, TextView view) {
-        listDialog.setListData(list);
-        listDialog.show(view);
+    @MySubscribe(code = 333334)
+    public void setSubjectId(GradeClass gradeClass) {
+        banjiList = gradeClass.getRelate_banji();
+        subjectId = gradeClass.getKemu_id();
+        StringUtil.setTextView(mSubjectTv, gradeClass.getKemu_name());
     }
+
 
     @Override
     public void callBackMethod(Object object, Object bean) {

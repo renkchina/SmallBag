@@ -8,6 +8,7 @@
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:focusableInTouchMode="true"
         android:id="@+id/fragment_growth_root_refresh"
         >
         <android.support.v7.widget.RecyclerView

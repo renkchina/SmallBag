@@ -44,8 +44,8 @@ public class ClassMemorandumViewBinder extends ItemViewBinder<ClassMemorandumBea
         holder.mTimeTv.setText(bean.getPublish_date());
         holder.view.setOnClickListener(v -> {
             noticeDialogSnap = new NoticeDialogSnap(v.getContext());
-            noticeDialogSnap.show();
             noticeDialogSnap.setShowContent(bean.getTitle(), bean.getContent());
+            noticeDialogSnap.show();
             setReaded(bean);
         });
 

@@ -66,8 +66,6 @@ public class EducationalNoticeActivity extends BaseActivity implements TabLayout
         setToolTitle("教务通知", true);
         eTabLayout.addOnTabSelectedListener(this);
         eRecycler.setLayoutManager(new LinearLayoutManager(this));
-        eRecycler.addItemDecoration(new RecycleViewDivider(this, LinearLayoutManager.HORIZONTAL, 1,
-                ContextCompat.getColor(this, R.color.un_enable_gray)));
         eRecycler.setAdapter(multiTypeAdapter);
     }
 
@@ -112,10 +110,10 @@ public class EducationalNoticeActivity extends BaseActivity implements TabLayout
                 eTabLayout.getTabAt(position).select();
             }
 
-            LinearLayout linearLayout = (LinearLayout) eTabLayout.getChildAt(0);
-            linearLayout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
-            linearLayout.setDividerDrawable(ContextCompat.getDrawable(this,R.drawable.divider_item_tablayout));
-            linearLayout.setDividerPadding(20);
+//            LinearLayout linearLayout = (LinearLayout) eTabLayout.getChildAt(0);
+//            linearLayout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
+//            linearLayout.setDividerDrawable(ContextCompat.getDrawable(this,R.drawable.divider_item_tablayout));
+//            linearLayout.setDividerPadding(20);
         }
     }
 

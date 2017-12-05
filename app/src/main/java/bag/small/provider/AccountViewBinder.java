@@ -64,7 +64,7 @@ public class AccountViewBinder extends ItemViewBinder<LoginResult.RoleBean, Acco
                 }
             });
             if (bean.isSelected()) {
-                holder.rootView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
+                holder.rootView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
             } else {
                 holder.rootView.setBackgroundColor(ContextCompat.getColor(context, R.color.white));
             }

@@ -41,7 +41,6 @@ public class ImageUtil {
                     .centerCrop()
                     .placeholder(R.mipmap.add_photo);
             Glide.with(context).load(url).apply(options).into(imageView);
-            //placeholder(R.mipmap.add_photo)
         }
     }
 
@@ -52,9 +51,8 @@ public class ImageUtil {
             }
             RequestOptions options = new RequestOptions()
                     .centerCrop()
-                    .placeholder(R.mipmap.photo_update_nomal);
+                    .placeholder(R.mipmap.teacher_head);
             Glide.with(context).load(url).apply(options).into(imageView);
-//            .placeholder(R.mipmap.photo_update_nomal)  .transform(new GlideCircleTransform(context))
         }
     }
 
@@ -65,9 +63,8 @@ public class ImageUtil {
             }
             RequestOptions options = new RequestOptions()
                     .centerCrop()
-                    .placeholder(R.mipmap.photo_update_nomal);
+                    .placeholder(R.mipmap.teacher_head);
             Glide.with(context).load(url).apply(options).into(imageView);
-//.placeholder(R.mipmap.photo_update_nomal).transform(new GlideCircleTransform(context))
         }
     }
 

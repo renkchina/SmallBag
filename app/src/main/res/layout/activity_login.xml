@@ -48,7 +48,7 @@
                 android:inputType="number"
                 android:maxLength="11"
                 android:maxLines="1"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -81,7 +81,7 @@
                 android:imeOptions="actionDone"
                 android:inputType="textPassword"
                 android:maxLength="20"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -122,7 +122,7 @@
         android:layout_marginLeft="35dp"
         android:layout_marginRight="35dp"
         android:layout_marginTop="38dp"
-        android:background="@drawable/shape_ac_login_btn_back_fill"
+        android:background="@color/white"
         android:text="登录"
         android:textColor="@color/font_blue"
         android:textSize="18sp" />

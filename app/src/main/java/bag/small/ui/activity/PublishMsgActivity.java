@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -28,19 +29,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
-import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import me.drakeet.multitype.MultiTypeAdapter;
-import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import top.zibin.luban.Luban;
-import top.zibin.luban.OnCompressListener;
 
 public class PublishMsgActivity extends BaseActivity {
 
@@ -50,12 +46,16 @@ public class PublishMsgActivity extends BaseActivity {
     EditText acPublishEdt;
     @BindView(R.id.ac_publish_recycler)
     RecyclerView acPublishRecycler;
+    @BindView(R.id.toolbar_title_tv)
+    TextView toolbarTitleTv;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
-    MultiTypeAdapter multiTypeAdapter;
-    List<String> mDatas;
-    IUpdateImage iUpdateImage;
     private ProgressDialog progressDialog;
-    OnCompressListener onCompressListener;
+    List<String> mDatas;
+
+    IUpdateImage iUpdateImage;
+
 
     @Override
     public int getLayoutResId() {
@@ -65,10 +65,11 @@ public class PublishMsgActivity extends BaseActivity {
     @Override
     public void initData() {
         setToolTitle(true);
+        toolbarTitleTv.setText("新建成长日记");
         toolbarRightTv.setText("发布");
         mDatas = new ArrayList<>();
         mDatas.add("");
-        multiTypeAdapter = new MultiTypeAdapter(mDatas);
+        MultiTypeAdapter multiTypeAdapter = new MultiTypeAdapter(mDatas);
         multiTypeAdapter.register(String.class, new CheckImageProvider(this));
         acPublishRecycler.setLayoutManager(new GridLayoutManager(this, 4));
         acPublishRecycler.setAdapter(multiTypeAdapter);
@@ -124,41 +125,6 @@ public class PublishMsgActivity extends BaseActivity {
 
     }
 
-//    private MultipartBody.Part[] getParts() {
-//        if (ListUtil.unEmpty(mDatas)) {
-//            int size = mDatas.size();
-//            MultipartBody.Part[] parts = new MultipartBody.Part[size];
-//            for (int i = 0; i < size; i++) {
-//                String string = mDatas.get(i);
-//                if (!TextUtils.isEmpty(string)) {
-//                    String key = "file" + (i + 1);
-//                    String fileName = System.currentTimeMillis() + ".png";
-//                    MultipartBody.Part part = RxUtil.convertImage(key, fileName, new File(string));
-//                    parts[i] = part;
-//                }
-//            }
-//            return parts;
-//        } else {
-//            return null;
-//        }
-//    }
-
-//    private MultipartBody getBody() {
-//        MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
-//        if (ListUtil.unEmpty(mDatas)) {
-//            int size = mDatas.size();
-//            for (int i = 0; i < size; i++) {
-//                String string = mDatas.get(i);
-//                if (!TextUtils.isEmpty(string)) {
-//                    String key = "file" + (i + 1);
-//                    String fileName = System.currentTimeMillis() + ".png";
-//                    builder.addFormDataPart(key, fileName,
-//                            RequestBody.create(MediaType.parse("image/png;charset=utf-8"), new File(string)));
-//                }
-//            }
-//        }
-//        return builder.build();
-//    }
 
     //压缩
     private void getImageCompress() {
@@ -170,7 +136,7 @@ public class PublishMsgActivity extends BaseActivity {
             int size = getImageSize();
             Observable.create((ObservableOnSubscribe<String>) e -> {
                 for (String mData : mDatas) {
-                    if (!TextUtils.isEmpty(mData)){
+                    if (!TextUtils.isEmpty(mData)) {
                         e.onNext(mData);
                     }
                 }
@@ -205,11 +171,12 @@ public class PublishMsgActivity extends BaseActivity {
         }
         return images;
     }
-    private int  getImageSize() {
+
+    private int getImageSize() {
         int size = 0;
         for (String data : mDatas) {
             if (!TextUtils.isEmpty(data)) {
-               size++;
+                size++;
             }
         }
         return size;
@@ -223,4 +190,5 @@ public class PublishMsgActivity extends BaseActivity {
         }
         return true;
     }
+
 }

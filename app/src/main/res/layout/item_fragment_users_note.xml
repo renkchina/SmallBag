@@ -94,13 +94,13 @@
 
         <ImageView
             android:id="@+id/item_fragment_note_like_iv"
-            android:layout_width="21dp"
-            android:layout_height="21dp" />
+            android:layout_width="18dp"
+            android:layout_height="18dp" />
 
         <ImageView
             android:id="@+id/item_fragment_note_show_send_message_iv"
-            android:layout_width="21dp"
-            android:layout_height="21dp"
+            android:layout_width="19dp"
+            android:layout_height="15dp"
             android:layout_marginStart="13dp"
             android:background="@mipmap/reply_icon" />
     </LinearLayout>

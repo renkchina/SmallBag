@@ -18,6 +18,7 @@ import bag.small.base.BaseActivity;
 import bag.small.entity.GradeClass;
 import bag.small.entity.RelateBanjiBean;
 import bag.small.provider.RelateBanjiViewBinder;
+import bag.small.provider.TypeViewBinder;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -39,6 +40,7 @@ public class CheckClassActivity extends BaseActivity {
     private List<RelateBanjiBean> banjiList;
     MultiTypeAdapter multiTypeAdapter;
     List items;
+    private boolean isClass;
 
     @Override
     public int getLayoutResId() {
@@ -47,11 +49,13 @@ public class CheckClassActivity extends BaseActivity {
 
     @Override
     public void initData() {
+        titleTv.setText("类型");
         toolbar.setNavigationIcon(null);
         items = new Items(9);
         multiTypeAdapter = new MultiTypeAdapter(items);
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
+            isClass = bundle.getBoolean("isClass");
             items.addAll(bundle.getParcelableArrayList("list"));
         } else {
             finish();
@@ -61,6 +65,7 @@ public class CheckClassActivity extends BaseActivity {
     @Override
     public void initView() {
         multiTypeAdapter.register(RelateBanjiBean.class, new RelateBanjiViewBinder());
+        multiTypeAdapter.register(GradeClass.class, new TypeViewBinder());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(multiTypeAdapter);
     }
@@ -71,9 +76,17 @@ public class CheckClassActivity extends BaseActivity {
             case R.id.check_class_cancel_tv:
                 break;
             case R.id.check_class_send_tv:
-                GradeClass gradeClass = new GradeClass();
-                gradeClass.setRelate_banji(items);
-                RxBus.get().send(333333,gradeClass);
+                if (isClass) {
+                    GradeClass gradeClass = new GradeClass();
+                    gradeClass.setRelate_banji(items);
+                    RxBus.get().send(333333, gradeClass);
+                } else {
+                    for (Object item : items) {
+                        if (((GradeClass) item).isChecked()) {
+                            RxBus.get().send(333334, item);
+                        }
+                    }
+                }
                 break;
         }
         finish();
