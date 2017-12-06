@@ -26,5 +26,6 @@
     <color name="data_month_gray">#E6E6E6</color>
     <color name="data_day_gray">#EBEFFA</color>
     <color name="item_touch_bg">#FEF4E0</color>
+    <color name="item_schedule_bg">#FAFAFA</color>
 
 </resources>

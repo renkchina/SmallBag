@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context="bag.small.ui.activity.InterestClassByStudentActivity">
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,11 +15,14 @@
 
         <include layout="@layout/toolbar" />
 
-        <ImageView
-            android:id="@+id/ac_choice_student_banner_iv"
+
+        <com.youth.banner.Banner
+            android:id="@+id/top_banner"
             android:layout_width="match_parent"
             android:layout_height="220dp"
-            android:scaleType="centerCrop" />
+            android:background="@color/font_blue"
+            app:image_scale_type="center_crop"
+            tools:ignore="NotSibling" />
 
         <LinearLayout
             android:id="@+id/activity_student_show_class_ll"

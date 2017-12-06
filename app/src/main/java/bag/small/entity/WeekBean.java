@@ -16,6 +16,15 @@ public class WeekBean {
     private boolean show;
     private String name;
     private boolean ischange;
+    private boolean isnow;
+
+    public boolean isIsnow() {
+        return isnow;
+    }
+
+    public void setIsnow(boolean isnow) {
+        this.isnow = isnow;
+    }
 
     public int getColoums() {
         return coloums;

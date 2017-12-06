@@ -12,7 +12,6 @@
         android:id="@+id/top_banner"
         android:layout_width="match_parent"
         android:layout_height="220dp"
-        android:background="@color/font_blue"
         app:image_scale_type="center_crop"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         tools:ignore="NotSibling" />

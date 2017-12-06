@@ -15,7 +15,10 @@ import android.widget.TextView;
 
 import com.china.rxbus.MySubscribe;
 import com.china.rxbus.RxBus;
+import com.youth.banner.Banner;
+import com.youth.banner.listener.OnBannerListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import bag.small.R;
@@ -23,15 +26,21 @@ import bag.small.app.MyApplication;
 import bag.small.base.BaseActivity;
 import bag.small.dialog.BottomDialog;
 import bag.small.dialog.BottomListDialog;
+import bag.small.dialog.NoticeDialogSnap;
+import bag.small.entity.AdvertisingBean;
+import bag.small.entity.AdvertisingDetailBean;
 import bag.small.entity.ChoiceClassLists;
 import bag.small.http.HttpUtil;
 import bag.small.http.IApi.HttpError;
+import bag.small.http.IApi.IAdvertising;
 import bag.small.http.IApi.IInterestClass;
 import bag.small.interfaze.IDialog;
 import bag.small.provider.ChoiceClassListsBinder;
 import bag.small.provider.ChoiceInterestSubjectViewBinder;
 import bag.small.rx.RxUtil;
+import bag.small.utils.LayoutUtil;
 import bag.small.utils.ListUtil;
+import bag.small.utils.LogUtil;
 import bag.small.utils.StringUtil;
 import bag.small.utils.UserPreferUtil;
 import bag.small.view.RecycleViewDivider;
@@ -42,9 +51,9 @@ import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
 import me.drakeet.multitype.Items;
 import me.drakeet.multitype.MultiTypeAdapter;
 
-public class ChoiceInterestClassActivity extends BaseActivity implements IDialog {
-    @BindView(R.id.ac_choice_student_banner_iv)
-    ImageView iStudentBanner;
+public class ChoiceInterestClassActivity extends BaseActivity implements IDialog ,OnBannerListener {
+    @BindView(R.id.top_banner)
+    Banner topBanner;
     @BindView(R.id.activity_interest_class_one_content_tv)
     TextView iOneContentTv;
     @BindView(R.id.activity_interest_class_one_del_ll)
@@ -98,6 +107,10 @@ public class ChoiceInterestClassActivity extends BaseActivity implements IDialog
     int position = 0;
     BottomListDialog bottomListDialog;
     BottomDialog bottomDialog;
+    List bannerImages;
+    private IAdvertising iAdvertising;
+    private List<AdvertisingBean> advertisingBeen;
+    private NoticeDialogSnap noticeDialogSnap;
 
 
     @Override
@@ -107,13 +120,17 @@ public class ChoiceInterestClassActivity extends BaseActivity implements IDialog
 
     @Override
     public void initData() {
-        iStudentBanner.setBackgroundResource(MyApplication.bannerImage);
         mItems = new Items();
         multiTypeAdapter = new MultiTypeAdapter(mItems);
         multiTypeAdapter.register(ChoiceClassLists.KechenBean.class, new ChoiceInterestSubjectViewBinder());
         iListRecycler.setLayoutManager(new GridLayoutManager(this, 3));
         iListRecycler.setAdapter(multiTypeAdapter);
         iInterestClass = HttpUtil.getInstance().createApi(IInterestClass.class);
+        bannerImages = new ArrayList();
+        advertisingBeen = new ArrayList<>(5);
+        iAdvertising = HttpUtil.getInstance().createApi(IAdvertising.class);
+        topBanner.setOnBannerListener(this);
+        noticeDialogSnap = new NoticeDialogSnap(this);
         bottomListDialog = new BottomListDialog(this);
         bottomDialog = new BottomDialog(this);
         bottomDialog.setText("更换兴趣课", "删除");
@@ -302,4 +319,59 @@ public class ChoiceInterestClassActivity extends BaseActivity implements IDialog
         }
     }
 
+
+
+    private void getTopBannerImage() {
+        iAdvertising.getAdvertisings(UserPreferUtil.getInstanse().getRoleId(),
+                UserPreferUtil.getInstanse().getUserId(), UserPreferUtil.getInstanse().getSchoolId())
+                .compose(RxLifecycleCompact.bind(this).withObservable())
+                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                .subscribe(bean -> {
+                    List<AdvertisingBean> list = bean.getData();
+                    if (bean.isSuccess() && ListUtil.unEmpty(list)) {
+                        advertisingBeen.clear();
+                        bannerImages.clear();
+                        advertisingBeen.addAll(list);
+                        for (AdvertisingBean advertising : list) {
+                            bannerImages.add(advertising.getImg());
+                        }
+                    } else {
+                        bannerImages.add(R.mipmap.banner_icon1);
+                        bannerImages.add(R.mipmap.banner_icon2);
+                    }
+                    LayoutUtil.setBanner(topBanner, bannerImages);
+                }, new HttpError());
+    }
+
+
+    @Override
+    public void OnBannerClick(int position) {
+        LogUtil.show("position: " + position);
+        AdvertisingBean bean = advertisingBeen.get(position);
+        if (TextUtils.isEmpty(bean.getUrl())) {
+            //弹框
+            getBannerDetail(bean.getAds_id(), bean.getCame_from());
+        } else {
+            //网页
+            Bundle bundle = new Bundle();
+            bundle.putString("url", bean.getUrl());
+            goActivity(WebViewActivity.class, bundle);
+        }
+    }
+
+    private void getBannerDetail(int absId, String comeFrom) {
+        iAdvertising.getAdvertisingsDetail(UserPreferUtil.getInstanse().getRoleId(),
+                UserPreferUtil.getInstanse().getUserId(), UserPreferUtil.getInstanse().getSchoolId(),
+                absId, comeFrom)
+                .compose(RxLifecycleCompact.bind(this).withObservable())
+                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                .subscribe(bean -> {
+                    if (bean.isSuccess()) {
+                        AdvertisingDetailBean detail = bean.getData();
+                        noticeDialogSnap.show();
+                        noticeDialogSnap.setShowContent(detail.getTitle(), detail.getContent());
+                        noticeDialogSnap.setList(detail.getImages());
+                    }
+                }, new HttpError());
+    }
 }

@@ -21,6 +21,7 @@ import java.util.List;
 import bag.small.R;
 import bag.small.base.BaseFragment;
 import bag.small.dialog.AdvertisingDialog;
+import bag.small.dialog.NoticeDialogSnap;
 import bag.small.entity.AdvertisingBean;
 import bag.small.entity.AdvertisingDetailBean;
 import bag.small.entity.ConnectionBinder;
@@ -29,6 +30,7 @@ import bag.small.http.HttpUtil;
 import bag.small.http.IApi.HttpError;
 import bag.small.http.IApi.IAdvertising;
 import bag.small.http.IApi.INotification;
+import bag.small.interfaze.IDialog;
 import bag.small.provider.ConnectionViewBinder;
 import bag.small.rx.RxUtil;
 import bag.small.ui.activity.WebViewActivity;
@@ -59,6 +61,7 @@ public class FamiliesSchoolConnectionFragment extends BaseFragment implements On
     private IAdvertising iAdvertising;
     private List<AdvertisingBean> advertisingBeen;
     private AdvertisingDialog advertisingDialog;
+    NoticeDialogSnap noticeDialogSnap;
     private ItemTouchHelper mItemTouchHelper;
 
     @Override
@@ -129,6 +132,7 @@ public class FamiliesSchoolConnectionFragment extends BaseFragment implements On
         setTouch();
         iNotification = HttpUtil.getInstance().createApi(INotification.class);
         iAdvertising = HttpUtil.getInstance().createApi(IAdvertising.class);
+        noticeDialogSnap = new NoticeDialogSnap(getContext());
         setNoticeCount();
         getTopBannerImage();
         banner.setOnBannerListener(this);
@@ -258,21 +262,24 @@ public class FamiliesSchoolConnectionFragment extends BaseFragment implements On
                 .subscribe(bean -> {
                     if (bean.isSuccess()) {
                         AdvertisingDetailBean detail = bean.getData();
-                        List list = new ArrayList();
-                        if (!TextUtils.isEmpty(detail.getContent())) {
-                            list.add(detail.getContent());
-                        }
-                        if (ListUtil.unEmpty(detail.getImages())) {
-                            for (String s : detail.getImages()) {
-                                ImageString imageString = new ImageString();
-                                imageString.setUrl(s);
-                                list.add(imageString);
-                            }
-                        }
-                        if (ListUtil.unEmpty(list)) {
-                            advertisingDialog.setListData(list);
-                            advertisingDialog.show(recyclerView);
-                        }
+                        noticeDialogSnap.show();
+                        noticeDialogSnap.setShowContent(detail.getTitle(), detail.getContent());
+                        noticeDialogSnap.setList(detail.getImages());
+//                        List list = new ArrayList();
+//                        if (!TextUtils.isEmpty(detail.getContent())) {
+//                            list.add(detail.getContent());
+//                        }
+//                        if (ListUtil.unEmpty(detail.getImages())) {
+//                            for (String s : detail.getImages()) {
+//                                ImageString imageString = new ImageString();
+//                                imageString.setUrl(s);
+//                                list.add(imageString);
+//                            }
+//                        }
+//                        if (ListUtil.unEmpty(list)) {
+//                            advertisingDialog.setListData(list);
+//                            advertisingDialog.show(recyclerView);
+//                        }
                     }
                 }, new HttpError());
     }

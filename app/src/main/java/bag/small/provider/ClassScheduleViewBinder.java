@@ -56,30 +56,28 @@ public class ClassScheduleViewBinder extends ItemViewBinder<ClassScheduleItemBea
                 StringUtil.setTextView(holder.TopDateTv,
                         itemBean.getSubject().getStart_at()+"\n"+itemBean.getSubject().getEnd_at());
             }
-            StringUtil.setTextView(holder.OneTv, weekbean.get(0).getName());
-            StringUtil.setTextView(holder.TwoTv, weekbean.get(1).getName());
-            StringUtil.setTextView(holder.ThreeTv, weekbean.get(2).getName());
-            StringUtil.setTextView(holder.FourTv, weekbean.get(3).getName());
-            StringUtil.setTextView(holder.RestTv, weekbean.get(4).getName());
-            StringUtil.setTextView(holder.FiveTv, weekbean.get(5).getName());
-            StringUtil.setTextView(holder.SixTv, weekbean.get(6).getName());
+            setContent(holder.OneTv, weekbean.get(0));
+            setContent(holder.TwoTv, weekbean.get(1));
+            setContent(holder.ThreeTv, weekbean.get(2));
+            setContent(holder.FourTv, weekbean.get(3));
+            setContent(holder.RestTv, weekbean.get(4));
+            setContent(holder.FiveTv, weekbean.get(5));
+            setContent(holder.SixTv, weekbean.get(6));
         }
-
+//13880463990
     }
 
     private String lineFeed(String string) {
         return string.replace("-", "\n");
     }
 
-    private void setMaxEms(ViewHolder holder, int maxEms) {
-        holder.TopDateTv.setMaxEms(maxEms);
-        holder.OneTv.setMaxEms(maxEms);
-        holder.TwoTv.setMaxEms(maxEms);
-        holder.ThreeTv.setMaxEms(maxEms);
-        holder.FourTv.setMaxEms(maxEms);
-        holder.RestTv.setMaxEms(maxEms);
-        holder.FiveTv.setMaxEms(maxEms);
-        holder.SixTv.setMaxEms(maxEms);
+    private void setContent(TextView textView,WeekBean bean) {
+        StringUtil.setTextView(textView, bean.getName());
+        if (bean.isIsnow()){
+            textView.setBackgroundResource(R.color.item_schedule_bg);
+        }else{
+            textView.setBackgroundResource(R.color.white);
+        }
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

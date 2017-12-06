@@ -17,6 +17,7 @@ import java.util.List;
 import bag.small.R;
 import bag.small.base.BaseActivity;
 import bag.small.dialog.AdvertisingDialog;
+import bag.small.dialog.NoticeDialogSnap;
 import bag.small.entity.AdvertisingBean;
 import bag.small.entity.AdvertisingDetailBean;
 import bag.small.entity.ImageString;
@@ -53,6 +54,7 @@ public class TeacherMemorandumActivity extends BaseActivity implements OnBannerL
     IAdvertising iAdvertising;
     private AdvertisingDialog advertisingDialog;
     private boolean isClass;
+    private NoticeDialogSnap noticeDialogSnap;
 
     @Override
     public int getLayoutResId() {
@@ -77,6 +79,7 @@ public class TeacherMemorandumActivity extends BaseActivity implements OnBannerL
         iAdvertising = HttpUtil.getInstance().createApi(IAdvertising.class);
         topBanner.setOnBannerListener(this);
         advertisingDialog = new AdvertisingDialog(this);
+        noticeDialogSnap = new NoticeDialogSnap(this);
     }
 
     @Override
@@ -153,21 +156,9 @@ public class TeacherMemorandumActivity extends BaseActivity implements OnBannerL
                 .subscribe(bean -> {
                     if (bean.isSuccess()) {
                         AdvertisingDetailBean detail = bean.getData();
-                        List list = new ArrayList();
-                        if (!TextUtils.isEmpty(detail.getContent())) {
-                            list.add(detail.getContent());
-                        }
-                        if (ListUtil.unEmpty(detail.getImages())) {
-                            for (String s : detail.getImages()) {
-                                ImageString imageString = new ImageString();
-                                imageString.setUrl(s);
-                                list.add(imageString);
-                            }
-                        }
-                        if (ListUtil.unEmpty(list)) {
-                            advertisingDialog.setListData(list);
-                            advertisingDialog.show(topBanner);
-                        }
+                        noticeDialogSnap.show();
+                        noticeDialogSnap.setShowContent(detail.getTitle(), detail.getContent());
+                        noticeDialogSnap.setList(detail.getImages());
                     }
                 }, new HttpError());
     }

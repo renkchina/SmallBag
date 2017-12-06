@@ -73,7 +73,6 @@ public class NoticeDialogSnap extends Dialog {
         dialogWindow.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         dialogWindow.setAttributes(lp);
         setCanceledOnTouchOutside(false);
-
     }
 
     private void initView() {
@@ -84,13 +83,13 @@ public class NoticeDialogSnap extends Dialog {
         linearLayoutManager.setOrientation(OrientationHelper.HORIZONTAL);
         noticeSnapRecycler.setLayoutManager(linearLayoutManager);
         noticeSnapRecycler.setAdapter(multiTypeAdapter);
-        noticeSnapTitleTv.setText(title);
-        noticeSnapContentTv.setText(content);
     }
 
     public void setShowContent(String title, String content) {
         this.title = title;
         this.content = content;
+        noticeSnapTitleTv.setText(title);
+        noticeSnapContentTv.setText(content);
     }
 
     public void setShowContent(String title, Spanned content) {
@@ -105,6 +104,8 @@ public class NoticeDialogSnap extends Dialog {
             multiTypeAdapter.notifyDataSetChanged();
         }
     }
+
+
 
     @OnClick(R.id.notice_snap_close_tv)
     public void onViewClicked() {
