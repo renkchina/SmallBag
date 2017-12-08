@@ -17,29 +17,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bag.small.R;
-import bag.small.adapter.MBaseAdapter;
 import bag.small.app.MyApplication;
 import bag.small.base.BaseFragment;
 import bag.small.dialog.EvaluateDialog;
-import bag.small.dialog.NoticeDialogSnap;
-import bag.small.entity.AdvertisingBean;
 import bag.small.entity.MomentsBean;
 import bag.small.http.HttpUtil;
 import bag.small.http.IApi.HttpError;
-import bag.small.http.IApi.IAdvertising;
 import bag.small.http.IApi.IMoments;
 import bag.small.interfaze.IDialog;
 import bag.small.provider.MomentsViewBinder;
 import bag.small.provider.NoticeBanner;
 import bag.small.provider.NoticeBannerViewBinder;
 import bag.small.rx.RxUtil;
-import bag.small.utils.LayoutUtil;
 import bag.small.utils.ListUtil;
 import bag.small.utils.UserPreferUtil;
 import bag.small.view.RecycleViewDivider;
 import butterknife.BindView;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
-import io.reactivex.functions.Action;
 import me.drakeet.multitype.Items;
 import me.drakeet.multitype.MultiTypeAdapter;
 
@@ -59,10 +53,6 @@ public class GrowthDiaryFragment extends BaseFragment implements IDialog {
     private int pageIndex = 1;
     EvaluateDialog evaluateDialog;
     NoticeBanner noticeBanner;
-    private IAdvertising iAdvertising;
-    private NoticeDialogSnap noticeDialogSnap;
-    private List bannerImages;
-    private List<AdvertisingBean> advertisingBeen;
 
     @Override
     public int getLayoutResId() {
@@ -87,10 +77,6 @@ public class GrowthDiaryFragment extends BaseFragment implements IDialog {
         iMoments = HttpUtil.getInstance().createApi(IMoments.class);
         evaluateDialog = new EvaluateDialog(getContext());
         evaluateDialog.setiDialog(this);
-        iAdvertising = HttpUtil.getInstance().createApi(IAdvertising.class);
-        noticeDialogSnap = new NoticeDialogSnap(getContext());
-        bannerImages = new ArrayList<>();
-        advertisingBeen = new ArrayList();
     }
 
     @Override
@@ -98,7 +84,7 @@ public class GrowthDiaryFragment extends BaseFragment implements IDialog {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(new SpaceItemDecoration());
         recyclerView.setAdapter(multiTypeAdapter);
-        getTopBannerImage();
+        requestHTTP(pageIndex, null);
     }
 
     private void requestHTTP(int page, RefreshLayout refresh) {
@@ -132,34 +118,19 @@ public class GrowthDiaryFragment extends BaseFragment implements IDialog {
     //第一次初始化不执行
     @Override
     public void onFragmentShow() {
-        getTopBannerImage();
+        setHttp();
     }
 
-    public void getTopBannerImage() {
-        iAdvertising.getAdvertisings(UserPreferUtil.getInstanse().getRoleId(),
-                UserPreferUtil.getInstanse().getUserId(), UserPreferUtil.getInstanse().getSchoolId())
-                .compose(RxLifecycleCompact.bind(this).withObservable())
-                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
-                .doFinally(() -> requestHTTP(pageIndex = 1, null))
-                .subscribe(bean -> {
-                    List<AdvertisingBean> list = bean.getData();
-                    noticeBanner = new NoticeBanner();
-                    noticeBanner.setHeadImage(UserPreferUtil.getInstanse().getHeadImagePath());
-                    if (bean.isSuccess() && ListUtil.unEmpty(list)) {
-                        advertisingBeen.clear();
-                        bannerImages.clear();
-                        advertisingBeen.addAll(list);
-                        for (AdvertisingBean advertising : list) {
-                            bannerImages.add(advertising.getImg());
-                        }
-                        noticeBanner.setAdvertisingBeans(advertisingBeen);
-                        noticeBanner.setBannerImages(bannerImages);
-                    }
-                }, new HttpError());
+    private void setHttp() {
+        pageIndex = 1;
+        noticeBanner.setBannerImages(MyApplication.bannerImage);
+        noticeBanner.setHeadImage(UserPreferUtil.getInstanse().getHeadImagePath());
+        requestHTTP(pageIndex, null);
     }
 
     @Override
     public void onFragmentHide() {
+//        growthBanner.stopAutoPlay();
     }
 
 

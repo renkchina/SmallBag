@@ -34,7 +34,7 @@
                 android:layout_height="25dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="20dp"
-                android:background="@mipmap/email" />
+                android:background="@mipmap/phone" />
 
             <EditText
                 android:id="@+id/activity_login_user_name_edt"

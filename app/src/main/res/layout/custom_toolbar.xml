@@ -1,46 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="45dp"
-    app:contentInsetStart="0dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@color/white"
+    app:contentInsetStart="0dp">
 
-        <TextView
-            android:id="@+id/create_memorandum_cancel_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:paddingStart="15dp"
-            android:paddingEnd="15dp"
-            android:text="取消"
-            android:textColor="@color/font_black" />
+    <TextView
+        android:id="@+id/create_memorandum_cancel_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:paddingEnd="15dp"
+        android:paddingStart="15dp"
+        android:text="取消"
+        android:textColor="@color/font_black" />
 
-        <TextView
-            android:id="@+id/toolbar_title_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textColor="@color/black"
-            android:textSize="19sp"
-            tools:text="新建备忘录" />
+    <TextView
+        android:id="@+id/toolbar_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        tools:text="新建备忘录" />
 
-        <TextView
-            android:id="@+id/create_memorandum_send_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginEnd="15dp"
-            android:background="@drawable/shape_rounded_corner_blue"
-            android:gravity="center"
-            android:paddingBottom="8dp"
-            android:paddingEnd="18dp"
-            android:paddingStart="18dp"
-            android:paddingTop="8dp"
-            android:text="发布"
-            android:textColor="@color/white" />
+    <TextView
+        android:id="@+id/create_memorandum_send_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/shape_rounded_corner_blue"
+        android:gravity="center"
+        android:paddingBottom="8dp"
+        android:paddingEnd="18dp"
+        android:paddingStart="18dp"
+        android:paddingTop="8dp"
+        android:text="发布"
+        android:textColor="@color/white" />
 
 </android.support.v7.widget.Toolbar>

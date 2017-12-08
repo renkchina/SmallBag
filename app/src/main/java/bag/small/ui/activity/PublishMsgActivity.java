@@ -9,8 +9,11 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.caimuhao.rxpicker.ui.fragment.mvp.PickerFragmentContract;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -43,7 +46,7 @@ import top.zibin.luban.Luban;
 
 public class PublishMsgActivity extends BaseActivity {
 
-    @BindView(R.id.toolbar_right_tv)
+    @BindView(R.id.create_memorandum_send_tv)
     TextView toolbarRightTv;
     @BindView(R.id.ac_publish_edt)
     EditText acPublishEdt;
@@ -51,6 +54,8 @@ public class PublishMsgActivity extends BaseActivity {
     RecyclerView acPublishRecycler;
     @BindView(R.id.toolbar_title_tv)
     TextView toolbarTitleTv;
+    @BindView(R.id.create_memorandum_cancel_tv)
+    TextView cancel;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
@@ -67,12 +72,9 @@ public class PublishMsgActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        setToolTitle(true);
+        toolbar.setNavigationIcon(null);
         toolbarTitleTv.setText("新建成长日记");
         toolbarRightTv.setText("发布");
-        Drawable upArrow = ContextCompat.getDrawable(this, R.drawable.abc_ic_ab_back_material);
-        upArrow.setColorFilter(getResources().getColor(R.color.font_black), PorterDuff.Mode.SRC_ATOP);
-        getSupportActionBar().setHomeAsUpIndicator(upArrow);
         mDatas = new ArrayList<>();
         mDatas.add("");
         MultiTypeAdapter multiTypeAdapter = new MultiTypeAdapter(mDatas);
@@ -82,13 +84,21 @@ public class PublishMsgActivity extends BaseActivity {
         iUpdateImage = HttpUtil.getInstance().createApi(IUpdateImage.class);
     }
 
-    @OnClick(R.id.toolbar_right_tv)
-    public void onViewClicked() {
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("正在上传，请等待...");
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.show();
-        getImageCompress();
+    @OnClick({R.id.create_memorandum_send_tv, R.id.create_memorandum_cancel_tv})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.create_memorandum_send_tv:
+                progressDialog = new ProgressDialog(this);
+                progressDialog.setMessage("正在上传，请等待...");
+                progressDialog.setCanceledOnTouchOutside(false);
+                progressDialog.show();
+                getImageCompress();
+                break;
+            case R.id.create_memorandum_cancel_tv:
+                finish();
+                break;
+        }
+
     }
 
     private void sendMessage(List<MultipartBody.Part> parts) {

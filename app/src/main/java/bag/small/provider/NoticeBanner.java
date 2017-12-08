@@ -12,6 +12,7 @@ public class NoticeBanner {
     private String headImage;
 
     private List<String> bannerImages;
+    private int bannerImage;
 
     List<AdvertisingBean> advertisingBeans;
 
@@ -45,5 +46,13 @@ public class NoticeBanner {
                 "headImage='" + headImage + '\'' +
                 ", bannerImages=" + bannerImages +
                 '}';
+    }
+
+    public void setBannerImages(int bannerImage) {
+        this.bannerImage = bannerImage;
+    }
+
+    public int getBannerImage() {
+        return bannerImage;
     }
 }

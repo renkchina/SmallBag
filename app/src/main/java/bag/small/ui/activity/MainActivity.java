@@ -132,15 +132,14 @@ public class MainActivity extends BaseActivity
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public void initView() {
-        iLoginRequest.updateToken(UserPreferUtil.getInstanse().getUserId(), "", MyApplication.deviceToken,
-                "", "android")
+        iLoginRequest.updateToken(UserPreferUtil.getInstanse().getUserId(),
+                "", MyApplication.deviceToken, "", "android")
                 .compose(RxLifecycleCompact.bind(this).withObservable())
                 .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
                 .subscribe(bean -> {
                 });
         multiTypeAdapter = new MultiTypeAdapter(itemDatas);
         multiTypeAdapter.register(LoginResult.RoleBean.class, new AccountViewBinder());
-//        multiTypeAdapter.register(String.class, new RoleAddBeanViewBinder());
         multiTypeAdapter.register(MainLeftBean.class, new MainLeftBtnViewBinder());
         GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
@@ -163,8 +162,19 @@ public class MainActivity extends BaseActivity
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //创建返回键，并实现打开关/闭监听
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.open, R.string.close);
+        mDrawerToggle.setHomeAsUpIndicator(R.mipmap.menu);
+        mDrawerToggle.setDrawerIndicatorEnabled(false);
         mDrawerToggle.syncState();
         mDrawer.addDrawerListener(mDrawerToggle);
+        toolbar.setNavigationOnClickListener(v -> {
+            if (mDrawer.isDrawerOpen(GravityCompat.START)) {
+                mDrawer.closeDrawer(GravityCompat.START);
+                toolbar.setNavigationIcon(R.mipmap.turn_left);
+            } else {
+                mDrawer.openDrawer(GravityCompat.START);
+                toolbar.setNavigationIcon(R.mipmap.menu);
+            }
+        });
         mContentLl.setOnTouchListener((view, motionEvent) ->
                 isDrawer && mainLeftLl.dispatchTouchEvent(motionEvent));
         mDrawer.addDrawerListener(new DrawerLayout.DrawerListener() {
@@ -183,11 +193,13 @@ public class MainActivity extends BaseActivity
 
             @Override
             public void onDrawerOpened(View drawerView) {
+                toolbar.setNavigationIcon(R.mipmap.turn_left);
             }
 
             @Override
             public void onDrawerClosed(View drawerView) {
                 isDrawer = false;
+                toolbar.setNavigationIcon(R.mipmap.menu);
                 //changeRole();
             }
 
@@ -241,6 +253,8 @@ public class MainActivity extends BaseActivity
                 toolTitle.setText(UserPreferUtil.getInstanse().getSchoolName());
                 toolbarRightIv.setVisibility(View.GONE);
                 mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.open, R.string.close);
+                mDrawerToggle.setDrawerIndicatorEnabled(false);
+                mDrawerToggle.setHomeAsUpIndicator(R.mipmap.menu);
                 mDrawerToggle.syncState();
                 mDrawer.addDrawerListener(mDrawerToggle);
                 break;

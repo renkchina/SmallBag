@@ -7,18 +7,17 @@
     <color name="black">#000000</color>
     <color name="un_enable_gray">#dadada</color>
     <color name="txt_gray">#737373</color>
-
     <color name="zifubao">#0299CA</color>
     <color name="wechat">#00D30D</color>
     <color name="main_bottom_green">#19AE3A</color>
     <color name="red">#FF0000</color>
-    <color name="button_green">#0FDCC0</color>
+    <color name="button_green">#627DF2</color>
     <color name="font_green">#51A8EC</color>
     <color name="main_bottom">#E8572A</color>
     <color name="main_bottom_gray">#A7A7A7</color>
     <color name="font_black">#7c7c7c</color>
     <color name="font_black2">#363636</color>
-    <color name="background_gray">#EEEEEE</color>
+    <color name="background_gray">#FAFAFA</color>
     <color name="green_bg">#E0FFFA</color>
     <color name="account_bg">#E3E8EB</color>
     <color name="link_blue">#47CBD7</color>
@@ -28,5 +27,7 @@
     <color name="item_touch_bg">#FEF4E0</color>
     <color name="item_schedule_bg">#FAFAFA</color>
     <color name="item_selected_bg">#F3F4F9</color>
+    <color name="item_list_bg">#EDF1FC</color>
+
 
 </resources>

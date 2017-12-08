@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_gray"
     android:orientation="vertical"
     tools:context=".ui.activity.PublishMsgActivity">
 
@@ -11,7 +12,20 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        app:contentInsetStart="0dp">
+        android:background="@color/white"
+        app:contentInsetStart="0dp"
+        >
+
+        <TextView
+            android:id="@+id/create_memorandum_cancel_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingEnd="15dp"
+            android:paddingStart="15dp"
+            android:layout_gravity="start"
+            android:text="取消"
+            android:textColor="@color/font_black" />
 
         <TextView
             android:id="@+id/toolbar_title_tv"
@@ -21,11 +35,11 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="@color/black"
-            android:textSize="19sp"
+            android:textSize="17sp"
             tools:text="新建备忘录" />
 
         <TextView
-            android:id="@+id/toolbar_right_tv"
+            android:id="@+id/create_memorandum_send_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
@@ -44,6 +58,7 @@
         android:id="@+id/ac_publish_edt"
         android:layout_width="match_parent"
         android:layout_height="100dp"
+        android:layout_marginTop="10dp"
         android:background="@color/white"
         android:gravity="start"
         android:hint="@string/check_image_content_str"
@@ -55,6 +70,8 @@
         android:id="@+id/ac_publish_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginEnd="15dp"
-        android:layout_marginStart="15dp" />
+        android:layout_marginTop="20dp"
+        android:paddingEnd="15dp"
+        android:layout_gravity=""
+        android:paddingStart="15dp" />
 </LinearLayout>

@@ -24,7 +24,8 @@
             android:id="@+id/interest_by_teacher_show_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -161,14 +162,15 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:gravity="center"
-            android:text="我的兴趣课" />
+            android:text="我的兴趣课"
+            android:textSize="17sp" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/activity_interest_teacher_recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:paddingEnd="22dp"
-            android:paddingStart="22dp" />
+            android:paddingEnd="20dp"
+            android:paddingStart="20dp" />
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

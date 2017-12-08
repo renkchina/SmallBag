@@ -4,183 +4,205 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@mipmap/register_bg"
     android:orientation="vertical"
     tools:context=".ui.activity.RegisterActivity">
 
     <include layout="@layout/toolbar" />
 
-    <android.support.v7.widget.CardView
+    <ImageView
+        android:id="@+id/activity_login_image"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@mipmap/logo"
+        android:scaleType="centerCrop" />
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="13dp"
-        android:layout_marginRight="13dp"
-        android:layout_marginTop="45dp"
-        android:background="@mipmap/border"
-        android:orientation="vertical"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="5dp"
-        app:contentPadding="3dp">
+        android:layout_height="58dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="20dp"
+            android:background="@mipmap/phone" />
+
+        <EditText
+            android:id="@+id/activity_register_phone_edt"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="15dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="@string/ac_login_phone_edt_hint_str"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:maxLength="11"
+            android:maxLines="1"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="30dp"
+        android:background="@mipmap/line_h" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="20dp"
+            android:drawablePadding="10dp"
+            android:drawableStart="@mipmap/vercode"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="17sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_marginStart="12dp"
+            android:orientation="horizontal"
+            android:padding="5dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="horizontal">
+            <EditText
+                android:id="@+id/activity_register_verification_code_edt"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#526EE4"
+                android:hint="@string/login_code_hint_edt_str"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:maxLength="6"
+                android:textColor="@color/black"
+                android:textColorHint="@color/un_enable_gray" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="10dp"
-                    android:drawablePadding="10dp"
-                    android:drawableStart="@mipmap/phone"
-                    android:gravity="center"
-                    android:text="@string/ac_register_phone_tv_str"
-                    android:textColor="@color/txt_gray"
-                    android:textSize="17sp" />
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/white" />
 
-                <EditText
-                    android:id="@+id/activity_register_phone_edt"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="12dp"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:hint="@string/ac_login_phone_edt_hint_str"
-                    android:imeOptions="actionNext"
-                    android:inputType="number"
-                    android:maxLength="11"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/un_enable_gray"
-                    android:textSize="15sp"
-                    tools:ignore="TextFields" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="10dp"
-                    android:drawablePadding="10dp"
-                    android:drawableStart="@mipmap/code_icon"
-                    android:gravity="center"
-                    android:text="验证码"
-                    android:textColor="@color/txt_gray"
-                    android:textSize="17sp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="12dp"
-                    android:orientation="horizontal"
-                    android:padding="5dp">
-
-                    <EditText
-                        android:id="@+id/activity_register_verification_code_edt"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@color/white"
-                        android:hint="@string/login_code_hint_edt_str"
-                        android:imeOptions="actionNext"
-                        android:inputType="number"
-                        android:maxLength="6"
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/un_enable_gray" />
-
-                    <Button
-                        android:id="@+id/activity_register_send_code_btn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="5dp"
-                        android:background="@color/white"
-                        android:text="@string/get_code_str"
-                        android:textColor="@color/button_green"
-                        android:textSize="12sp" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="10dp"
-                    android:drawablePadding="10dp"
-                    android:drawableStart="@mipmap/password_icon"
-                    android:gravity="center"
-                    android:text="密码"
-                    android:textColor="@color/txt_gray"
-                    android:textSize="17sp" />
-
-                <EditText
-                    android:id="@+id/activity_register_password_edt"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="12dp"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:hint="@string/ac_login_password_edt_hint_str"
-                    android:imeOptions="actionNext"
-                    android:inputType="textPassword"
-                    android:maxLength="11"
-                    android:textColor="@color/txt_gray"
-                    android:textColorHint="@color/un_enable_gray"
-                    android:textSize="15sp"
-                    tools:ignore="TextFields" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="10dp"
-                    android:drawablePadding="10dp"
-                    android:drawableStart="@mipmap/password_icon"
-                    android:gravity="center"
-                    android:text="@string/affirm_password_str"
-                    android:textColor="@color/txt_gray"
-                    android:textSize="17sp" />
-
-                <EditText
-                    android:id="@+id/activity_register_reset_password_edt"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="12dp"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:hint="@string/ac_login_password_edt_hint_agent_str"
-                    android:imeOptions="actionDone"
-                    android:inputType="textPassword"
-                    android:maxLength="11"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/un_enable_gray"
-                    android:textSize="15sp"
-                    tools:ignore="TextFields" />
-            </LinearLayout>
+            <Button
+                android:id="@+id/activity_register_send_code_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="5dp"
+                android:background="@null"
+                android:text="@string/get_code_str"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
         </LinearLayout>
-    </android.support.v7.widget.CardView>
+    </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="30dp"
+        android:background="@mipmap/line_h" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="20dp"
+            android:drawablePadding="10dp"
+            android:drawableStart="@mipmap/password"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="17sp" />
+
+        <EditText
+            android:id="@+id/activity_register_password_edt"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="@string/ac_login_password_edt_hint_str"
+            android:imeOptions="actionNext"
+            android:inputType="textPassword"
+            android:maxLength="11"
+            android:textColor="@color/txt_gray"
+            android:textColorHint="@color/un_enable_gray"
+            android:textSize="15sp"
+            tools:ignore="TextFields" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="30dp"
+        android:background="@mipmap/line_h" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="20dp"
+            android:drawablePadding="10dp"
+            android:drawableStart="@mipmap/password"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="17sp" />
+
+        <EditText
+            android:id="@+id/activity_register_reset_password_edt"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="@string/ac_login_password_edt_hint_agent_str"
+            android:imeOptions="actionDone"
+            android:inputType="textPassword"
+            android:maxLength="11"
+            android:textColor="@color/black"
+            android:textColorHint="@color/un_enable_gray"
+            android:textSize="15sp"
+            tools:ignore="TextFields" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="30dp"
+        android:background="@mipmap/line_h" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -196,18 +218,16 @@
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
-            <View
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:background="@mipmap/student_icon" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="35dp"
+                android:layout_marginTop="38dp"
+                android:background="@color/white"
                 android:text="@string/im_parent_str"
-                android:textColor="@color/txt_gray"
-                android:textSize="16sp" />
+                android:textColor="@color/font_blue"
+                android:textSize="18sp" />
         </LinearLayout>
 
         <Space
@@ -223,18 +243,16 @@
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
-            <View
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:background="@mipmap/teacher_head" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="35dp"
+                android:layout_marginTop="38dp"
+                android:background="@color/white"
                 android:text="@string/im_teacher_str"
-                android:textColor="@color/txt_gray"
-                android:textSize="16sp" />
+                android:textColor="@color/font_blue"
+                android:textSize="18sp" />
         </LinearLayout>
     </LinearLayout>
 
@@ -247,6 +265,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="43dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="30dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -254,19 +274,22 @@
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:layout_weight="1"
-            android:background="@color/button_green" />
+            android:background="@color/white" />
 
         <TextView
             android:id="@+id/activity_register_login_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
             android:text="@string/go_login_str"
+            android:textColor="@color/white"
             android:textSize="16sp" />
 
         <View
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:layout_weight="1"
-            android:background="@color/button_green" />
+            android:background="@color/white" />
     </LinearLayout>
 </LinearLayout>
