@@ -1,7 +1,10 @@
 package bag.small.ui.activity;
 
 import android.app.ProgressDialog;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -67,6 +70,9 @@ public class PublishMsgActivity extends BaseActivity {
         setToolTitle(true);
         toolbarTitleTv.setText("新建成长日记");
         toolbarRightTv.setText("发布");
+        Drawable upArrow = ContextCompat.getDrawable(this, R.drawable.abc_ic_ab_back_material);
+        upArrow.setColorFilter(getResources().getColor(R.color.font_black), PorterDuff.Mode.SRC_ATOP);
+        getSupportActionBar().setHomeAsUpIndicator(upArrow);
         mDatas = new ArrayList<>();
         mDatas.add("");
         MultiTypeAdapter multiTypeAdapter = new MultiTypeAdapter(mDatas);

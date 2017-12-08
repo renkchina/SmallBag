@@ -59,8 +59,8 @@ public class AccountViewBinder extends ItemViewBinder<LoginResult.RoleBean, Acco
                     setAllUnSelect();
                     bean.setSelected(true);
                     UserPreferUtil.getInstanse().setUserInfomation(bean);
-                    RxBus.get().send(300);
                     getAdapter().notifyDataSetChanged();
+                    RxBus.get().send(300);
                 }
             });
             if (bean.isSelected()) {
@@ -69,7 +69,6 @@ public class AccountViewBinder extends ItemViewBinder<LoginResult.RoleBean, Acco
                 holder.rootView.setBackgroundColor(ContextCompat.getColor(context, R.color.white));
             }
         }
-
     }
 
     private void setAllUnSelect() {

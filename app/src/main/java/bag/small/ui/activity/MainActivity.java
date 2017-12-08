@@ -188,7 +188,7 @@ public class MainActivity extends BaseActivity
             @Override
             public void onDrawerClosed(View drawerView) {
                 isDrawer = false;
-                changeRole();
+                //changeRole();
             }
 
             @Override
@@ -342,11 +342,6 @@ public class MainActivity extends BaseActivity
     }
 
     private void changeRole() {
-        if (UserPreferUtil.getInstanse().isTeacher()) {
-            MyApplication.bannerImage = R.mipmap.banner_icon2;
-        } else {
-            MyApplication.bannerImage = R.mipmap.banner_icon1;
-        }
         changeColor(UserPreferUtil.getInstanse().isTeacher());
         switch (lastItem.getItemId()) {
             case R.id.item_family:

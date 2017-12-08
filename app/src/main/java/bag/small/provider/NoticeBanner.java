@@ -2,6 +2,8 @@ package bag.small.provider;
 
 import java.util.List;
 
+import bag.small.entity.AdvertisingBean;
+
 /**
  * Created by Administrator on 2017/8/12.
  */
@@ -9,7 +11,17 @@ public class NoticeBanner {
 
     private String headImage;
 
-    private int bannerImages;
+    private List<String> bannerImages;
+
+    List<AdvertisingBean> advertisingBeans;
+
+    public List<AdvertisingBean> getAdvertisingBeans() {
+        return advertisingBeans;
+    }
+
+    public void setAdvertisingBeans(List<AdvertisingBean> advertisingBeans) {
+        this.advertisingBeans = advertisingBeans;
+    }
 
     public String getHeadImage() {
         return headImage;
@@ -19,11 +31,11 @@ public class NoticeBanner {
         this.headImage = headImage;
     }
 
-    public int getBannerImages() {
+    public List<String> getBannerImages() {
         return bannerImages;
     }
 
-    public void setBannerImages(int bannerImages) {
+    public void setBannerImages(List<String> bannerImages) {
         this.bannerImages = bannerImages;
     }
 

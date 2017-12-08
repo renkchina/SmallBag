@@ -154,8 +154,8 @@ public class CreateMemorandumActivity extends BaseActivity implements IDialog {
                 String mtitle = StringUtil.EditGetString(mTitleEdt);
                 String mcontent = StringUtil.EditGetString(mContentEdt);
                 if (!checkIsNull(mtitle, mcontent)) {
-                    noticeDialogSnap.setShowContent(mtitle, mcontent);
                     noticeDialogSnap.show();
+                    noticeDialogSnap.setShowContent(mtitle, mcontent);
                 }
                 break;
             case R.id.create_memorandum_send_tv:

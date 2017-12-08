@@ -21,6 +21,7 @@ import bag.small.ui.activity.InterestClassByTeacherActivity;
 import bag.small.ui.activity.MassOrgActivity;
 import bag.small.ui.activity.StudentMemorandumActivity;
 import bag.small.ui.activity.TeacherMemorandumActivity;
+import bag.small.utils.LayoutUtil;
 import bag.small.utils.StringUtil;
 import bag.small.utils.UserPreferUtil;
 import butterknife.BindView;

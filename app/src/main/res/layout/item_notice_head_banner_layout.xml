@@ -12,12 +12,11 @@
         android:layout_gravity="bottom"
         android:background="@color/white">
 
-        <ImageView
-            android:id="@+id/banner_imageview"
+        <com.youth.banner.Banner
+            android:id="@+id/top_banner"
             android:layout_width="match_parent"
             android:layout_height="220dp"
-            android:background="@mipmap/banner_icon1"
-            android:scaleType="centerCrop" />
+            app:image_scale_type="center_crop" />
 
         <TextView
             android:id="@+id/head_banner_tv"

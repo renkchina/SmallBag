@@ -47,6 +47,16 @@ public class MemorandumTxtViewBinder extends ItemViewBinder<MemorandumItemBean, 
             it.putExtra("bean", memorandum);
             v.getContext().startActivity(it);
         });
+
+        if (getPosition(holder) % 4 == 0) {
+            holder.start.setBackgroundResource(R.mipmap.purple_start);
+        } else if (getPosition(holder) % 3 == 0) {
+            holder.start.setBackgroundResource(R.mipmap.blue_start);
+        } else if (getPosition(holder) % 2 == 0) {
+            holder.start.setBackgroundResource(R.mipmap.yellow_start);
+        } else {
+            holder.start.setBackgroundResource(R.mipmap.green_start);
+        }
     }
 
 
@@ -55,6 +65,8 @@ public class MemorandumTxtViewBinder extends ItemViewBinder<MemorandumItemBean, 
         TextView itemText;
         @BindView(R.id.item_memorandum_round_txt)
         TextView itemRound;
+        @BindView(R.id.item_memo_start_v)
+        View start;
         View view;
 
         ViewHolder(View view) {

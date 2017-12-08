@@ -4,6 +4,7 @@ import java.util.List;
 
 import bag.small.entity.BaseBean;
 import bag.small.entity.ClassMemorandumBean;
+import bag.small.entity.NameString;
 import io.reactivex.Observable;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -37,5 +38,14 @@ public interface IGetMemorandumBy {
                                                                       @Field("login_id") String loginId,
                                                                       @Field("school_id") String schoolId,
                                                                       @Field("bwid") String bwid);
+
+    @FormUrlEncoded
+    @POST("beiwanglus/unreadlist")
+    Observable<BaseBean<List<NameString>>> getClassUnReadMemorandum(@Field("role_id") String roleId,
+                                                                    @Field("login_id") String loginId,
+                                                                    @Field("school_id") String schoolId,
+                                                                    @Field("banji_id") String banjiId,
+                                                                    @Field("bwid") String bwid);
+
 
 }

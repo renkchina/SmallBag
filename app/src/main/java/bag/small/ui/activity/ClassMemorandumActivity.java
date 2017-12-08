@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.china.rxbus.MySubscribe;
+import com.china.rxbus.RxBus;
+import com.china.rxbus.ThreadMode;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -30,6 +33,7 @@ import bag.small.entity.ImageString;
 import bag.small.http.HttpUtil;
 import bag.small.http.IApi.HttpError;
 import bag.small.http.IApi.IAdvertising;
+import bag.small.http.IApi.IGetMemorandumBy;
 import bag.small.http.IApi.ITeachClasses;
 import bag.small.provider.ClassMemorandumViewBinder;
 import bag.small.rx.RxUtil;
@@ -41,6 +45,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
+import io.reactivex.functions.Action;
 import me.drakeet.multitype.Items;
 import me.drakeet.multitype.MultiTypeAdapter;
 
@@ -64,8 +69,7 @@ public class ClassMemorandumActivity extends BaseActivity implements OnBannerLis
     MultiTypeAdapter multiTypeAdapter;
     List items;
     List bannerImages;
-
-
+    boolean isShowDel;
     private List<AdvertisingBean> advertisingBeen;
     IAdvertising iAdvertising;
     private AdvertisingDialog advertisingDialog;
@@ -73,6 +77,7 @@ public class ClassMemorandumActivity extends BaseActivity implements OnBannerLis
     private int pageIndex;
     private String banjiId;
     private NoticeDialogSnap noticeDialogSnap;
+    StringBuilder stringBuilder;
 
     @Override
     public int getLayoutResId() {
@@ -82,6 +87,7 @@ public class ClassMemorandumActivity extends BaseActivity implements OnBannerLis
     @Override
     public void initData() {
         setToolTitle("备忘录", true);
+        toolbarRightTv.setText("删除");
         mFloatImage.setVisibility(View.VISIBLE);
         items = new Items();
         advertisingBeen = new ArrayList<>(5);
@@ -99,7 +105,11 @@ public class ClassMemorandumActivity extends BaseActivity implements OnBannerLis
 
     @Override
     public void initView() {
-        multiTypeAdapter.register(ClassMemorandumBean.class, new ClassMemorandumViewBinder());
+        ClassMemorandumViewBinder viewBinder = new ClassMemorandumViewBinder();
+        viewBinder.setClassId(banjiId);
+        viewBinder.setTeacher(true);
+        stringBuilder = new StringBuilder();
+        multiTypeAdapter.register(ClassMemorandumBean.class, viewBinder);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(multiTypeAdapter);
 
@@ -198,19 +208,64 @@ public class ClassMemorandumActivity extends BaseActivity implements OnBannerLis
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.toolbar_right_tv:
+                if (isShowDel) {
+                    isShowDel = false;
+                    String ids = stringBuilder.toString();
+                    if (!TextUtils.isEmpty(ids)) {
+                        deleteMemo(ids.substring(0, ids.length() - 1));
+                    }
+                    toolbarRightTv.setText("删除");
+                } else {
+                    toolbarRightTv.setText("完成");
+                    isShowDel = true;
+                }
+                setDelete(isShowDel);
                 break;
             case R.id.memorandum_edit_float_image:
                 goActivity(CreateMemorandumActivity.class);
                 break;
         }
+    }
 
+    private void setDelete(boolean flag) {
+        for (Object item : items) {
+            if (item instanceof ClassMemorandumBean) {
+                ((ClassMemorandumBean) item).setShowDel(flag);
+            }
+        }
+        multiTypeAdapter.notifyDataSetChanged();
+    }
+
+    public void deleteMemo(String ids) {
+        iTeachClasses.deleteMemorandum(UserPreferUtil.getInstanse().getRoleId(),
+                UserPreferUtil.getInstanse().getUserId(),
+                UserPreferUtil.getInstanse().getSchoolId(), banjiId, ids)
+                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                .doFinally(() -> stringBuilder = new StringBuilder())
+                .subscribe(listBaseBean -> {
+                    if (listBaseBean.isSuccess() && listBaseBean.getData() != null) {
+                        if (!listBaseBean.getData().isEmpty()) {
+                            items.clear();
+                            items.addAll(listBaseBean.getData());
+                            multiTypeAdapter.notifyDataSetChanged();
+                        }
+                        toast(listBaseBean.getMsg());
+                    }
+                }, new HttpError());
+    }
+
+    @MySubscribe(code = 911, threadMode = ThreadMode.MAIN)
+    public void getDeleteId(String string) {
+        stringBuilder.append(string).append(",");
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+    public void register() {
+        RxBus.get().register(this);
     }
 
+    @Override
+    public void unRegister() {
+        RxBus.get().unRegister(this);
+    }
 }

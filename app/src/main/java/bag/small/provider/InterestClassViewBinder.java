@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.TextView;
 
 import bag.small.R;
 import bag.small.entity.TeacherClass;
@@ -21,6 +21,7 @@ public class InterestClassViewBinder extends ItemViewBinder<TeacherClass.ClassBe
 
     InterestClassByTeacherActivity activity;
 
+
     public InterestClassViewBinder(InterestClassByTeacherActivity activity) {
         this.activity = activity;
     }
@@ -29,26 +30,41 @@ public class InterestClassViewBinder extends ItemViewBinder<TeacherClass.ClassBe
     @Override
     protected ViewHolder onCreateViewHolder(
             @NonNull LayoutInflater inflater, @NonNull ViewGroup parent) {
-        View root = inflater.inflate(R.layout.item_interest_teacher_choice_btn, parent, false);
+        View root = inflater.inflate(R.layout.item_memorandum_layout, parent, false);
         return new ViewHolder(root);
     }
 
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull TeacherClass.ClassBean bean) {
-        holder.itemInterestBtn.setText(bean.getName());
-        holder.itemInterestBtn.setOnClickListener(v -> {
+        holder.itemMemorandumText.setText(bean.getName());
+        holder.mRoundTxt.setVisibility(View.GONE);
+        holder.item.setOnClickListener(v -> {
             if (activity != null)
                 activity.setShowStudents(bean.getId());
         });
+        if (getPosition(holder) % 4 == 0) {
+            holder.start.setBackgroundResource(R.mipmap.purple_start);
+        } else if (getPosition(holder) % 3 == 0) {
+            holder.start.setBackgroundResource(R.mipmap.blue_start);
+        } else if (getPosition(holder) % 2 == 0) {
+            holder.start.setBackgroundResource(R.mipmap.yellow_start);
+        } else {
+            holder.start.setBackgroundResource(R.mipmap.green_start);
+        }
     }
 
-
     class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.item_interest_btn)
-        Button itemInterestBtn;
+        @BindView(R.id.item_memorandum_text)
+        TextView itemMemorandumText;
+        @BindView(R.id.item_memorandum_round_txt)
+        TextView mRoundTxt;
+        View item;
+        @BindView(R.id.item_memo_start_v)
+        View start;
 
         ViewHolder(View view) {
             super(view);
+            item = view;
             ButterKnife.bind(this, view);
         }
     }

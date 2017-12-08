@@ -21,6 +21,15 @@ public class ClassMemorandumBean {
     private int unreads;
     private boolean isread;
     private String kemu;
+    private boolean showDel;
+
+    public boolean isShowDel() {
+        return showDel;
+    }
+
+    public void setShowDel(boolean showDel) {
+        this.showDel = showDel;
+    }
 
     public String getKemu() {
         return kemu;

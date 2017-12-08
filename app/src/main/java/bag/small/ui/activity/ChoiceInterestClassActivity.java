@@ -51,7 +51,7 @@ import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
 import me.drakeet.multitype.Items;
 import me.drakeet.multitype.MultiTypeAdapter;
 
-public class ChoiceInterestClassActivity extends BaseActivity implements IDialog ,OnBannerListener {
+public class ChoiceInterestClassActivity extends BaseActivity implements IDialog, OnBannerListener {
     @BindView(R.id.top_banner)
     Banner topBanner;
     @BindView(R.id.activity_interest_class_one_content_tv)
@@ -112,7 +112,6 @@ public class ChoiceInterestClassActivity extends BaseActivity implements IDialog
     private List<AdvertisingBean> advertisingBeen;
     private NoticeDialogSnap noticeDialogSnap;
 
-
     @Override
     public int getLayoutResId() {
         return R.layout.activity_choice_interest_class;
@@ -151,6 +150,7 @@ public class ChoiceInterestClassActivity extends BaseActivity implements IDialog
                         setUiRefresh(listBaseBean.getData());
                     }
                 }, new HttpError());
+        getTopBannerImage();
     }
 
     private void setUiRefresh(ChoiceClassLists data) {
@@ -192,6 +192,7 @@ public class ChoiceInterestClassActivity extends BaseActivity implements IDialog
         } else {
             activityStudentShowClassLl.setVisibility(View.VISIBLE);
             activityStudentChoiceLl.setVisibility(View.GONE);
+            toolbarRightTv.setVisibility(View.GONE);
             ChoiceClassLists.ResultBean result = data.getResult();
             if (result != null) {
                 StringUtil.setTextView(mClassTv, data.getResult().getName());
@@ -201,7 +202,6 @@ public class ChoiceInterestClassActivity extends BaseActivity implements IDialog
             }
         }
     }
-
 
     @OnClick({R.id.activity_interest_class_one_content_tv,
             R.id.activity_interest_class_one_del_ll,
@@ -320,7 +320,6 @@ public class ChoiceInterestClassActivity extends BaseActivity implements IDialog
     }
 
 
-
     private void getTopBannerImage() {
         iAdvertising.getAdvertisings(UserPreferUtil.getInstanse().getRoleId(),
                 UserPreferUtil.getInstanse().getUserId(), UserPreferUtil.getInstanse().getSchoolId())
@@ -342,7 +341,6 @@ public class ChoiceInterestClassActivity extends BaseActivity implements IDialog
                     LayoutUtil.setBanner(topBanner, bannerImages);
                 }, new HttpError());
     }
-
 
     @Override
     public void OnBannerClick(int position) {

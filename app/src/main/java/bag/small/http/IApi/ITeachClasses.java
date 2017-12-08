@@ -28,4 +28,12 @@ public interface ITeachClasses {
                                                                        @Field("school_id") String schoolId,
                                                                        @Field("banji_id") String banjiId,
                                                                        @Field("page") int page);
+
+    @FormUrlEncoded
+    @POST("beiwanglus/deleteids")
+    Observable<BaseBean<List<ClassMemorandumBean>>> deleteMemorandum(@Field("role_id") String roleId,
+                                                                     @Field("login_id") String loginId,
+                                                                     @Field("school_id") String schoolId,
+                                                                     @Field("banji_id") String banjiId,
+                                                                     @Field("ids") String ids);
 }

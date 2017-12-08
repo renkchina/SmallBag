@@ -72,42 +72,55 @@ public class FamiliesSchoolConnectionFragment extends BaseFragment implements On
     @Override
     public void initData() {
         mItemBeans = new ArrayList<>(9);
+
         ConnectionBinder biner1 = new ConnectionBinder();
         biner1.setId(1);
-        biner1.setResImage(R.mipmap.beiwanglu_b);
         biner1.setTitle("备忘录");
         biner2 = new ConnectionBinder();
         biner2.setId(2);
-        biner2.setResImage(R.mipmap.tongzhi_b);
         biner2.setTitle("教务通知");
         ConnectionBinder biner3 = new ConnectionBinder();
         biner3.setId(3);
-        biner3.setResImage(R.mipmap.bingjia_b);
         biner3.setTitle("事/病假");
         ConnectionBinder biner4 = new ConnectionBinder();
         biner4.setId(4);
-        biner4.setResImage(R.mipmap.kechengbiao_b);
         biner4.setTitle("课程表");
         ConnectionBinder biner5 = new ConnectionBinder();
         biner5.setId(5);
-        biner5.setResImage(R.mipmap.chengzhang_b);
         biner5.setTitle("成长手册");
         ConnectionBinder biner6 = new ConnectionBinder();
         biner6.setId(6);
-        biner6.setResImage(R.mipmap.zuoyeben_b);
         biner6.setTitle("作业本");
         ConnectionBinder biner7 = new ConnectionBinder();
         biner7.setId(7);
-        biner7.setResImage(R.mipmap.shetuan_b);
         biner7.setTitle("社团");
         biner8 = new ConnectionBinder();
         biner8.setId(8);
-        biner8.setResImage(R.mipmap.xingquke_b);
         biner8.setTitle("兴趣课");
         ConnectionBinder biner9 = new ConnectionBinder();
         biner9.setId(9);
-        biner9.setResImage(R.mipmap.liuyan_b);
         biner9.setTitle("在线留言");
+        if (UserPreferUtil.getInstanse().isTeacher()) {
+            biner1.setResImage(R.mipmap.memo_green);
+            biner2.setResImage(R.mipmap.notice_green);
+            biner3.setResImage(R.mipmap.holiday_green);
+            biner4.setResImage(R.mipmap.subject_green);
+            biner5.setResImage(R.mipmap.grow_up_green);
+            biner6.setResImage(R.mipmap.homework_green);
+            biner7.setResImage(R.mipmap.club_green);
+            biner8.setResImage(R.mipmap.interest_green);
+            biner9.setResImage(R.mipmap.online_green);
+        } else {
+            biner1.setResImage(R.mipmap.memo_yellow);
+            biner2.setResImage(R.mipmap.notice_yellow);
+            biner3.setResImage(R.mipmap.holiday_yellow);
+            biner4.setResImage(R.mipmap.subject_yellow);
+            biner5.setResImage(R.mipmap.grow_up_yellow);
+            biner6.setResImage(R.mipmap.homework_yellow);
+            biner7.setResImage(R.mipmap.club_yellow);
+            biner8.setResImage(R.mipmap.interest_yellow);
+            biner9.setResImage(R.mipmap.online_yellow);
+        }
         mItemBeans.add(biner1);
         mItemBeans.add(biner2);
         mItemBeans.add(biner3);
@@ -127,7 +140,7 @@ public class FamiliesSchoolConnectionFragment extends BaseFragment implements On
     public void initView() {
         mAdapter.register(ConnectionBinder.class, new ConnectionViewBinder());
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
-        recyclerView.addItemDecoration(new SpaceItemDecoration(7));
+        recyclerView.addItemDecoration(new SpaceItemDecoration(1));
         recyclerView.setAdapter(mAdapter);
         setTouch();
         iNotification = HttpUtil.getInstance().createApi(INotification.class);
@@ -210,7 +223,7 @@ public class FamiliesSchoolConnectionFragment extends BaseFragment implements On
             @Override
             public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
                 super.clearView(recyclerView, viewHolder);
-                viewHolder.itemView.setBackgroundResource(R.color.item_touch_bg);
+                viewHolder.itemView.setBackgroundResource(R.color.white);
                 recyclerView.getAdapter().notifyDataSetChanged();
             }
         });
@@ -265,21 +278,6 @@ public class FamiliesSchoolConnectionFragment extends BaseFragment implements On
                         noticeDialogSnap.show();
                         noticeDialogSnap.setShowContent(detail.getTitle(), detail.getContent());
                         noticeDialogSnap.setList(detail.getImages());
-//                        List list = new ArrayList();
-//                        if (!TextUtils.isEmpty(detail.getContent())) {
-//                            list.add(detail.getContent());
-//                        }
-//                        if (ListUtil.unEmpty(detail.getImages())) {
-//                            for (String s : detail.getImages()) {
-//                                ImageString imageString = new ImageString();
-//                                imageString.setUrl(s);
-//                                list.add(imageString);
-//                            }
-//                        }
-//                        if (ListUtil.unEmpty(list)) {
-//                            advertisingDialog.setListData(list);
-//                            advertisingDialog.show(recyclerView);
-//                        }
                     }
                 }, new HttpError());
     }
@@ -303,6 +301,32 @@ public class FamiliesSchoolConnectionFragment extends BaseFragment implements On
     public void onFragmentShow() {
         setNoticeCount();
         banner.startAutoPlay();
+        setItemImage();
+    }
+
+    private void setItemImage() {
+        if (UserPreferUtil.getInstanse().isTeacher()) {
+            ((ConnectionBinder) mItemBeans.get(0)).setResImage(R.mipmap.memo_green);
+            biner2.setResImage(R.mipmap.notice_green);
+            ((ConnectionBinder) mItemBeans.get(2)).setResImage(R.mipmap.holiday_green);
+            ((ConnectionBinder) mItemBeans.get(3)).setResImage(R.mipmap.subject_green);
+            ((ConnectionBinder) mItemBeans.get(4)).setResImage(R.mipmap.grow_up_green);
+            ((ConnectionBinder) mItemBeans.get(5)).setResImage(R.mipmap.homework_green);
+            ((ConnectionBinder) mItemBeans.get(6)).setResImage(R.mipmap.club_green);
+            biner8.setResImage(R.mipmap.interest_green);
+            ((ConnectionBinder) mItemBeans.get(8)).setResImage(R.mipmap.online_green);
+        } else {
+            ((ConnectionBinder) mItemBeans.get(0)).setResImage(R.mipmap.memo_yellow);
+            biner2.setResImage(R.mipmap.notice_yellow);
+            ((ConnectionBinder) mItemBeans.get(2)).setResImage(R.mipmap.holiday_yellow);
+            ((ConnectionBinder) mItemBeans.get(3)).setResImage(R.mipmap.subject_yellow);
+            ((ConnectionBinder) mItemBeans.get(4)).setResImage(R.mipmap.grow_up_yellow);
+            ((ConnectionBinder) mItemBeans.get(5)).setResImage(R.mipmap.homework_yellow);
+            ((ConnectionBinder) mItemBeans.get(6)).setResImage(R.mipmap.club_yellow);
+            biner8.setResImage(R.mipmap.interest_yellow);
+            ((ConnectionBinder) mItemBeans.get(8)).setResImage(R.mipmap.online_yellow);
+        }
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override

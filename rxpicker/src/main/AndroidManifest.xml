@@ -22,7 +22,6 @@
         android:launchMode="singleTop"
         android:theme="@style/RxPicker.AppTheme"/>
 
-
     <provider
         android:name="com.caimuhao.rxpicker.MyFileProvider"
         android:authorities="com.caimuhao.myprovider"

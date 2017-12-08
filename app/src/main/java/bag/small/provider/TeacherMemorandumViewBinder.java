@@ -56,6 +56,16 @@ public class TeacherMemorandumViewBinder extends ItemViewBinder<TeacherMemorandu
             }
             v.getContext().startActivity(intent);
         });
+
+        if (getPosition(holder) % 4 == 0) {
+            holder.start.setBackgroundResource(R.mipmap.purple_start);
+        } else if (getPosition(holder) % 3 == 0) {
+            holder.start.setBackgroundResource(R.mipmap.blue_start);
+        } else if (getPosition(holder) % 2 == 0) {
+            holder.start.setBackgroundResource(R.mipmap.yellow_start);
+        } else {
+            holder.start.setBackgroundResource(R.mipmap.green_start);
+        }
     }
 
 
@@ -64,6 +74,8 @@ public class TeacherMemorandumViewBinder extends ItemViewBinder<TeacherMemorandu
         TextView itemText;
         @BindView(R.id.item_memorandum_round_txt)
         TextView itemRoundTxt;
+        @BindView(R.id.item_memo_start_v)
+        View start;
         View view;
 
         ViewHolder(View view) {
