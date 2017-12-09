@@ -16,280 +16,266 @@
         <include layout="@layout/toolbar" />
 
         <FrameLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp">
+            android:background="@color/white">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/ac_account_teacher_head_iv"
-                style="@style/head_image_style" />
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp">
 
-            <View
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="bottom|end"
-                android:background="@mipmap/check_image" />
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/ac_account_teacher_head_iv"
+                    style="@style/head_image_style" />
+
+                <View
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="bottom|end"
+                    android:background="@mipmap/check_image" />
+            </FrameLayout>
         </FrameLayout>
 
-        <android.support.v7.widget.CardView
-            style="@style/cardview_style"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="5dp"
-            app:contentPadding="0dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    style="@style/style_ll_info"
-                    android:paddingStart="15dp">
-
-                    <TextView
-                        style="@style/style_tv_wrap"
-                        android:text="姓名：" />
-
-                    <TextView
-                        android:id="@+id/activity_account_teacher_name_tv"
-                        style="@style/style_tv"
-                        android:gravity="center" />
-
-                    <View
-                        android:layout_width="0.5dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginStart="5dp"
-                        android:background="@color/un_enable_gray" />
-
-                    <TextView
-                        android:id="@+id/textView4"
-                        style="@style/style_tv_wrap"
-                        android:layout_width="65dp"
-                        android:text="性别：" />
-
-                    <TextView
-                        android:id="@+id/activity_account_teacher_gender_tv"
-                        style="@style/style_tv"
-                        android:gravity="start|center_vertical" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="@color/un_enable_gray" />
-
-                <LinearLayout
-                    style="@style/style_ll_info"
-                    android:paddingStart="15dp">
-
-                    <TextView
-                        style="@style/style_tv_wrap"
-                        android:text="出生日期：" />
-
-                    <TextView
-                        android:id="@+id/activity_account_teacher_birthday_tv"
-                        style="@style/style_tv"
-                        android:gravity="start|center_vertical" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="@color/un_enable_gray" />
-
-                <LinearLayout
-                    style="@style/style_ll_info"
-                    android:paddingStart="15dp">
-
-                    <TextView
-                        style="@style/style_tv_wrap"
-                        android:text="学校：" />
-
-                    <TextView
-                        android:id="@+id/activity_account_teacher_school_tv"
-                        style="@style/style_tv"
-                        android:textSize="14sp" />
-
-                    <View
-                        android:layout_width="0.5dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginStart="5dp"
-                        android:background="@color/un_enable_gray" />
-
-                    <TextView
-                        style="@style/style_tv_wrap"
-                        android:layout_width="65dp"
-                        android:text="班主任：" />
-
-                    <TextView
-                        android:id="@+id/activity_account_teacher_class_teacher_tv"
-                        style="@style/style_tv"
-                        android:gravity="start|center_vertical"
-                        android:maxLines="1"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="@color/un_enable_gray" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/background_gray"
-                    android:orientation="horizontal"
-                    android:padding="3dp"
-                    android:paddingStart="15dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="任课："
-                        android:textSize="16sp" />
-
-                    <LinearLayout
-                        android:id="@+id/activity_account_teacher_class_ll"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:minHeight="40dp"
-                        android:orientation="vertical" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            style="@style/cardview_style"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="5dp"
-            app:contentPadding="0dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    style="@style/style_ll_info"
-                    android:background="@color/green_bg"
-                    android:paddingStart="15dp">
-
-                    <TextView
-                        style="@style/style_tv_wrap"
-                        android:text="师训号：" />
-
-                    <EditText
-                        android:id="@+id/activity_account_teacher_number_tv"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@color/green_bg"
-                        android:imeOptions="actionNext"
-                        android:inputType="number"
-                        android:lines="1"
-                        android:textColor="@color/txt_gray"
-                        android:textSize="16sp" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="5dp"
-                        android:minHeight="20dp"
-                        android:minWidth="20dp"
-                        android:src="@mipmap/change_msg" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="@color/un_enable_gray" />
-
-                <LinearLayout
-                    style="@style/style_ll_info"
-                    android:background="@color/green_bg"
-                    android:paddingStart="15dp">
-
-                    <TextView
-                        style="@style/style_tv_wrap"
-                        android:text="邮箱：" />
-
-                    <EditText
-                        android:id="@+id/activity_account_teacher_email_tv"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@color/green_bg"
-                        android:imeOptions="actionNext"
-                        android:inputType="text"
-                        android:lines="1"
-                        android:textColor="@color/txt_gray"
-                        android:textSize="16sp"
-                        tools:ignore="TextFields" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="5dp"
-                        android:minHeight="20dp"
-                        android:minWidth="20dp"
-                        android:src="@mipmap/change_msg"
-                        tools:ignore="ContentDescription" />
-                </LinearLayout>
-            </LinearLayout>
-
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/password_card_view"
-            style="@style/cardview_style"
-            android:visibility="gone"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="5dp"
-            app:contentPadding="0dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
 
             <LinearLayout
                 style="@style/style_ll_info"
-                android:background="@color/green_bg"
                 android:paddingStart="15dp">
 
                 <TextView
                     style="@style/style_tv_wrap"
-                    android:text="新密码：" />
+                    android:text="姓名：" />
+
+                <TextView
+                    android:id="@+id/activity_account_teacher_name_tv"
+                    style="@style/style_tv"
+                    android:gravity="center" />
+
+                <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="5dp"
+                    android:background="@color/un_enable_gray" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    style="@style/style_tv_wrap"
+                    android:layout_width="65dp"
+                    android:text="性别：" />
+
+                <TextView
+                    android:id="@+id/activity_account_teacher_gender_tv"
+                    style="@style/style_tv"
+                    android:gravity="start|center_vertical" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/un_enable_gray" />
+
+            <LinearLayout
+                style="@style/style_ll_info"
+                android:paddingStart="15dp">
+
+                <TextView
+                    style="@style/style_tv_wrap"
+                    android:text="出生日期：" />
+
+                <TextView
+                    android:id="@+id/activity_account_teacher_birthday_tv"
+                    style="@style/style_tv"
+                    android:gravity="start|center_vertical" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/un_enable_gray" />
+
+            <LinearLayout
+                style="@style/style_ll_info"
+                android:paddingStart="15dp">
+
+                <TextView
+                    style="@style/style_tv_wrap"
+                    android:text="学校：" />
+
+                <TextView
+                    android:id="@+id/activity_account_teacher_school_tv"
+                    style="@style/style_tv"
+                    android:textSize="14sp" />
+
+                <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="5dp"
+                    android:background="@color/un_enable_gray" />
+
+                <TextView
+                    style="@style/style_tv_wrap"
+                    android:layout_width="65dp"
+                    android:text="班主任：" />
+
+                <TextView
+                    android:id="@+id/activity_account_teacher_class_teacher_tv"
+                    style="@style/style_tv"
+                    android:gravity="start|center_vertical"
+                    android:maxLines="1"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/un_enable_gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:padding="3dp"
+                android:paddingStart="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="任课："
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:id="@+id/activity_account_teacher_class_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="40dp"
+                    android:orientation="vertical" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                style="@style/style_ll_info"
+                android:paddingStart="15dp">
+
+                <TextView
+                    style="@style/style_tv_wrap"
+                    android:text="师训号：" />
 
                 <EditText
-                    android:id="@+id/activity_account_teacher_change_pwd_edt"
+                    android:id="@+id/activity_account_teacher_number_tv"
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center_vertical"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@color/green_bg"
-                    android:hint="请输入密码"
+                    android:background="@color/white"
+                    android:hint="请输入号码"
                     android:imeOptions="actionNext"
-                    android:inputType="text"
+                    android:inputType="number"
                     android:lines="1"
-                    android:textColor="@color/txt_gray"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="16sp" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="5dp"
+                    android:layout_marginEnd="10dp"
                     android:minHeight="20dp"
                     android:minWidth="20dp"
                     android:src="@mipmap/change_msg" />
+
             </LinearLayout>
-        </android.support.v7.widget.CardView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/un_enable_gray" />
+
+            <LinearLayout
+                style="@style/style_ll_info"
+                android:paddingStart="15dp">
+
+                <TextView
+                    style="@style/style_tv_wrap"
+                    android:text="邮箱：" />
+
+                <EditText
+                    android:id="@+id/activity_account_teacher_email_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:hint="请输入邮箱"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:lines="1"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="16sp"
+                    tools:ignore="TextFields" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="10dp"
+                    android:minHeight="20dp"
+                    android:minWidth="20dp"
+                    android:src="@mipmap/change_msg"
+                    tools:ignore="ContentDescription" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/password_ll"
+            style="@style/style_ll_info"
+            android:paddingStart="15dp">
+
+            <TextView
+                style="@style/style_tv_wrap"
+                android:text="新密码：" />
+
+            <EditText
+                android:id="@+id/activity_account_teacher_change_pwd_edt"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:hint="请输入密码"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:lines="1"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="10dp"
+                android:minHeight="20dp"
+                android:minWidth="20dp"
+                android:src="@mipmap/change_msg" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/activity_account_teacher_commit_btn"

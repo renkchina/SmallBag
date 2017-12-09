@@ -87,7 +87,7 @@ public class ClassMemorandumActivity extends BaseActivity implements OnBannerLis
     @Override
     public void initData() {
         setToolTitle("备忘录", true);
-        toolbarRightTv.setText("删除");
+        toolbarRightTv.setText("编辑");
         mFloatImage.setVisibility(View.VISIBLE);
         items = new Items();
         advertisingBeen = new ArrayList<>(5);
@@ -214,7 +214,7 @@ public class ClassMemorandumActivity extends BaseActivity implements OnBannerLis
                     if (!TextUtils.isEmpty(ids)) {
                         deleteMemo(ids.substring(0, ids.length() - 1));
                     }
-                    toolbarRightTv.setText("删除");
+                    toolbarRightTv.setText("编辑");
                 } else {
                     toolbarRightTv.setText("完成");
                     isShowDel = true;

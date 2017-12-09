@@ -45,9 +45,9 @@ public class EducationNoticeViewBinder extends ItemViewBinder<EducationNoticeBea
             getAdapter().notifyDataSetChanged();
         });
         if (bean.isIs_readed()) {
-            holder.mDeleteTv.setVisibility(View.GONE);
+            holder.mCountTv.setVisibility(View.GONE);
         } else {
-            holder.mDeleteTv.setVisibility(View.VISIBLE);
+            holder.mCountTv.setVisibility(View.VISIBLE);
         }
         holder.mContentTv.setText(bean.getTitle());
         holder.mTimeTv.setText(bean.getCreate_at());
@@ -64,8 +64,8 @@ public class EducationNoticeViewBinder extends ItemViewBinder<EducationNoticeBea
         TextView mTimeTv;
         @BindView(R.id.item_class_memorandum_subject_tv)
         TextView mSubject;
-        @BindView(R.id.item_class_memorandum_delete_tv)
-        TextView mDeleteTv;
+        @BindView(R.id.item_class_memorandum_count_tv)
+        TextView mCountTv;
         View root;
 
         ViewHolder(View view) {

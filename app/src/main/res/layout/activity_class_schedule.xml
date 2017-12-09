@@ -20,6 +20,10 @@
             android:layout_width="match_parent"
             android:layout_height="220dp"
             app:image_scale_type="center_crop"
+            app:indicator_drawable_selected="@drawable/shape_indicator_selected_blue"
+            app:indicator_drawable_unselected="@drawable/shape_indicator_selected_white"
+            app:indicator_height="8dp"
+            app:indicator_width="8dp"
             tools:ignore="NotSibling" />
 
         <android.support.v7.widget.RecyclerView

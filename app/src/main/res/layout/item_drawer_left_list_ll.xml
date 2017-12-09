@@ -8,6 +8,7 @@
     android:orientation="vertical">
 
     <View
+        android:id="@+id/item_view_up_line"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="@color/background_gray" />
@@ -30,13 +31,14 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="15dp"
             android:layout_weight="1"
             android:gravity="start|center_vertical"
-            android:textSize="12sp" />
+            android:textSize="11sp" />
     </LinearLayout>
 
     <View
+        android:id="@+id/item_view_down_line"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="@color/background_gray" />

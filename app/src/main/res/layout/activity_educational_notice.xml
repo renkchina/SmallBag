@@ -9,15 +9,16 @@
 
     <include layout="@layout/toolbar" />
 
-    <ImageView
+    <com.youth.banner.Banner
+        android:id="@+id/top_banner"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:background="@mipmap/banner_icon1"
-        android:scaleType="centerCrop" />
-    <!--<com.youth.banner.Banner-->
-    <!--android:id="@+id/activity_education_banner"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="220dp" />-->
+        android:layout_height="200dp"
+        app:indicator_drawable_selected="@drawable/shape_indicator_selected_blue"
+        app:indicator_drawable_unselected="@drawable/shape_indicator_selected_white"
+        app:indicator_height="8dp"
+        app:indicator_width="8dp"
+        app:image_scale_type="center_crop"
+        tools:ignore="UnknownIdInLayout" />
 
     <android.support.design.widget.TabLayout
         android:id="@+id/activity_education_tab_layout"
@@ -25,10 +26,10 @@
         android:layout_height="55dp"
         android:background="@color/background_gray"
         app:tabGravity="center"
-        app:tabIndicatorColor="@color/colorPrimary"
+        app:tabIndicatorColor="@color/colorPrimaryDark"
         app:tabIndicatorHeight="2dp"
         app:tabMode="scrollable"
-        app:tabSelectedTextColor="@color/button_green"
+        app:tabSelectedTextColor="@color/colorPrimaryDark"
         app:tabTextAppearance="@style/tablayout_divider_txt_size"
         app:tabTextColor="@color/txt_gray" />
 

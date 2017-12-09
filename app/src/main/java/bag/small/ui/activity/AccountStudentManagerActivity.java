@@ -6,16 +6,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.bigkoo.pickerview.TimePickerView;
 import com.caimuhao.rxpicker.RxPicker;
 import com.caimuhao.rxpicker.bean.ImageItem;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+
 import bag.small.R;
 import bag.small.app.MyApplication;
 import bag.small.base.BaseActivity;
@@ -61,8 +65,8 @@ public class AccountStudentManagerActivity extends BaseActivity {
     EditText aAgreePwdEdt;
     @BindView(R.id.activity_account_student_commit_btn)
     Button accountStudentCommitBtn;
-    @BindView(R.id.password_card_view)
-    CardView cardView;
+    @BindView(R.id.password_ll)
+    LinearLayout passwordLl;
     private File logo;
     private ListDialog listDialog;
     private IRegisterReq iRegisterReq;
@@ -78,7 +82,7 @@ public class AccountStudentManagerActivity extends BaseActivity {
         setToolTitle("账号管理", true);
         iRegisterReq = HttpUtil.getInstance().createApi(IRegisterReq.class);
         getRegisterInfomation();
-        cardView.setVisibility(View.VISIBLE);
+        passwordLl.setVisibility(View.VISIBLE);
     }
 
 

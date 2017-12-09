@@ -43,9 +43,9 @@ public class RegisterActivity extends BaseActivity {
     @BindView(R.id.activity_register_reset_password_edt)
     EditText rResetPasswordEdt;
     @BindView(R.id.ac_register_parent_ll)
-    LinearLayout rParentLl;
+    Button rParentLl;
     @BindView(R.id.ac_register_teacher_ll)
-    LinearLayout rTeacherLl;
+    Button rTeacherLl;
     @BindView(R.id.activity_register_login_tv)
     TextView LoginTv;
 

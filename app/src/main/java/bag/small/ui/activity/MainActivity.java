@@ -108,6 +108,7 @@ public class MainActivity extends BaseActivity
         lastItem.setChecked(true);
         mBottomNav.setSelectedItemId(R.id.item_family);
         leftBeen = new ArrayList<>();
+        leftBeen.add(new MainLeftBean());
         leftBeen.add(new MainLeftBean(1, R.mipmap.manager_account, R.string.main_account_manager));
         leftBeen.add(new MainLeftBean(2, R.mipmap.setting_icon, R.string.main_soft_setting));
         leftBeen.add(new MainLeftBean(3, R.mipmap.help, R.string.main_help_str));
@@ -117,7 +118,7 @@ public class MainActivity extends BaseActivity
         itemDatas = new Items();
         if (ListUtil.unEmpty(MyApplication.loginResults)) {
             itemDatas.addAll(MyApplication.loginResults);
-            itemDatas.add("");
+//            itemDatas.add("");
             itemDatas.addAll(leftBeen);
         }
         iLoginRequest = HttpUtil.getInstance().createApi(ILoginRequest.class);
@@ -193,14 +194,15 @@ public class MainActivity extends BaseActivity
 
             @Override
             public void onDrawerOpened(View drawerView) {
-                toolbar.setNavigationIcon(R.mipmap.turn_left);
+                if (lastItem.getItemId() == R.id.item_family)
+                    toolbar.setNavigationIcon(R.mipmap.turn_left);
             }
 
             @Override
             public void onDrawerClosed(View drawerView) {
                 isDrawer = false;
-                toolbar.setNavigationIcon(R.mipmap.menu);
-                //changeRole();
+                if (lastItem.getItemId() == R.id.item_family)
+                    toolbar.setNavigationIcon(R.mipmap.menu);
             }
 
             @Override
@@ -257,6 +259,15 @@ public class MainActivity extends BaseActivity
                 mDrawerToggle.setHomeAsUpIndicator(R.mipmap.menu);
                 mDrawerToggle.syncState();
                 mDrawer.addDrawerListener(mDrawerToggle);
+                toolbar.setNavigationOnClickListener(v -> {
+                    if (mDrawer.isDrawerOpen(GravityCompat.START)) {
+                        mDrawer.closeDrawer(GravityCompat.START);
+                        toolbar.setNavigationIcon(R.mipmap.turn_left);
+                    } else {
+                        mDrawer.openDrawer(GravityCompat.START);
+                        toolbar.setNavigationIcon(R.mipmap.menu);
+                    }
+                });
                 break;
             case 1:
                 toolTitle.setText("百宝箱");

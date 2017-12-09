@@ -30,8 +30,8 @@
             android:orientation="horizontal">
 
             <View
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="22dp"
+                android:layout_height="30dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="20dp"
                 android:background="@mipmap/phone" />
@@ -64,8 +64,8 @@
             android:orientation="horizontal">
 
             <View
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="22dp"
+                android:layout_height="30dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="20dp"
                 android:background="@mipmap/password" />

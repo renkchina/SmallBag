@@ -18,6 +18,10 @@
             android:layout_width="match_parent"
             android:layout_height="220dp"
             app:image_scale_type="center_crop"
+            app:indicator_drawable_selected="@drawable/shape_indicator_selected_blue"
+            app:indicator_drawable_unselected="@drawable/shape_indicator_selected_white"
+            app:indicator_height="8dp"
+            app:indicator_width="8dp"
             tools:ignore="NotSibling" />
 
         <LinearLayout
@@ -163,6 +167,7 @@
             android:layout_marginTop="15dp"
             android:gravity="center"
             android:text="我的兴趣课"
+            android:textColor="@color/font_black2"
             android:textSize="17sp" />
 
         <android.support.v7.widget.RecyclerView
@@ -170,7 +175,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:paddingEnd="20dp"
-            android:paddingStart="20dp" />
+            android:paddingEnd="25dp"
+            android:paddingStart="25dp" />
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

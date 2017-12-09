@@ -54,10 +54,10 @@ public class StudentMemorandumActivity extends BaseActivity implements IDialog, 
     TextView subjectTitle;
 
     MultiTypeAdapter multiTypeAdapter;
-    List items;
-    List bannerImages;
     BottomDialog bottomDialog;
     IMemorandum iMemorandum;
+    List items;
+    List bannerImages;
     private IAdvertising iAdvertising;
     private AdvertisingDialog advertisingDialog;
     private List<AdvertisingBean> advertisingBeen;

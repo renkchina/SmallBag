@@ -9,12 +9,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.caimuhao.rxpicker.RxPicker;
 import com.caimuhao.rxpicker.bean.ImageItem;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 import bag.small.R;
 import bag.small.app.MyApplication;
 import bag.small.base.BaseActivity;
@@ -61,8 +64,8 @@ public class AccountTeacherManagerActivity extends BaseActivity {
     Button accountTeacherCommitBtn;
     @BindView(R.id.activity_account_teacher_school_tv)
     TextView schoolTv;
-    @BindView(R.id.password_card_view)
-    CardView cardView;
+    @BindView(R.id.password_ll)
+    LinearLayout cardView;
     private IRegisterReq iRegisterReq;
     private File logo;
     private String Id;

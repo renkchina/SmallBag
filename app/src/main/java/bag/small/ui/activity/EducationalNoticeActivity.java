@@ -1,48 +1,62 @@
 package bag.small.ui.activity;
 
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.widget.LinearLayout;
 
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
+import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import bag.small.R;
 import bag.small.base.BaseActivity;
+import bag.small.dialog.AdvertisingDialog;
+import bag.small.dialog.NoticeDialogSnap;
+import bag.small.entity.AdvertisingBean;
+import bag.small.entity.AdvertisingDetailBean;
 import bag.small.entity.EducationNoticeBean;
 import bag.small.http.HttpUtil;
 import bag.small.http.IApi.HttpError;
+import bag.small.http.IApi.IAdvertising;
 import bag.small.http.IApi.INotification;
 import bag.small.provider.EducationNoticeViewBinder;
 import bag.small.rx.RxUtil;
 import bag.small.utils.GlideImageLoader;
+import bag.small.utils.LayoutUtil;
 import bag.small.utils.ListUtil;
+import bag.small.utils.LogUtil;
 import bag.small.utils.UserPreferUtil;
 import bag.small.view.RecycleViewDivider;
 import butterknife.BindView;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
 import me.drakeet.multitype.MultiTypeAdapter;
 
-public class EducationalNoticeActivity extends BaseActivity implements TabLayout.OnTabSelectedListener {
-    //    @BindView(R.id.activity_education_banner)
-//    Banner eBanner;
+public class EducationalNoticeActivity extends BaseActivity implements TabLayout.OnTabSelectedListener, OnBannerListener {
+    @BindView(R.id.top_banner)
+    Banner topBanner;
     @BindView(R.id.activity_education_tab_layout)
     TabLayout eTabLayout;
     @BindView(R.id.activity_education_recycler)
     RecyclerView eRecycler;
 
-    private List<Object> bannerImages;
     private int currentPosition = -1;
     MultiTypeAdapter multiTypeAdapter;
     List<Object> items;
     INotification iNotification;
     List<EducationNoticeBean> noticeList;
+    List bannerImages;
+    private IAdvertising iAdvertising;
+    private AdvertisingDialog advertisingDialog;
+    private List<AdvertisingBean> advertisingBeen;
+    private NoticeDialogSnap noticeDialogSnap;
 
     @Override
     public int getLayoutResId() {
@@ -52,13 +66,16 @@ public class EducationalNoticeActivity extends BaseActivity implements TabLayout
     @Override
     public void initData() {
         bannerImages = new ArrayList<>();
-        bannerImages.add(R.mipmap.banner_icon1);
-        bannerImages.add(R.mipmap.banner_icon2);
         items = new ArrayList<>();
         noticeList = new ArrayList<>();
         multiTypeAdapter = new MultiTypeAdapter(items);
         multiTypeAdapter.register(EducationNoticeBean.ResultsBean.class, new EducationNoticeViewBinder());
         iNotification = HttpUtil.getInstance().createApi(INotification.class);
+        advertisingBeen = new ArrayList<>(5);
+        iAdvertising = HttpUtil.getInstance().createApi(IAdvertising.class);
+        topBanner.setOnBannerListener(this);
+        advertisingDialog = new AdvertisingDialog(this);
+        noticeDialogSnap = new NoticeDialogSnap(this);
     }
 
     @Override
@@ -106,14 +123,10 @@ public class EducationalNoticeActivity extends BaseActivity implements TabLayout
                     eTabLayout.addTab(eTabLayout.newTab().setText(data.get(i).getLabel()));
                 }
             }
-            if (eTabLayout.getTabAt(position) != null){
+            if (eTabLayout.getTabAt(position) != null) {
                 eTabLayout.getTabAt(position).select();
             }
 
-//            LinearLayout linearLayout = (LinearLayout) eTabLayout.getChildAt(0);
-//            linearLayout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
-//            linearLayout.setDividerDrawable(ContextCompat.getDrawable(this,R.drawable.divider_item_tablayout));
-//            linearLayout.setDividerPadding(20);
         }
     }
 
@@ -122,6 +135,7 @@ public class EducationalNoticeActivity extends BaseActivity implements TabLayout
         super.onResume();
         //开始轮播
         requestHttp();
+        getTopBannerImage();
     }
 
     @Override
@@ -153,5 +167,60 @@ public class EducationalNoticeActivity extends BaseActivity implements TabLayout
     @Override
     public void onTabReselected(TabLayout.Tab tab) {
 
+    }
+
+
+    private void getTopBannerImage() {
+        iAdvertising.getAdvertisings(UserPreferUtil.getInstanse().getRoleId(),
+                UserPreferUtil.getInstanse().getUserId(), UserPreferUtil.getInstanse().getSchoolId())
+                .compose(RxLifecycleCompact.bind(this).withObservable())
+                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                .subscribe(bean -> {
+                    List<AdvertisingBean> list = bean.getData();
+                    if (bean.isSuccess() && ListUtil.unEmpty(list)) {
+                        advertisingBeen.clear();
+                        bannerImages.clear();
+                        advertisingBeen.addAll(list);
+                        for (AdvertisingBean advertising : list) {
+                            bannerImages.add(advertising.getImg());
+                        }
+                    } else {
+                        bannerImages.add(R.mipmap.banner_icon1);
+                        bannerImages.add(R.mipmap.banner_icon2);
+                    }
+                    LayoutUtil.setBanner(topBanner, bannerImages);
+                }, new HttpError());
+    }
+
+
+    @Override
+    public void OnBannerClick(int position) {
+        LogUtil.show("position: " + position);
+        AdvertisingBean bean = advertisingBeen.get(position);
+        if (TextUtils.isEmpty(bean.getUrl())) {
+            //弹框
+            getBannerDetail(bean.getAds_id(), bean.getCame_from());
+        } else {
+            //网页
+            Bundle bundle = new Bundle();
+            bundle.putString("url", bean.getUrl());
+            goActivity(WebViewActivity.class, bundle);
+        }
+    }
+
+    private void getBannerDetail(int absId, String comeFrom) {
+        iAdvertising.getAdvertisingsDetail(UserPreferUtil.getInstanse().getRoleId(),
+                UserPreferUtil.getInstanse().getUserId(), UserPreferUtil.getInstanse().getSchoolId(),
+                absId, comeFrom)
+                .compose(RxLifecycleCompact.bind(this).withObservable())
+                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                .subscribe(bean -> {
+                    if (bean.isSuccess()) {
+                        AdvertisingDetailBean detail = bean.getData();
+                        noticeDialogSnap.show();
+                        noticeDialogSnap.setShowContent(detail.getTitle(), detail.getContent());
+                        noticeDialogSnap.setList(detail.getImages());
+                    }
+                }, new HttpError());
     }
 }
