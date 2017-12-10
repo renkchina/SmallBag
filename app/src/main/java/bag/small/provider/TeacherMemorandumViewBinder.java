@@ -46,13 +46,13 @@ public class TeacherMemorandumViewBinder extends ItemViewBinder<TeacherMemorandu
         holder.view.setOnClickListener(v -> {
             Intent intent = new Intent();
             if (isClass) {
-                intent.setClass(v.getContext(), ClassScheduleActivity.class);
                 intent.putExtra("class", className);
                 intent.putExtra("banji_id", bean.getBanji_id());
+                intent.setClass(v.getContext(), ClassScheduleActivity.class);
             } else {
                 intent.putExtra("class", className);
-                intent.setClass(v.getContext(), ClassMemorandumActivity.class);
                 intent.putExtra("banji_id", bean.getBanji_id());
+                intent.setClass(v.getContext(), ClassMemorandumActivity.class);
             }
             v.getContext().startActivity(intent);
         });

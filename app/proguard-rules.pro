@@ -244,6 +244,10 @@
    public static final int *;
 }
 
+#环信
+-keep class com.hyphenate.** {*;}
+-dontwarn  com.hyphenate.**
+
 
 -keep class com.bigkoo.**{*;}
 -keep class com.github.chrisbanes.**{*;}

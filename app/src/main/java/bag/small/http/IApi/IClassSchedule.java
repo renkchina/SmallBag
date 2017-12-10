@@ -15,11 +15,13 @@ public interface IClassSchedule {
     @FormUrlEncoded
     @POST("beiwanglus/kechens")
     Observable<BaseBean<ClassScheduleBean>> getClassSchedule(@Field("role_id") String roleId,
-                                                              @Field("login_id") String loginId,
-                                                              @Field("school_id") String schoolId);
+                                                             @Field("login_id") String loginId,
+                                                             @Field("school_id") String schoolId);
+
     @FormUrlEncoded
     @POST("beiwanglus/teacherkechens")
     Observable<BaseBean<ClassScheduleBean>> getClassScheduleTeacher(@Field("role_id") String roleId,
-                                                              @Field("login_id") String loginId,
-                                                              @Field("school_id") String schoolId);
+                                                                    @Field("login_id") String loginId,
+                                                                    @Field("school_id") String schoolId,
+                                                                    @Field("banji_id") String banjiId);
 }

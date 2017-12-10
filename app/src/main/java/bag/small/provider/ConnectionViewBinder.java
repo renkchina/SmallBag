@@ -21,7 +21,6 @@ import bag.small.ui.activity.InterestClassByTeacherActivity;
 import bag.small.ui.activity.MassOrgActivity;
 import bag.small.ui.activity.StudentMemorandumActivity;
 import bag.small.ui.activity.TeacherMemorandumActivity;
-import bag.small.utils.LayoutUtil;
 import bag.small.utils.StringUtil;
 import bag.small.utils.UserPreferUtil;
 import butterknife.BindView;
@@ -65,7 +64,7 @@ public class ConnectionViewBinder extends ItemViewBinder<ConnectionBinder, Conne
                     break;
                 case 4:
                     if (UserPreferUtil.getInstanse().isTeacher()) {
-                        goActivity(TeacherMemorandumActivity.class, context, true);
+                        goActivity(TeacherMemorandumActivity.class, context, bean.getId() + "");
                     } else
                         goActivity(ClassScheduleActivity.class, context);
                     break;
@@ -112,9 +111,10 @@ public class ConnectionViewBinder extends ItemViewBinder<ConnectionBinder, Conne
     }
 
     private void goActivity(Class<? extends Activity> cls,
-                            Context context, boolean isClass) {
+                            Context context, String banjiId) {
         Intent intent = new Intent(context, cls);
-        intent.putExtra("isClass", isClass);
+        intent.putExtra("isClass", true);
+        intent.putExtra("banjiId", banjiId);
         context.startActivity(intent);
     }
 

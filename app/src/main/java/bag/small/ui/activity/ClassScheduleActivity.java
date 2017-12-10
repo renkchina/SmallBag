@@ -107,7 +107,7 @@ public class ClassScheduleActivity extends BaseActivity implements OnBannerListe
         Observable<BaseBean<ClassScheduleBean>> obser;
         if (UserPreferUtil.getInstanse().isTeacher()) {
             obser = iClassSchedule.getClassScheduleTeacher(UserPreferUtil.getInstanse().getRoleId(),
-                    UserPreferUtil.getInstanse().getUserId(), UserPreferUtil.getInstanse().getSchoolId())
+                    UserPreferUtil.getInstanse().getUserId(), UserPreferUtil.getInstanse().getSchoolId(),classId)
                     .compose(RxLifecycleCompact.bind(this).withObservable())
                     .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER));
         } else {

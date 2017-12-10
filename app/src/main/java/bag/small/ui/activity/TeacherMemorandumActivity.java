@@ -1,6 +1,7 @@
 package bag.small.ui.activity;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -56,6 +57,8 @@ public class TeacherMemorandumActivity extends BaseActivity implements OnBannerL
     private boolean isClass;
     private NoticeDialogSnap noticeDialogSnap;
 
+//    private String banjiId = "";
+
     @Override
     public int getLayoutResId() {
         return R.layout.activity_teacher_memorandum;
@@ -63,12 +66,16 @@ public class TeacherMemorandumActivity extends BaseActivity implements OnBannerL
 
     @Override
     public void initData() {
-
-        isClass = getIntent().getBooleanExtra("isClass", false);
+        Intent intent = getIntent();
+        if (intent != null) {
+            isClass = intent.getBooleanExtra("isClass", false);
+        }
         if (isClass) {
             setToolTitle("课程表", true);
+            mFloatImage.setVisibility(View.GONE);
         } else {
             setToolTitle("备忘录", true);
+            mFloatImage.setVisibility(View.VISIBLE);
         }
         items = new Items();
         advertisingBeen = new ArrayList<>(5);

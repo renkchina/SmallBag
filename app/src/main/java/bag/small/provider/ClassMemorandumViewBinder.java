@@ -72,12 +72,6 @@ public class ClassMemorandumViewBinder extends ItemViewBinder<ClassMemorandumBea
                 setReaded(bean);
             }
         });
-        if (isTeacher && bean.getUnreads() > 0) {
-            holder.mCountTv.setVisibility(View.VISIBLE);
-            holder.mCountTv.setText(bean.getUnreads() + "\n" + "未读");
-        } else {
-            holder.mCountTv.setVisibility(View.GONE);
-        }
 
         if (!TextUtils.isEmpty(bean.getKemu())) {
             holder.mSubject.setText(bean.getKemu());
@@ -92,6 +86,12 @@ public class ClassMemorandumViewBinder extends ItemViewBinder<ClassMemorandumBea
                 getAdapter().notifyDataSetChanged();
             });
         } else {
+            if (isTeacher && bean.getUnreads() > 0) {
+                holder.mCountTv.setVisibility(View.VISIBLE);
+                holder.mCountTv.setText(bean.getUnreads() + "\n" + "未读");
+            } else {
+                holder.mCountTv.setVisibility(View.GONE);
+            }
             holder.mRoundedDeleteTv.setVisibility(View.GONE);
         }
 

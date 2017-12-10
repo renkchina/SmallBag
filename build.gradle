@@ -28,6 +28,7 @@ allprojects {
             url "http://repo.baichuan-android.taobao.com/content/groups/BaichuanRepositories/"
         }
         maven { url 'https://maven.fabric.io/public' }
+        maven { url "https://raw.githubusercontent.com/HyphenateInc/Hyphenate-SDK-Android/master/repository" }
         google()
     }
 }

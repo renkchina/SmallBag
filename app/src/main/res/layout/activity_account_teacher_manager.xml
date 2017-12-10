@@ -170,6 +170,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -178,7 +179,7 @@
 
                 <TextView
                     style="@style/style_tv_wrap"
-                    android:text="师训号：" />
+                    android:text="工号：" />
 
                 <EditText
                     android:id="@+id/activity_account_teacher_number_tv"
@@ -247,6 +248,7 @@
         <LinearLayout
             android:id="@+id/password_ll"
             style="@style/style_ll_info"
+            android:layout_marginTop="10dp"
             android:paddingStart="15dp">
 
             <TextView
