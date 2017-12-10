@@ -81,7 +81,6 @@ public class TeacherMemorandumActivity extends BaseActivity implements OnBannerL
         advertisingBeen = new ArrayList<>(5);
         bannerImages = new ArrayList<>(5);
         multiTypeAdapter = new MultiTypeAdapter(items);
-        mFloatImage.setVisibility(View.GONE);
         iTeachClasses = HttpUtil.getInstance().createApi(ITeachClasses.class);
         iAdvertising = HttpUtil.getInstance().createApi(IAdvertising.class);
         topBanner.setOnBannerListener(this);
