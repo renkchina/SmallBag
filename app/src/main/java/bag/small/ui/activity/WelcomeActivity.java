@@ -1,8 +1,11 @@
 package bag.small.ui.activity;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.caimuhao.rxpicker.RxPicker;
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
 
 import bag.small.R;
 import bag.small.app.MyApplication;
@@ -46,6 +49,26 @@ public class WelcomeActivity extends BaseActivity {
                             UserPreferUtil.getInstanse().setPassword(password);
                             UserPreferUtil.getInstanse().setUserInfomation(mBean);
                             UserPreferUtil.getInstanse().setUseId(bean.getData().getLogin_id());
+//                            EMClient.getInstance().login("","",new EMCallBack() {//回调
+//                                @Override
+//                                public void onSuccess() {
+//                                    EMClient.getInstance().groupManager().loadAllGroups();
+//                                    EMClient.getInstance().chatManager().loadAllConversations();
+//                                    Log.e("main", "登录聊天服务器成功！");
+//                                    skipActivity(MainActivity.class);
+//                                }
+//
+//                                @Override
+//                                public void onProgress(int progress, String status) {
+//
+//                                }
+//
+//                                @Override
+//                                public void onError(int code, String message) {
+//                                    Log.e("main", "登录聊天服务器失败！");
+//                                    skipActivity(LoginActivity.class);
+//                                }
+//                            });
                             skipActivity(MainActivity.class);
                         } else {
                             skipActivity(LoginActivity.class);

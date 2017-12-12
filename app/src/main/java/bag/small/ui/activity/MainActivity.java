@@ -23,9 +23,11 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.china.rxbus.MySubscribe;
 import com.china.rxbus.RxBus;
+import com.china.rxbus.ThreadMode;
 //import com.umeng.analytics.MobclickAgent;
 import java.util.ArrayList;
 import java.util.List;
@@ -284,9 +286,25 @@ public class MainActivity extends BaseActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        MobclickAgent.onKillProcess(this);
     }
 
+    @OnClick(R.id.toolbar_right_iv)
+    public void onViewClicked() {
+        goActivity(PublishMsgActivity.class, null);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (ListUtil.unEmpty(MyApplication.loginResults)) {
+            itemDatas.clear();
+            itemDatas.addAll(MyApplication.loginResults);
+            itemDatas.add(new LoginResult.RoleBean());
+            itemDatas.addAll(leftBeen);
+            multiTypeAdapter.notifyDataSetChanged();
+        }
+        changeRole();
+    }
 
     @MySubscribe(code = 9527)
     public void showDrawerLayout() {
@@ -340,23 +358,6 @@ public class MainActivity extends BaseActivity
         builder.show();
     }
 
-    @OnClick(R.id.toolbar_right_iv)
-    public void onViewClicked() {
-        goActivity(PublishMsgActivity.class, null);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (ListUtil.unEmpty(MyApplication.loginResults)) {
-            itemDatas.clear();
-            itemDatas.addAll(MyApplication.loginResults);
-            itemDatas.add(new LoginResult.RoleBean());
-            itemDatas.addAll(leftBeen);
-            multiTypeAdapter.notifyDataSetChanged();
-        }
-        changeRole();
-    }
 
     @MySubscribe(code = 300)
     public void setUserImage() {

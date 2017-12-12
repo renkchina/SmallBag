@@ -15,6 +15,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
+
 import bag.small.R;
 import bag.small.entity.MainLeftBean;
 import bag.small.ui.activity.AccountStudentManagerActivity;
@@ -87,7 +90,20 @@ public class MainLeftBtnViewBinder extends ItemViewBinder<MainLeftBean, MainLeft
                         break;
                     case 5:
                         UserPreferUtil.getInstanse().clear();
-                        skipActivity(context, LoginActivity.class);
+                        EMClient.getInstance().logout(true, new EMCallBack() {
+                            @Override
+                            public void onSuccess() {
+                                skipActivity(context, LoginActivity.class);
+
+                            }
+                            @Override
+                            public void onProgress(int progress, String status) {
+                            }
+                            @Override
+                            public void onError(int code, String message) {
+                                skipActivity(context, LoginActivity.class);
+                            }
+                        });
                         break;
                     case 6:
                         gotoActivity(context, WebViewActivity.class);

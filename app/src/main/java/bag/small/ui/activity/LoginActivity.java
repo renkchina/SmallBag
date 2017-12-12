@@ -2,6 +2,7 @@ package bag.small.ui.activity;
 
 
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 
 import com.china.rxbus.MySubscribe;
 import com.china.rxbus.RxBus;
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
 
 import bag.small.R;
 import bag.small.app.MyApplication;
@@ -97,6 +100,26 @@ public class LoginActivity extends BaseActivity {
                         UserPreferUtil.getInstanse().setPassword(password);
                         UserPreferUtil.getInstanse().setUserInfomation(mBean);
                         UserPreferUtil.getInstanse().setUseId(bean.getData().getLogin_id());
+
+//                        EMClient.getInstance().login("","",new EMCallBack() {//回调
+//                            @Override
+//                            public void onSuccess() {
+//                                EMClient.getInstance().groupManager().loadAllGroups();
+//                                EMClient.getInstance().chatManager().loadAllConversations();
+//                                Log.e("main", "登录聊天服务器成功！");
+//                                skipActivity(MainActivity.class);
+//                            }
+//
+//                            @Override
+//                            public void onProgress(int progress, String status) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onError(int code, String message) {
+//                                Log.e("main", "登录聊天服务器失败！");
+//                            }
+//                        });
                         skipActivity(MainActivity.class);
                     } else {
                         toast("登录失败！");
