@@ -94,13 +94,13 @@ public class MainLeftBtnViewBinder extends ItemViewBinder<MainLeftBean, MainLeft
                             @Override
                             public void onSuccess() {
                                 skipActivity(context, LoginActivity.class);
-
                             }
                             @Override
                             public void onProgress(int progress, String status) {
                             }
                             @Override
                             public void onError(int code, String message) {
+                                EMClient.getInstance().logout(true);
                                 skipActivity(context, LoginActivity.class);
                             }
                         });

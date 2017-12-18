@@ -4,6 +4,7 @@ package bag.small.http.IApi;
 import java.util.List;
 
 import bag.small.entity.BaseBean;
+import bag.small.entity.IMLoginEntity;
 import bag.small.entity.LoginResult;
 import bag.small.utils.StringUtil;
 import io.reactivex.Observable;
@@ -15,6 +16,7 @@ import retrofit2.http.Query;
 
 /**
  * Created by Administrator on 2017/4/14.
+ *
  */
 
 public interface ILoginRequest {
@@ -41,5 +43,10 @@ public interface ILoginRequest {
                                              @Field("device_token") String token,
                                              @Field("key") String key,
                                              @Field("device_type") String type);
+    @FormUrlEncoded
+    @POST("ims/getlogin")
+    Observable<BaseBean<IMLoginEntity>> loginIM(@Field("role_id") String roleId,
+                                                @Field("login_id") String loginId,
+                                                @Field("school_id") String schoolId);
 
 }

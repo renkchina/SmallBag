@@ -22,6 +22,7 @@ public class EaseChatRowText extends EaseChatRow{
 
 	@Override
 	protected void onInflateView() {
+        boolean isTeacher = message.getBooleanAttribute("teacher", false);
 		inflater.inflate(message.direct() == EMMessage.Direct.RECEIVE ?
 				R.layout.ease_row_received_message : R.layout.ease_row_sent_message, this);
 	}
