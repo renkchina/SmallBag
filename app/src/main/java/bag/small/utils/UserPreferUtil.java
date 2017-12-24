@@ -47,8 +47,16 @@ public class UserPreferUtil {
         setInfomation("login_id", id);
     }
 
+    public void setUseChatId(String chatId) {
+        setInfomation("chat_id", chatId);
+    }
+
     public String getHeadImagePath() {
         return getInfomationS("logo");
+    }
+
+    public String getUseChatId() {
+        return getInfomationS("chat_id");
     }
 
     public String getRoleId() {
@@ -62,6 +70,7 @@ public class UserPreferUtil {
     public String getSchoolId() {
         return getInfomationS("school_id");
     }
+
     public String getSchoolName() {
         return getInfomationS("school_name");
     }

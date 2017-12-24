@@ -50,4 +50,6 @@
     <string name="you_can_choice_the_interest_class_str">请选择你要报名的兴趣课：</string>
     <string name="open">drawerOpen</string>
     <string name="close">drawerClose</string>
+    <string name="recall">Recall</string>
+    <string name="msg_recall_by_self">This message has been recalled by myself</string>
 </resources>

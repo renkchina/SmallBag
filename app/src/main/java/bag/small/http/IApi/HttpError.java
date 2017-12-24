@@ -24,35 +24,11 @@ import io.reactivex.functions.Consumer;
  */
 
 public class HttpError implements Consumer<Throwable> {
-    private SwipeRefreshLayout swipeRefresh;
-    private RefreshLayout refreshLayout;
-    private ProgressDialog progressDialog;
     public HttpError() {
     }
 
-//    public HttpError(SwipeRefreshLayout swipeRefresh) {
-//        this.swipeRefresh = swipeRefresh;
-//    }
-//
-//    public HttpError(RefreshLayout refreshLayout) {
-//        this.refreshLayout = refreshLayout;
-//    }
-//
-//    public HttpError(ProgressDialog progressDialog) {
-//        this.progressDialog = progressDialog;
-//    }
-
     @Override
     public void accept(@NonNull Throwable throwable) throws Exception {
-//        if (swipeRefresh != null && swipeRefresh.isEnabled()) {
-//            swipeRefresh.setRefreshing(false);
-//        }
-//        if (refreshLayout != null) {
-//            refreshLayout.finishRefresh();
-//        }
-//        if (progressDialog != null) {
-//            progressDialog.dismiss();
-//        }
         String exce;
         if (throwable instanceof HttpException) {
             HttpException httpException = (HttpException) throwable;

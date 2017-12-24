@@ -13,6 +13,7 @@ import com.hyphenate.easeui.model.styles.EaseMessageListItemStyle;
 import com.hyphenate.easeui.widget.EaseAlertDialog;
 import com.hyphenate.easeui.widget.EaseChatMessageList;
 import com.hyphenate.easeui.widget.chatrow.EaseChatRow;
+import com.hyphenate.exceptions.HyphenateException;
 
 /**
  * Created by zhangsong on 17-10-12.
@@ -66,9 +67,9 @@ public abstract class EaseChatRowPresenter implements EaseChatRow.EaseChatRowAct
         handleMessage();
     }
 
-    protected void handleSendMessage(final EMMessage message) {
+    private void handleSendMessage(final EMMessage message) {
         EMMessage.Status status = message.status();
-
+        message.setAttribute("isCurrentSend", 0);
         // Update the view according to the message current status.
         getChatRow().updateView(message);
 
@@ -129,10 +130,26 @@ public abstract class EaseChatRowPresenter implements EaseChatRow.EaseChatRowAct
     }
 
     private void handleMessage() {
-        if (message.direct() == EMMessage.Direct.SEND) {
-            handleSendMessage(message);
-        } else if (message.direct() == EMMessage.Direct.RECEIVE) {
-            handleReceiveMessage(message);
+        int value = message.getIntAttribute("isteacher", 0);
+        int isCurrentSend = message.getIntAttribute("isCurrentSend", 0);
+        if (value < 1) {
+            if (isCurrentSend > 0) {
+                handleSendMessage(message);
+            } else {
+                handleReceiveMessage(message);//student
+            }
+        } else {
+            if (isCurrentSend > 0) {
+                handleSendMessage(message);
+            } else {
+                handleReceiveMessage(message);//老师
+            }
         }
+//        handleSendMessage(message);
+//        if (message.direct() == EMMessage.Direct.SEND) {
+//            handleSendMessage(message);
+//        } else if (message.direct() == EMMessage.Direct.RECEIVE) {
+//            handleReceiveMessage(message);
+//        }
     }
 }

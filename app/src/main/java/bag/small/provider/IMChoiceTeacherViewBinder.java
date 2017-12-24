@@ -2,6 +2,7 @@ package bag.small.provider;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import bag.small.R;
 import bag.small.entity.IMChoiceTeacher;
+import bag.small.utils.StringUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.drakeet.multitype.ItemViewBinder;
@@ -28,13 +30,8 @@ public class IMChoiceTeacherViewBinder extends ItemViewBinder<IMChoiceTeacher, I
 
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull IMChoiceTeacher iMChoiceTeacher) {
-        if (iMChoiceTeacher.isChecked()) {
-            holder.iNameTv.setBackgroundResource(R.color.colorPrimaryDark);
-            holder.iCheckedTv.setVisibility(View.VISIBLE);
-        } else {
-            holder.iNameTv.setBackgroundResource(R.color.white);
-            holder.iCheckedTv.setVisibility(View.GONE);
-        }
+        StringUtil.setTextView(holder.iNameTv, iMChoiceTeacher.getName());
+        Context context = holder.root.getContext();
         holder.root.setOnClickListener(v -> {
             if (iMChoiceTeacher.isChecked()) {
                 iMChoiceTeacher.setChecked(false);
@@ -43,6 +40,15 @@ public class IMChoiceTeacherViewBinder extends ItemViewBinder<IMChoiceTeacher, I
             }
             getAdapter().notifyItemChanged(getPosition(holder));
         });
+        if (iMChoiceTeacher.isChecked()) {
+            holder.iNameTv.setBackgroundResource(R.color.colorPrimaryDark);
+            holder.iNameTv.setTextColor(ContextCompat.getColor(context, R.color.white));
+            holder.iCheckedTv.setVisibility(View.VISIBLE);
+        } else {
+            holder.iNameTv.setTextColor(ContextCompat.getColor(context, R.color.font_black2));
+            holder.iNameTv.setBackgroundResource(R.color.white);
+            holder.iCheckedTv.setVisibility(View.GONE);
+        }
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

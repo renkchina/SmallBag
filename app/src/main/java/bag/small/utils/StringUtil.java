@@ -85,13 +85,20 @@ public class StringUtil {
     }
 
     public static void setTextView(TextView tv, String content) {
+        if (tv == null) {
+            return;
+        }
         if (TextUtils.isEmpty(content)) {
             tv.setText("");
         } else {
             tv.setText(content);
         }
     }
+
     public static void setTextViewGone(TextView tv, String content) {
+        if (tv == null) {
+            return;
+        }
         if (TextUtils.isEmpty(content)) {
             tv.setVisibility(View.GONE);
         } else {
@@ -99,7 +106,11 @@ public class StringUtil {
             tv.setText(content);
         }
     }
-    public static void setTextView(TextView tv, String content,String defaults) {
+
+    public static void setTextView(TextView tv, String content, String defaults) {
+        if (tv == null) {
+            return;
+        }
         if (TextUtils.isEmpty(content)) {
             tv.setText(defaults);
         } else {
@@ -110,6 +121,7 @@ public class StringUtil {
     public static String getSystemTimes() {
         return String.valueOf(System.currentTimeMillis() / 1000);
     }
+
     /**
      * 去除小数点
      *

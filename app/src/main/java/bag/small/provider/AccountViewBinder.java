@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.china.rxbus.RxBus;
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +22,7 @@ import bag.small.R;
 import bag.small.app.MyApplication;
 import bag.small.entity.LoginResult;
 import bag.small.interfaze.IViewBinder;
+import bag.small.ui.activity.LoginActivity;
 import bag.small.ui.activity.MainActivity;
 import bag.small.utils.ImageUtil;
 import bag.small.utils.ListUtil;
@@ -60,6 +63,21 @@ public class AccountViewBinder extends ItemViewBinder<LoginResult.RoleBean, Acco
                     bean.setSelected(true);
                     UserPreferUtil.getInstanse().setUserInfomation(bean);
                     getAdapter().notifyDataSetChanged();
+                    EMClient.getInstance().logout(true, new EMCallBack() {
+                        @Override
+                        public void onSuccess() {
+
+                        }
+
+                        @Override
+                        public void onProgress(int progress, String status) {
+                        }
+
+                        @Override
+                        public void onError(int code, String message) {
+//                            RxBus.get().send(300);
+                        }
+                    });
                     RxBus.get().send(300);
                 }
             });

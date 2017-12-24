@@ -27,8 +27,9 @@ android {
 dependencies {
     //release时需要把hyphenatechatsdk的依赖注释掉，sdk已经被打成jar包放在libs底下
 //    compile project(':hyphenatechatsdk')
-	//compile 'com.hyphenate:hyphenate-sdk:3.3.4'
+    //compile 'com.hyphenate:hyphenate-sdk:3.3.4'
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    provided 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'com.github.bumptech.glide:glide:4.1.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.1.1'
     compile 'com.android.support:appcompat-v7:24.2.1'
 }

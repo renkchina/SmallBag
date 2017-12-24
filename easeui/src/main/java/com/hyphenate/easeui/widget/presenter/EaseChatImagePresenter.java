@@ -28,9 +28,11 @@ public class EaseChatImagePresenter extends EaseChatFilePresenter {
 
     @Override
     protected void handleReceiveMessage(final EMMessage message) {
-        super.handleReceiveMessage(message);
-
-        getChatRow().updateView(message);
+        try {
+            getChatRow().updateView(message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         message.setMessageStatusCallback(new EMCallBack() {
             @Override

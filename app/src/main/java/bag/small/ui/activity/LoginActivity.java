@@ -1,6 +1,8 @@
 package bag.small.ui.activity;
 
 
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -31,8 +33,10 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
 import io.reactivex.ObservableSource;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function;
 import io.reactivex.functions.Predicate;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Administrator on 2017/7/22.
@@ -95,9 +99,7 @@ public class LoginActivity extends BaseActivity {
                 .compose(RxLifecycleCompact.bind(this).withObservable())
                 .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
                 .filter(bean -> {
-                    if (!bean.isSuccess()) {
-                        toast(bean.getMsg());
-                    }
+                    toast(bean.getMsg());
                     return bean.isSuccess();
                 })
                 .flatMap(bean -> {
@@ -111,37 +113,38 @@ public class LoginActivity extends BaseActivity {
                     UserPreferUtil.getInstanse().setPassword(password);
                     UserPreferUtil.getInstanse().setUserInfomation(mBean);
                     UserPreferUtil.getInstanse().setUseId(bean.getData().getLogin_id());
-                    return iLoginRequest.loginIM(mBean.getRole_id(), bean.getData().getLogin_id(), mBean.getSchool_id());
+                    return iLoginRequest.loginIM(mBean.getRole_id(), bean.getData().getLogin_id(), mBean.getSchool_id()).subscribeOn(Schedulers.io());
                 })
-                .filter(bean -> {
-                    if (!bean.isSuccess()) {
-                        toast(bean.getMsg());
-                    }
-                    return bean.isSuccess();
-                })
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(beans -> {
-                    IMLoginEntity entity = beans.getData();
-                    EMClient.getInstance().login(entity.getUsername(), entity.getPwd(),
-                            new EMCallBack() {//回调
-                                @Override
-                                public void onSuccess() {
-                                    EMClient.getInstance().groupManager().loadAllGroups();
-                                    EMClient.getInstance().chatManager().loadAllConversations();
-                                    LogUtil.show("登录聊天服务器成功！");
-                                    skipActivity(MainActivity.class);
-                                }
+                    if (!beans.isSuccess()) {
+                        toast(beans.getMsg());
+                        skipActivity(MainActivity.class);
+                    } else {
+                        IMLoginEntity entity = beans.getData();
+                        EMClient.getInstance().login(entity.getUsername(), entity.getPwd(),
+                                new EMCallBack() {//回调
+                                    @Override
+                                    public void onSuccess() {
+                                        EMClient.getInstance().groupManager().loadAllGroups();
+                                        EMClient.getInstance().chatManager().loadAllConversations();
+                                        UserPreferUtil.getInstanse().setUseChatId(entity.getUsername());
+                                        LogUtil.show("登录聊天服务器成功！");
+                                        skipActivity(MainActivity.class);
+                                    }
 
-                                @Override
-                                public void onProgress(int progress, String status) {
-                                }
+                                    @Override
+                                    public void onProgress(int progress, String status) {
+                                    }
 
-                                @Override
-                                public void onError(int code, String message) {
-                                    toast("登录聊天服务器失败！");
-                                    LogUtil.show("登录聊天服务器失败！");
-                                    skipActivity(MainActivity.class);
-                                }
-                            });
+                                    @Override
+                                    public void onError(int code, String message) {
+                                        new Handler(Looper.getMainLooper()).post(() -> toast("登录聊天服务器失败！"));
+                                        LogUtil.show("登录聊天服务器失败！");
+                                        skipActivity(MainActivity.class);
+                                    }
+                                });
+                    }
                 }, new HttpError());
     }
 

@@ -14,6 +14,7 @@ import bag.small.R;
 import bag.small.entity.MassOrgBean;
 import bag.small.entity.TeacherMemorandumBean;
 import bag.small.ui.activity.ClassChatActivity;
+import bag.small.utils.StringUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.drakeet.multitype.ItemViewBinder;
@@ -31,16 +32,30 @@ public class MassOrgViewBinder extends ItemViewBinder<MassOrgBean, MassOrgViewBi
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull MassOrgBean teacherMemorandum) {
+    protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull MassOrgBean bean) {
         Context context = holder.root.getContext();
         holder.itemRoundTxt.setVisibility(View.GONE);
         holder.itemText.setText("社团");
+        StringUtil.setTextView(holder.itemText, bean.getName());
 
         holder.root.setOnClickListener(v -> {
             Intent intent = new Intent();
+            intent.putExtra("banjiId",bean.getBanji_id());
+            intent.putExtra("groupId",bean.getGroup_id());
+            intent.putExtra("name",bean.getName());
             intent.setClass(context, ClassChatActivity.class);
             context.startActivity(intent);
         });
+
+        if (getPosition(holder) % 4 == 0) {
+            holder.start.setBackgroundResource(R.mipmap.purple_start);
+        } else if (getPosition(holder) % 3 == 0) {
+            holder.start.setBackgroundResource(R.mipmap.blue_start);
+        } else if (getPosition(holder) % 2 == 0) {
+            holder.start.setBackgroundResource(R.mipmap.yellow_start);
+        } else {
+            holder.start.setBackgroundResource(R.mipmap.green_start);
+        }
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -48,6 +63,8 @@ public class MassOrgViewBinder extends ItemViewBinder<MassOrgBean, MassOrgViewBi
         TextView itemText;
         @BindView(R.id.item_memorandum_round_txt)
         TextView itemRoundTxt;
+        @BindView(R.id.item_memo_start_v)
+        View start;
         View root;
 
         ViewHolder(View view) {

@@ -160,7 +160,7 @@ public class EaseVoiceRecorderView extends RelativeLayout {
             return;
         }
         try {
-            wakeLock.acquire();
+            wakeLock.acquire(60*1000L /*1 minutes*/);
             this.setVisibility(View.VISIBLE);
             recordingHint.setText(context.getString(R.string.move_up_to_cancel));
             recordingHint.setBackgroundColor(Color.TRANSPARENT);

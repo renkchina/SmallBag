@@ -1,9 +1,12 @@
 package bag.small.ui.activity;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.content.ContextCompat;
@@ -28,6 +31,8 @@ import android.widget.Toast;
 import com.china.rxbus.MySubscribe;
 import com.china.rxbus.RxBus;
 import com.china.rxbus.ThreadMode;
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
 //import com.umeng.analytics.MobclickAgent;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +41,7 @@ import bag.small.R;
 import bag.small.app.MyApplication;
 import bag.small.base.BaseActivity;
 import bag.small.base.BaseFragment;
+import bag.small.entity.IMLoginEntity;
 import bag.small.entity.LoginResult;
 import bag.small.entity.MainLeftBean;
 import bag.small.http.HttpUtil;
@@ -50,6 +56,7 @@ import bag.small.ui.fragment.FamiliesSchoolConnectionFragment;
 import bag.small.ui.fragment.GrowthDiaryFragment;
 import bag.small.ui.fragment.TreasureChestFragment;
 import bag.small.utils.ListUtil;
+import bag.small.utils.LogUtil;
 import bag.small.utils.UserPreferUtil;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -92,6 +99,7 @@ public class MainActivity extends BaseActivity
     ILoginRequest iLoginRequest;
     List<MainLeftBean> leftBeen;
     private IRegisterReq iRegisterReq;
+    private ProgressDialog progressDialog;
 
     @Override
     public int getLayoutResId() {
@@ -130,6 +138,10 @@ public class MainActivity extends BaseActivity
         ColorStateList csl = new ColorStateList(states, colors);
         mBottomNav.setItemTextColor(csl);
         mBottomNav.setItemIconTintList(csl);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("正在切换，请等待...");
+        progressDialog.setCanceledOnTouchOutside(false);
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -364,6 +376,38 @@ public class MainActivity extends BaseActivity
         if (mDrawer.isDrawerOpen(Gravity.START)) {
             mDrawer.closeDrawer(Gravity.START);
         }
+        progressDialog.show();
+        HttpUtil.getInstance().createApi(ILoginRequest.class)
+                .loginIM(UserPreferUtil.getInstanse().getRoleId(), UserPreferUtil.getInstanse().getUserId(),
+                        UserPreferUtil.getInstanse().getSchoolId())
+                .compose(RxLifecycleCompact.bind(this).withObservable())
+                .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                .subscribe(beans -> {
+                    IMLoginEntity entity = beans.getData();
+                    EMClient.getInstance().login(entity.getUsername(), entity.getPwd(),
+                            new EMCallBack() {//回调
+                                @Override
+                                public void onSuccess() {
+                                    EMClient.getInstance().groupManager().loadAllGroups();
+                                    EMClient.getInstance().chatManager().loadAllConversations();
+                                    UserPreferUtil.getInstanse().setUseChatId(entity.getUsername());
+                                    LogUtil.show("登录聊天服务器成功！");
+                                    progressDialog.dismiss();
+                                }
+
+                                @Override
+                                public void onProgress(int progress, String status) {
+
+                                }
+
+                                @Override
+                                public void onError(int code, String message) {
+                                    new Handler(Looper.getMainLooper()).post(() -> toast("登录聊天服务器失败！"));
+                                    LogUtil.show("登录聊天服务器失败！");
+                                    progressDialog.dismiss();
+                                }
+                            });
+                }, new HttpError());
         changeRole();
     }
 

@@ -53,6 +53,9 @@ public class ChoiceTeacherDialog extends Dialog {
         if (context instanceof IDialog) {
             iDialog = (IDialog) context;
         }
+        items = new Items(5);
+        multiTypeAdapter = new MultiTypeAdapter(items);
+        multiTypeAdapter.register(IMChoiceTeacher.class, new IMChoiceTeacherViewBinder());
     }
 
     @Override
@@ -73,9 +76,6 @@ public class ChoiceTeacherDialog extends Dialog {
     }
 
     private void initView() {
-        items = new Items(5);
-        multiTypeAdapter = new MultiTypeAdapter(items);
-        multiTypeAdapter.register(IMChoiceTeacher.class, new IMChoiceTeacherViewBinder());
         dRecyclerView.setLayoutManager(new GridLayoutManager(context, 2));
         dRecyclerView.setAdapter(multiTypeAdapter);
     }
@@ -89,12 +89,11 @@ public class ChoiceTeacherDialog extends Dialog {
                 break;
             case R.id.dialog_right_tv:
                 if (iDialog != null) {
-                    iDialog.callBackMethod(null, null);
+                    iDialog.callBackMethod(getAllChecked(), null);
                 }
                 dismiss();
                 break;
         }
-
     }
 
     private void setAllUnChecked() {
@@ -108,9 +107,36 @@ public class ChoiceTeacherDialog extends Dialog {
         }
     }
 
+    private String getAllChecked() {
+        if (ListUtil.unEmpty(items)) {
+            StringBuilder builder = new StringBuilder();
+            for (Object item : items) {
+                if (item instanceof IMChoiceTeacher) {
+                    if (((IMChoiceTeacher) item).isChecked()) {
+                        builder.append(((IMChoiceTeacher) item).getItem_id()).append(",");
+                    }
+                }
+            }
+            return builder.toString().substring(0, builder.toString().length() - 1);
+        }else{
+            return "";
+        }
+    }
+
+    public void initData(List list) {
+        items.clear();
+        items.addAll(list);
+    }
+
     public void setListData(List list) {
         items.clear();
         items.addAll(list);
         multiTypeAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void show() {
+        super.show();
+//        multiTypeAdapter.notifyDataSetChanged();
     }
 }
