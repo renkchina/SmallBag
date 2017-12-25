@@ -1,6 +1,5 @@
 package bag.small.ui.fragment;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.Intent;
@@ -8,36 +7,27 @@ import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Toast;
 
 import com.hyphenate.chat.EMClient;
-import com.hyphenate.chat.EMCmdMessageBody;
 import com.hyphenate.chat.EMGroup;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMTextMessageBody;
 import com.hyphenate.easeui.EaseConstant;
-import com.hyphenate.easeui.ui.EaseChatFragment;
-import com.hyphenate.easeui.ui.EaseChatFragment.EaseChatFragmentHelper;
 import com.hyphenate.easeui.widget.chatrow.EaseCustomChatRowProvider;
 import com.hyphenate.easeui.widget.emojicon.EaseEmojiconMenu;
 import com.hyphenate.easeui.widget.presenter.EaseChatRowPresenter;
 import com.hyphenate.exceptions.HyphenateException;
-import com.hyphenate.util.EasyUtils;
 import com.hyphenate.util.PathUtil;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.List;
-import java.util.Map;
 
 import bag.small.R;
 import bag.small.domain.EmojiconExampleGroupData;
@@ -45,7 +35,7 @@ import bag.small.domain.ImageGridActivity;
 import bag.small.ui.activity.ContextMenuActivity;
 import bag.small.utils.Constant;
 
-public class ChatFragment extends MyChatFragment implements MyChatFragment.MyChatFragmentHelper {
+public class ChatFragment extends MyBaseAllChatFragment implements MyBaseAllChatFragment.MyChatFragmentHelper {
 
     // constant start from 11 to avoid conflict with constant in base class
     private static final int ITEM_VIDEO = 11;
@@ -81,30 +71,8 @@ public class ChatFragment extends MyChatFragment implements MyChatFragment.MyCha
     protected void setUpView() {
         setChatFragmentHelper(this);
         super.setUpView();
-
         ((EaseEmojiconMenu) inputMenu.getEmojiconMenu()).addEmojiconGroup(EmojiconExampleGroupData.getData());
-        if (chatType == EaseConstant.CHATTYPE_GROUP) {
-//            inputMenu.getPrimaryMenu().getEditText().addTextChangedListener(new TextWatcher() {
-//
-//                @Override
-//                public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                    if (count == 1 && "@".equals(String.valueOf(s.charAt(start)))) {
-//                        startActivityForResult(new Intent(getActivity(), PickAtUserActivity.class).
-//                                putExtra("groupId", toChatUsername), REQUEST_CODE_SELECT_AT_USER);
-//                    }
-//                }
-//
-//                @Override
-//                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//                }
-//
-//                @Override
-//                public void afterTextChanged(Editable s) {
-//
-//                }
-//            });
-        }
+
     }
 
 
@@ -218,7 +186,6 @@ public class ChatFragment extends MyChatFragment implements MyChatFragment.MyCha
         return new CustomChatRowProvider();
     }
 
-
     @Override
     public void onEnterToChatDetails() {
         if (chatType == Constant.CHATTYPE_GROUP) {
@@ -298,9 +265,13 @@ public class ChatFragment extends MyChatFragment implements MyChatFragment.MyCha
      * select file
      */
     protected void selectFileFromLocal() {
-        Intent intent = null;
-        intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, REQUEST_CODE_SELECT_FILE);
+//        Intent intent = null;
+//        intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//        startActivityForResult(intent, REQUEST_CODE_SELECT_FILE);
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("*/*");//设置类型，我这里是任意类型，任意后缀的可以这样写。
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        startActivityForResult(intent,REQUEST_CODE_SELECT_FILE);
     }
 
     /**

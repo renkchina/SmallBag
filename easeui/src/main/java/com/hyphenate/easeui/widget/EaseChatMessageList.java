@@ -26,7 +26,7 @@ public class EaseChatMessageList extends RelativeLayout{
     protected EMConversation conversation;
     protected int chatType;
     protected String toChatUsername;
-    protected EaseMessageAdapter messageAdapter;
+    public EaseMessageAdapter messageAdapter;
 
     protected EaseMessageListItemStyle itemStyle;
 

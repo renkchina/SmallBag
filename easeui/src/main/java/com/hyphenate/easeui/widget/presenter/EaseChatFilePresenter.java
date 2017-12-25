@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.BaseAdapter;
 
+import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMNormalFileMessageBody;
@@ -28,6 +29,32 @@ public class EaseChatFilePresenter extends EaseChatRowPresenter {
     }
 
     @Override
+    protected void handleReceiveMessage(final EMMessage message) {
+        try {
+            getChatRow().updateView(message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        message.setMessageStatusCallback(new EMCallBack() {
+            @Override
+            public void onSuccess() {
+                getChatRow().updateView(message);
+            }
+
+            @Override
+            public void onError(int code, String error) {
+                getChatRow().updateView(message);
+            }
+
+            @Override
+            public void onProgress(int progress, String status) {
+                getChatRow().updateView(message);
+            }
+        });
+    }
+
+    @Override
     public void onBubbleClick(EMMessage message) {
         EMNormalFileMessageBody fileMessageBody = (EMNormalFileMessageBody) message.getBody();
         String filePath = fileMessageBody.getLocalUrl();
@@ -43,7 +70,6 @@ public class EaseChatFilePresenter extends EaseChatRowPresenter {
             try {
                 EMClient.getInstance().chatManager().ackMessageRead(message.getFrom(), message.getMsgId());
             } catch (HyphenateException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }

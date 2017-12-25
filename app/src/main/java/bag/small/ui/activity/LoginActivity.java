@@ -1,6 +1,7 @@
 package bag.small.ui.activity;
 
 
+import android.app.ProgressDialog;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.widget.Toolbar;
@@ -60,6 +61,7 @@ public class LoginActivity extends BaseActivity {
     TextView loginForgetPasswordTv;
 
     ILoginRequest iLoginRequest;
+    private ProgressDialog progressDialog;
 
     public int getLayoutResId() {
         return R.layout.activity_login;
@@ -67,12 +69,12 @@ public class LoginActivity extends BaseActivity {
 
     public void initView() {
         toolbar.setVisibility(View.GONE);
-        //setToolTitle("登录", false);
-
         iLoginRequest = HttpUtil.getInstance().createApi(ILoginRequest.class);
         loginUserPasswordEdt.setTypeface(loginUserNameEdt.getTypeface());
         RxBus.get().register(this);
-
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("正在登录，请等待...");
+        progressDialog.setCanceledOnTouchOutside(false);
     }
 
     @OnClick({R.id.activity_login_commit_btn,
@@ -95,9 +97,11 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void goLogin(String phone, final String password) {
+        progressDialog.show();
         iLoginRequest.appLogin(phone, password)
                 .compose(RxLifecycleCompact.bind(this).withObservable())
                 .compose(RxUtil.applySchedulers(RxUtil.IO_ON_UI_TRANSFORMER))
+                .doFinally(() -> progressDialog.dismiss())
                 .filter(bean -> {
                     toast(bean.getMsg());
                     return bean.isSuccess();
@@ -113,6 +117,7 @@ public class LoginActivity extends BaseActivity {
                     UserPreferUtil.getInstanse().setPassword(password);
                     UserPreferUtil.getInstanse().setUserInfomation(mBean);
                     UserPreferUtil.getInstanse().setUseId(bean.getData().getLogin_id());
+                    new Handler(Looper.getMainLooper()).post(() -> progressDialog.setMessage("正在登录聊天服务器，请等待..."));
                     return iLoginRequest.loginIM(mBean.getRole_id(), bean.getData().getLogin_id(), mBean.getSchool_id()).subscribeOn(Schedulers.io());
                 })
                 .observeOn(AndroidSchedulers.mainThread())

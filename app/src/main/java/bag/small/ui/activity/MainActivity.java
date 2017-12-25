@@ -376,6 +376,7 @@ public class MainActivity extends BaseActivity
         if (mDrawer.isDrawerOpen(Gravity.START)) {
             mDrawer.closeDrawer(Gravity.START);
         }
+        changeRole();
         progressDialog.show();
         HttpUtil.getInstance().createApi(ILoginRequest.class)
                 .loginIM(UserPreferUtil.getInstanse().getRoleId(), UserPreferUtil.getInstanse().getUserId(),
@@ -408,7 +409,6 @@ public class MainActivity extends BaseActivity
                                 }
                             });
                 }, new HttpError());
-        changeRole();
     }
 
     private void changeRole() {

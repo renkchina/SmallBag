@@ -1,5 +1,6 @@
 package com.hyphenate.easeui.widget.chatrow;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.hyphenate.chat.EMVoiceMessageBody;
 import com.hyphenate.easeui.R;
 import com.hyphenate.util.EMLog;
 
+@SuppressLint("ViewConstructor")
 public class EaseChatRowVoice extends EaseChatRowFile {
     private static final String TAG = "EaseChatRowVoice";
 
@@ -29,7 +31,7 @@ public class EaseChatRowVoice extends EaseChatRowFile {
 
     @Override
     protected void onInflateView() {
-        inflater.inflate(message.direct() == EMMessage.Direct.RECEIVE ?
+        inflater.inflate(message.getIntAttribute("isteacher", 0) > 0 ?
                 R.layout.ease_row_received_voice : R.layout.ease_row_sent_voice, this);
     }
 
@@ -50,13 +52,13 @@ public class EaseChatRowVoice extends EaseChatRowFile {
         } else {
             voiceLengthView.setVisibility(View.INVISIBLE);
         }
-        if (message.direct() == EMMessage.Direct.RECEIVE) {
+        if (message.direct() == EMMessage.Direct.RECEIVE || message.getIntAttribute("isteacher", 0) > 0) {
             voiceImageView.setImageResource(R.drawable.ease_chatfrom_voice_playing);
         } else {
             voiceImageView.setImageResource(R.drawable.ease_chatto_voice_playing);
         }
 
-        if (message.direct() == EMMessage.Direct.RECEIVE) {
+        if (message.direct() == EMMessage.Direct.RECEIVE || message.getIntAttribute("isteacher", 0) > 0) {
             if (message.isListened()) {
                 // hide the unread icon
                 readStatusView.setVisibility(View.INVISIBLE);
@@ -90,7 +92,11 @@ public class EaseChatRowVoice extends EaseChatRowFile {
 
         // Only the received message has the attachment download status.
         if (message.direct() == EMMessage.Direct.SEND) {
-            return;
+            if (message.getIntAttribute("isteacher", 0) != 0) {
+
+            } else {
+                return;
+            }
         }
 
         EMVoiceMessageBody voiceBody = (EMVoiceMessageBody) msg.getBody();
@@ -102,19 +108,21 @@ public class EaseChatRowVoice extends EaseChatRowFile {
         }
     }
 
+    @SuppressLint("ResourceType")
     public void startVoicePlayAnimation() {
-        if (message.direct() == EMMessage.Direct.RECEIVE) {
-            voiceImageView.setImageResource(R.anim.voice_from_icon);
+        if (message.getIntAttribute("isteacher", 0) > 0) {
+            voiceImageView.setImageResource(R.drawable.voice_from_icon);
         } else {
-            voiceImageView.setImageResource(R.anim.voice_to_icon);
+            voiceImageView.setImageResource(R.drawable.voice_to_icon);
         }
         voiceAnimation = (AnimationDrawable) voiceImageView.getDrawable();
         voiceAnimation.start();
 
         // Hide the voice item not listened status view.
-        if (message.direct() == EMMessage.Direct.RECEIVE) {
-            readStatusView.setVisibility(View.INVISIBLE);
-        }
+//        if (message.direct() == EMMessage.Direct.RECEIVE) {
+        readStatusView.setVisibility(View.INVISIBLE);
+        message.setListened(true);
+//        }
     }
 
     public void stopVoicePlayAnimation() {
@@ -122,7 +130,7 @@ public class EaseChatRowVoice extends EaseChatRowFile {
             voiceAnimation.stop();
         }
 
-        if (message.direct() == EMMessage.Direct.RECEIVE) {
+        if (message.direct() == EMMessage.Direct.RECEIVE || message.getIntAttribute("isteacher", 0) > 0) {
             voiceImageView.setImageResource(R.drawable.ease_chatfrom_voice_playing);
         } else {
             voiceImageView.setImageResource(R.drawable.ease_chatto_voice_playing);

@@ -5,22 +5,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.china.rxbus.MySubscribe;
 import com.china.rxbus.RxBus;
-import com.china.rxbus.ThreadMode;
 import com.hyphenate.easeui.EaseConstant;
-
-import java.util.List;
 
 import bag.small.R;
 import bag.small.base.BaseActivity;
 import bag.small.dialog.ChoiceTeacherDialog;
-import bag.small.entity.BaseBean;
 import bag.small.http.HttpUtil;
 import bag.small.http.IApi.HttpError;
 import bag.small.http.IApi.IMChats;
@@ -28,19 +23,19 @@ import bag.small.interfaze.IDialog;
 import bag.small.runtimepermissions.PermissionsManager;
 import bag.small.rx.RxUtil;
 import bag.small.ui.fragment.ChatFragment;
+import bag.small.ui.fragment.TeacherChatFragment;
 import bag.small.utils.ListUtil;
 import bag.small.utils.UserPreferUtil;
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
-import io.reactivex.functions.Consumer;
 
 public class ClassChatActivity extends BaseActivity implements IDialog {
 
     @BindView(R.id.toolbar_right_tv)
     TextView toolbarRightTv;
     private ChatFragment chatFragment;
+    private TeacherChatFragment teacherChatFragment;
     ChoiceTeacherDialog choiceTeacherDialog;
     IMChats imChats;
     private String banjiId;
@@ -61,15 +56,17 @@ public class ClassChatActivity extends BaseActivity implements IDialog {
         RxBus.get().unRegister(this);
     }
 
-//    @MySubscribe(code = 520, threadMode = ThreadMode.MAIN)
-//    public void showConnectedState(String content) {
-//        Toast.makeText(this, content, Toast.LENGTH_SHORT).show();
-//    }
 
     @Override
     public void initData() {
         toolbarRightTv.setText("老师信息");
         chatFragment = new ChatFragment();
+        if (UserPreferUtil.getInstanse().isTeacher()) {
+            toolbarRightTv.setVisibility(View.INVISIBLE);
+        } else {
+            toolbarRightTv.setVisibility(View.VISIBLE);
+            toolbarRightTv.setText("老师信息");
+        }
         choiceTeacherDialog = new ChoiceTeacherDialog(this);
         Intent intent = getIntent();
         String groupId = intent.getStringExtra("groupId");

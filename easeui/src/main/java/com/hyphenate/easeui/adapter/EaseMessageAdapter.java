@@ -177,6 +177,9 @@ public class EaseMessageAdapter extends BaseAdapter {
         return 14;
     }
 
+    public void clearAndAddMessage() {
+
+    }
 
     /**
      * get type of item
@@ -196,7 +199,6 @@ public class EaseMessageAdapter extends BaseAdapter {
         } else {
             isTeacher = false;
         }
-
         if (message.getType() == EMMessage.Type.TXT) {
             if (message.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_BIG_EXPRESSION, false)) {
                 return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_EXPRESSION : MESSAGE_TYPE_SENT_EXPRESSION;
@@ -221,15 +223,13 @@ public class EaseMessageAdapter extends BaseAdapter {
         if (message.getType() == EMMessage.Type.FILE) {
             return isTeacher ? MESSAGE_TYPE_RECV_FILE : MESSAGE_TYPE_SENT_FILE;
         }
-
         return -1;// invalid
     }
 
-    protected EaseChatRowPresenter createChatRowPresenter(EMMessage message, int position) {
+    private EaseChatRowPresenter createChatRowPresenter(EMMessage message, int position) {
         if (customRowProvider != null && customRowProvider.getCustomChatRow(message, position, this) != null) {
             return customRowProvider.getCustomChatRow(message, position, this);
         }
-
         EaseChatRowPresenter presenter = null;
 
         switch (message.getType()) {

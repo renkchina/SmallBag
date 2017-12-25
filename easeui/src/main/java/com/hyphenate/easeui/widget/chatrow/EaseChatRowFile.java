@@ -1,5 +1,6 @@
 package com.hyphenate.easeui.widget.chatrow;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
@@ -14,13 +15,14 @@ import com.hyphenate.util.TextFormater;
 
 import java.io.File;
 
-public class EaseChatRowFile extends EaseChatRow{
+@SuppressLint("ViewConstructor")
+public class EaseChatRowFile extends EaseChatRow {
     private static final String TAG = "EaseChatRowFile";
 
     protected TextView fileNameView;
-	protected TextView fileSizeView;
+    protected TextView fileSizeView;
     protected TextView fileStateView;
-    
+
     private EMNormalFileMessageBody fileMessageBody;
 
     public EaseChatRowFile(Context context, EMMessage message, int position, BaseAdapter adapter) {
@@ -28,36 +30,35 @@ public class EaseChatRowFile extends EaseChatRow{
     }
 
     @Override
-	protected void onInflateView() {
-	    inflater.inflate(message.direct() == EMMessage.Direct.RECEIVE ? 
-	            R.layout.ease_row_received_file : R.layout.ease_row_sent_file, this);
-	}
+    protected void onInflateView() {
+        inflater.inflate(message.getIntAttribute("isteacher", 0) > 0 ?
+                R.layout.ease_row_received_file : R.layout.ease_row_sent_file, this);
+    }
 
-	@Override
-	protected void onFindViewById() {
-	    fileNameView = (TextView) findViewById(R.id.tv_file_name);
+    @Override
+    protected void onFindViewById() {
+        fileNameView = (TextView) findViewById(R.id.tv_file_name);
         fileSizeView = (TextView) findViewById(R.id.tv_file_size);
         fileStateView = (TextView) findViewById(R.id.tv_file_state);
         percentageView = (TextView) findViewById(R.id.percentage);
-	}
+    }
 
 
-	@Override
-	protected void onSetUpView() {
-	    fileMessageBody = (EMNormalFileMessageBody) message.getBody();
+    @Override
+    protected void onSetUpView() {
+        fileMessageBody = (EMNormalFileMessageBody) message.getBody();
         String filePath = fileMessageBody.getLocalUrl();
         fileNameView.setText(fileMessageBody.getFileName());
         fileSizeView.setText(TextFormater.getDataSize(fileMessageBody.getFileSize()));
-        if (message.direct() == EMMessage.Direct.RECEIVE) {
+        if (message.direct() == EMMessage.Direct.RECEIVE || message.getIntAttribute("isteacher", 0) > 0) {
             File file = new File(filePath);
             if (file.exists()) {
                 fileStateView.setText(R.string.Have_downloaded);
             } else {
                 fileStateView.setText(R.string.Did_not_download);
             }
-            return;
         }
-	}
+    }
 
     @Override
     protected void onViewUpdate(EMMessage msg) {

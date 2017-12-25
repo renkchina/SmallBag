@@ -299,9 +299,9 @@ public class FamiliesSchoolConnectionFragment extends BaseFragment implements On
 
     @Override
     public void onFragmentShow() {
-        setNoticeCount();
         banner.startAutoPlay();
         setItemImage();
+        setNoticeCount();
     }
 
     private void setItemImage() {
