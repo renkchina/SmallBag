@@ -151,12 +151,6 @@ public abstract class EaseChatRow extends LinearLayout {
             String userHead = message.getStringAttribute("ChatUserPic", "");
             EaseUserUtils.setUserAvatar(context, userHead, userAvatarView);
             EaseUserUtils.setUserNick(nickName, usernickView);
-//            if (message.direct() == Direct.SEND) {
-//                EaseUserUtils.setUserAvatar(context, EMClient.getInstance().getCurrentUser(), userAvatarView);
-//            } else {
-//                EaseUserUtils.setUserAvatar(context, message.getFrom(), userAvatarView);
-//                EaseUserUtils.setUserNick(message.getFrom(), usernickView);
-//            }
         }
         if (EMClient.getInstance().getOptions().getRequireDeliveryAck()) {
             if (deliveredView != null) {

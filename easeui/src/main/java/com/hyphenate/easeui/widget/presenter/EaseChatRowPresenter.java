@@ -145,11 +145,5 @@ public abstract class EaseChatRowPresenter implements EaseChatRow.EaseChatRowAct
                 handleReceiveMessage(message);//老师
             }
         }
-//        handleSendMessage(message);
-//        if (message.direct() == EMMessage.Direct.SEND) {
-//            handleSendMessage(message);
-//        } else if (message.direct() == EMMessage.Direct.RECEIVE) {
-//            handleReceiveMessage(message);
-//        }
     }
 }

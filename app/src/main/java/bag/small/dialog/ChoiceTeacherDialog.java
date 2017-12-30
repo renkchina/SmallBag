@@ -8,6 +8,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
@@ -86,14 +87,17 @@ public class ChoiceTeacherDialog extends Dialog {
         switch (view.getId()) {
             case R.id.dialog_reset_tv:
                 setAllUnChecked();
+                if (iDialog != null) {
+                    iDialog.callBackMiddleMethod();
+                }
                 break;
             case R.id.dialog_right_tv:
                 if (iDialog != null) {
                     iDialog.callBackMethod(getAllChecked(), null);
                 }
-                dismiss();
                 break;
         }
+        dismiss();
     }
 
     private void setAllUnChecked() {
@@ -117,8 +121,11 @@ public class ChoiceTeacherDialog extends Dialog {
                     }
                 }
             }
-            return builder.toString().substring(0, builder.toString().length() - 1);
-        }else{
+            if (TextUtils.isEmpty(builder.toString())) {
+                return "";
+            } else
+                return builder.toString().substring(0, builder.toString().length() - 1);
+        } else {
             return "";
         }
     }

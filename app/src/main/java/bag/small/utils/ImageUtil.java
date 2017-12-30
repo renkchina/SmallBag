@@ -28,6 +28,14 @@ public class ImageUtil {
             Glide.with(context).load(url).into(imageView);
         }
     }
+    public static void loadImagesOnThumbnail(Context context, ImageView imageView, String url,float thumbnail) {
+        if (context != null) {
+            if (TextUtils.isEmpty(url)) {
+                url = "http://www.bz55.com/uploads/allimg/150701/140-150F1142638.jpg";
+            }
+            Glide.with(context).load(url).thumbnail(thumbnail).into(imageView);
+        }
+    }
 
     public static void loadLocalImages(Context context, ImageView imageView, String url) {
         if (context != null) {

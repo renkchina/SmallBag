@@ -1,5 +1,6 @@
 package bag.small.utils;
 
+import android.annotation.SuppressLint;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
@@ -7,7 +8,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by Administrator on 2017/5/10.
@@ -82,6 +85,26 @@ public class StringUtil {
     public static String getTimeFormatMS(Long time) {
         sd.applyPattern("mm分ss秒");
         return sd.format(time);
+    }
+
+    public static long stringToLong(String strTime, String formatType) {
+        Date date = stringToDate(strTime, formatType); // String类型转成date类型
+        if (date == null) {
+            return 0;
+        } else {
+            return date.getTime();
+        }
+    }
+
+    public static Date stringToDate(String strTime, String formatType) {
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat(formatType);
+        Date date = null;
+        try {
+            date = formatter.parse(strTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
     }
 
     public static void setTextView(TextView tv, String content) {

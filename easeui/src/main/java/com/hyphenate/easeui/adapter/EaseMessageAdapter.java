@@ -177,8 +177,10 @@ public class EaseMessageAdapter extends BaseAdapter {
         return 14;
     }
 
-    public void clearAndAddMessage() {
-
+    public void clearAndAddMessage(EMMessage[] array) {
+        messages = null;
+        messages = array;
+        notifyDataSetChanged();
     }
 
     /**

@@ -43,7 +43,6 @@ public class EaseChatRowFile extends EaseChatRow {
         percentageView = (TextView) findViewById(R.id.percentage);
     }
 
-
     @Override
     protected void onSetUpView() {
         fileMessageBody = (EMNormalFileMessageBody) message.getBody();

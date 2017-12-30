@@ -6,6 +6,7 @@ import java.util.List;
 import bag.small.entity.BaseBean;
 import bag.small.entity.IMChoiceTeacher;
 import bag.small.entity.MassOrgBean;
+import bag.small.entity.TeacherChatBean;
 import io.reactivex.Observable;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -35,11 +36,11 @@ public interface IMChats {
 
     @FormUrlEncoded
     @POST("ims/getteachersmsg")
-    Observable<BaseBean<List<String>>> getTeachersMsgs(@Field("role_id") String roleId,
-                                                       @Field("login_id") String loginId,
-                                                       @Field("school_id") String schoolId,
-                                                       @Field("banji_id") String banjiId,
-                                                       @Field("teacher_id") String teachersId,
-                                                       @Field("page") int page);
+    Observable<BaseBean<List<TeacherChatBean>>> getTeachersMsgs(@Field("role_id") String roleId,
+                                                                @Field("login_id") String loginId,
+                                                                @Field("school_id") String schoolId,
+                                                                @Field("banji_id") String banjiId,
+                                                                @Field("teacher_id") String teachersId,
+                                                                @Field("page") int page);
 
 }

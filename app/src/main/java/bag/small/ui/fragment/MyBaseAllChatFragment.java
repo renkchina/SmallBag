@@ -68,11 +68,11 @@ public class MyBaseAllChatFragment extends EaseBaseFragment implements EMMessage
     protected static final int REQUEST_CODE_CAMERA = 2;
     protected static final int REQUEST_CODE_LOCAL = 3;
 
-    private static final int REQUEST_CODE_SELECT_VIDEO = 11;
-    private static final int REQUEST_CODE_SELECT_FILE = 12;
-    private static final int REQUEST_CODE_GROUP_DETAIL = 13;
-    private static final int REQUEST_CODE_CONTEXT_MENU = 14;
-    private static final int REQUEST_CODE_SELECT_AT_USER = 15;
+//    private static final int REQUEST_CODE_SELECT_VIDEO = 11;
+//    private static final int REQUEST_CODE_SELECT_FILE = 12;
+//    private static final int REQUEST_CODE_GROUP_DETAIL = 13;
+//    private static final int REQUEST_CODE_CONTEXT_MENU = 14;
+//    private static final int REQUEST_CODE_SELECT_AT_USER = 15;
 
     /**
      * params to fragment
@@ -152,7 +152,7 @@ public class MyBaseAllChatFragment extends EaseBaseFragment implements EMMessage
 //        messageList.setAvatarShape(1);
         listView = messageList.getListView();
 
-        extendMenuItemClickListener = new MyBaseAllChatFragment.MyItemClickListener();
+        extendMenuItemClickListener = new MyItemClickListener();
         inputMenu = (EaseChatInputMenu) getView().findViewById(com.hyphenate.easeui.R.id.input_menu);
         registerExtendMenuItem();
         // init input menu

@@ -1,6 +1,7 @@
 package bag.small.base;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -33,6 +34,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IActivit
     private Toolbar mToolbar;
     private TextView mTitle;
     private Unbinder butter;
+    protected ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,6 +53,9 @@ public abstract class BaseActivity extends AppCompatActivity implements IActivit
             mActionBar.setDisplayHomeAsUpEnabled(true);
             mActionBar.setDisplayShowTitleEnabled(false);
         }
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("请等待...");
+        progressDialog.setCanceledOnTouchOutside(false);
         onFirst();
         initData();
         initView();
