@@ -160,7 +160,6 @@ public class ClassChatActivity extends BaseActivity implements IDialog {
                 }else{
 
                 }
-
             }
         }
 

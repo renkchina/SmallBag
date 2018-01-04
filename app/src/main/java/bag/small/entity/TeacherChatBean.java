@@ -16,6 +16,7 @@ public class TeacherChatBean {
      * file_name : image
      */
 
+
     private String message;
     private String message_type;
     private String file_link;

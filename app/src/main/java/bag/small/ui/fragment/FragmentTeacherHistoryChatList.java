@@ -2,6 +2,7 @@ package bag.small.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -27,12 +28,15 @@ import me.drakeet.multitype.MultiTypeAdapter;
  *
  */
 
-public class FragmentTeacherHistoryChatList extends BaseFragment {
+public class FragmentTeacherHistoryChatList extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
 
     @BindView(R.id.fragment_chat_list_re)
     RecyclerView chatListView;
+    @BindView(R.id.chat_swipe_layout)
+    SwipeRefreshLayout refreshLayout;
     MultiTypeAdapter multiTypeAdapter;
     List items;
+
 
     @Override
     public int getLayoutResId() {
@@ -56,10 +60,17 @@ public class FragmentTeacherHistoryChatList extends BaseFragment {
                 });
         chatListView.setLayoutManager(new LinearLayoutManager(getContext()));
         chatListView.setAdapter(multiTypeAdapter);
+        refreshLayout.setOnRefreshListener(this);
     }
 
-    public void setChatListDatas(List<EMMessage> messages){
-        if(ListUtil.unEmpty(messages)){
+    @Override
+    public void onRefresh() {
+        refreshLayout.setRefreshing(false);
+    }
+
+
+    public void setChatListDatas(List<EMMessage> messages) {
+        if (ListUtil.unEmpty(messages)) {
             items.clear();
             items.addAll(messages);
             multiTypeAdapter.notifyDataSetChanged();
