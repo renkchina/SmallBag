@@ -5,13 +5,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.china.rxbus.RxBus;
 import com.hyphenate.chat.EMImageMessageBody;
@@ -21,43 +23,39 @@ import com.hyphenate.easeui.EaseConstant;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 import bag.small.R;
 import bag.small.base.BaseActivity;
-import bag.small.base.BaseFragment;
 import bag.small.dialog.ChoiceTeacherDialog;
-import bag.small.download.DownLoadObserver;
 import bag.small.download.DownloadManager;
 import bag.small.entity.TeacherChatBean;
 import bag.small.http.HttpUtil;
 import bag.small.http.IApi.HttpError;
 import bag.small.http.IApi.IMChats;
 import bag.small.interfaze.IDialog;
-import bag.small.provider.chat.ChatImageBean;
 import bag.small.runtimepermissions.PermissionsManager;
 import bag.small.rx.RxUtil;
 import bag.small.ui.fragment.ChatFragment;
 import bag.small.ui.fragment.FragmentTeacherHistoryChatList;
-import bag.small.ui.fragment.TeacherChatFragment;
 import bag.small.utils.ListUtil;
+import bag.small.utils.PermissionUtils;
 import bag.small.utils.StringUtil;
 import bag.small.utils.UserPreferUtil;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.nekocode.rxlifecycle.compact.RxLifecycleCompact;
-import io.reactivex.BackpressureStrategy;
-import io.reactivex.Flowable;
-import io.reactivex.FlowableEmitter;
-import io.reactivex.FlowableOnSubscribe;
-import io.reactivex.functions.Function;
 
 public class ClassChatActivity extends BaseActivity implements IDialog {
 
     @BindView(R.id.toolbar_right_tv)
     TextView toolbarRightTv;
+    @BindView(R.id.toolbar_title)
+    TextView toolbarTitle;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     private ChatFragment chatFragment;
     private FragmentTeacherHistoryChatList teacherChatFragment;
     ChoiceTeacherDialog choiceTeacherDialog;
@@ -82,6 +80,13 @@ public class ClassChatActivity extends BaseActivity implements IDialog {
         RxBus.get().unRegister(this);
     }
 
+    @Override
+    public void onFirst() {
+        PermissionUtils.requestPermission(this, PermissionUtils.CODE_CAMERA, mPermissionGrant);
+        PermissionUtils.requestPermission(this, PermissionUtils.CODE_WRITE_EXTERNAL_STORAGE, mPermissionGrant);
+        PermissionUtils.requestPermission(this, PermissionUtils.CODE_READ_EXTERNAL_STORAGE, mPermissionGrant);
+        PermissionUtils.requestPermission(this, PermissionUtils.CODE_RECORD_AUDIO, mPermissionGrant);
+    }
 
     @Override
     public void initData() {
@@ -102,7 +107,8 @@ public class ClassChatActivity extends BaseActivity implements IDialog {
             toolbarRightTv.setText("老师信息");
         }
         choiceTeacherDialog = new ChoiceTeacherDialog(this);
-        setToolTitle(name, true);
+        StringUtil.setTextView(toolbarTitle, name);
+        toolbar.setNavigationOnClickListener(v -> onBackPressed());
         imChats = HttpUtil.getInstance().createApi(IMChats.class);
         //传入参数
         Bundle args = new Bundle();
@@ -145,6 +151,7 @@ public class ClassChatActivity extends BaseActivity implements IDialog {
                 if (!TextUtils.isEmpty(ids)) {
                     progressDialog.setMessage("");
                     changeFragment(R.id.chat_container_frame, teacherChatFragment, groupId);
+                    toolbarRightTv.setVisibility(View.INVISIBLE);
                     imChats.getTeachersMsgs(UserPreferUtil.getInstanse().getRoleId(), UserPreferUtil.getInstanse().getUserId(),
                             UserPreferUtil.getInstanse().getSchoolId(), banjiId, ids, pageIndex)
                             .compose(RxLifecycleCompact.bind(this).withObservable())
@@ -157,7 +164,7 @@ public class ClassChatActivity extends BaseActivity implements IDialog {
                                     }
                                 }
                             }, new HttpError());
-                }else{
+                } else {
 
                 }
             }
@@ -204,14 +211,20 @@ public class ClassChatActivity extends BaseActivity implements IDialog {
 
     @Override
     public void callBackMiddleMethod() {
-        changeFragment(R.id.chat_container_frame, chatFragment, groupId);
+//        toolbarRightTv.setVisibility(View.VISIBLE);
+//        changeFragment(R.id.chat_container_frame, chatFragment, groupId);
     }
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-
+        if (mCurrentFragment.equals(chatFragment)) {
+            finish();
+        } else {
+            changeFragment(R.id.chat_container_frame, chatFragment, groupId);
+            toolbarRightTv.setVisibility(View.VISIBLE);
+        }
     }
+
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -230,18 +243,45 @@ public class ClassChatActivity extends BaseActivity implements IDialog {
         }
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        PermissionsManager.getInstance().notifyPermissionsChange(permissions, grantResults);
-    }
-
+    private PermissionUtils.PermissionGrant mPermissionGrant = requestCode -> {
+        switch (requestCode) {
+//            case PermissionUtils.CODE_RECORD_AUDIO:
+//                Toast.makeText(ClassChatActivity.this, "Result Permission Grant CODE_RECORD_AUDIO", Toast.LENGTH_SHORT).show();
+//                break;
+//            case PermissionUtils.CODE_GET_ACCOUNTS:
+//                Toast.makeText(ClassChatActivity.this, "Result Permission Grant CODE_GET_ACCOUNTS", Toast.LENGTH_SHORT).show();
+//                break;
+//            case PermissionUtils.CODE_READ_PHONE_STATE:
+//                Toast.makeText(ClassChatActivity.this, "Result Permission Grant CODE_READ_PHONE_STATE", Toast.LENGTH_SHORT).show();
+//                break;
+//            case PermissionUtils.CODE_CALL_PHONE:
+//                Toast.makeText(ClassChatActivity.this, "Result Permission Grant CODE_CALL_PHONE", Toast.LENGTH_SHORT).show();
+//                break;
+//            case PermissionUtils.CODE_CAMERA:
+//                Toast.makeText(ClassChatActivity.this, "Result Permission Grant CODE_CAMERA", Toast.LENGTH_SHORT).show();
+//                break;
+//            case PermissionUtils.CODE_ACCESS_FINE_LOCATION:
+//                Toast.makeText(ClassChatActivity.this, "Result Permission Grant CODE_ACCESS_FINE_LOCATION", Toast.LENGTH_SHORT).show();
+//                break;
+//            case PermissionUtils.CODE_ACCESS_COARSE_LOCATION:
+//                Toast.makeText(ClassChatActivity.this, "Result Permission Grant CODE_ACCESS_COARSE_LOCATION", Toast.LENGTH_SHORT).show();
+//                break;
+//            case PermissionUtils.CODE_READ_EXTERNAL_STORAGE:
+//                Toast.makeText(ClassChatActivity.this, "Result Permission Grant CODE_READ_EXTERNAL_STORAGE", Toast.LENGTH_SHORT).show();
+//                break;
+//            case PermissionUtils.CODE_WRITE_EXTERNAL_STORAGE:
+//                Toast.makeText(ClassChatActivity.this, "Result Permission Grant CODE_WRITE_EXTERNAL_STORAGE", Toast.LENGTH_SHORT).show();
+//                break;
+            default:
+                break;
+        }
+    };
 
     public void changeFragment(int resView, @NonNull Fragment targetFragment, String groupId) {
         if (targetFragment.equals(mCurrentFragment)) {
             return;
         }
-        android.support.v4.app.FragmentTransaction transaction
+        FragmentTransaction transaction
                 = getSupportFragmentManager().beginTransaction();
         if (!targetFragment.isAdded()) {
             Bundle args = new Bundle();
@@ -259,6 +299,12 @@ public class ClassChatActivity extends BaseActivity implements IDialog {
         }
         mCurrentFragment = targetFragment;
         transaction.commit();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(final int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        PermissionUtils.requestPermissionsResult(this, requestCode, permissions, grantResults, mPermissionGrant);
     }
 
 }

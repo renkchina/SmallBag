@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hyphenate.chat.EMMessage;
+import com.hyphenate.chat.EMTextMessageBody;
 import com.hyphenate.easeui.utils.EaseUserUtils;
 import com.hyphenate.util.DateUtils;
 
@@ -33,7 +34,8 @@ public class ChatTXTViewBinder extends ItemViewBinder<EMMessage, ChatTXTViewBind
 
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull EMMessage chatTXT) {
-        StringUtil.setTextView(holder.contentView, "");
+        EMTextMessageBody txtBody = (EMTextMessageBody) chatTXT.getBody();
+        StringUtil.setTextView(holder.contentView, txtBody.getMessage());
         Context context = holder.root.getContext();
         if (holder.timestamp != null) {
             if (getPosition(holder) == 0) {

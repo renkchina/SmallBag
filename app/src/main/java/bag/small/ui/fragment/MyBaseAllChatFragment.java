@@ -56,6 +56,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import bag.small.utils.ImageUtil;
 import bag.small.utils.UserPreferUtil;
 
 /**
@@ -764,7 +765,6 @@ public class MyBaseAllChatFragment extends EaseBaseFragment implements EMMessage
         if ("content".equalsIgnoreCase(uri.getScheme())) {
             String[] filePathColumn = {MediaStore.Images.Media.DATA};
             Cursor cursor = null;
-
             try {
                 cursor = getActivity().getContentResolver().query(uri, filePathColumn, null, null, null);
                 int column_index = cursor.getColumnIndexOrThrow("_data");
@@ -782,7 +782,10 @@ public class MyBaseAllChatFragment extends EaseBaseFragment implements EMMessage
             filePath = uri.getPath();
         }
         if (filePath == null) {
-            return;
+            filePath = ImageUtil.getRealPathFromUri(getContext(), uri);
+            if (filePath == null) {
+                return;
+            }
         }
         File file = new File(filePath);
         if (!file.exists()) {

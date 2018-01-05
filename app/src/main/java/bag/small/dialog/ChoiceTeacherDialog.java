@@ -95,9 +95,10 @@ public class ChoiceTeacherDialog extends Dialog {
                 if (iDialog != null) {
                     iDialog.callBackMethod(getAllChecked(), null);
                 }
+                dismiss();
                 break;
         }
-        dismiss();
+
     }
 
     private void setAllUnChecked() {

@@ -3,12 +3,14 @@ package bag.small.provider.chat;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.hyphenate.chat.EMImageMessageBody;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.easeui.utils.EaseUserUtils;
 import com.hyphenate.util.DateUtils;
@@ -33,8 +35,9 @@ public class ChatImageViewBinder extends ItemViewBinder<EMMessage, ChatImageView
 
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull EMMessage chatImageBean) {
+        EMImageMessageBody imgBody = (EMImageMessageBody) chatImageBean.getBody();
         Context context = holder.root.getContext();
-        ImageUtil.loadImagesOnThumbnail(context, holder.imageView, "", 0.2f);
+        ImageUtil.loadImagesOnThumbnail(context, holder.imageView, imgBody.getRemoteUrl(), 0.2f);
         if (holder.timestamp != null) {
             if (getPosition(holder) == 0) {
                 holder.timestamp.setText(DateUtils.getTimestampString(new Date(chatImageBean.getMsgTime())));
@@ -52,13 +55,18 @@ public class ChatImageViewBinder extends ItemViewBinder<EMMessage, ChatImageView
         }
         String userName = chatImageBean.getStringAttribute("ChatUserNick", "");
         String userHead = chatImageBean.getStringAttribute("ChatUserPic", "");
-        EaseUserUtils.setUserAvatar(context, userName, holder.userAvaterView);
-        EaseUserUtils.setUserNick(userHead, holder.usernickView);
+        EaseUserUtils.setUserAvatar(context, userHead, holder.userAvaterView);
+        if (!TextUtils.isEmpty(userName)) {
+            holder.usernickView.setVisibility(View.VISIBLE);
+            EaseUserUtils.setUserNick(userName, holder.usernickView);
+        } else {
+            holder.usernickView.setVisibility(View.GONE);
+        }
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        private  TextView percentageView;
+        private TextView percentageView;
         private ImageView imageView;
         View root;
         TextView timestamp;
